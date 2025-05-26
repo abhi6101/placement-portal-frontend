@@ -45,22 +45,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayRole.textContent = userRole;
             }
 
-            // Hide the default hero heading and subtitle when logged in
-            if (heroHeading) heroHeading.style.display = 'none';
-            if (heroSubtitle) heroSubtitle.style.display = 'none';
+            // Update hero text
+            if (heroHeading) heroHeading.innerHTML = `Welcome, <span style="background: linear-gradient(to right, var(--primary), white); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${username}</span>!`;
+            if (heroSubtitle) heroSubtitle.textContent = 'Ready to launch your career? Explore new opportunities or continue your learning journey!';
 
         } else {
             // Hide welcome section if not logged in
             if (userWelcome) userWelcome.style.display = 'none';
-            // Show the default hero heading and subtitle when logged out
-            if (heroHeading) {
-                heroHeading.style.display = 'inline-block'; // Or 'block' depending on its default display
-                heroHeading.textContent = 'Launch Your Career with Ease!';
-            }
-            if (heroSubtitle) {
-                heroSubtitle.style.display = 'block'; // Or 'inline-block'
-                heroSubtitle.textContent = 'Your comprehensive platform for job placements, resume building, interview preparation, and career growth.';
-            }
+            // Reset hero text to default
+            if (heroHeading) heroHeading.textContent = 'Launch Your Career with Ease!';
+            if (heroSubtitle) heroSubtitle.textContent = 'Your comprehensive platform for job placements, resume building, interview preparation, and career growth.';
         }
 
         // Update button visibility
