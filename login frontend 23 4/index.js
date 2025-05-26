@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Update hero text
-             if (heroHeading) heroHeading.style.display = 'none';
+            //  if (heroHeading) heroHeading.style.display = 'none';
             if (heroSubtitle) heroSubtitle.textContent = 'Ready to launch your career? Explore new opportunities or continue your learning journey!';
 
         } else {
