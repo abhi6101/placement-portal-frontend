@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } else {
             // Hide welcome section if not logged in
-            if (userWelcome) userWelcome.style.display = 'none';
+           
             // Reset hero text to default
             if (heroHeading) heroHeading.textContent = 'Launch Your Career with Ease!';
             if (heroSubtitle) heroSubtitle.textContent = 'Your comprehensive platform for job placements, resume building, interview preparation, and career growth.';
