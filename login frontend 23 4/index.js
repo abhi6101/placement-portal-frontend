@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Update hero text
-            if (heroHeading) heroHeading.innerHTML = `Welcome, <span style="background: linear-gradient(to right, var(--primary), white); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${username}</span>!`;
+             if (heroHeading) heroHeading.style.display = 'none';
             if (heroSubtitle) heroSubtitle.textContent = 'Ready to launch your career? Explore new opportunities or continue your learning journey!';
 
         } else {
