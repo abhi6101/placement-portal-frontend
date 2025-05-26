@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Programming Blog | Placement Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PrismJS for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+            --code-bg: #f0f0f0;
+            --nav-dark: #1a1a2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Top Navigation Bar */
+        nav:first-of-type {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav:first-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav:first-of-type a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        nav:first-of-type a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Main Navigation Bar */
+        nav:last-of-type {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav:last-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        nav:last-of-type li {
+            flex-shrink: 0;
+        }
+
+        nav:last-of-type a, nav:last-of-type button {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        nav:last-of-type a:hover, nav:last-of-type button:hover {
+            color: var(--primary);
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+
+        nav:last-of-type a.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+        }
+        
+        /* Blog Content */
+        .container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.3;
+        }
+
+        h2 {
+            color: var(--secondary);
+            margin: 2.5rem 0 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        ul li:before {
+           
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -1rem;
+        }
+
+        ol {
+            counter-reset: item;
+        }
+
+        ol li {
+            counter-increment: item;
+            list-style-type: none;
+        }
+
+        ol li:before {
+            content: counter(item) ".";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: -1rem;
+        }
+
+        strong {
+            color: var(--secondary);
+        }
+
+        /* Enhanced Code Blocks */
+        pre {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        pre code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: #f8f8f2;
+            line-height: 1.5;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2d2d2d;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: -1.5rem;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .copy-btn:hover {
+            color: var(--primary);
+        }
+
+        /* Concept Cards */
+        .concept-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .concept-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .concept-card h3 i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Author Info */
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 3rem 0;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .author-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+
+        .author-details h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .author-details p {
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Related Articles */
+        .related-articles {
+            margin: 3rem 0;
+        }
+
+        .related-articles h3 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .article-card-content {
+            padding: 1.5rem;
+        }
+
+        .article-card h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .article-card p {
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+
+        .article-card a {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .article-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .author-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Checklist */
+        .checklist {
+            margin: 2rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .checklist-icon {
+            margin-right: 1rem;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        /* Interactive elements */
+        .interactive-demo {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .demo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .run-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .run-btn:hover {
+            background: var(--secondary);
+        }
+        
+        .demo-output {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            min-height: 50px;
+            border-left: 3px solid var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navigation Bar -->
+
+<nav>
+    <div class="logo">Placement<span>Portal</span></div>
+    <ul>
+      <li><a href="mailto:just@placement.com"><i class="fas fa-envelope"></i> just@placement.com</a></li>
+      <li><a href="tel:+91-6266XXXX70"><i class="fas fa-phone"></i> +91-6266XXXX70</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Navigation Bar -->
+  <nav>
+<ul><li><a href="blog.html" class="active"><i class="fas fa-sign-out-alt"></i> Back to Blog</a></li>
+</ul>
+  </nav>
+ 
+    
+      
+    <!-- Blog Content -->
+    <div class="container">
+        <h1>Introduction to Java Programming</h1>
+        
+        <p>
+            Java is one of the most popular programming languages, known for its versatility, platform independence, and
+            object-oriented approach. It is widely used in web applications, enterprise software, mobile development, and
+            much more. Whether you are a beginner or an experienced developer, Java provides powerful features to build
+            scalable and efficient applications.
+        </p>
+
+        <div class="concept-card">
+            <h2><i class="fas fa-check-circle"></i> Why Choose Java?</h2>
+            <ul>
+                <li><strong>Platform Independence:</strong> Java follows the "Write Once, Run Anywhere" (WORA) principle,
+                    meaning Java applications can run on multiple platforms without modification thanks to the Java Virtual
+                    Machine (JVM).</li>
+                <li><strong>Object-Oriented:</strong> Java uses object-oriented programming (OOP) concepts, which improve
+                    code reusability and maintainability through encapsulation, inheritance, and polymorphism.</li>
+                <li><strong>Security:</strong> Java has built-in security features like bytecode verification, exception
+                    handling, and a robust API that prevents many common security vulnerabilities.</li>
+                <li><strong>Rich Ecosystem:</strong> Java provides a vast collection of libraries, frameworks (Spring,
+                    Hibernate), and tools (Maven, Gradle) for development across various domains.</li>
+                <li><strong>Strong Community:</strong> With millions of developers worldwide, Java has extensive community
+                    support and documentation.</li>
+            </ul>
+        </div>
+
+        <div class="concept-card">
+            <h2><i class="fas fa-rocket"></i> Getting Started with Java</h2>
+            <p>To begin coding in Java, follow these steps:</p>
+            <ol>
+                <li><strong>Install Java Development Kit (JDK):</strong> Download and install the latest JDK from Oracle or
+                    OpenJDK. The JDK includes the Java Runtime Environment (JRE) and development tools.</li>
+                <li><strong>Set Up an IDE:</strong> Use an Integrated Development Environment (IDE) like IntelliJ IDEA,
+                    Eclipse, or NetBeans for better productivity with features like code completion and debugging.</li>
+                <li><strong>Configure Environment Variables:</strong> Set up JAVA_HOME and PATH variables to access Java
+                    commands from any directory.</li>
+                <li><strong>Write Your First Program:</strong> Start with a simple Java program to test your setup.</li>
+            </ol>
+            
+            <div class="checklist">
+                <h3>Setup Checklist</h3>
+                <div class="checklist-item">
+                    <span class="checklist-icon"><i class="fas fa-check"></i></span>
+                    <div>Downloaded and installed JDK</div>
+                </div>
+                <div class="checklist-item">
+                    <span class="checklist-icon"><i class="fas fa-check"></i></span>
+                    <div>Installed preferred IDE</div>
+                </div>
+                <div class="checklist-item">
+                    <span class="checklist-icon"><i class="fas fa-check"></i></span>
+                    <div>Configured environment variables</div>
+                </div>
+                <div class="checklist-item">
+                    <span class="checklist-icon"><i class="fas fa-check"></i></span>
+                    <div>Created first Java project</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h2><i class="fas fa-code"></i> Your First Java Program</h2>
+            <p>Here's the classic "Hello World" example in Java:</p>
+            
+            <div class="code-header">
+                <span>HelloWorld.java</span>
+                <button class="copy-btn" onclick="copyCode('code1')"><i class="far fa-copy"></i> Copy</button>
+            </div>
+            <pre class="line-numbers"><code id="code1" class="language-java">
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+            </code></pre>
+
+            <p>To compile and run this program:</p>
+            <div class="code-header">
+                <span>Terminal Commands</span>
+            </div>
+            <pre><code class="language-bash">
+javac HelloWorld.java  # Compiles the Java file
+java HelloWorld        # Runs the compiled bytecode
+            </code></pre>
+            
+            <div class="interactive-demo">
+                <div class="demo-header">
+                    <h3><i class="fas fa-play-circle"></i> Try It Yourself</h3>
+                    <button class="run-btn" onclick="runDemo()">Run Code</button>
+                </div>
+                <pre><code class="language-java" id="demo-code">
+public class Demo {
+    public static void main(String[] args) {
+        System.out.println("Java is running!");
+        System.out.println("2 + 3 = " + (2 + 3));
+    }
+}
+                </code></pre>
+                <div class="demo-output" id="demo-output">
+                    <!-- Output will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h2><i class="fas fa-cube"></i> Core Java Concepts</h2>
+            <ul>
+                <li><strong>Data Types and Variables:</strong> Primitive types (int, float, double, boolean, char) and
+                    reference types (String, Arrays, Objects).</li>
+                <li><strong>Control Statements:</strong> Conditional statements (if-else, switch-case) and loops (for, while,
+                    do-while) for program flow control.</li>
+                <li><strong>Methods and Functions:</strong> Defining reusable methods to improve code structure and
+                    modularity.</li>
+                <li><strong>Classes and Objects:</strong> Understanding OOP concepts like classes, objects, constructors,
+                    and access modifiers.</li>
+                <li><strong>Exception Handling:</strong> Managing runtime errors using try-catch-finally blocks and custom
+                    exceptions.</li>
+                <li><strong>Packages:</strong> Organizing classes into namespaces to avoid naming conflicts.</li>
+            </ul>
+            
+            <div class="code-header">
+                <span>Example: Class and Object</span>
+                <button class="copy-btn" onclick="copyCode('code2')"><i class="far fa-copy"></i> Copy</button>
+            </div>
+            <pre class="line-numbers"><code id="code2" class="language-java">
+public class Car {
+    // Fields (attributes)
+    String model;
+    int year;
+    
+    // Constructor
+    public Car(String model, int year) {
+        this.model = model;
+        this.year = year;
+    }
+    
+    // Method
+    public void displayInfo() {
+        System.out.println("Model: " + model + ", Year: " + year);
+    }
+    
+    public static void main(String[] args) {
+        // Create an object
+        Car myCar = new Car("Toyota", 2023);
+        myCar.displayInfo();
+    }
+}
+            </code></pre>
+        </div>
+
+        <div class="concept-card">
+            <h2><i class="fas fa-chart-line"></i> Advanced Java Topics</h2>
+            <ul>
+                <li><strong>Multithreading and Concurrency:</strong> Creating and managing threads for parallel execution
+                    using Thread class and Runnable interface.</li>
+                <li><strong>Collections Framework:</strong> Working with data structures like ArrayList, HashMap, and
+                    LinkedList for efficient data manipulation.</li>
+                <li><strong>Java Database Connectivity (JDBC):</strong> Connecting Java applications to relational
+                    databases for data persistence.</li>
+                <li><strong>Streams and Lambda Expressions:</strong> Functional programming features introduced in Java 8
+                    for more concise code.</li>
+                <li><strong>Spring Boot:</strong> Popular framework for building enterprise-grade web applications and
+                    microservices.</li>
+                <li><strong>Android App Development:</strong> Using Java (or Kotlin) to create mobile applications for the
+                    Android platform.</li>
+            </ul>
+            
+            <div class="code-header">
+                <span>Example: Lambda Expression</span>
+                <button class="copy-btn" onclick="copyCode('code3')"><i class="far fa-copy"></i> Copy</button>
+            </div>
+            <pre class="line-numbers"><code id="code3" class="language-java">
+import java.util.Arrays;
+import java.util.List;
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        List&lt;String&gt; languages = Arrays.asList("Java", "Python", "JavaScript", "C++");
+        
+        // Traditional for loop
+        System.out.println("Traditional loop:");
+        for (String lang : languages) {
+            System.out.println(lang);
+        }
+        
+        // Lambda expression
+        System.out.println("\nLambda expression:");
+        languages.forEach(lang -> System.out.println(lang));
+        
+        // Method reference
+        System.out.println("\nMethod reference:");
+        languages.forEach(System.out::println);
+    }
+}
+            </code></pre>
+        </div>
+
+        <div class="concept-card">
+            <h2><i class="fas fa-industry"></i> Java in the Industry</h2>
+            <p>
+                Java continues to be one of the most in-demand programming languages in the industry. According to recent
+                surveys:
+            </p>
+            <ul>
+                <li>Java ranks among the top 3 most popular programming languages worldwide</li>
+                <li>Over 90% of Fortune 500 companies use Java for their backend systems</li>
+                <li>Android development (based on Java) powers over 70% of mobile devices globally</li>
+                <li>Java developers command competitive salaries with strong career growth opportunities</li>
+            </ul>
+            
+            <div class="concept-card" style="background-color: #f8f9fa; border-left: 4px solid var(--accent);">
+                <h3><i class="fas fa-graduation-cap"></i> Learning Path</h3>
+                <ol>
+                    <li>Java Fundamentals (Syntax, OOP concepts)</li>
+                    <li>Core Java (Collections, Multithreading, I/O)</li>
+                    <li>Advanced Java (JDBC, Networking, Design Patterns)</li>
+                    <li>Frameworks (Spring, Hibernate)</li>
+                    <li>Build Tools (Maven, Gradle)</li>
+                    <li>Specialization (Web, Mobile, Enterprise, etc.)</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="concept-card">
+            <h2><i class="fas fa-check-circle"></i> Conclusion</h2>
+            <p>
+                Java is a powerful and widely-used language that offers great career opportunities. By mastering Java
+                fundamentals and advanced concepts, you can build robust and scalable applications for different platforms.
+                The strong typing, object-oriented nature, and vast ecosystem make Java an excellent choice for both
+                beginners and experienced developers.
+            </p>
+            <p>
+                To continue your Java journey, consider exploring frameworks like Spring, learning design patterns, and
+                contributing to open-source projects. The Java community is vibrant and welcoming to new developers!
+            </p>
+            <p><strong>Stay tuned for more Java tutorials and programming guides!</strong></p>
+        </div>
+
+        <!-- Author Information -->
+        <div class="author-info">
+            <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Rajesh Kumar - Java Developer" class="author-img">
+            <div class="author-details">
+                <h3>Rajesh Kumar</h3>
+                <p>Senior Java Developer | 10+ Years Experience</p>
+                <p>Published on: June 15, 2023 | 8 min read</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Articles -->
+        <div class="related-articles">
+            <h3>Related Articles</h3>
+            <div class="article-grid">
+                <div class="article-card">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Spring Boot Framework">
+                    <div class="article-card-content">
+                        <h4>Getting Started with Spring Boot</h4>
+                        <p>Learn how to build enterprise applications using Spring Boot framework.</p>
+                        <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Web Development">
+                    <div class="article-card-content">
+                        <h4>Java Web Development Basics</h4>
+                        <p>Essential concepts for building web applications with Java.</p>
+                        <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Android Development">
+                    <div class="article-card-content">
+                        <h4>Android Development with Java</h4>
+                        <p>Beginner's guide to creating mobile apps using Java.</p>
+                        <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 College Placement System | Contact: <a href="mailto:just@placement.com">just@placement.com</a></p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Sitemap</a>
+        </div>
+    </footer>
+
+    <!-- PrismJS for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    
+    <script>
+        // Authentication check
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('authToken');
+            const loginBtn = document.querySelector('a[href="login.html"].btn');
+            
+            if (token) {
+                try {
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    const now = Date.now() / 1000;
+                    
+                    if (payload.exp < now) {
+                        localStorage.removeItem('authToken');
+                        loginBtn.style.display = 'flex';
+                    } else {
+                        // User is logged in
+                        loginBtn.innerHTML = '<i class="fas fa-user"></i> My Account';
+                        loginBtn.href = 'dashboard.html';
+                    }
+                } catch (err) {
+                    console.error("Invalid token:", err);
+                    localStorage.removeItem('authToken');
+                    loginBtn.style.display = 'flex';
+                }
+            }
+            
+            // Initialize line numbers for all pre elements
+            Prism.highlightAll();
+        });
+        
+        // Copy code functionality
+        function copyCode(id) {
+            const codeElement = document.getElementById(id);
+            const range = document.createRange();
+            range.selectNode(codeElement);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            
+            // Show copied notification
+            const btn = event.target.closest('.copy-btn');
+            if (btn) {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            }
+        }
+        
+        // Simple demo runner (simulated)
+        function runDemo() {
+            const output = document.getElementById('demo-output');
+            output.innerHTML = `
+                <strong>Output:</strong>
+                <div>Java is running!</div>
+                <div>2 + 3 = 5</div>
+            `;
+        }
+        
+        // Add interactive elements
+        document.querySelectorAll('.concept-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Only toggle if not clicking on a link or button
+                if (!e.target.closest('a') && !e.target.closest('button')) {
+                    this.classList.toggle('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

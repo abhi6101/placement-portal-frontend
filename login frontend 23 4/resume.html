@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder - Placement Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+            --error: #dc3545;
+            --success: #28a745;
+            --text-dark: #333; /* Added for general text color */
+            --border-light: #e0e0e0; /* Added for general border color */
+            --shadow-light: rgba(0, 0, 0, 0.08); /* Unified light shadow */
+            --shadow-hover: rgba(0, 212, 255, 0.3); /* Unified button hover shadow */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Using a more modern and consistent font stack */
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text-dark); /* Using new variable */
+            line-height: 1.6;
+        }
+
+        /* --- Global Button Styles --- */
+        .btn {
+            display: inline-flex; /* Use flex for icon alignment */
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem 1.5rem; /* Increased padding */
+            border-radius: 30px; /* Slightly more rounded */
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            gap: 0.5rem; /* Space between text and icon */
+            font-size: 1rem; /* Consistent font size */
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px var(--shadow-hover); /* Enhanced shadow */
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 6px 18px var(--shadow-hover); /* Apply shadow on hover */
+        }
+
+        /* --- Top Navigation Bar --- */
+        nav:first-of-type {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 2.5rem; /* Increased padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Added shadow */
+        }
+
+        .logo {
+            font-size: 2rem; /* Slightly larger */
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav:first-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem; /* Increased gap */
+            align-items: center;
+        }
+
+        nav:first-of-type a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem; /* Increased gap */
+            transition: color 0.3s ease, transform 0.3s ease; /* Added transform transition */
+        }
+
+        nav:first-of-type a:hover {
+            color: var(--primary);
+            transform: translateY(-2px); /* Subtle lift effect */
+        }
+
+        /* --- Main Navigation Bar --- */
+        nav:last-of-type {
+            background-color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            padding: 0.9rem 2.5rem; /* Increased padding */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav:last-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem; /* Increased gap */
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            /* Hide scrollbar for aesthetic, if needed */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        nav:last-of-type ul::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera*/
+        }
+
+
+        nav:last-of-type li {
+            flex-shrink: 0;
+        }
+
+        nav:last-of-type a, nav:last-of-type button {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.7rem 1.2rem; /* Increased padding */
+            border-radius: 6px; /* Slightly more rounded */
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        nav:last-of-type a:hover, nav:last-of-type button:hover {
+            color: var(--primary);
+            background-color: rgba(0, 212, 255, 0.15); /* Slightly darker hover background */
+        }
+
+        nav:last-of-type a.active {
+            background-color: rgba(0, 212, 255, 0.25); /* More prominent active state */
+            color: var(--primary);
+            font-weight: 600; /* Bolder active link */
+        }
+
+        /* --- Resume Builder Section --- */
+        .resume-builder {
+            max-width: 900px;
+            margin: 3.5rem auto; /* Increased margin */
+            padding: 2.5rem; /* Increased padding */
+            background: white;
+            border-radius: 12px; /* More rounded corners */
+            box-shadow: 0 8px 25px var(--shadow-light); /* Stronger shadow */
+        }
+
+        .resume-builder h1 {
+            text-align: center;
+            margin-bottom: 1.5rem; /* Increased margin */
+            font-size: 2.5rem; /* Larger heading */
+            color: var(--dark); /* Fallback color */
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .resume-builder p {
+            text-align: center;
+            margin-bottom: 2.5rem; /* Increased margin */
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .resume-builder form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem; /* Increased gap between sections */
+        }
+
+        .resume-builder label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.6rem; /* Increased margin */
+            display: block;
+            font-size: 1.05rem;
+        }
+
+        .resume-builder input,
+        .resume-builder textarea {
+            padding: 0.9rem 1.1rem; /* Increased padding */
+            border: 1px solid var(--border-light); /* Using new variable */
+            border-radius: 6px; /* Slightly more rounded */
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .resume-builder textarea {
+            min-height: 120px; /* Taller textareas */
+            resize: vertical;
+        }
+
+        .resume-builder input:focus,
+        .resume-builder textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25); /* Stronger focus shadow */
+            background-color: #f0faff; /* Light background on focus */
+        }
+
+        /* --- Template Options --- */
+        .template-options {
+            display: flex;
+            gap: 1.8rem; /* Increased gap */
+            margin: 1.8rem 0;
+            flex-wrap: wrap;
+            justify-content: center; /* Center templates */
+        }
+
+        .template-option {
+            flex: 1;
+            min-width: 220px; /* Increased min-width */
+            max-width: 30%; /* Control width */
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid var(--border-light); /* Using new variable */
+            border-radius: 10px; /* More rounded */
+            padding: 1.2rem; /* Increased padding */
+            transition: all 0.3s ease;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Subtle shadow */
+        }
+
+        .template-option:hover {
+            border-color: var(--primary);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.2); /* Shadow on hover */
+            transform: translateY(-3px); /* Lift on hover */
+        }
+
+        .template-option input[type="radio"] {
+            display: none;
+        }
+
+        .template-option input[type="radio"]:checked + img {
+            border: 4px solid var(--primary); /* Thicker border on checked */
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.3); /* Add shadow to checked image */
+        }
+
+        .template-option img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px; /* More rounded image corners */
+            margin-bottom: 0.8rem; /* Increased margin */
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            object-fit: cover; /* Ensure image covers area well */
+        }
+
+        .template-option p {
+            font-weight: 600;
+            color: var(--dark);
+            margin: 0;
+            font-size: 1.05rem;
+        }
+
+        /* --- Form Sections --- */
+        .form-section {
+            background-color: #f8f9fa; /* Consistent light background */
+            padding: 2rem; /* Increased padding */
+            border-radius: 10px; /* More rounded */
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-light); /* Subtle border */
+        }
+
+        .form-section h2 {
+            color: var(--secondary);
+            margin-bottom: 1.2rem; /* Increased margin */
+            font-size: 1.5rem; /* Larger heading */
+            border-bottom: 1px solid rgba(0, 119, 182, 0.1); /* Subtle separator */
+            padding-bottom: 0.8rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 2rem; /* Increased gap */
+            margin-bottom: 1.2rem; /* Increased margin */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 280px; /* Ensure fields don't get too small */
+        }
+
+        /* --- Character Counter --- */
+        .char-counter {
+            font-size: 0.85rem !important; /* Slightly larger and ensure override */
+            color: var(--gray) !important;
+            text-align: right !important;
+            margin-top: 0.4rem !important;
+            opacity: 0.8;
+        }
+
+        /* --- Submit Button --- */
+        button[type="submit"] {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.2rem; /* Larger padding */
+            border: none;
+            border-radius: 8px; /* More rounded */
+            font-size: 1.1rem; /* Larger font size */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem; /* Increased margin */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-4px); /* More pronounced lift */
+            box-shadow: 0 8px 20px var(--shadow-hover); /* Stronger shadow */
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2.5rem; /* Increased padding */
+            margin-top: 4rem; /* Increased margin */
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--light);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            nav:first-of-type, nav:last-of-type {
+                padding: 1rem 1.5rem;
+            }
+
+            .resume-builder {
+                margin: 2.5rem 1.5rem;
+                padding: 2rem;
+            }
+
+            .resume-builder h1 {
+                font-size: 2.2rem;
+            }
+
+            .template-option {
+                max-width: 48%; /* Two columns on medium screens */
+            }
+
+            .form-section {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav:first-of-type {
+                flex-direction: column;
+                align-items: flex-start; /* Align left */
+            }
+            nav:first-of-type ul {
+                flex-direction: column;
+                align-items: flex-start; /* Align left */
+                gap: 0.8rem;
+                margin-top: 1rem;
+            }
+            nav:first-of-type ul li {
+                width: 100%; /* Full width for list items */
+            }
+
+
+            nav:last-of-type ul {
+                gap: 0.8rem;
+                justify-content: flex-start; /* Align tabs to start */
+                flex-wrap: wrap; /* Allow tabs to wrap */
+            }
+            nav:last-of-type a, nav:last-of-type button {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.95rem;
+            }
+
+
+            .resume-builder {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+
+            .resume-builder h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+
+            .form-group {
+                min-width: unset; /* Remove min-width to allow full flexibility */
+                width: 100%;
+            }
+
+            .template-options {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            .template-option {
+                max-width: 100%; /* Full width for templates */
+                padding: 1rem;
+            }
+
+            button[type="submit"] {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.6rem;
+            }
+            nav:first-of-type ul {
+                align-items: center; /* Center phone/email if only one */
+            }
+            nav:first-of-type a {
+                font-size: 0.9rem;
+            }
+
+            nav:last-of-type ul {
+                flex-wrap: wrap; /* Ensure wrapping */
+                justify-content: center; /* Center tabs if they wrap */
+            }
+            nav:last-of-type a, nav:last-of-type button {
+                flex-grow: 1; /* Make buttons fill available space */
+                text-align: center;
+                justify-content: center; /* Center icon and text */
+            }
+
+            .resume-builder {
+                padding: 1rem;
+                margin: 1.5rem 0.5rem;
+            }
+
+            .resume-builder h1 {
+                font-size: 1.8rem;
+            }
+
+            .form-section {
+                padding: 1rem;
+            }
+
+            .form-section h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Add this to your existing <style> block */
+
+/* Base font size for resume content */
+.resume-builder {
+    max-width: 800px; /* Slightly reduce overall width to encourage vertical packing */
+    margin: 2rem auto; /* Adjust margin as needed */
+    padding: 1.5rem 2rem; /* Reduced padding to save space */
+    font-size: 0.875em; /* Approx. 14px (10.5pt = 14px) */
+    line-height: 1.4; /* Slightly tighter line height */
+}
+
+.resume-builder h1 {
+    font-size: 2em; /* Relative to parent, so about 28px */
+    margin-bottom: 1rem; /* Reduced margin */
+}
+
+.resume-builder p {
+    font-size: 1em; /* Stays at base size, approx 14px */
+    margin-bottom: 1.5rem; /* Reduced margin */
+}
+
+.form-section h2 {
+    font-size: 1.3em; /* Relative to parent, approx 18.2px */
+    margin-bottom: 0.8rem; /* Reduced margin */
+    padding-bottom: 0.5rem; /* Reduced padding */
+}
+
+.form-group label {
+    font-size: 0.95em; /* Slightly smaller labels */
+    margin-bottom: 0.4rem; /* Reduced margin */
+}
+
+.resume-builder input,
+.resume-builder textarea {
+    padding: 0.6rem 0.9rem; /* Reduced padding to save space */
+    font-size: 0.95em; /* Slightly smaller input font size */
+}
+
+.resume-builder textarea {
+    min-height: 90px; /* Reduced min-height for textareas */
+}
+
+/* Adjust gap between form rows and sections */
+.resume-builder form {
+    gap: 1.2rem; /* Reduced gap between sections */
+}
+
+.form-row {
+    gap: 1.5rem; /* Reduced gap between items in a row */
+    margin-bottom: 0.8rem; /* Reduced margin */
+}
+
+/* Adjust template options spacing */
+.template-options {
+    gap: 1rem; /* Reduced gap between templates */
+    margin: 1.2rem 0; /* Reduced margin */
+}
+
+.template-option {
+    padding: 0.8rem; /* Reduced padding */
+}
+
+.template-option img {
+    margin-bottom: 0.5rem; /* Reduced margin */
+}
+
+.template-option p {
+    font-size: 0.9em; /* Slightly smaller template text */
+}
+
+button[type="submit"] {
+    padding: 0.9rem 1.5rem; /* Reduced padding for the button */
+    font-size: 1em; /* Keep button font size clear */
+    margin-top: 1.5rem; /* Reduced margin */
+}
+
+/* Responsive adjustments for smaller screens, ensure they align with new base */
+@media (max-width: 992px) {
+    .resume-builder {
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .resume-builder {
+        margin: 1.5rem 0.8rem;
+        padding: 1rem;
+    }
+    .resume-builder h1 {
+        font-size: 1.8em;
+    }
+    .form-section {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .resume-builder {
+        margin: 1rem 0.5rem;
+        padding: 0.8rem;
+    }
+    .resume-builder h1 {
+        font-size: 1.5em;
+    }
+    .form-section h2 {
+        font-size: 1.1em;
+    }
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Placement<span>Portal</span></div>
+        <ul>
+            <li><a href="mailto:just@placement.com"><i class="fas fa-envelope"></i> just@placement.com</a></li>
+            <li><a href="tel:+91-6266XXXX70"><i class="fas fa-phone"></i> +91-6266XXXX70</a></li>
+        </ul>
+    </nav>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html" class="active"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="resume-builder">
+        <h1>Resume Builder</h1>
+        <p>Fill in the details below to create your professional resume.</p>
+        <form id="resumeForm">
+            <div class="form-section">
+                <h2>Basic Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe" maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required placeholder="john@example.com" maxlength="100">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+1 (123) 456-7890" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Current Address:</label>
+                        <input type="text" id="address" name="address" placeholder="123 Main St, City" maxlength="255">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="permanentAddress">Permanent Address:</label>
+                        <input type="text" id="permanentAddress" name="permanentAddress" placeholder="456 Oak Ave, Town" maxlength="255">
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth:</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth"> </div>
+                </div>
+                <div class="form-group">
+                    <label for="linkedin">LinkedIn Profile:</label>
+                    <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/yourprofile" maxlength="255">
+                </div>
+                <div class="form-group">
+                    <label for="portfolio">Portfolio/GitHub (Optional):</label>
+                    <input type="url" id="portfolio" name="portfolio" placeholder="https://yourportfolio.com or https://github.com/yourusername" maxlength="255">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Objective / Professional Summary</h2>
+                <textarea id="objective" name="objective" required placeholder="A highly motivated and results-oriented professional seeking to leverage my skills in [Your Field] to contribute to the success of [Company Name]." data-maxlength="1000"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Education</h2>
+                <textarea id="education" name="education" required placeholder="University Name - Degree, Major (Year-Year)
+GPA: X.XX/4.00
+Relevant Coursework: Course1, Course2, Course3" data-maxlength="2000"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Work Experience (Optional)</h2>
+                <textarea id="experience" name="experience" placeholder="Company Name - Job Title (Month Year - Month Year)
+• Responsibility/achievement 1
+• Responsibility/achievement 2
+• Responsibility/achievement 3" data-maxlength="4000"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Skills</h2>
+                <textarea id="skills" name="skills" required placeholder="Technical Skills: Skill1, Skill2, Skill3
+Soft Skills: Skill1, Skill2, Skill3" data-maxlength="1000"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Projects (Optional)</h2>
+                <textarea id="projects" name="projects" placeholder="Project Name (Month Year)
+• Description of project and your role
+• Technologies used: Tech1, Tech2
+• Key achievements/results" data-maxlength="3000"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Certifications (Optional)</h2>
+                <textarea id="certifications" name="certifications" placeholder="Certification Name (Issuing Body, Year)
+Certification Name 2 (Issuing Body 2, Year 2)" data-maxlength="1000"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Awards & Achievements (Optional)</h2>
+                <textarea id="awards" name="awards" placeholder="Award Name (Issuing Body, Year)
+Achievement Description" data-maxlength="1000"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Languages Known (Optional)</h2>
+                <textarea id="languages" name="languages" placeholder="English (Fluent), Hindi (Native), Spanish (Basic)" data-maxlength="100"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Hobbies/Interests (Optional)</h2>
+                <textarea id="hobbies" name="hobbies" placeholder="Reading, Hiking, Photography, Coding challenges" data-maxlength="1000"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Declaration</h2>
+                <textarea id="declaration" name="declaration" required placeholder="I hereby declare that the information provided above is true and correct to the best of my knowledge and belief." data-maxlength="1000"></textarea>
+            </div>
+
+            <div class="form-section">
+                <h2>Choose a Template</h2>
+                <div class="template-options">
+                    <label class="template-option">
+                        <input type="radio" name="template" value="classic" required checked>
+                        <img src="https://via.placeholder.com/300x200?text=Classic+Template" alt="Classic Template">
+                        <p>Classic</p>
+                    </label>
+                    <label class="template-option">
+                        <input type="radio" name="template" value="modern" required>
+                        <img src="https://via.placeholder.com/300x200?text=Modern+Template" alt="Modern Template">
+                        <p>Modern</p>
+                    </label>
+                    <label class="template-option">
+                        <input type="radio" name="template" value="creative" required>
+                        <img src="https://via.placeholder.com/300x200?text=Creative+Template" alt="Creative Template">
+                        <p>Creative</p>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit">Generate Resume <i class="fas fa-file-download"></i></button>
+        </form>
+    </section>
+
+    <footer>
+        <p>Created by Abhi Jain</p>
+        <p>&copy; 2025 College Placement System. All rights reserved. | Contact: <a
+                href="mailto:justplacement@gmail.com">justplacement@gmail.com</a></p>
+    </footer>
+
+    <script>
+        // Backend API base URL - make this configurable in a real app
+        const API_BASE_URL = 'https://placement-portal-backend-nwaj.onrender.com/api';
+
+        // --- Authentication Check and Token Management ---
+        function checkAuth() {
+            const token = localStorage.getItem("authToken");
+
+            if (!token) {
+                alert("You must be logged in to access this page.");
+                window.location.href = "login.html";
+                return false;
+            }
+
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const now = Date.now() / 1000;
+
+                if (payload.exp < now) {
+                    alert("Session expired. Please log in again.");
+                    localStorage.clear();
+                    window.location.href = "login.html";
+                    return false;
+                }
+            } catch (err) {
+                console.error("Invalid token:", err);
+                alert("Invalid session. Please log in again.");
+                localStorage.clear();
+                window.location.href = "login.html";
+                return false;
+            }
+            return true;
+        }
+
+        // Run authentication check on page load
+        if (!checkAuth()) {
+            // If auth check fails, the user is redirected, so no further script execution is needed for form logic
+        } else {
+            // --- Form Enhancement: Character Counters and Maxlength Enforcement ---
+            document.querySelectorAll('textarea[data-maxlength]').forEach(textarea => {
+                const maxLength = parseInt(textarea.dataset.maxlength);
+                textarea.setAttribute('maxlength', maxLength);
+
+                const counter = document.createElement('div');
+                counter.className = 'char-counter';
+                textarea.parentNode.insertBefore(counter, textarea.nextSibling);
+
+                const updateCounter = () => {
+                    counter.textContent = `${textarea.value.length}/${maxLength} characters`;
+                    if (textarea.value.length >= maxLength) {
+                        counter.style.color = 'var(--error)';
+                    } else {
+                        counter.style.color = 'var(--gray)';
+                    }
+                };
+
+                textarea.addEventListener('input', updateCounter);
+                // Initial update in case there's pre-filled content
+                updateCounter();
+            });
+
+            // --- Auto-save and Form Population Logic ---
+            const form = document.getElementById('resumeForm');
+            const LOCAL_STORAGE_KEY = 'resumeFormData';
+
+            function loadFormData() {
+                try {
+                    const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+                    return savedData ? JSON.parse(savedData) : {};
+                } catch (e) {
+                    console.error("Error parsing saved form data:", e);
+                    localStorage.removeItem(LOCAL_STORAGE_KEY); // Clear corrupted data
+                    return {};
+                }
+            }
+
+            function saveFormData(data) {
+                try {
+                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+                } catch (e) {
+                    console.error("Error saving form data to local storage:", e);
+                    alert("Could not save your progress automatically. Please ensure sufficient storage space.");
+                }
+            }
+
+            let formData = loadFormData();
+
+            // Populate form with saved data
+            function populateForm() {
+                Object.keys(formData).forEach(key => {
+                    const element = form.elements[key];
+                    if (element) {
+                        if (element.type === 'radio') {
+                            const radioButtons = form.querySelectorAll(`input[name="${key}"]`);
+                            radioButtons.forEach(radio => {
+                                if (radio.value === formData[key]) {
+                                    radio.checked = true;
+                                }
+                            });
+                        } else if (element.type === 'date') {
+                            if (formData[key] && !isNaN(new Date(formData[key]))) {
+                                element.value = formData[key];
+                            }
+                        } else {
+                            element.value = formData[key];
+                        }
+                    }
+                });
+                // After populating, trigger input event for textareas to update counters
+                document.querySelectorAll('textarea[data-maxlength]').forEach(textarea => {
+                    textarea.dispatchEvent(new Event('input'));
+                });
+            }
+
+            populateForm();
+
+            // Save on input
+            form.addEventListener('input', (e) => {
+                if (e.target.name) {
+                    if (e.target.type === 'radio') {
+                        if (e.target.checked) {
+                            formData[e.target.name] = e.target.value;
+                        }
+                    } else {
+                        formData[e.target.name] = e.target.value;
+                    }
+                    saveFormData(formData);
+                }
+            });
+
+            // --- Form Submission Logic with Fetch API ---
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Prevent default form submission
+
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+                // Get all form data into a plain object
+                const data = {};
+                const formElements = event.target.elements;
+                for (let i = 0; i < formElements.length; i++) {
+                    const element = formElements[i];
+                    if (element.name) {
+                        if (element.type === 'radio') {
+                            if (element.checked) { // Only take the checked radio's value
+                                data[element.name] = element.value;
+                            }
+                        } else if (element.type !== 'submit' && element.type !== 'button') { // Exclude submit/button
+                            data[element.name] = element.value.trim(); // Trim whitespace from all inputs
+                        }
+                    }
+                }
+
+                // Client-side Validation (more robust)
+                const requiredFields = {
+                    name: "Full Name", email: "Email", phone: "Phone",
+                    objective: "Objective / Professional Summary", education: "Education",
+                    skills: "Skills", declaration: "Declaration", template: "Template Selection"
+                };
+
+                for (const field in requiredFields) {
+                    if (!data[field] || data[field].length === 0) {
+                        alert(`Please fill in the required field: "${requiredFields[field]}".`);
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalButtonText;
+                        return;
+                    }
+                }
+
+                // Email format validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(data.email)) {
+                    alert("Please enter a valid email address.");
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                    return;
+                }
+
+                // URL validation for LinkedIn/Portfolio (if filled)
+                const urlRegex = /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/[a-zA-Z0-9]+\.[^\s]{2,}|[a-zA-Z0-9]+\.[^\s]{2,})$/i;
+
+                if (data.linkedin && !urlRegex.test(data.linkedin)) {
+                    alert("Please enter a valid LinkedIn URL (e.g., https://linkedin.com/in/yourprofile).");
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                    return;
+                }
+                if (data.portfolio && !urlRegex.test(data.portfolio)) {
+                    alert("Please enter a valid Portfolio/GitHub URL.");
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                    return;
+                }
+
+                // --- Send data to Backend ---
+                try {
+                    const token = localStorage.getItem("authToken"); // Re-fetch token to ensure it's current
+
+                    const response = await fetch(`${API_BASE_URL}/resume/generate-pdf`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        // Expecting a JSON response with the download URL
+                        const result = await response.json();
+                        const downloadUrl = result.downloadUrl; // This URL *must* come correctly from the backend
+
+                        if (downloadUrl) {
+                            // Open the generated PDF in a new tab (browser will usually download if Content-Disposition: attachment)
+                            window.open(downloadUrl, '_blank');
+                            alert('Resume generated and downloaded successfully!');
+                            // Optionally clear form data from localStorage after successful generation
+                            localStorage.removeItem(LOCAL_STORAGE_KEY);
+                            form.reset(); // Clear form fields
+                            populateForm(); // Re-initialize form elements and counters
+                        } else {
+                            alert('Resume generated successfully, but no download URL was provided by the server. Please contact support.');
+                        }
+
+                    } else if (response.status === 401 || response.status === 403) {
+                        alert("Session expired or unauthorized. Please log in again.");
+                        localStorage.clear();
+                        window.location.href = "login.html";
+                    } else {
+                        // Try to parse error message from backend if available
+                        const errorResult = await response.json().catch(() => ({}));
+                        const errorMessage = errorResult.message || errorResult.error || `Failed to generate resume: ${response.status} ${response.statusText || ''}`;
+                        alert(`Error: ${errorMessage}`);
+                        console.error('Server error:', response.status, errorResult);
+                    }
+                } catch (error) {
+                    console.error('Network error or unexpected issue:', error);
+                    alert('An unexpected error occurred while generating the resume. Please check your internet connection and try again.');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText; // Restore button text
+                }
+            });
+        }
+    </script>
+</body>
+</html>

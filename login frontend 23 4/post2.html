@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Development Trends in 2025 | Placement Portal</title>
+  <meta name="description" content="Explore the top web development trends shaping 2025, from AI-powered development to Web3 integration and beyond.">
+  <meta name="keywords" content="web development, trends 2025, AI coding, PWA, Web3, blockchain, cybersecurity">
+  <meta name="author" content="Priya Sharma">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00d4ff;
+      --primary-light: #e6f9ff;
+      --secondary: #0077b6;
+      --dark: #03045e;
+      --dark-light: #1a1a4e;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --gray-light: #e9ecef;
+      --accent: #ff7b00;
+      --nav-dark: #1a1a2e;
+      --code-bg: #f0f0f0;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+      --border-radius: 8px;
+      --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Skip to Content Link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Top Navigation Bar */
+    nav:first-of-type {
+      background-color: var(--dark);
+      color: white;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .logo i {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    nav:first-of-type ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav:first-of-type a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+      padding: 0.3rem 0;
+    }
+
+    nav:first-of-type a:hover {
+      color: var(--primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Main Navigation Bar */
+    nav:last-of-type {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 0.8rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav:last-of-type ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--gray-light);
+    }
+
+    /* Custom scrollbar for navigation */
+    nav:last-of-type ul::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    nav:last-of-type ul::-webkit-scrollbar-track {
+      background: var(--gray-light);
+    }
+
+    nav:last-of-type ul::-webkit-scrollbar-thumb {
+      background-color: var(--primary);
+      border-radius: 20px;
+    }
+
+    nav:last-of-type li {
+      flex-shrink: 0;
+    }
+
+    nav:last-of-type a, nav:last-of-type button {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    nav:last-of-type a:hover, nav:last-of-type button:hover {
+      color: var(--primary);
+      background-color: rgba(0, 212, 255, 0.1);
+    }
+
+    nav:last-of-type a.active {
+      background-color: rgba(0, 212, 255, 0.2);
+      color: var(--primary);
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      padding: 1rem 2rem;
+      background-color: var(--gray-light);
+      font-size: 0.9rem;
+    }
+
+    .breadcrumbs a {
+      color: var(--secondary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumbs span {
+      color: var(--gray);
+      margin: 0 0.5rem;
+    }
+
+    /* Blog Content */
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.3;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    h2 {
+      color: var(--secondary);
+      margin: 2.5rem 0 1.5rem;
+      font-size: 1.8rem;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-color: var(--primary);
+      border-radius: 50%;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    strong {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* Trend Cards */
+    .trend-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--box-shadow);
+      border-left: 4px solid var(--primary);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trend-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .trend-card h3 {
+      color: var(--secondary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.4rem;
+    }
+
+    .trend-card h3 i {
+      color: var(--primary);
+      font-size: 1.2rem;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary-light);
+      border-radius: 50%;
+    }
+
+    .trend-card .trend-number {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 3rem;
+      font-weight: 700;
+      color: rgba(0, 212, 255, 0.1);
+      line-height: 1;
+      z-index: 0;
+    }
+
+    .trend-card .trend-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Key Impact Styling */
+    .key-impact {
+      background-color: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      margin: 1.5rem 0;
+    }
+
+    .key-impact strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    /* Author Info */
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 3rem 0;
+      padding: 1.5rem;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .author-info:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .author-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      transition: var(--transition);
+    }
+
+    .author-info:hover .author-img {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+    }
+
+    .author-details h3 {
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .author-details p {
+      color: var(--gray);
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .author-social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .author-social a {
+      color: var(--gray);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .author-social a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Related Articles */
+    .related-articles {
+      margin: 3rem 0;
+    }
+
+    .related-articles h3 {
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .related-articles h3::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--primary);
+      border-radius: 50%;
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .article-card {
+      background: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .article-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .article-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .article-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .article-card-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-card h4 {
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      line-height: 1.4;
+    }
+
+    .article-card p {
+      font-size: 0.95rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .article-card a {
+      display: inline-flex;
+      align-items: center;
+      margin-top: auto;
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .article-card a:hover {
+      color: var(--secondary);
+      gap: 0.8rem;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 2rem 0;
+    }
+
+    .tag {
+      background-color: var(--primary-light);
+      color: var(--secondary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .tag:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 99;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background-color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+   /* Footer */
+   footer {
+    background-color: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+    /* Utility Classes */
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-1 { margin-top: 0.5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mt-3 { margin-top: 1.5rem; }
+    .mt-4 { margin-top: 2rem; }
+    .mt-5 { margin-top: 3rem; }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav:first-of-type {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      nav:first-of-type ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .author-info {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .author-social {
+        justify-content: center;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .trend-card h3 {
+        font-size: 1.2rem;
+      }
+
+      .back-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 1rem;
+        right: 1rem;
+      }
+    }
+
+    /* Animation Classes */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+
+    /* Print Styles */
+    @media print {
+      nav, .back-to-top {
+        display: none;
+      }
+
+      body {
+        background-color: white;
+        color: black;
+        font-size: 12pt;
+        line-height: 1.5;
+      }
+
+      .container {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      h1 {
+        -webkit-text-fill-color: black;
+        background: none;
+        font-size: 18pt;
+      }
+
+      .trend-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none;
+        border-left: none;
+        border-bottom: 1px solid #ddd;
+        padding: 1rem 0;
+      }
+
+      footer {
+        background-color: white;
+        color: black;
+      }
+
+      a {
+        color: black;
+        text-decoration: underline;
+      }
+
+      .article-grid {
+        display: block;
+      }
+
+      .article-card {
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation Bar -->
+
+  <nav>
+    <div class="logo">Placement<span>Portal</span></div>
+    <ul>
+      <li><a href="mailto:just@placement.com"><i class="fas fa-envelope"></i> just@placement.com</a></li>
+      <li><a href="tel:+91-6266XXXX70"><i class="fas fa-phone"></i> +91-6266XXXX70</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Navigation Bar -->
+  <nav>
+<ul>
+  <li><a href="blog.html" class="active"><i class="fas fa-sign-out-alt"></i> Back to Blog</a></li>
+</ul>
+  </nav>
+
+
+
+
+  <!-- Blog Content -->
+  <main id="main-content" class="container">
+    <h1 class="animate-fade-in">Web Development Trends in 2025</h1>
+    
+    <p class="intro">
+      The web development landscape is evolving at an unprecedented pace. As we approach 2025, developers must stay ahead of emerging technologies to build cutting-edge applications. These trends will shape the future of how we create and interact with web experiences.
+    </p>
+
+    <div class="tags">
+      <span class="tag">#WebDevelopment</span>
+      <span class="tag">#TechTrends</span>
+      <span class="tag">#Programming</span>
+      <span class="tag">#FutureTech</span>
+      <span class="tag">#2025</span>
+    </div>
+
+    <div class="trend-card animate-fade-in delay-1">
+      <div class="trend-number">1</div>
+      <div class="trend-content">
+        <h3><i class="fas fa-robot"></i> AI-Powered Development</h3>
+        <p>
+          Artificial Intelligence is transforming web development through tools like GitHub Copilot and ChatGPT that can generate code, suggest optimizations, and automate repetitive tasks. AI-powered chatbots now provide human-like interactions, while machine learning algorithms enable hyper-personalized user experiences.
+        </p>
+        <div class="key-impact">
+          <strong>Key Impact:</strong> 40% faster development cycles, improved accessibility features, and dynamic content adaptation based on user behavior.
+        </div>
+      </div>
+    </div>
+
+    <div class="trend-card animate-fade-in delay-2">
+      <div class="trend-number">2</div>
+      <div class="trend-content">
+        <h3><i class="fas fa-mobile-alt"></i> Progressive Web Apps (PWAs)</h3>
+        <p>
+          PWAs bridge the gap between web and mobile apps, offering offline functionality, push notifications, and device hardware access. Major companies like Twitter, Pinterest, and Uber have seen significant engagement boosts after adopting PWA technology.
+        </p>
+        <div class="key-impact">
+          <strong>Why It Matters:</strong> 50% lower development costs compared to native apps, with 3x higher conversion rates on mobile devices.
+        </div>
+      </div>
+    </div>
+
+    <div class="trend-card animate-fade-in delay-1">
+      <div class="trend-number">3</div>
+      <div class="trend-content">
+        <h3><i class="fas fa-microphone"></i> Voice Search Optimization</h3>
+        <p>
+          With 55% of households expected to own smart speakers by 2025, voice search optimization is crucial. This involves natural language processing, schema markup for voice assistants, and conversational UI patterns that mimic human dialogue.
+        </p>
+        <div class="key-impact">
+          <strong>Implementation Tip:</strong> Focus on long-tail keywords and question-based content to match voice search queries.
+        </div>
+      </div>
+    </div>
+
+    <div class="trend-card animate-fade-in delay-2">
+      <div class="trend-number">4</div>
+      <div class="trend-content">
+        <h3><i class="fas fa-server"></i> Serverless Architecture</h3>
+        <p>
+          Serverless computing (AWS Lambda, Azure Functions) eliminates infrastructure management, allowing developers to focus on writing code. The global serverless architecture market is projected to reach $36.84 billion by 2028.
+        </p>
+        <div class="key-impact">
+          <strong>Benefits:</strong> Automatic scaling, pay-per-use pricing model, and reduced operational overhead by up to 70%.
+        </div>
+      </div>
+    </div>
+
+    <div class="trend-card animate-fade-in delay-1">
+      <div class="trend-number">5</div>
+      <div class="trend-content">
+        <h3><i class="fas fa-link"></i> Web3 and Blockchain Integration</h3>
+        <p>
+          The decentralized web enables peer-to-peer interactions without intermediaries. Key applications include NFT marketplaces, decentralized finance (DeFi) platforms, and identity management systems using blockchain technology.
+        </p>
+        <div class="key-impact">
+          <strong>Emerging Tech:</strong> Smart contracts (Solidity), IPFS for decentralized storage, and Ethereum-based authentication systems.
+        </div>
+      </div>
+    </div>
+
+    <div class="trend-card animate-fade-in delay-2">
+      <div class="trend-number">6</div>
+      <div class="trend-content">
+        <h3><i class="fas fa-magic"></i> Motion UI and Microinteractions</h3>
+        <p>
+          Modern users expect fluid, app-like experiences. Strategic animations can increase engagement by 40% when used to guide users, provide feedback, or highlight important actions without compromising performance.
+        </p>
+        <div class="key-impact">
+          <strong>Tools to Use:</strong> Framer Motion, GSAP, and CSS View Transitions API for buttery-smooth animations.
+        </div>
+      </div>
+    </div>
+
+    <div class="trend-card animate-fade-in delay-1">
+      <div class="trend-number">7</div>
+      <div class="trend-content">
+        <h3><i class="fas fa-code"></i> Low-Code and No-Code Development</h3>
+        <p>
+          Platforms like Webflow, Bubble, and Retool enable rapid prototyping and development. By 2025, 70% of new applications will use low-code/no-code technologies, up from less than 25% in 2020.
+        </p>
+        <div class="key-impact">
+          <strong>Best For:</strong> Internal tools, MVPs, and simple applications that don't require complex custom logic.
+        </div>
+      </div>
+    </div>
+
+    <div class="trend-card animate-fade-in delay-2">
+      <div class="trend-number">8</div>
+      <div class="trend-content">
+        <h3><i class="fas fa-shield-alt"></i> Cybersecurity and Data Privacy</h3>
+        <p>
+          With cyberattacks increasing by 15% annually, developers must implement security by design. Key focus areas include zero-trust architecture, biometric authentication, and compliance with evolving regulations like GDPR and CCPA.
+        </p>
+        <div class="key-impact">
+          <strong>Essential Practices:</strong> Regular security audits, dependency vulnerability scanning, and ethical data collection policies.
+        </div>
+      </div>
+    </div>
+
+    <div class="trend-card conclusion animate-fade-in">
+      <h3><i class="fas fa-chart-line"></i> The Future Outlook</h3>
+      <p>
+        Web development in 2025 will be characterized by smarter applications, decentralized architectures, and more immersive experiences. Developers who master these trends will be at the forefront of creating the next generation of web applications.
+      </p>
+      <p>
+        <strong>Key Takeaways:</strong>
+      </p>
+      <ul>
+        <li>AI will augment (not replace) developer workflows</li>
+        <li>Performance and accessibility remain critical</li>
+        <li>Cross-platform solutions will dominate</li>
+        <li>Security can't be an afterthought</li>
+      </ul>
+    </div>
+
+    <!-- Author Information -->
+    <div class="author-info animate-fade-in">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Author Priya Sharma" class="author-img">
+      <div class="author-details">
+        <h3>Priya Sharma</h3>
+        <p>Senior Web Developer | Tech Lead at Digital Solutions Inc.</p>
+        <p>Published on: July 10, 2024 | 10 min read</p>
+        <div class="author-social">
+          <a href="#" aria-label="Follow on Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Follow on LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" aria-label="Follow on GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" aria-label="Visit website"><i class="fas fa-globe"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Articles -->
+    <div class="related-articles animate-fade-in">
+      <h3>More Tech Insights</h3>
+      <div class="article-grid">
+        <div class="article-card">
+          <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="AI Development" loading="lazy">
+          <div class="article-card-content">
+            <h4>The Future of AI in Software Development</h4>
+            <p>How artificial intelligence is changing the way we write and maintain code.</p>
+            <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="article-card">
+          <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Blockchain" loading="lazy">
+          <div class="article-card-content">
+            <h4>Blockchain Beyond Cryptocurrency</h4>
+            <p>Real-world applications of blockchain technology in various industries.</p>
+            <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="article-card">
+          <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Cybersecurity" loading="lazy">
+          <div class="article-card-content">
+            <h4>Essential Cybersecurity Practices for Developers</h4>
+            <p>Protect your applications from modern security threats.</p>
+            <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 College Placement System | Contact: <a href="mailto:just@placement.com">just@placement.com</a></p>
+  <div class="footer-links">
+      <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Sitemap</a>
+  </div>
+</footer>
+
+
+  <script>
+    // Authentication check
+    document.addEventListener('DOMContentLoaded', function() {
+      const token = localStorage.getItem('authToken');
+      const loginBtn = document.querySelector('a[href="login.html"].btn');
+      
+      if (token) {
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          const now = Date.now() / 1000;
+          
+          if (payload.exp < now) {
+            localStorage.removeItem('authToken');
+            loginBtn.style.display = 'flex';
+          } else {
+            // User is logged in
+            loginBtn.innerHTML = '<i class="fas fa-user"></i> Dashboard';
+            loginBtn.href = 'dashboard.html';
+          }
+        } catch (err) {
+          console.error("Invalid token:", err);
+          localStorage.removeItem('authToken');
+          loginBtn.style.display = 'flex';
+        }
+      }
+    });
+
+    // Add interactive elements
+    document.querySelectorAll('.trend-card').forEach(card => {
+      card.addEventListener('click', function() {
+        this.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+
+</html>

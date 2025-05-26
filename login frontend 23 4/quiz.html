@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Quiz App</title>
+    <link rel="stylesheet" href="quiz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="quiz-section">
+        <div id="subject-selection">
+            <div class="quiz-header">
+                <h1 id="quiz-title"><i class="fas fa-brain"></i> Quiz Master</h1>
+                <p id="quiz-subtitle">Test your knowledge across various subjects!</p>
+            </div>
+
+            <h2>Choose a Subject:</h2>
+            <div id="subject-menu">
+                <div class="subject-btn" data-subject="html">
+                    <i class="fab fa-html5"></i>
+                    HTML
+                    <small>Structure of Web</small>
+                </div>
+                <div class="subject-btn" data-subject="css">
+                    <i class="fab fa-css3-alt"></i>
+                    CSS
+                    <small>Styling Web Pages</small>
+                </div>
+                <div class="subject-btn" data-subject="javascript">
+                    <i class="fab fa-js"></i>
+                    JavaScript
+                    <small>Web Interactivity</small>
+                </div>
+                <div class="subject-btn" data-subject="java">
+                    <i class="fab fa-java"></i>
+                    Java
+                    <small>Backend & Android</small>
+                </div>
+                <div class="subject-btn" data-subject="react">
+                    <i class="fab fa-react"></i>
+                    React
+                    <small>Frontend Library</small>
+                </div>
+                <div class="subject-btn" data-subject="flutter">
+                    <i class="fab fa-flutter"></i>
+                    Flutter
+                    <small>Cross-platform UI</small>
+                </div>
+                <div class="subject-btn" data-subject="springboot">
+                    <i class="fas fa-leaf"></i>
+                    Spring Boot
+                    <small>Java Framework</small>
+                </div>
+                <div class="subject-btn" data-subject="c">
+                    <i class="fas fa-code"></i>
+                    C
+                    <small>Procedural Language</small>
+                </div>
+                <div class="subject-btn" data-subject="cpp">
+                    <i class="fas fa-code"></i>
+                    C++
+                    <small>Object-Oriented</small>
+                </div>
+                <div class="subject-btn" data-subject="python">
+                    <i class="fab fa-python"></i>
+                    Python
+                    <small>Versatile Language</small>
+                </div>
+                 <div class="subject-btn" data-subject="powerbi">
+                    <i class="fas fa-chart-bar"></i>
+                    Power BI
+                    <small>Business Intelligence</small>
+                </div>
+                <div class="subject-btn" data-subject="software_engineering">
+                    <i class="fas fa-project-diagram"></i>
+                    Software Engineering
+                    <small>SDLC, Methodologies</small>
+                </div>
+                <div class="subject-btn" data-subject="theory_of_computation">
+                    <i class="fas fa-infinity"></i>
+                    Theory of Computation
+                    <small>Automata, Computability</small>
+                </div>
+                <div class="subject-btn" data-subject="ai">
+                    <i class="fas fa-robot"></i>
+                    Artificial Intelligence
+                    <small>ML, Deep Learning</small>
+                </div>
+                <div class="subject-btn" data-subject="advanced_dbms">
+                    <i class="fas fa-database"></i>
+                    Advanced DBMS
+                    <small>Database Management</small>
+                </div>
+                <div class="subject-btn" data-subject="advanced_cn">
+                    <i class="fas fa-network-wired"></i>
+                    Advanced Computer Networks
+                    <small>Network Protocols</small>
+                </div>
+                <div class="subject-btn" data-subject="analysis_design_algorithms">
+                    <i class="fas fa-sitemap"></i>
+                    Analysis & Design of Algorithms
+                    <small>Efficiency, Data Structures</small>
+                </div>
+                </div>
+            <div class="start-container">
+                <button class="start-button" id="start-quiz-btn" disabled>
+                    <i class="fas fa-play-circle"></i> Start Quiz
+                </button>
+                <div class="quiz-info">
+                    <p><i class="fas fa-question-circle"></i> Select a subject to begin.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz" style="display: none;">
+            <div class="quiz-header">
+                <h1 id="quiz-question-title"><i class="fas fa-question"></i> Quiz Time!</h1>
+                <p id="quiz-question-subtitle"></p>
+            </div>
+
+            <div id="progress-container">
+                <div id="progress-bar"></div>
+                <span id="progress-text"></span>
+            </div>
+
+            <div class="quiz-meta">
+                <div id="scoreDisplay"><i class="fas fa-star"></i> Score: <span>0</span></div>
+                <div id="timer"><i class="fas fa-clock"></i> Time: <span>--:--</span></div>
+            </div>
+
+            <div class="question-container">
+                <span class="question-number">Question <span id="currentQuestionNumber">1</span>/<span id="totalQuestions">10</span></span>
+                <p id="question">Loading question...</p>
+            </div>
+
+            <div class="options-grid">
+                <div class="option">
+                    <input type="radio" name="option" id="option-a" value="a">
+                    <label for="option-a"><span class="option-letter">A</span> <span class="option-text">Option A</span></label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="option" id="option-b" value="b">
+                    <label for="option-b"><span class="option-letter">B</span> <span class="option-text">Option B</span></label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="option" id="option-c" value="c">
+                    <label for="option-c"><span class="option-letter">C</span> <span class="option-text">Option C</span></label>
+                </div>
+                <div class="option">
+                    <input type="radio" name="option" id="option-d" value="d">
+                    <label for="option-d"><span class="option-letter">D</span> <span class="option-text">Option D</span></label>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-outline" id="quit-quiz-btn"><i class="fas fa-times-circle"></i> Quit Quiz</button>
+                <button class="btn" id="next-question-btn" disabled><i class="fas fa-arrow-right"></i> Next</button>
+            </div>
+        </div>
+
+        <div id="quiz-results" style="display: none;">
+            <div class="result-card">
+                <div class="result-header">
+                    <i class="fas fa-trophy"></i>
+                    <h2>Quiz Completed!</h2>
+                </div>
+                <p class="result-message" id="result-message">Great job!</p>
+                <p class="result-score">Your Score: <span id="finalScore">0</span> / <span id="totalQuestionsResult">0</span></p>
+
+                <div class="result-stats">
+                    <div class="stat"><i class="fas fa-check-circle"></i> Correct: <span id="correctAnswers">0</span></div>
+                    <div class="stat"><i class="fas fa-times-circle"></i> Wrong: <span id="wrongAnswers">0</span></div>
+                    <div class="stat"><i class="fas fa-hourglass-half"></i> Time Taken: <span id="timeTaken">0s</span></div>
+                </div>
+
+                <div class="progress-container">
+                    <span class="progress-label">Your Performance</span>
+                    <div id="resultProgressBar"></div>
+                    <span class="progress-percent" id="resultProgressPercent">0%</span>
+                </div>
+
+                <div class="result-footer">
+                    <button class="btn btn-outline" id="review-answers-btn" style="display: none;"><i class="fas fa-clipboard-list"></i> Review Answers</button>
+                    <button class="btn" id="play-again-btn"><i class="fas fa-redo-alt"></i> Play Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>

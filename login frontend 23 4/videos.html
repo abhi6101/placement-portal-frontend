@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Videos | Placement Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+ /* Top Navigation Bar */
+    nav:first-of-type {
+      background-color: var(--dark);
+      color: white;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    nav:first-of-type ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav:first-of-type a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    nav:first-of-type a:hover {
+      color: var(--primary);
+    }
+
+    .btn {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
+    }
+
+    /* Main Navigation Bar */
+    nav:last-of-type {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 0.8rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav:last-of-type ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+
+    nav:last-of-type li {
+      flex-shrink: 0;
+    }
+
+    nav:last-of-type a, nav:last-of-type button {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    nav:last-of-type a:hover, nav:last-of-type button:hover {
+      color: var(--primary);
+      background-color: rgba(0, 212, 255, 0.1);
+    }
+
+    nav:last-of-type a.active {
+      background-color: rgba(0, 212, 255, 0.2);
+      color: var(--primary);
+    }
+        .videos {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .videos h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+        }
+
+        .videos p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .video-card iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .video-card h2 {
+            padding: 1.5rem;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            padding-left: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .videos {
+                padding: 0 1rem;
+            }
+
+            .videos h1 {
+                font-size: 2rem;
+            }
+
+            .video-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+ <nav>
+    <div class="logo">Placement<span>Portal</span></div>
+    <ul>
+      <li><a href="mailto:just@placement.com"><i class="fas fa-envelope"></i> just@placement.com</a></li>
+      <li><a href="tel:+91-6266XXXX70"><i class="fas fa-phone"></i> +91-6266XXXX70</a></li>
+    </ul>
+  </nav>
+    
+      <!-- Main Navigation Bar -->
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+          <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+          <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+          <li><a href="videos.html" class="active"><i class="fas fa-video"></i> Study Videos</a></li>
+          <li><a href="courses.html"  ><i class="fas fa-book"></i> Courses</a></li>
+          <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+          <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+          
+        </ul>
+      </nav>
+    
+    <!-- Videos Section -->
+    <section class="videos">
+        <h1>Study Videos</h1>
+        <p>Enhance your skills with our curated collection of educational videos from top instructors</p>
+        
+       
+
+        <div class="video-list">
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/8mAITcNt710" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                <h2>JavaScript for Beginners - Full Course</h2>
+                <div class="video-meta">
+                    <span><i class="far fa-clock"></i> 4h 12m</span>
+                    <span><i class="fas fa-user-graduate"></i> Beginner</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/KJgsSFOSQv0" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                <h2>Introduction to C++ Programming</h2>
+                <div class="video-meta">
+                    <span><i class="far fa-clock"></i> 3h 45m</span>
+                    <span><i class="fas fa-user-graduate"></i> Beginner</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/RBSGKlAvoiM" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                <h2>Data Structures & Algorithms Explained</h2>
+                <div class="video-meta">
+                    <span><i class="far fa-clock"></i> 6h 30m</span>
+                    <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+                </div>
+            </div>
+
+            
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/pQN-pnXPaVg" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                <h2>HTML & CSS Crash Course</h2>
+                <div class="video-meta">
+                    <span><i class="far fa-clock"></i> 2h 50m</span>
+                    <span><i class="fas fa-user-graduate"></i> Beginner</span>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/fis26HvvDII" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                <h2>Technical Interview Preparation</h2>
+                <div class="video-meta">
+                    <span><i class="far fa-clock"></i> 4h 45m</span>
+                    <span><i class="fas fa-user-graduate"></i> Intermediate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <P> Created by Abhi jain</P>
+        <p> 2025 College Placement System. All rights reserved. | Contact: <a href="mailto:justplacement@gmail.com">justplacement@gmail.com</a></p>
+    </footer>
+
+    <script>
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                btn.classList.add('active');
+                // In a real implementation, you would filter videos here
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            // In a real implementation, you would filter videos based on search term
+        });
+
+        // Authentication check
+      
+    </script>
+</body>
+
+</html>

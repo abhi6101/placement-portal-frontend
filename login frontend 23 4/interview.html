@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Schedules | College Placement Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Top Navigation Bar */
+        nav:first-of-type {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav:first-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav:first-of-type a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        nav:first-of-type a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Main Navigation Bar */
+        nav:last-of-type {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav:last-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        nav:last-of-type li {
+            flex-shrink: 0;
+        }
+
+        nav:last-of-type a,
+        nav:last-of-type button {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        nav:last-of-type a:hover,
+        nav:last-of-type button:hover {
+            color: var(--primary);
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+
+        nav:last-of-type a.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .interview-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .interview-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .interview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .interview-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .status-upcoming {
+            background-color: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .status-urgent {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+
+        .status-completed {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+
+        .interview-card-content {
+            padding: 1.5rem;
+        }
+
+        .company-logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            height: 80px;
+        }
+
+        .company-logo {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .interview-card h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .interview-card p {
+            color: var(--gray);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .interview-card p strong {
+            color: var(--dark);
+            min-width: 80px;
+            display: inline-block;
+        }
+
+        .slot-availability {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #eee;
+        }
+
+        .slot-available {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .slot-limited {
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        .slot-full {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .interview-booking {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row>div {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        button[type="submit"] i {
+            margin-right: 0.5rem;
+        }
+
+        .no-interviews {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem; /* Added margin-bottom */
+        }
+
+        .no-interviews i {
+            font-size: 3rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .no-interviews h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .no-interviews p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .section-header h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .interview-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #cccccc; /* Example gray background for disabled */
+        }
+
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">Placement<span>Portal</span></div>
+        <ul>
+            <li><a href="mailto:just@placement.com"><i class="fas fa-envelope"></i> just@placement.com</a></li>
+            <li><a href="tel:+91-6266XXXX70"><i class="fas fa-phone"></i> +91-6266XXXX70</a></li>
+            <li><a href="#" id="loginBtn" class="btn">Login</a></li>
+            <li><button id="logoutBtn" class="btn btn-outline">Logout</button></li>
+        </ul>
+    </nav>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html" class="active"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="section-header">
+            <h1>Upcoming Interviews</h1>
+            <p>Browse and book interview slots with top recruiters. Don't miss your chance to land your dream job!</p>
+        </div>
+
+        <div id="upcoming-interviews-list" class="interview-list">
+        </div>
+
+        <div class="section-header" style="margin-top: 5rem;">
+            <h1>Future Interviews</h1>
+            <p>Looking ahead? Explore interview opportunities scheduled for later dates and plan your career path.</p>
+        </div>
+
+        <div id="future-interviews-list" class="interview-list">
+        </div>
+
+        <div class="interview-booking">
+            <div class="section-header">
+                <h1>Book Your Interview Slot</h1>
+                <p>Fill in your details to reserve your spot for upcoming interviews</p>
+            </div>
+
+            <form id="bookingForm">
+                <div class="form-row">
+                    <div>
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your college email">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label for="rollno">Roll Number</label>
+                        <input type="text" id="rollno" name="rollno" required placeholder="Enter your roll number">
+                    </div>
+                    <div>
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label for="company">Select Company</label>
+                        <select id="company" name="company" required>
+                            <option value="" disabled selected>Select a company</option>
+                            <option value="TCS">TCS</option>
+                            <option value="Infosys">Infosys</option>
+                            <option value="Wipro">Wipro</option>
+                            <option value="HCL">HCL</option>
+                            <option value="Accenture">Accenture</option>
+                            <option value="Capgemini">Capgemini</option>
+                            <option value="Cognizant">Cognizant</option>
+                            <option value="IBM">IBM</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="date">Preferred Date</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <label for="position">Preferred Position</label>
+                        <select id="position" name="position" required>
+                            <option value="" disabled selected>Select position</option>
+                            <option value="Software Engineer">Software Engineer</option>
+                            <option value="Data Analyst">Data Analyst</option>
+                            <option value="System Engineer">System Engineer</option>
+                            <option value="Business Analyst">Business Analyst</option>
+                            <option value="Project Engineer">Project Engineer</option>
+                            <option value="Cloud Specialist">Cloud Specialist</option>
+                            <option value="QA Engineer">QA Engineer</option>
+                            <option value="Associate Software Engineer">Associate Software Engineer</option>
+                            <option value="Test Engineer">Test Engineer</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="cgpa">Current CGPA</label>
+                        <input type="number" id="cgpa" name="cgpa" min="0" max="10" step="0.01" required
+                            placeholder="Enter your CGPA">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="resume">Upload Resume (PDF, max 2MB)</label>
+                    <input type="file" id="resume" name="resume" accept=".pdf" required>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <input type="checkbox" id="agree" name="agree" required>
+                    <label for="agree" style="display: inline;">I confirm that all information provided is accurate and
+                        I meet the eligibility criteria</label>
+                </div>
+
+                <button type="submit">
+                    <i class="fas fa-calendar-check"></i> Book Interview Slot
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <P> Created by Abhi jain</P>
+        <p> 2025 College Placement System. All rights reserved. | Contact: <a
+                href="mailto:justplacement@gmail.com">justplacement@gmail.com</a></p>
+    </footer>
+
+    <script>
+        const upcomingInterviewsList = document.getElementById('upcoming-interviews-list');
+        const futureInterviewsList = document.getElementById('future-interviews-list');
+        const bookingForm = document.getElementById('bookingForm');
+        const companySelect = document.getElementById('company');
+        const dateInput = document.getElementById('date');
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        // Mock Interview Data (In a real application, this would come from an API)
+        const mockInterviewData = [
+            {
+                id: 1,
+                company: "TCS",
+                location: "Mumbai",
+                date: "2025-06-25", // Updated date for upcoming
+                time: "10:00 AM - 4:00 PM",
+                venue: "Campus Placement Cell",
+                positions: "Software Engineer, Data Analyst",
+                eligibility: "CGPA ≥ 7.5, No backlogs",
+                slots: { total: 20, booked: 5 },
+                logo: "https://logo.clearbit.com/tcs.com"
+            },
+            {
+                id: 2,
+                company: "Infosys",
+                location: "Bengaluru",
+                date: "2025-07-28", // Updated date for upcoming/urgent
+                time: "9:00 AM - 3:00 PM",
+                venue: "Virtual (Zoom)",
+                positions: "System Engineer, Business Analyst",
+                eligibility: "CGPA ≥ 7.0, 2025 graduates",
+                slots: { total: 5, booked: 2 },
+                logo: "https://logo.clearbit.com/infosys.com"
+            },
+            {
+                id: 3,
+                company: "Wipro",
+                location: "Hyderabad",
+                date: "2025-08-30", // Updated date for future
+                time: "11:00 AM - 5:00 PM",
+                venue: "Department of CSE",
+                positions: "Project Engineer, Cloud Specialist",
+                eligibility: "CSE/IT students, CGPA ≥ 7.0",
+                slots: { total: 15, booked: 5 },
+                logo: "https://logo.clearbit.com/wipro.com"
+            },
+            {
+                id: 4,
+                company: "HCL",
+                location: "Pune",
+                date: "2025-09-02", // Updated date for future
+                time: "10:30 AM - 4:30 PM",
+                venue: "Seminar Hall",
+                positions: "Software Developer, QA Engineer",
+                eligibility: "All branches, CGPA ≥ 6.5",
+                slots: { total: 0, booked: 10 },
+                logo: "https://logo.clearbit.com/hcl.com"
+            },
+            {
+                id: 5,
+                company: "Accenture",
+                location: "Gurugram",
+                date: "2025-06-05", // Updated date for upcoming
+                time: "9:30 AM - 5:30 PM",
+                venue: "Virtual (Microsoft Teams)",
+                positions: "Associate Software Engineer",
+                eligibility: "2025 graduates, No backlogs",
+                slots: { total: 30, booked: 10 },
+                logo: "https://logo.clearbit.com/accenture.com"
+            },
+            {
+                id: 6,
+                company: "Capgemini",
+                location: "Chennai",
+                date: "2025-07-08", // Updated date for upcoming
+                time: "10:00 AM - 6:00 PM",
+                venue: "Placement Office",
+                positions: "Software Engineer, Test Engineer",
+                eligibility: "All branches, CGPA ≥ 6.0",
+                slots: { total: 30, booked: 5 },
+                logo: "https://logo.clearbit.com/capgemini.com"
+            },
+            {
+                id: 7,
+                company: "Cognizant",
+                location: "Kolkata",
+                date: "2025-10-15", // Future interview
+                time: "11:00 AM - 4:00 PM",
+                venue: "Online Assessment",
+                positions: "Trainee, Developer",
+                eligibility: "B.Tech/B.E. all branches",
+                slots: { total: 50, booked: 0 },
+                logo: "https://logo.clearbit.com/cognizant.com"
+            },
+            {
+                id: 8,
+                company: "IBM",
+                location: "Delhi",
+                date: "2025-09-20", // Future interview
+                time: "10:00 AM - 5:00 PM",
+                venue: "Interview Room 3",
+                positions: "Data Scientist, AI Engineer",
+                eligibility: "CGPA ≥ 8.0, relevant projects",
+                slots: { total: 10, booked: 0 },
+                logo: "https://logo.clearbit.com/ibm.com"
+            }
+        ];
+
+        // Function to create an interview card HTML
+        function createInterviewCard(interview) {
+            const card = document.createElement('div');
+            card.classList.add('interview-card');
+
+            const totalSlots = interview.slots.total;
+            const bookedSlots = interview.slots.booked;
+            const availableSlots = totalSlots - bookedSlots;
+
+            let statusClass = '';
+            let statusText = '';
+            let buttonText = 'Book Slot';
+            let buttonClass = 'btn';
+            let buttonDisabled = false;
+
+            const interviewDate = new Date(interview.date);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Normalize today to start of day
+            const diffTime = Math.abs(interviewDate - today);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (availableSlots <= 0) {
+                statusClass = 'status-completed'; // Using completed for fully booked
+                statusText = 'Fully Booked';
+                buttonText = 'Join Waitlist';
+                buttonClass = 'btn btn-disabled';
+                buttonDisabled = true;
+            } else if (diffDays <= 7 && availableSlots > 0) { // Urgent if within 7 days and slots available
+                statusClass = 'status-urgent';
+                statusText = `Urgent (${availableSlots} left)`;
+            } else {
+                statusClass = 'status-upcoming';
+                statusText = `Upcoming (${availableSlots}+)`;
+            }
+
+            if (availableSlots > 0) {
+                if (availableSlots <= 5) {
+                    statusText = `Limited (${availableSlots} left)`;
+                    statusClass = 'status-urgent'; // Use urgent for limited slots
+                } else {
+                    statusText = `Available (${availableSlots}+)`;
+                    statusClass = 'status-upcoming';
+                }
+            }
+
+
+            card.innerHTML = `
+                <div class="interview-card-content">
+                    <span class="interview-status ${statusClass}">${statusText}</span>
+                    <div class="company-logo-container">
+                        <img src="${interview.logo}" alt="${interview.company} Logo" class="company-logo">
+                    </div>
+                    <h2>${interview.company} - ${interview.location}</h2>
+                    <p><strong>Date:</strong> ${new Date(interview.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                    <p><strong>Time:</strong> ${interview.time}</p>
+                    <p><strong>Location:</strong> ${interview.venue}</p>
+                    <p><strong>Positions:</strong> ${interview.positions}</p>
+                    <p><strong>Eligibility:</strong> ${interview.eligibility}</p>
+                    <div class="slot-availability">
+                        <p>Slots: <span class="${availableSlots <= 0 ? 'slot-full' : (availableSlots <= 5 ? 'slot-limited' : 'slot-available')}">${statusText}</span></p>
+                    </div>
+                    <button class="${buttonClass}" style="width: 100%; margin-top: 1rem;" ${buttonDisabled ? 'disabled' : ''} data-company="${interview.company}" data-date="${interview.date}">${buttonText}</button>
+                </div>
+            `;
+            return card;
+        }
+
+        // Function to display interviews
+        function displayInterviews(interviews) {
+            upcomingInterviewsList.innerHTML = '';
+            futureInterviewsList.innerHTML = '';
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Normalize today to start of day
+            const thirtyDaysFromNow = new Date();
+            thirtyDaysFromNow.setDate(today.getDate() + 30);
+            thirtyDaysFromNow.setHours(0, 0, 0, 0);
+
+            let hasUpcoming = false;
+            let hasFuture = false;
+
+            interviews.forEach(interview => {
+                const interviewDate = new Date(interview.date);
+                interviewDate.setHours(0, 0, 0, 0); // Normalize interview date
+
+                if (interviewDate >= today && interviewDate <= thirtyDaysFromNow) {
+                    upcomingInterviewsList.appendChild(createInterviewCard(interview));
+                    hasUpcoming = true;
+                } else if (interviewDate > thirtyDaysFromNow) {
+                    futureInterviewsList.appendChild(createInterviewCard(interview));
+                    hasFuture = true;
+                }
+            });
+
+            if (!hasUpcoming) {
+                upcomingInterviewsList.innerHTML = `
+                    <div class="no-interviews">
+                        <i class="fas fa-calendar-times"></i>
+                        <h3>No Upcoming Interviews</h3>
+                        <p>Check back soon! New interview schedules are added regularly.</p>
+                    </div>
+                `;
+            }
+
+            if (!hasFuture) {
+                futureInterviewsList.innerHTML = `
+                    <div class="no-interviews">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>No Future Interviews Scheduled</h3>
+                        <p>Stay tuned for more opportunities further down the line.</p>
+                    </div>
+                `;
+            }
+
+            attachBookButtonListeners();
+        }
+
+        // Attach event listeners to "Book Slot" buttons
+        function attachBookButtonListeners() {
+            const bookButtons = document.querySelectorAll('.interview-card button:not(.btn-disabled)');
+            bookButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const company = this.dataset.company;
+                    const date = this.dataset.date;
+
+                    companySelect.value = company;
+                    dateInput.value = date;
+
+                    bookingForm.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+
+        // Initialize display of interviews
+        displayInterviews(mockInterviewData);
+
+        // Form submission handling
+        bookingForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const rollno = document.getElementById('rollno').value;
+            const phone = document.getElementById('phone').value;
+            const company = document.getElementById('company').value;
+            const date = document.getElementById('date').value;
+            const position = document.getElementById('position').value;
+            const cgpa = document.getElementById('cgpa').value;
+            const resumeFile = document.getElementById('resume').files[0]; // Get the file object
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('rollno', rollno);
+            formData.append('phone', phone);
+            formData.append('company', company);
+            formData.append('date', date);
+            formData.append('position', position);
+            formData.append('cgpa', cgpa);
+            if (resumeFile) { // Append resume only if selected
+                formData.append('resume', resumeFile);
+            }
+
+            // Get the JWT token from localStorage
+            const token = localStorage.getItem("authToken");
+
+            if (!token) {
+                alert("You are not logged in. Please log in to book an interview slot.");
+                window.location.href = "login.html"; // Redirect to login page
+                return;
+            }
+
+            // Replace with your Spring Boot backend URL
+            fetch('https://placement-portal-backend-nwaj.onrender.com/api/bookings/book-slot', { // Assuming your Spring Boot app runs on 8080
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}` // <--- THIS IS THE CRUCIAL ADDITION
+                },
+                body: formData // Use FormData for file uploads
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        // Handle non-2xx responses
+                        return response.text().then(text => { throw new Error(text) });
+                    }
+                    return response.text(); // Or response.json() if your backend returns JSON
+                })
+                .then(data => {
+                    const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    alert(`Thank you, ${name}!\n\nYour interview slot with ${company} on ${formattedDate} has been requested.\n\nWe've notified the admin and will send a confirmation email with details shortly.`);
+                    console.log("Server response:", data);
+                    bookingForm.reset(); // Reset form on success
+                })
+                .catch(error => {
+                    console.error('Error booking slot:', error);
+                    // Check if the error indicates an authentication issue
+                    if (error.message.includes("Unauthorized") || error.message.includes("401")) {
+                        alert("Your session has expired or you are not authorized. Please log in again.");
+                        localStorage.clear();
+                        window.location.href = "login.html";
+                    } else {
+                        alert('There was an error booking your slot. Please try again later.');
+                    }
+                });
+        });
+
+        // Set minimum date for the date input to today
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+
+        // Authentication check for page load
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+            alert("You must be logged in to access this page.");
+            window.location.href = "login.html";
+        } else {
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const now = Date.now() / 1000;
+                if (payload.exp < now) {
+                    alert("Session expired. Please log in again.");
+                    localStorage.clear();
+                    window.location.href = "login.html";
+                }
+            } catch (err) {
+                console.error("Invalid token:", err);
+                localStorage.clear();
+                window.location.href = "login.html";
+            }
+        }
+
+        // Login/logout button handling
+        if (token) {
+            loginBtn.style.display = "none";
+            logoutBtn.style.display = "inline-block";
+        } else {
+            loginBtn.style.display = "inline-block";
+            logoutBtn.style.display = "none";
+        }
+
+        logoutBtn.addEventListener("click", () => {
+            localStorage.clear();
+            window.location.href = "login.html";
+        });
+    </script>
+</body>
+
+</html>

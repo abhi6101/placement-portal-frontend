@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Insights Blog | Placements Adda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+     
+    /* Top Navigation Bar */
+    nav:first-of-type {
+        background-color: var(--dark);
+        color: white;
+        padding: 0.8rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+  
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+  
+      .logo span {
+        color: var(--primary);
+      }
+  
+      nav:first-of-type ul {
+        display: flex;
+        list-style: none;
+        gap: 1.5rem;
+        align-items: center;
+      }
+  
+      nav:first-of-type a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s ease;
+      }
+  
+      nav:first-of-type a:hover {
+        color: var(--primary);
+      }
+  
+      .btn {
+        background: linear-gradient(to right, var(--primary), var(--secondary));
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+  
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
+      }
+  
+      /* Main Navigation Bar */
+      nav:last-of-type {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 0.8rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+  
+      nav:last-of-type ul {
+        display: flex;
+        list-style: none;
+        gap: 1rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+  
+      nav:last-of-type li {
+        flex-shrink: 0;
+      }
+  
+      nav:last-of-type a, nav:last-of-type button {
+        color: var(--dark);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+  
+      nav:last-of-type a:hover, nav:last-of-type button:hover {
+        color: var(--primary);
+        background-color: rgba(0, 212, 255, 0.1);
+      }
+  
+      nav:last-of-type a.active {
+        background-color: rgba(0, 212, 255, 0.2);
+        color: var(--primary);
+      }
+  
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+      
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Blog Posts Section */
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .post {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .post h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .post p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .post .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: white;
+            border-radius: 10px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .newsletter h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .newsletter p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+        }
+
+        .newsletter-form button {
+            padding: 0 2rem;
+        }
+
+        /* Categories */
+        .categories {
+            margin: 3rem 0;
+        }
+
+        .category-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .category-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-tag:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .category-tag.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+            gap: 0.5rem;
+        }
+
+        .pagination a, .pagination span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .pagination .active {
+            background: var(--primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .blog-posts {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form button {
+                width: 100%;
+            }
+        }
+        
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">Placement<span>Portal</span></div>
+        <ul>
+          <li><a href="mailto:just@placement.com"><i class="fas fa-envelope"></i> just@placement.com</a></li>
+          <li><a href="tel:+91-6266XXXX70"><i class="fas fa-phone"></i> +91-6266XXXX70</a></li>
+        </ul>
+      </nav>
+    
+    
+      <nav>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+        
+          <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+          
+          <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+          <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+          <li><a href="courses.html" ><i class="fas fa-book"></i> Courses</a></li>
+          <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+          <li><a href="blog.html" class="active"><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+          
+        </ul>
+      </nav>
+    
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Career Insights Blog</h1>
+            <p>Get expert advice, industry trends, and placement preparation tips from our career specialists.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Categories -->
+       
+
+        <!-- Blog Posts Section -->
+        <section class="blog-posts">
+            <div class="post">
+                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Java Programming">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> June 15, 2025</span>
+                        <span><i class="far fa-eye"></i> 1.2K views</span>
+                    </div>
+                    <h2>Understanding Java for Beginners</h2>
+                    <p>Java remains one of the most in-demand programming languages. Learn core concepts, OOP principles, and best practices to kickstart your programming journey...</p>
+                    <div class="category-tags" style="margin-bottom: 1rem; justify-content: flex-start;">
+                        <span class="category-tag">Tech Skills</span>
+                    </div>
+                    <a href="post1.html" class="btn">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Web Development">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> June 10, 2025</span>
+                        <span><i class="far fa-eye"></i> 2.4K views</span>
+                    </div>
+                    <h2>Web Development Trends in 2025</h2>
+                    <p>The web development landscape is evolving rapidly. Discover the top frameworks, tools, and methodologies that will dominate in 2025 and how to prepare for them...</p>
+                    <div class="category-tags" style="margin-bottom: 1rem; justify-content: flex-start;">
+                        <span class="category-tag">Tech Skills</span>
+                        <span class="category-tag">Industry Trends</span>
+                    </div>
+                    <a href="post2.html" class="btn">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="IT Career">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> June 5, 2025</span>
+                        <span><i class="far fa-eye"></i> 3.1K views</span>
+                    </div>
+                    <h2>Tips for a Successful IT Career</h2>
+                    <p>Building a thriving career in IT requires more than just technical skills. Learn the essential soft skills, networking strategies, and career planning techniques...</p>
+                    <div class="category-tags" style="margin-bottom: 1rem; justify-content: flex-start;">
+                        <span class="category-tag">Career Growth</span>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Resume Tips">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> May 28, 2025</span>
+                        <span><i class="far fa-eye"></i> 4.7K views</span>
+                    </div>
+                    <h2>Crafting the Perfect Tech Resume</h2>
+                    <p>Your resume is your first impression. Discover how to highlight technical skills, projects, and achievements to stand out in competitive tech job markets...</p>
+                    <div class="category-tags" style="margin-bottom: 1rem; justify-content: flex-start;">
+                        <span class="category-tag">Resume Advice</span>
+                        <span class="category-tag">Interview Tips</span>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Interview Preparation">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> May 20, 2025</span>
+                        <span><i class="far fa-eye"></i> 5.3K views</span>
+                    </div>
+                    <h2>Acing Technical Interviews</h2>
+                    <p>Technical interviews can be daunting. Learn proven strategies to solve coding problems, explain your thought process, and impress your interviewers...</p>
+                    <div class="category-tags" style="margin-bottom: 1rem; justify-content: flex-start;">
+                        <span class="category-tag">Interview Tips</span>
+                        <span class="category-tag">Tech Skills</span>
+                    </div>
+                </div>
+            </div>
+            <div class="post">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Freelancing">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> May 15, 2025</span>
+                        <span><i class="far fa-eye"></i> 2.8K views</span>
+                    </div>
+                    <h2>Freelancing in Tech: Getting Started</h2>
+                    <p>Explore the world of tech freelancing - from finding clients and setting rates to managing projects and building your personal brand in the industry...</p>
+                    <div class="category-tags" style="margin-bottom: 1rem; justify-content: flex-start;">
+                        <span class="category-tag">Career Growth</span>
+                        <span class="category-tag">Industry Trends</span>
+                    </div>
+                   
+                </div>
+            </div>
+        </section>
+
+       
+
+    
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="jobs.html">Job Openings</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="resume.html">Resume Builder</a></li>
+                    <li><a href="interview.html">Interview Prep</a></li>
+                    <li><a href="videos.html">Study Materials</a></li>
+                    <li><a href="#">Career Guides</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p style="margin-top: 1.5rem; color: #ccc;">justplacement@gmail.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <P> Created by Abhi jain</P>
+            <p> 2025 College Placement System. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
