@@ -386,43 +386,41 @@
             }
         }
 
-        /* New CSS for Company Logos Section */
-        .companies {
-            padding: 4rem 2rem;
-            text-align: center;
-            background-color: var(--gray); /* Light gray background */
-            color: white; /* Text color for this section */
-        }
+       /* New CSS for Company Logos Section */
+.companies {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: var(--dark); /* Changed to var(--dark) for matching nav bar */
+    color: white; /* Text color for this section */
+}
 
-        .companies h2 {
-            color: var(--primary); /* Primary color for heading */
-            margin-bottom: 2.5rem;
-            font-size: 2.2rem;
-        }
+.companies h2 {
+    color: var(--primary); /* Primary color for heading */
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
+}
 
-        .company-logos {
-            display: flex;
-            flex-wrap: wrap; /* Allows logos to wrap to the next line */
-            justify-content: center; /* Center logos horizontally */
-            align-items: center; /* Align logos vertically */
-            gap: 2rem; /* Space between logos */
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.company-logos {
+    display: flex;
+    flex-wrap: wrap; /* Allows logos to wrap to the next line */
+    justify-content: center; /* Center logos horizontally */
+    align-items: center; /* Align logos vertically */
+    gap: 2rem; /* Space between logos */
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        .company-logo-item img {
-            max-width: 120px; /* Max width for logos */
-            height: auto; /* Maintain aspect ratio */
-            filter: grayscale(100%) brightness(150%); /* Make logos grayscale and brighter for subtle effect */
-            opacity: 0.8; /* Slightly transparent */
-            transition: all 0.3s ease;
-        }
+.company-logo-item img {
+    max-width: 120px; /* Max width for logos */
+    height: auto; /* Maintain aspect ratio */
+    /* Removed filter and opacity here */
+    transition: transform 0.3s ease; /* Only transition for transform */
+}
 
-        .company-logo-item img:hover {
-            filter: grayscale(0%) brightness(100%); /* Color on hover */
-            opacity: 1; /* Fully opaque on hover */
-            transform: scale(1.05); /* Slight zoom effect */
-        }
+.company-logo-item img:hover {
+    /* Removed filter and opacity from here */
+    transform: scale(1.1); /* Zoom effect on hover */
+}
 
         footer {
             background-color: var(--dark);
