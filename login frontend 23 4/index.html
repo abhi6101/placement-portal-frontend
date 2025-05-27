@@ -503,6 +503,115 @@
             font-weight: 600;
             color: var(--primary);
         }
+
+        /* Gallery Section CSS - Keep this as it styles the section title */
+.gallery {
+    padding: 4rem 2rem;
+    text-align: center;
+    background-color: var(--light);
+}
+
+.gallery h2 {
+    color: var(--dark);
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
+}
+
+/* Slideshow Container */
+.slideshow-container {
+    max-width: 800px; /* Adjust max-width as desired for your slideshow */
+    position: relative;
+    margin: 0 auto 2rem auto; /* Center the slideshow and add bottom margin */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 10px; /* Rounded corners for the container */
+    overflow: hidden; /* Ensures image corners match container */
+}
+
+/* Individual Slides */
+.mySlides {
+    display: none; /* Hidden by default */
+    width: 100%;
+}
+
+.mySlides img {
+    width: 100%;
+    height: 400px; /* Set a fixed height for consistency */
+    object-fit: cover; /* Covers the area, cropping if necessary */
+    border-radius: 10px; /* Match container border-radius */
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none; /* Prevent text selection */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a darker background color */
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active-dot, .dot:hover {
+    background-color: var(--primary); /* Use your primary color for active/hover */
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+    -webkit-animation-name: fade; /* For Safari */
+    -webkit-animation-duration: 1.5s; /* For Safari */
+}
+
+@-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .mySlides img {
+        height: 250px; /* Adjust height for smaller screens */
+    }
+    .prev, .next {
+        font-size: 18px;
+        padding: 12px;
+    }
+}
     </style>
 </head>
 
@@ -631,29 +740,47 @@
         </div>
     </section>
 
-    <section class="gallery">
-        <h2>Our Campus & Students</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="4E9A7129-copy.jpg" alt="Students in a computer lab">
-            </div>
-            <div class="gallery-item">
-                <img src="20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
-            </div>
-            <div class="gallery-item">
-                <img src="DSCF2122-copy.jpg" alt="Students working on computers in a lab">
-            </div>
-            <div class="gallery-item">
-                <img src="Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
-            </div>
-            <div class="gallery-item">
-                <img src="STUDENT5-1.jpg" alt="Students in a circular computer lab">
-            </div>
-            <div class="gallery-item">
-                <img src="student-group-photo.jpg" alt="Large group photo of students and faculty">
-            </div>
+   <section class="gallery">
+    <h2>Our Campus & Students</h2>
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+            <img src="4E9A7129-copy.jpg" alt="Students in a computer lab">
         </div>
-    </section>
+
+        <div class="mySlides fade">
+            <img src="20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="DSCF2122-copy.jpg" alt="Students working on computers in a lab">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="STUDENT5-1.jpg" alt="Students in a circular computer lab">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="student-group-photo.jpg" alt="Large group photo of students and faculty">
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+    </div>
+</section>
     <footer>
         <div class="footer-content">
             <div class="footer-column">
@@ -699,6 +826,67 @@
         <p> 2025 College Placement System. All rights reserved.</p>
     </footer>
     <script src="index.js"></script>
+
+    <script>
+      // Slideshow functionality
+let slideIndex = 1; // Start with the first slide
+let autoSlideInterval; // To store the interval ID for auto-advance
+
+// Initial display of slides and start auto-advance
+document.addEventListener('DOMContentLoaded', () => {
+    showSlides(slideIndex);
+    startAutoSlide();
+});
+
+// Function to move slides with prev/next buttons
+function plusSlides(n) {
+    clearInterval(autoSlideInterval); // Stop auto-advance on manual interaction
+    showSlides(slideIndex += n);
+    startAutoSlide(); // Restart auto-advance
+}
+
+// Function to jump to a specific slide using dots
+function currentSlide(n) {
+    clearInterval(autoSlideInterval); // Stop auto-advance on manual interaction
+    showSlides(slideIndex = n);
+    startAutoSlide(); // Restart auto-advance
+}
+
+// Main function to display slides
+function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+
+    // Loop around if outside bounds
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+
+    // Hide all slides
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+    // Deactivate all dots
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active-dot", "");
+    }
+
+    // Display the current slide and activate the corresponding dot
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active-dot";
+}
+
+// Function to start the automatic slideshow
+function startAutoSlide() {
+    // Clear any existing interval to prevent multiple intervals running
+    clearInterval(autoSlideInterval);
+    autoSlideInterval = setInterval(() => {
+        plusSlides(1); // Advance to the next slide
+    }, 4000); // Change image every 4 seconds (adjust as needed)
+}
+
+    </script>
 
 </body>
 
