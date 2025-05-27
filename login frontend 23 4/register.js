@@ -9,26 +9,38 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is fully loa
     const roleSelect = document.getElementById("role");
     const passwordInput = document.getElementById("password");
     const confirmPasswordInput = document.getElementById("confirmPassword");
+    const errorMessageDiv = document.getElementById("error-message");
+    const successMessageDiv = document.getElementById("success-message");
+
+    // Regex for username: Allows letters (uppercase and lowercase), numbers, underscores, and hyphens.
+    // Length: 3 to 20 characters (adjust as needed).
+    // Starts and ends with an alphanumeric character.
+    const usernameRegex = /^[a-zA-Z0-9][a-zA-Z0-9_\-]{2,18}[a-zA-Z0-9]$/; // Changed {2,18} to ensure total length 3-20 characters
 
     // Function to check if all fields are valid and enable/disable button
     const checkFormValidity = () => {
-        const isUsernameFilled = usernameInput.value.trim() !== '';
+        const isUsernameValid = usernameInput.value.trim() !== '' && usernameRegex.test(usernameInput.value.trim());
         const isEmailFilled = emailInput.value.trim() !== '';
         const isRoleSelected = roleSelect.value !== '';
         const isPasswordFilled = passwordInput.value.trim() !== '';
         const isConfirmPasswordFilled = confirmPasswordInput.value.trim() !== '';
 
-        // For initial enabling, we only check if fields are *filled*, not necessarily valid
-        // Full validation happens on submit, but this prevents submitting an empty form.
-        const allFieldsFilled = isUsernameFilled && isEmailFilled && isRoleSelected && isPasswordFilled && isConfirmPasswordFilled;
+        const allFieldsFilledAndValid = isUsernameValid && isEmailFilled && isRoleSelected && isPasswordFilled && isConfirmPasswordFilled;
         
-        submitButton.disabled = !allFieldsFilled; // Disable if any required field is empty
+        submitButton.disabled = !allFieldsFilledAndValid; 
     };
 
     // Add event listeners to all input fields
-    usernameInput.addEventListener('input', checkFormValidity);
+    usernameInput.addEventListener('input', () => {
+        checkFormValidity();
+        // Clear username error message immediately if user starts typing again
+        if (errorMessageDiv.textContent.includes("Username")) {
+            errorMessageDiv.style.display = 'none';
+            errorMessageDiv.textContent = '';
+        }
+    });
     emailInput.addEventListener('input', checkFormValidity);
-    roleSelect.addEventListener('change', checkFormValidity); // 'change' for select elements
+    roleSelect.addEventListener('change', checkFormValidity); 
     passwordInput.addEventListener('input', checkFormValidity);
     confirmPasswordInput.addEventListener('input', checkFormValidity);
 
@@ -55,12 +67,12 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is fully loa
         submitButton.textContent = 'Registering...'; 
 
         // Hide any previous messages
-        document.getElementById("error-message").style.display = 'none';
-        document.getElementById("success-message").style.display = 'none';
+        errorMessageDiv.style.display = 'none';
+        successMessageDiv.style.display = 'none';
 
         const userData = {
-            username: usernameInput.value,
-            email: emailInput.value,
+            username: usernameInput.value.trim(), // Use trimmed value for API
+            email: emailInput.value.trim(),
             password: passwordInput.value,
             role: roleSelect.value,
         };
@@ -70,21 +82,27 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is fully loa
 
         // Reset button state and isSubmitting flag if validation fails
         const resetFormOnError = (message) => {
-            document.getElementById("error-message").textContent = message;
-            document.getElementById("error-message").style.display = 'block';
+            errorMessageDiv.textContent = message;
+            errorMessageDiv.style.display = 'block';
             isSubmitting = false; 
             submitButton.disabled = false; // Re-enable button
             submitButton.textContent = originalButtonText; // Reset text
             checkFormValidity(); // Re-run validity check after error
         };
 
-        // 1. Password confirmation check
+        // 1. Username format validation (more strict on submit)
+        if (!usernameRegex.test(userData.username)) {
+            resetFormOnError("Username must be 3-20 characters long, alphanumeric, and can include underscores or hyphens. It cannot start or end with a special character.");
+            return;
+        }
+
+        // 2. Password confirmation check
         if (userData.password !== confirmPassword) {
             resetFormOnError("Passwords do not match!");
             return; 
         }
 
-        // 2. Basic password strength check (minimum 8 characters, at least 1 number, 1 special character)
+        // 3. Basic password strength check (minimum 8 characters, at least 1 number, 1 special character)
         const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
         if (!passwordRegex.test(userData.password)) {
             resetFormOnError("Password must be at least 8 characters, contain a number, and a special character.");
@@ -109,8 +127,8 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is fully loa
                     role: userData.role
                 }));
                 
-                document.getElementById("success-message").textContent = result.message;
-                document.getElementById("success-message").style.display = 'block';
+                successMessageDiv.textContent = result.message;
+                successMessageDiv.style.display = 'block';
                 
                 setTimeout(() => {
                     window.location.href = "login.html";
