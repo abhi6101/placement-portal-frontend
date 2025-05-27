@@ -27,7 +27,7 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
         return;
     }
 
-    // Validate username for spaces
+    // Validate username for spaces <--- THIS IS THE CODE THAT CHECKS FOR SPACES
     if (username.includes(" ")) {
         errorMessageDiv.textContent = "Username cannot contain spaces. Please enter a single-word username.";
         errorMessageDiv.style.display = 'block';
