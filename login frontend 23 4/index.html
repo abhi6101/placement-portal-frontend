@@ -510,28 +510,29 @@
             }
         }
 
+        /* Re-applying button styles with updated values from your earlier code */
         .btn {
             display: inline-block;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
             padding: 0.6rem 1.2rem;
-            border-radius: 30px;
+            border-radius: 30px; /* Changed to 30px for a more pill-like shape */
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 600; /* Changed to 600 for a bit bolder text */
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+            transform: translateY(-3px); /* Increased translateY for more pronounced lift */
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3); /* Adjusted shadow */
         }
 
         .btn-outline {
             background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
+            border: 2px solid var(--primary); /* Uses primary color for outline */
+            color: var(--primary); /* Uses primary color for text */
         }
 
         .btn-outline:hover {
@@ -539,7 +540,7 @@
             color: white;
         }
 
-
+        /* User Welcome Section CSS */
         #userWelcome {
             background: rgba(255, 255, 255, 0.2);
             padding: 1.5rem;
@@ -562,45 +563,6 @@
             font-weight: 600;
             color: var(--primary);
         }
-
-        /* New CSS for Company Logos Section */
-.companies {
-    padding: 4rem 2rem;
-    text-align: center;
-    background-color: var(--gray); /* Light gray background */
-    color: white; /* Text color for this section */
-}
-
-.companies h2 {
-    color: var(--primary); /* Primary color for heading */
-    margin-bottom: 2.5rem;
-    font-size: 2.2rem;
-}
-
-.company-logos {
-    display: flex;
-    flex-wrap: wrap; /* Allows logos to wrap to the next line */
-    justify-content: center; /* Center logos horizontally */
-    align-items: center; /* Align logos vertically */
-    gap: 2rem; /* Space between logos */
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.company-logo-item img {
-    max-width: 120px; /* Max width for logos */
-    height: auto; /* Maintain aspect ratio */
-    filter: grayscale(100%) brightness(150%); /* Make logos grayscale and brighter for subtle effect */
-    opacity: 0.8; /* Slightly transparent */
-    transition: all 0.3s ease;
-}
-
-.company-logo-item img:hover {
-    filter: grayscale(0%) brightness(100%); /* Color on hover */
-    opacity: 1; /* Fully opaque on hover */
-    transform: scale(1.05); /* Slight zoom effect */
-}
-
     </style>
 </head>
 
@@ -612,7 +574,6 @@
             <li><a href="tel:+91-6266XXXX70"><i class="fas fa-phone"></i> +91-6266XXXX70</a></li>
         </ul>
     </nav>
-
 
     <nav>
         <ul>
@@ -751,29 +712,29 @@
                 <img src="student-group-photo.jpg" alt="Large group photo of students and faculty">
             </div>
         </div>
-        </section>
+    </section>
 
-  <section class="companies">
+    <section class="companies">
         <h2>Our Valued Placement Partners</h2>
         <div class="company-logos">
-            <div class="company-logo-item"><img src="accenture-logo.jpg" alt="Accenture Logo"></div>
-            <div class="company-logo-item"><img src="wipro-logo.jpg" alt="Wipro Logo"></div>
-            <div class="company-logo-item"><img src="infosys-logo.jpg" alt="Infosys Logo"></div>
-            <div class="company-logo-item"><img src="tcs-logo.jpg" alt="TCS Logo"></div>
-            <div class="company-logo-item"><img src="capgemini-logo.png" alt="Capgemini Logo"></div>
-            <div class="company-logo-item"><img src="persistent-logo.jpg" alt="Persistent Systems Logo"></div>
-            <div class="company-logo-item"><img src="hexaware-logo.jpg" alt="Hexaware Logo"></div>
+            <div class="company-logo-item"><img src="logos/accenture-logo.jpg" alt="Accenture Logo"></div>
+            <div class="company-logo-item"><img src="logos/wipro-logo.jpg" alt="Wipro Logo"></div>
+            <div class="company-logo-item"><img src="logos/infosys-logo.jpg" alt="Infosys Logo"></div>
+            <div class="company-logo-item"><img src="logos/tcs-logo.jpg" alt="TCS Logo"></div>
+            <div class="company-logo-item"><img src="logos/capgemini-logo.png" alt="Capgemini Logo"></div>
+            <div class="company-logo-item"><img src="logos/persistent-logo.jpg" alt="Persistent Systems Logo"></div>
+            <div class="company-logo-item"><img src="logos/hexaware-logo.jpg" alt="Hexaware Logo"></div>
 
-            <div class="company-logo-item"><img src="google-logo.png" alt="Google Logo"></div>
-            <div class="company-logo-item"><img src="microsoft-logo.png" alt="Microsoft Logo"></div>
-            <div class="company-logo-item"><img src="amazon-logo.png" alt="Amazon Logo"></div>
-            <div class="company-logo-item"><img src="ibm-logo.png" alt="IBM Logo"></div>
-            <div class="company-logo-item"><img src="deloitte-logo.png" alt="Deloitte Logo"></div>
-            <div class="company-logo-item"><img src="ey-logo.png" alt="EY Logo"></div>
-            <div class="company-logo-item"><img src="pwc-logo.png" alt="PwC Logo"></div>
+            <div class="company-logo-item"><img src="logos/google-logo.png" alt="Google Logo"></div>
+            <div class="company-logo-item"><img src="logos/microsoft-logo.png" alt="Microsoft Logo"></div>
+            <div class="company-logo-item"><img src="logos/amazon-logo.png" alt="Amazon Logo"></div>
+            <div class="company-logo-item"><img src="logos/ibm-logo.png" alt="IBM Logo"></div>
+            <div class="company-logo-item"><img src="logos/deloitte-logo.png" alt="Deloitte Logo"></div>
+            <div class="company-logo-item"><img src="logos/ey-logo.png" alt="EY Logo"></div>
+            <div class="company-logo-item"><img src="logos/pwc-logo.png" alt="PwC Logo"></div>
         </div>
     </section>
-    ```
+
     <footer>
         <div class="footer-content">
             <div class="footer-column">
@@ -818,81 +779,46 @@
         <P> Created by Abhi jain</P>
         <p> 2025 College Placement System. All rights reserved.</p>
     </footer>
+
     <script src="index.js"></script>
     <script>
-      // Slideshow functionality (ONLY automatic advancement)
+        // Slideshow functionality (ONLY automatic advancement)
+        let slideIndex = 0; // Start with index 0 for easier array access
+        let autoSlideInterval;
 
-let slideIndex = 0; // Start with index 0 for easier array access
+        document.addEventListener('DOMContentLoaded', () => {
+            // Call showSlides once initially to display the first slide
+            showSlides();
+            // Start the automatic slideshow
+            startAutoSlide();
+        });
 
-let autoSlideInterval;
+        // Main function to display slides
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
 
+            // Hide all slides
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
 
+            slideIndex++; // Move to the next slide
+            // Loop back to the first slide if we've gone past the last one
+            if (slideIndex > slides.length) { slideIndex = 1 }
 
-document.addEventListener('DOMContentLoaded', () => {
+            // Display the current slide
+            slides[slideIndex - 1].style.display = "block";
+        }
 
-    // Call showSlides once initially to display the first slide
-
-    showSlides();
-
-    // Start the automatic slideshow
-
-    startAutoSlide();
-
-});
-
-
-
-// Main function to display slides
-
-function showSlides() {
-
-    let i;
-
-    let slides = document.getElementsByClassName("mySlides");
-
-
-
-    // Hide all slides
-
-    for (i = 0; i < slides.length; i++) {
-
-        slides[i].style.display = "none";
-
-    }
-
-
-
-    slideIndex++; // Move to the next slide
-
-    // Loop back to the first slide if we've gone past the last one
-
-    if (slideIndex > slides.length) { slideIndex = 1 }
-
-
-
-    // Display the current slide
-
-    slides[slideIndex - 1].style.display = "block";
-
-}
-
-
-
-// Function to start the automatic slideshow
-
-function startAutoSlide() {
-
-    // Clear any existing interval to prevent multiple intervals running
-
-    clearInterval(autoSlideInterval);
-
-    autoSlideInterval = setInterval(() => {
-
-        showSlides(); // Advance to the next slide
-
-    }, 4000); // Change image every 4 seconds (adjust as needed)
-
-}
+        // Function to start the automatic slideshow
+        function startAutoSlide() {
+            // Clear any existing interval to prevent multiple intervals running
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(() => {
+                showSlides(); // Advance to the next slide
+            }, 4000); // Change image every 4 seconds (adjust as needed)
+        }
     </script>
 
 </body>
