@@ -22,17 +22,34 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
     const role = roleInput.value;
 
     if (username === "") {
-        errorMessageDiv.textContent = "Full Name cannot be empty.";
+        errorMessageDiv.textContent = "Username cannot be empty.";
         errorMessageDiv.style.display = 'block';
         return;
     }
 
-    // Validate username for spaces <--- THIS IS THE CODE THAT CHECKS FOR SPACES
+    // --- MODIFICATION START ---
+    // Validate username rules: no spaces, starts with '@', rest is lowercase
     if (username.includes(" ")) {
-        errorMessageDiv.textContent = "Username cannot contain spaces. Please enter a single-word username.";
+        errorMessageDiv.textContent = "Username cannot contain spaces.";
         errorMessageDiv.style.display = 'block';
         return;
     }
+
+    if (!username.startsWith('@')) {
+        errorMessageDiv.textContent = "Username must start with '@'.";
+        errorMessageDiv.style.display = 'block';
+        return;
+    }
+
+    // Check if the part after '@' is all lowercase
+    const usernameWithoutAt = username.substring(1);
+    if (usernameWithoutAt !== usernameWithoutAt.toLowerCase()) {
+        errorMessageDiv.textContent = "The part of the username after '@' must be in lowercase.";
+        errorMessageDiv.style.display = 'block';
+        return;
+    }
+    // --- MODIFICATION END ---
+
 
     if (email === "") {
         errorMessageDiv.textContent = "Email Address cannot be empty.";
