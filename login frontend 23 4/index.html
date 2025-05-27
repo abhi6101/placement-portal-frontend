@@ -5,18 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>College Placement Portal - Launch Your Career</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Your existing CSS rules go here */
+        /* CSS Variables for consistent theming */
         :root {
             --primary: #00d4ff;
+            /* Bright Blue */
             --secondary: #0077b6;
+            /* Medium Blue */
             --dark: #03045e;
-            --light: #f8f9fa;
+            /* Deep Blue */
+            --light: #f0f4f8;
+            /* Off-white/Light Gray */
             --gray: #6c757d;
+            /* Medium Gray */
+            --text-dark: #212529;
+            /* Dark text for readability */
+            --text-light: #f8f9fa;
+            /* Light text for dark backgrounds */
             --accent: #ff7b00;
+            /* Orange accent */
+            --border-radius: 8px;
+            /* Standard border radius */
+            --transition-speed: 0.3s;
+            /* Global transition speed */
+            --box-shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
+            /* Lighter shadow */
+            --box-shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
+            /* Medium shadow */
         }
 
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -26,18 +47,87 @@
 
         body {
             background-color: var(--light);
-            color: #333;
+            color: var(--text-dark);
             line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--dark);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: color var(--transition-speed) ease;
+        }
+
+        a:hover {
+            color: var(--secondary);
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: var(--text-light);
+            padding: 0.75rem 1.75rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all var(--transition-speed) ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            gap: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--text-light);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
         }
 
         /* Top Navigation Bar */
-        nav:first-of-type {
+        header nav:first-of-type {
             background-color: var(--dark);
-            color: white;
+            color: var(--text-light);
             padding: 0.8rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            /* Allow wrapping on smaller screens */
         }
 
         .logo {
@@ -49,72 +139,85 @@
             color: var(--primary);
         }
 
-        nav:first-of-type ul {
+        header nav:first-of-type ul {
             display: flex;
             list-style: none;
             gap: 1.5rem;
             align-items: center;
+            flex-wrap: wrap;
+            /* Allow wrapping on smaller screens */
+            justify-content: center;
+            /* Center items when wrapped */
         }
 
-        nav:first-of-type a {
-            color: white;
+        header nav:first-of-type a {
+            color: var(--text-light);
             text-decoration: none;
             font-weight: 500;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: color 0.3s ease;
+            transition: color var(--transition-speed) ease;
         }
 
-        nav:first-of-type a:hover {
+        header nav:first-of-type a:hover {
             color: var(--primary);
         }
 
-        .btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
-        }
-
         /* Main Navigation Bar */
-        nav:last-of-type {
+        header nav:last-of-type {
             background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--box-shadow-light);
             padding: 0.8rem 2rem;
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
-        nav:last-of-type ul {
+        header nav:last-of-type ul {
             display: flex;
             list-style: none;
             gap: 1rem;
             overflow-x: auto;
+            /* Enable horizontal scrolling for many items */
             padding-bottom: 0.5rem;
+            /* Space for scrollbar */
+            -webkit-overflow-scrolling: touch;
+            /* Smooth scrolling on iOS */
+            scrollbar-width: thin;
+            /* Firefox */
+            scrollbar-color: var(--primary) transparent;
+            /* Firefox */
         }
 
-        nav:last-of-type li {
+        /* Custom scrollbar for Webkit browsers */
+        header nav:last-of-type ul::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        header nav:last-of-type ul::-webkit-scrollbar-thumb {
+            background-color: var(--primary);
+            border-radius: 10px;
+        }
+
+        header nav:last-of-type ul::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+
+        header nav:last-of-type li {
             flex-shrink: 0;
+            /* Prevent items from shrinking */
         }
 
-        nav:last-of-type a,
-        nav:last-of-type button {
+        header nav:last-of-type a,
+        header nav:last-of-type button {
             color: var(--dark);
             text-decoration: none;
             font-weight: 500;
             padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            border-radius: var(--border-radius);
+            transition: all var(--transition-speed) ease;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -124,24 +227,30 @@
             font-size: 1rem;
         }
 
-        nav:last-of-type a:hover,
-        nav:last-of-type button:hover {
+        header nav:last-of-type a:hover,
+        header nav:last-of-type button:hover {
             color: var(--primary);
             background-color: rgba(0, 212, 255, 0.1);
         }
 
-        nav:last-of-type a.active {
+        header nav:last-of-type a.active {
             background-color: rgba(0, 212, 255, 0.2);
             color: var(--primary);
+            font-weight: 600;
         }
 
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--dark), var(--secondary));
-            color: white;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+            color: var(--text-light);
             text-align: center;
             padding: 6rem 2rem;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
         }
 
         .hero::before {
@@ -151,9 +260,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
             opacity: 0.15;
             z-index: 0;
+            filter: grayscale(50%);
+            /* Subtle grayscale for background image */
         }
 
         .hero-content {
@@ -161,88 +272,148 @@
             z-index: 1;
             max-width: 800px;
             margin: 0 auto;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
             background: linear-gradient(to right, var(--primary), white);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
+            animation: fadeInDown 1s ease-out;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            /* Delayed animation */
+            opacity: 0;
         }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
 
         .cta-btns {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        .cta-btns .btn {
-            padding: 0.8rem 1.8rem;
+        /* User Welcome Section */
+        #userWelcome {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.8rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(8px);
+            /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(8px);
+            /* Safari support */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-out;
+        }
+
+        #userWelcome h2 {
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            font-size: 2.2rem;
+        }
+
+        #userWelcome p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.4rem;
             font-size: 1.1rem;
         }
 
-        .cta-btns .btn-outline {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
+        #userWelcome span {
+            font-weight: 700;
+            color: var(--primary);
         }
 
-        .cta-btns .btn-outline:hover {
-            background: white;
-            color: var(--dark);
-        }
-
+        /* Features Section */
         .features {
             max-width: 1200px;
             margin: 4rem auto;
             padding: 0 2rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
 
         .features-box {
             background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: var(--box-shadow-light);
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .features-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-12px);
+            box-shadow: var(--box-shadow-medium);
         }
 
         .features-box i {
-            font-size: 2.5rem;
+            font-size: 3.2rem;
             color: var(--primary);
             margin-bottom: 1.5rem;
+            transition: color var(--transition-speed) ease;
+        }
+
+        .features-box:hover i {
+            color: var(--accent);
         }
 
         .features-box h2 {
             color: var(--dark);
             margin-bottom: 1rem;
+            font-size: 1.7rem;
         }
 
         .features-box p {
             color: var(--gray);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            flex-grow: 1;
+            /* Allow paragraph to take available space */
         }
 
+        /* Stats Section */
         .stats {
             background: linear-gradient(135deg, var(--dark), var(--secondary));
-            color: white;
+            color: var(--text-light);
             padding: 4rem 2rem;
             text-align: center;
         }
@@ -255,30 +426,60 @@
             gap: 2rem;
         }
 
+        .stat-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
         .stat-item h3 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 0.5rem;
             background: linear-gradient(to right, var(--primary), white);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: inline-block;
+            font-weight: 700;
         }
 
         .stat-item p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1.2rem;
+            opacity: 0.95;
+            color: var(--text-light);
         }
 
+        /* Testimonials Section */
         .testimonials {
             padding: 4rem 2rem;
             text-align: center;
-            background-color: #f1f3f4;
+            background-color: var(--light);
         }
 
         .testimonials h2 {
             color: var(--dark);
-            margin-bottom: 2rem;
-            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            font-size: 2.5rem;
+            position: relative;
         }
+
+        .testimonials h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
 
         .testimonial-cards {
             display: grid;
@@ -290,39 +491,58 @@
 
         .testimonial-card {
             background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: var(--box-shadow-light);
             text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--box-shadow-medium);
         }
 
         .testimonial-card p {
             font-style: italic;
             margin-bottom: 1.5rem;
-            color: var(--dark);
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
 
         .testimonial-author {
             display: flex;
             align-items: center;
             gap: 1rem;
+            margin-top: auto;
+            /* Pushes author info to the bottom */
         }
 
         .testimonial-author img {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .author-info h4 {
             color: var(--secondary);
+            margin-bottom: 0.2rem;
+            font-size: 1.1rem;
         }
 
         .author-info p {
             font-style: normal;
             font-size: 0.9rem;
             color: var(--gray);
+            margin-bottom: 0;
+            /* Remove default paragraph margin */
         }
 
         /* Gallery Section CSS */
@@ -335,116 +555,204 @@
         .gallery h2 {
             color: var(--dark);
             margin-bottom: 2.5rem;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
+            position: relative;
         }
+
+        .gallery h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
 
         /* Slideshow Container */
         .slideshow-container {
-            max-width: 800px; /* Adjust max-width as desired for your slideshow */
+            max-width: 800px;
             position: relative;
-            margin: 0 auto 2rem auto; /* Center the slideshow and add bottom margin */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-            border-radius: 10px; /* Rounded corners for the container */
-            overflow: hidden; /* Ensures image corners match container */
+            margin: 0 auto 2rem auto;
+            box-shadow: var(--box-shadow-medium);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background-color: var(--dark);
+            /* Background for letterboxing if image ratio is off */
         }
 
         /* Individual Slides */
         .mySlides {
-            display: none; /* Hidden by default */
+            display: none;
             width: 100%;
         }
 
         .mySlides img {
             width: 100%;
-            height: 400px; /* Set a fixed height for consistency */
-            object-fit: cover; /* Covers the area, cropping if necessary */
-            border-radius: 10px; /* Match container border-radius */
+            height: 450px;
+            /* Slightly increased height */
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            /* Match container border-radius */
+            transition: transform 1s ease-in-out;
+            /* Smooth zoom effect */
+        }
+
+        .mySlides.active img {
+            transform: scale(1.05);
         }
 
         /* Fading animation */
         .fade {
             animation-name: fade;
             animation-duration: 1.5s;
-            -webkit-animation-name: fade; /* For Safari */
-            -webkit-animation-duration: 1.5s; /* For Safari */
-        }
-
-        @-webkit-keyframes fade {
-            from {opacity: .4}
-            to {opacity: 1}
         }
 
         @keyframes fade {
-            from {opacity: .4}
-            to {opacity: 1}
-        }
+            from {
+                opacity: .4
+            }
 
-        /* Media query for smaller screens */
-        @media (max-width: 768px) {
-            .mySlides img {
-                height: 250px; /* Adjust height for smaller screens */
+            to {
+                opacity: 1
             }
         }
+
+        /* Next & previous buttons */
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* The dots/circles */
+        .dots-container {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: var(--dark);
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .dot.active,
+        .dot:hover {
+            background-color: var(--primary);
+        }
+
 
         /* New CSS for Company Logos Section */
         .companies {
             padding: 4rem 2rem;
             text-align: center;
-            background-color: var(--gray); /* Light gray background */
-            color: white; /* Text color for this section */
+            background-color: var(--dark);
+            color: var(--text-light);
         }
 
         .companies h2 {
-            color: var(--primary); /* Primary color for heading */
-            margin-bottom: 2.5rem;
-            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
         }
 
         .company-logos {
             display: flex;
-            flex-wrap: wrap; /* Allows logos to wrap to the next line */
-            justify-content: center; /* Center logos horizontally */
-            align-items: center; /* Align logos vertically */
-            gap: 2rem; /* Space between logos */
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            /* Increased gap */
             max-width: 1200px;
             margin: 0 auto;
         }
 
+        .company-logo-item {
+            flex-basis: calc(20% - 2.5rem);
+            /* Roughly 5 items per row, adjust as needed */
+            max-width: 150px;
+            /* Slightly increased max-width for logos */
+            text-align: center;
+            transition: transform var(--transition-speed) ease;
+        }
+
         .company-logo-item img {
-            max-width: 120px; /* Max width for logos */
-            height: auto; /* Maintain aspect ratio */
-            filter: grayscale(100%) brightness(150%); /* Make logos grayscale and brighter for subtle effect */
-            opacity: 0.8; /* Slightly transparent */
-            transition: all 0.3s ease;
+            max-width: 100%;
+            height: auto;
+            filter: grayscale(100%) brightness(180%);
+            /* Make logos grayscale and brighter for dark background */
+            opacity: 0.7;
+            /* Slightly transparent */
+            transition: all var(--transition-speed) ease;
         }
 
         .company-logo-item img:hover {
-            filter: grayscale(0%) brightness(100%); /* Color on hover */
-            opacity: 1; /* Fully opaque on hover */
-            transform: scale(1.05); /* Slight zoom effect */
+            filter: grayscale(0%) brightness(100%);
+            /* Color on hover */
+            opacity: 1;
+            /* Fully opaque on hover */
+            transform: scale(1.1);
+            /* More pronounced zoom effect */
         }
 
+
+        /* Footer */
         footer {
             background-color: var(--dark);
-            color: white;
+            color: var(--text-light);
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
+            font-size: 0.95rem;
         }
 
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
             text-align: left;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-column h3 {
             color: var(--primary);
             margin-bottom: 1.5rem;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
 
         .footer-column ul {
@@ -458,7 +766,7 @@
         .footer-column a {
             color: #ccc;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color var(--transition-speed) ease;
         }
 
         .footer-column a:hover {
@@ -467,270 +775,391 @@
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-top: 1rem;
         }
 
         .social-links a {
-            color: white;
+            color: var(--text-light);
             background: rgba(255, 255, 255, 0.1);
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            transition: all var(--transition-speed) ease;
         }
 
         .social-links a:hover {
             background: var(--primary);
-            transform: translateY(-3px);
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 212, 255, 0.3);
         }
 
+        footer>p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.15rem;
+            }
+
+            .features {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .mySlides img {
+                height: 350px;
+            }
+
+            .testimonial-cards {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .company-logo-item {
+                flex-basis: calc(25% - 2.5rem);
+                /* 4 items per row */
+            }
+        }
+
+
         @media (max-width: 768px) {
-            nav:first-of-type {
+            header nav:first-of-type {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.8rem;
                 padding: 1rem;
+                text-align: center;
+            }
+
+            header nav:first-of-type ul {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem;
+                min-height: 400px;
             }
 
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
             }
 
             .cta-btns {
                 flex-direction: column;
                 align-items: center;
+                gap: 1rem;
             }
 
             .cta-btns .btn {
-                width: 100%;
+                width: 80%;
                 max-width: 300px;
+                padding: 0.6rem 1.5rem;
+            }
+
+            .features,
+            .stats-container,
+            .testimonial-cards,
+            .footer-content {
+                grid-template-columns: 1fr;
+                /* Single column layout */
+                padding: 0 1.5rem;
+            }
+
+            .features-box,
+            .stat-item,
+            .testimonial-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .stats h3 {
+                font-size: 3rem;
+            }
+
+            .stats p {
+                font-size: 1.05rem;
+            }
+
+            .mySlides img {
+                height: 280px;
+            }
+
+            .company-logo-item {
+                flex-basis: calc(33.33% - 2.5rem);
+                /* 3 items per row */
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .footer-column {
+                text-align: center;
+            }
+
+            .footer-column ul {
+                padding-left: 0;
             }
         }
 
-        /* Re-applying button styles with updated values from your earlier code */
-        .btn {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px; /* Changed to 30px for a more pill-like shape */
-            text-decoration: none;
-            font-weight: 600; /* Changed to 600 for a bit bolder text */
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
 
-        .btn:hover {
-            transform: translateY(-3px); /* Increased translateY for more pronounced lift */
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3); /* Adjusted shadow */
-        }
+            header nav:first-of-type ul {
+                gap: 1rem;
+            }
 
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary); /* Uses primary color for outline */
-            color: var(--primary); /* Uses primary color for text */
-        }
+            header nav:first-of-type a {
+                font-size: 0.9rem;
+            }
 
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
+            header nav:last-of-type a,
+            header nav:last-of-type button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
 
-        /* User Welcome Section CSS */
-        #userWelcome {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(5px);
-        }
+            .hero h1 {
+                font-size: 2rem;
+            }
 
-        #userWelcome h2 {
-            color: white;
-            margin-bottom: 1rem;
-        }
+            .hero p {
+                font-size: 0.95rem;
+            }
 
-        #userWelcome p {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0.5rem;
-        }
+            .features-box h2 {
+                font-size: 1.5rem;
+            }
 
-        #userWelcome span {
-            font-weight: 600;
-            color: var(--primary);
+            .features-box p {
+                font-size: 0.9rem;
+            }
+
+            .stats h3 {
+                font-size: 2.5rem;
+            }
+
+            .stats p {
+                font-size: 1rem;
+            }
+
+            .mySlides img {
+                height: 200px;
+            }
+
+            .company-logo-item {
+                flex-basis: calc(50% - 2rem);
+                /* 2 items per row */
+            }
         }
     </style>
 </head>
 
 <body>
-    <nav>
-        <div class="logo">Placement<span>Portal</span></div>
-        <ul>
-            <li><a href="mailto:just@placement.com"><i class="fas fa-envelope"></i> just@placement.com</a></li>
-            <li><a href="tel:+91-6266XXXX70"><i class="fas fa-phone"></i> +91-6266XXXX70</a></li>
-        </ul>
-    </nav>
+    <header>
+        <nav>
+            <div class="logo">Placement<span>Portal</span></div>
+            <ul>
+                <li><a href="mailto:just@placement.com" aria-label="Email us"><i class="fas fa-envelope"></i>
+                        just@placement.com</a></li>
+                <li><a href="tel:+91-6266XXXX70" aria-label="Call us"><i class="fas fa-phone"></i>
+                        +91-6266XXXX70</a></li>
+            </ul>
+        </nav>
 
-    <nav>
-        <ul>
-            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
-            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
-            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
-            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
-            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
-            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
-            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
-            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-            <li id="adminPanelLink" style="display: none;">
-                <a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a>
-            </li>
-            <li><a href="login.html" id="loginBtn" class="btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-            <li><button id="logoutBtn" class="btn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
-        </ul>
-    </nav>
+        <nav>
+            <ul class="main-nav-links">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+                <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+                <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+                <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+                <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+                <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+                <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li id="adminPanelLink" style="display: none;">
+                    <a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a>
+                </li>
+                <li><a href="login.html" id="loginBtn" class="btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                <li><button id="logoutBtn" class="btn" style="display: none;"><i class="fas fa-sign-out-alt"></i>
+                        Logout</button></li>
+            </ul>
+        </nav>
+    </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1 id="heroHeading">Launch Your Career with Ease!</h1>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 id="heroHeading">Launch Your Career with Ease!</h1>
 
-            <div id="userWelcome" style="display: none;">
-                <h2>Welcome, <span id="displayUsername"></span>!</h2>
-                <p>Account type: <span id="displayRole"></span></p>
-                <p>Ready to find your next opportunity?</p>
+                <div id="userWelcome" style="display: none;">
+                    <h2>Welcome, <span id="displayUsername"></span>!</h2>
+                    <p>Account type: <span id="displayRole"></span></p>
+                    <p>Ready to find your next opportunity?</p>
+                </div>
+
+                <p id="heroSubtitle">Your comprehensive platform for job placements, resume building, interview
+                    preparation, and career growth.</p>
+                <div class="cta-btns">
+                    <a href="jobs.html" class="btn">Explore Jobs</a>
+                    <a href="register.html" id="registerBtn" class="btn btn-outline">Register Now</a>
+                </div>
             </div>
+        </section>
 
-            <p id="heroSubtitle">Your comprehensive platform for job placements, resume building, interview preparation, and career growth.</p>
-            <div class="cta-btns">
+        <section class="features container">
+            <div class="features-box">
+                <i class="fas fa-briefcase"></i>
+                <h2>Job Listings</h2>
+                <p>Access hundreds of curated job opportunities from top companies matching your skills and aspirations.
+                </p>
                 <a href="jobs.html" class="btn">Explore Jobs</a>
-                <a href="register.html" id="registerBtn" class="btn btn-outline">Register Now</a>
             </div>
-        </div>
-    </section>
+            <div class="features-box">
+                <i class="fas fa-file-alt"></i>
+                <h2>Resume Builder</h2>
+                <p>Create professional, ATS-friendly resumes with our easy-to-use builder and templates.</p>
+                <a href="resume.html" class="btn">Design Your CV</a>
+            </div>
+            <div class="features-box">
+                <i class="fas fa-comments"></i>
+                <h2>Interview Prep</h2>
+                <p>Practice with mock interviews, common questions, and get feedback from industry experts.</p>
+                <a href="interview.html" class="btn">Start Preparing</a>
+            </div>
+        </section>
 
-    <section class="features">
-        <div class="features-box">
-            <i class="fas fa-briefcase"></i>
-            <h2>Job Listings</h2>
-            <p>Access hundreds of curated job opportunities from top companies matching your skills and aspirations.</p>
-            <a href="jobs.html" class="btn">Explore Jobs</a>
-        </div>
-        <div class="features-box">
-            <i class="fas fa-file-alt"></i>
-            <h2>Resume Builder</h2>
-            <p>Create professional, ATS-friendly resumes with our easy-to-use builder and templates.</p>
-            <a href="resume.html" class="btn">Design Your CV</a>
-        </div>
-        <div class="features-box">
-            <i class="fas fa-comments"></i>
-            <h2>Interview Prep</h2>
-            <p>Practice with mock interviews, common questions, and get feedback from industry experts.</p>
-            <a href="interview.html" class="btn">Start Preparing</a>
-        </div>
-    </section>
+        <section class="stats">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Companies Hiring</p>
+                </div>
+                <div class="stat-item">
+                    <h3>10,000+</h3>
+                    <p>Successful Placements</p>
+                </div>
+                <div class="stat-item">
+                    <h3>95%</h3>
+                    <p>Placement Rate</p>
+                </div>
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Career Resources</p>
+                </div>
+            </div>
+        </section>
 
-    <section class="stats">
-        <div class="stats-container">
-            <div class="stat-item">
-                <h3>500+</h3>
-                <p>Companies Hiring</p>
-            </div>
-            <div class="stat-item">
-                <h3>10,000+</h3>
-                <p>Successful Placements</p>
-            </div>
-            <div class="stat-item">
-                <h3>95%</h3>
-                <p>Placement Rate</p>
-            </div>
-            <div class="stat-item">
-                <h3>50+</h3>
-                <p>Career Resources</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials">
-        <h2>Success Stories</h2>
-        <div class="testimonial-cards">
-            <div class="testimonial-card">
-                <p>"The placement portal helped me land my dream job at a top tech company. The resume builder and mock interviews were game-changers!"</p>
-                <div class="testimonial-author">
-                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Priya Sharma">
-                    <div class="author-info">
-                        <h4>Priya Sharma</h4>
-                        <p>Software Engineer at Google</p>
+        <section class="testimonials">
+            <h2>Success Stories</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <p>"The placement portal helped me land my dream job at a top tech company. The resume builder and
+                        mock interviews were game-changers!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Priya Sharma, Software Engineer at Google">
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <p>Software Engineer at Google</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"I went from no calls to 5 job offers in 2 months after using the interview preparation resources
+                        on this platform."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Rahul Verma, Data Analyst at Amazon">
+                        <div class="author-info">
+                            <h4>Rahul Verma</h4>
+                            <p>Data Analyst at Amazon</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The personalized career guidance and job matching helped me transition into a higher-paying role
+                        in my field."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Neha Patel, Product Manager at Microsoft">
+                        <div class="author-info">
+                            <h4>Neha Patel</h4>
+                            <p>Product Manager at Microsoft</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="testimonial-card">
-                <p>"I went from no calls to 5 job offers in 2 months after using the interview preparation resources on this platform."</p>
-                <div class="testimonial-author">
-                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Rahul Verma">
-                    <div class="author-info">
-                        <h4>Rahul Verma</h4>
-                        <p>Data Analyst at Amazon</p>
-                    </div>
+        </section>
+
+        <section class="gallery">
+            <h2>Our Campus & Students</h2>
+            <div class="slideshow-container">
+                <div class="mySlides fade">
+                    <img src="4E9A7129-copy.jpg" alt="Students actively engaged in a computer lab, demonstrating modern learning environment.">
+                </div>
+                <div class="mySlides fade">
+                    <img src="20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance, showcasing impressive architecture.">
+                </div>
+                <div class="mySlides fade">
+                    <img src="DSCF2122-copy.jpg" alt="Students collaborating and working diligently on computers in a well-equipped lab.">
+                </div>
+                <div class="mySlides fade">
+                    <img src="Group-photo-1-copy-4.jpg" alt="A vibrant group photo of students and faculty members outside IPS Academy, highlighting community.">
+                </div>
+                <div class="mySlides fade">
+                    <img src="STUDENT5-1.jpg" alt="Students engaged in a dynamic, circular computer lab setup, fostering interactive learning.">
+                </div>
+                <div class="mySlides fade">
+                    <img src="student-group-photo.jpg" alt="A large, energetic group photo of students and faculty, celebrating academic achievement and unity.">
+                </div>
+
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                <div class="dots-container">
+                    <span class="dot" onclick="currentSlide(1)" aria-label="Go to slide 1"></span>
+                    <span class="dot" onclick="currentSlide(2)" aria-label="Go to slide 2"></span>
+                    <span class="dot" onclick="currentSlide(3)" aria-label="Go to slide 3"></span>
+                    <span class="dot" onclick="currentSlide(4)" aria-label="Go to slide 4"></span>
+                    <span class="dot" onclick="currentSlide(5)" aria-label="Go to slide 5"></span>
+                    <span class="dot" onclick="currentSlide(6)" aria-label="Go to slide 6"></span>
                 </div>
             </div>
-            <div class="testimonial-card">
-                <p>"The personalized career guidance and job matching helped me transition into a higher-paying role in my field."</p>
-                <div class="testimonial-author">
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Neha Patel">
-                    <div class="author-info">
-                        <h4>Neha Patel</h4>
-                        <p>Product Manager at Microsoft</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="gallery">
-        <h2>Our Campus & Students</h2>
-        <div class="slideshow-container">
-            <div class="mySlides fade">
-                <img src="4E9A7129-copy.jpg" alt="Students in a computer lab">
+        <section class="companies">
+            <h2>Our Valued Placement Partners</h2>
+            <div class="company-logos">
+                <div class="company-logo-item"><img src="accenture-logo.jpg" alt="Accenture Logo"></div>
+                <div class="company-logo-item"><img src="wipro-logo.jpg" alt="Wipro Logo"></div>
+                <div class="company-logo-item"><img src="infosys-logo.jpg" alt="Infosys Logo"></div>
+                <div class="company-logo-item"><img src="tcs-logo.jpg" alt="TCS Logo"></div>
+                <div class="company-logo-item"><img src="capgemini-logo.jpg" alt="Capgemini Logo"></div>
+                <div class="company-logo-item"><img src="persistent-logo.jpg" alt="Persistent Systems Logo"></div>
+                <div class="company-logo-item"><img src="hexaware-logo.jpg" alt="Hexaware Logo"></div>
+                <div class="company-logo-item"><img src="google.png" alt="Google Logo"></div>
+                <div class="company-logo-item"><img src="microsoft.png" alt="Microsoft Logo"></div>
             </div>
-            <div class="mySlides fade">
-                <img src="20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
-            </div>
-            <div class="mySlides fade">
-                <img src="DSCF2122-copy.jpg" alt="Students working on computers in a lab">
-            </div>
-            <div class="mySlides fade">
-                <img src="Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
-            </div>
-            <div class="mySlides fade">
-                <img src="STUDENT5-1.jpg" alt="Students in a circular computer lab">
-            </div>
-            <div class="mySlides fade">
-                <img src="student-group-photo.jpg" alt="Large group photo of students and faculty">
-            </div>
-        </div>
-    </section>
-
-    <section class="companies">
-        <h2>Our Valued Placement Partners</h2>
-        <div class="company-logos">
-            <div class="company-logo-item"><img src="accenture-logo.jpg" alt="Accenture Logo"></div>
-            <div class="company-logo-item"><img src="wipro-logo.jpg" alt="Wipro Logo"></div>
-            <div class="company-logo-item"><img src="infosys-logo.jpg" alt="Infosys Logo"></div>
-            <div class="company-logo-item"><img src="tcs-logo.jpg" alt="TCS Logo"></div>
-            <div class="company-logo-item"><img src="capgemini-logo.jpg" alt="Capgemini Logo"></div>
-            <div class="company-logo-item"><img src="persistent-logo.jpg" alt="Persistent Systems Logo"></div>
-            <div class="company-logo-item"><img src="hexaware-logo.jpg" alt="Hexaware Logo"></div>
-
-            <div class="company-logo-item"><img src="google.png" alt="Google Logo"></div>
-            <div class="company-logo-item"><img src="microsoft.png" alt="Microsoft Logo"></div>
-            
-         
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
         <div class="footer-content">
@@ -764,60 +1193,97 @@
             <div class="footer-column">
                 <h3>Connect With Us</h3>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
                 <p style="margin-top: 1.5rem; color: #ccc;">info@placementportal.com</p>
             </div>
         </div>
-        <P> Created by Abhi jain</P>
-        <p> 2025 College Placement System. All rights reserved.</p>
+        <p>Created by Abhi jain</p>
+        <p>&copy; 2025 College Placement System. All rights reserved.</p>
     </footer>
 
     <script src="index.js"></script>
     <script>
-        // Slideshow functionality (ONLY automatic advancement)
-        let slideIndex = 0; // Start with index 0 for easier array access
+        // Slideshow functionality (automatic and manual)
+        let slideIndex = 1; // Start with index 1 for consistency with currentSlide function
         let autoSlideInterval;
+        let slideshowContainer; // Reference to the slideshow container
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Call showSlides once initially to display the first slide
-            showSlides();
-            // Start the automatic slideshow
+            slideshowContainer = document.querySelector('.slideshow-container');
+
+            // Initial display and start auto slide
+            showSlides(slideIndex);
             startAutoSlide();
+
+            // Pause slideshow on hover
+            if (slideshowContainer) {
+                slideshowContainer.addEventListener('mouseenter', () => {
+                    clearInterval(autoSlideInterval);
+                });
+                slideshowContainer.addEventListener('mouseleave', () => {
+                    startAutoSlide();
+                });
+            }
         });
 
+        // Function to advance or go back a slide (manual control)
+        function plusSlides(n) {
+            clearInterval(autoSlideInterval); // Stop auto-slide on manual interaction
+            showSlides(slideIndex += n);
+            startAutoSlide(); // Restart auto-slide after a brief pause
+        }
+
+        // Function to go to a specific slide (dot control)
+        function currentSlide(n) {
+            clearInterval(autoSlideInterval); // Stop auto-slide on manual interaction
+            showSlides(slideIndex = n);
+            startAutoSlide(); // Restart auto-slide after a brief pause
+        }
+
         // Main function to display slides
-        function showSlides() {
+        function showSlides(n) {
             let i;
             let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
 
-            // Hide all slides
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
+            // Loop back or forward if out of bounds
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
             }
 
-            slideIndex++; // Move to the next slide
-            // Loop back to the first slide if we've gone past the last one
-            if (slideIndex > slides.length) { slideIndex = 1 }
+            // Hide all slides and remove active class from dots
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                slides[i].classList.remove('active'); // Remove active class for animation
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
 
-            // Display the current slide
+            // Display the current slide and add active class to dot
             slides[slideIndex - 1].style.display = "block";
+            slides[slideIndex - 1].classList.add('active'); // Add active class for animation
+            if (dots[slideIndex - 1]) { // Check if dot exists
+                dots[slideIndex - 1].className += " active";
+            }
         }
 
         // Function to start the automatic slideshow
         function startAutoSlide() {
-            // Clear any existing interval to prevent multiple intervals running
-            clearInterval(autoSlideInterval);
+            clearInterval(autoSlideInterval); // Clear any existing interval
             autoSlideInterval = setInterval(() => {
-                showSlides(); // Advance to the next slide
-            }, 4000); // Change image every 4 seconds (adjust as needed)
+                showSlides(slideIndex += 1);
+            }, 4000); // Change image every 4 seconds
         }
     </script>
-
 </body>
 
 </html>
