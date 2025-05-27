@@ -1,0 +1,360 @@
+ :root {
+    --primary: #00d4ff;
+    --secondary: #0077b6;
+    --dark: #03045e;
+    --light: #f8f9fa;
+    --gray: #6c757d;
+    --accent: #ff7b00;
+    --error: #dc3545;
+    --success: #28a745;
+    --gradient-blue: linear-gradient(to right, #00d4ff, #0077b6); /* Defined for reusability */
+    --box-shadow-light: 0 5px 15px rgba(0, 0, 0, 0.08); /* Lighter shadow for cards */
+    --box-shadow-hover: 0 8px 20px rgba(0, 212, 255, 0.4); /* Enhanced hover shadow */
+}
+
+/* General Body Styling */
+body {
+    background-color: var(--light);
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Navigation Bar */
+nav {
+    background-color: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem 3rem; /* Increased padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 0.3s ease-in-out; /* Smooth transition for potential changes */
+}
+
+.logo {
+    font-size: 2rem; /* Slightly larger logo */
+    font-weight: 800; /* Bolder logo */
+    background: var(--gradient-blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem; /* Increased gap between nav items */
+}
+
+nav a {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.75rem 1.2rem; /* More generous padding */
+    border-radius: 8px; /* Slightly more rounded */
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden; /* For pseudo-element animation */
+}
+
+nav a:hover {
+    color: var(--primary);
+    background-color: rgba(0, 212, 255, 0.05); /* Subtle background on hover */
+}
+
+nav a.active {
+    color: var(--primary);
+    font-weight: 700; /* Bolder active link */
+    background-color: rgba(0, 212, 255, 0.1);
+}
+
+nav a.active:after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Align to bottom */
+    left: 0; /* Start from left */
+    width: 100%; /* Full width */
+    height: 3px; /* Thicker underline */
+    background: var(--primary);
+    transform: scaleX(1); /* Ensure it's visible */
+    transition: transform 0.3s ease-out; /* Smooth animation */
+    border-radius: 2px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-blue);
+    color: white;
+    padding: 0.75rem 1.5rem; /* Increased padding */
+    border-radius: 30px; /* Pill-shaped buttons */
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    gap: 0.5rem; /* Space between text and icon */
+}
+
+.btn:hover {
+    transform: translateY(-4px); /* More pronounced lift */
+    box-shadow: var(--box-shadow-hover);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2); /* Lighter shadow for outline hover */
+}
+
+/* Register Section */
+.register {
+    max-width: 550px; /* Slightly wider form */
+    margin: 3.5rem auto; /* More margin */
+    padding: 2.5rem; /* More padding inside card */
+    background: white;
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: var(--box-shadow-light);
+    flex: 1;
+    animation: fadeIn 0.8s ease-out; /* Fade-in animation */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.register h1 {
+    text-align: center;
+    margin-bottom: 1.2rem;
+    color: var(--dark);
+    background: var(--gradient-blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.2rem; /* Larger heading */
+    font-weight: 700;
+}
+
+.register p {
+    text-align: center;
+    margin-bottom: 2.5rem; /* More space below intro text */
+    color: var(--gray);
+    font-size: 1.05rem;
+}
+
+.register form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.7rem; /* Increased gap between form groups */
+}
+
+.form-group {
+    position: relative; /* For potential future enhancements like floating labels */
+}
+
+.register label {
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 0.6rem; /* Slightly more space below label */
+    display: block;
+    font-size: 0.95rem;
+}
+
+.register input,
+.register select {
+    padding: 0.9rem 1.1rem; /* More padding inside inputs */
+    border: 1px solid #ddd;
+    border-radius: 7px; /* More rounded input fields */
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+    background-color: #fdfdfd; /* Slightly off-white background */
+}
+
+.register input:focus,
+.register select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25); /* More prominent focus shadow */
+    background-color: white;
+}
+
+.register small {
+    display: block;
+    color: var(--gray);
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    padding-left: 0.2rem;
+}
+
+.register button[type="submit"] {
+    background: var(--gradient-blue);
+    color: white;
+    padding: 1.1rem; /* More padding for submit button */
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem; /* Larger font for submit */
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem; /* More space above button */
+    box-shadow: 0 4px 10px rgba(0, 119, 182, 0.2); /* Subtle shadow for button */
+}
+
+.register button[type="submit"]:hover {
+    transform: translateY(-4px); /* Consistent with other buttons */
+    box-shadow: var(--box-shadow-hover);
+}
+
+.register p:last-child {
+    text-align: center;
+    margin-top: 2rem; /* More space below form */
+    color: var(--gray);
+    font-size: 0.95rem;
+}
+
+.register a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 700; /* Bolder link */
+    transition: color 0.3s ease;
+}
+
+.register a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/* Alerts */
+.alert {
+    padding: 1.1rem; /* More padding */
+    border-radius: 8px; /* More rounded alerts */
+    margin-bottom: 1.8rem; /* More space below alerts */
+    font-weight: 600; /* Bolder alert text */
+    text-align: center;
+    border: 1px solid; /* Added subtle border */
+    animation: slideInTop 0.5s ease-out; /* Animation for alerts */
+}
+
+.alert-error {
+    background-color: rgba(220, 53, 69, 0.08); /* Lighter background tint */
+    color: var(--error);
+    border-color: var(--error);
+}
+
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.08);
+    color: var(--success);
+    border-color: var(--success);
+}
+
+@keyframes slideInTop {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 2.5rem; /* More padding for footer */
+    margin-top: auto;
+    font-size: 0.95rem;
+    border-top: 5px solid var(--primary); /* Accent border */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    nav ul {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem; /* Reduced gap for smaller screens */
+    }
+
+    nav a {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+    }
+
+    .register {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    .register h1 {
+        font-size: 1.8rem;
+    }
+
+    .register p {
+        font-size: 0.95rem;
+    }
+
+    .register button[type="submit"] {
+        padding: 0.9rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    nav ul {
+        gap: 0.8rem;
+    }
+
+    .register {
+        margin: 1rem 0.8rem;
+        padding: 1.2rem;
+    }
+
+    .register h1 {
+        font-size: 1.6rem;
+    }
+
+    .register input,
+    .register select {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    footer {
+        padding: 1.5rem;
+        font-size: 0.85rem;
+    }
+}
