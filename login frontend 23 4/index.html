@@ -740,7 +740,7 @@
         </div>
     </section>
 
-   <section class="gallery">
+ <section class="gallery">
     <h2>Our Campus & Students</h2>
     <div class="slideshow-container">
         <div class="mySlides fade">
@@ -767,9 +767,7 @@
             <img src="student-group-photo.jpg" alt="Large group photo of students and faculty">
         </div>
 
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
+        </div>
     <br>
 
     <div style="text-align:center">
@@ -828,53 +826,33 @@
     <script src="index.js"></script>
 
     <script>
-      // Slideshow functionality
-let slideIndex = 1; // Start with the first slide
-let autoSlideInterval; // To store the interval ID for auto-advance
+      // Slideshow functionality (ONLY automatic advancement)
+let slideIndex = 0; // Start with index 0 for easier array access
+let autoSlideInterval;
 
-// Initial display of slides and start auto-advance
 document.addEventListener('DOMContentLoaded', () => {
-    showSlides(slideIndex);
+    // Call showSlides once initially to display the first slide
+    showSlides();
+    // Start the automatic slideshow
     startAutoSlide();
 });
 
-// Function to move slides with prev/next buttons
-function plusSlides(n) {
-    clearInterval(autoSlideInterval); // Stop auto-advance on manual interaction
-    showSlides(slideIndex += n);
-    startAutoSlide(); // Restart auto-advance
-}
-
-// Function to jump to a specific slide using dots
-function currentSlide(n) {
-    clearInterval(autoSlideInterval); // Stop auto-advance on manual interaction
-    showSlides(slideIndex = n);
-    startAutoSlide(); // Restart auto-advance
-}
-
 // Main function to display slides
-function showSlides(n) {
+function showSlides() {
     let i;
     let slides = document.getElementsByClassName("mySlides");
-    let dots = document.getElementsByClassName("dot");
-
-    // Loop around if outside bounds
-    if (n > slides.length) { slideIndex = 1 }
-    if (n < 1) { slideIndex = slides.length }
 
     // Hide all slides
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
 
-    // Deactivate all dots
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active-dot", "");
-    }
+    slideIndex++; // Move to the next slide
+    // Loop back to the first slide if we've gone past the last one
+    if (slideIndex > slides.length) { slideIndex = 1 }
 
-    // Display the current slide and activate the corresponding dot
+    // Display the current slide
     slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active-dot";
 }
 
 // Function to start the automatic slideshow
@@ -882,10 +860,9 @@ function startAutoSlide() {
     // Clear any existing interval to prevent multiple intervals running
     clearInterval(autoSlideInterval);
     autoSlideInterval = setInterval(() => {
-        plusSlides(1); // Advance to the next slide
+        showSlides(); // Advance to the next slide
     }, 4000); // Change image every 4 seconds (adjust as needed)
 }
-
     </script>
 
 </body>
