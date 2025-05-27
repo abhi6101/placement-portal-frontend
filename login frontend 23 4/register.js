@@ -12,14 +12,19 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is fully loa
     const errorMessageDiv = document.getElementById("error-message");
     const successMessageDiv = document.getElementById("success-message");
 
-    // Regex for username: Allows letters (uppercase and lowercase), numbers, underscores, and hyphens.
-    // Length: 3 to 20 characters (adjust as needed).
-    // Starts and ends with an alphanumeric character.
-    const usernameRegex = /^[a-zA-Z0-9][a-zA-Z0-9_\-]{2,18}[a-zA-Z0-9]$/; // Changed {2,18} to ensure total length 3-20 characters
+    // NEW Regex for username:
+    // - Must contain at least one digit (?=.*\d)
+    // - Must contain at least one special character from the set !@#$%^&*()_+-=[]{};':"|,.<>/?`~ (?=.*[!@#$%^&*()_+\-=\[\]{};':"|,.<>\/?`~])
+    // - Total length 3 to 20 characters
+    // - Can contain alphanumeric, and the specified special characters
+    const usernameRegex = /^(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"|,.<>\/?`~])[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"|,.<>\/?`~]{3,20}$/;
+
 
     // Function to check if all fields are valid and enable/disable button
     const checkFormValidity = () => {
-        const isUsernameValid = usernameInput.value.trim() !== '' && usernameRegex.test(usernameInput.value.trim());
+        const usernameValue = usernameInput.value.trim();
+        const isUsernameValid = usernameValue !== '' && usernameRegex.test(usernameValue);
+        
         const isEmailFilled = emailInput.value.trim() !== '';
         const isRoleSelected = roleSelect.value !== '';
         const isPasswordFilled = passwordInput.value.trim() !== '';
@@ -90,9 +95,9 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is fully loa
             checkFormValidity(); // Re-run validity check after error
         };
 
-        // 1. Username format validation (more strict on submit)
+        // 1. Username format validation 
         if (!usernameRegex.test(userData.username)) {
-            resetFormOnError("Username must be 3-20 characters long, alphanumeric, and can include underscores or hyphens. It cannot start or end with a special character.");
+            resetFormOnError("Username must be 3-20 characters long, contain at least one digit, and at least one special character (e.g., !@#$%^&*).");
             return;
         }
 
@@ -103,8 +108,9 @@ document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is fully loa
         }
 
         // 3. Basic password strength check (minimum 8 characters, at least 1 number, 1 special character)
-        const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
-        if (!passwordRegex.test(userData.password)) {
+        // This is your existing password regex
+        const passwordStrengthRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
+        if (!passwordStrengthRegex.test(userData.password)) {
             resetFormOnError("Password must be at least 8 characters, contain a number, and a special character.");
             return; 
         }
