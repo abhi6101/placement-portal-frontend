@@ -27,7 +27,7 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
         return;
     }
 
-    // Validate username for spaces <--- THIS IS THE CODE THAT CHECKS FOR SPACES
+    // Validate username for spaces
     if (username.includes(" ")) {
         errorMessageDiv.textContent = "Username cannot contain spaces. Please enter a single-word username.";
         errorMessageDiv.style.display = 'block';
@@ -46,11 +46,14 @@ document.getElementById("registrationForm").addEventListener("submit", async (e)
         return;
     }
 
-    if (password.length < 8) {
-        errorMessageDiv.textContent = "Password must be at least 8 characters long.";
+    // --- MODIFICATION START ---
+    // Change password length validation to 6 characters
+    if (password.length < 6) {
+        errorMessageDiv.textContent = "Password must be at least 6 characters long.";
         errorMessageDiv.style.display = 'block';
         return;
     }
+    // --- MODIFICATION END ---
 
     // Password strength check (at least 1 number and 1 special character)
     const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).*$/;
