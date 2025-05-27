@@ -7,6 +7,7 @@
     <title>College Placement Portal - Launch Your Career</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Your existing CSS rules go here */
         :root {
             --primary: #00d4ff;
             --secondary: #0077b6;
@@ -337,33 +338,91 @@
             font-size: 2.2rem;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+        /* Slideshow Container */
+        .slideshow-container {
+            max-width: 800px; /* Adjust max-width as desired for your slideshow */
+            position: relative;
+            margin: 0 auto 2rem auto; /* Center the slideshow and add bottom margin */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+            border-radius: 10px; /* Rounded corners for the container */
+            overflow: hidden; /* Ensures image corners match container */
+        }
+
+        /* Individual Slides */
+        .mySlides {
+            display: none; /* Hidden by default */
+            width: 100%;
+        }
+
+        .mySlides img {
+            width: 100%;
+            height: 400px; /* Set a fixed height for consistency */
+            object-fit: cover; /* Covers the area, cropping if necessary */
+            border-radius: 10px; /* Match container border-radius */
+        }
+
+        /* Fading animation */
+        .fade {
+            animation-name: fade;
+            animation-duration: 1.5s;
+            -webkit-animation-name: fade; /* For Safari */
+            -webkit-animation-duration: 1.5s; /* For Safari */
+        }
+
+        @-webkit-keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            .mySlides img {
+                height: 250px; /* Adjust height for smaller screens */
+            }
+        }
+
+        /* New CSS for Company Logos Section */
+        .companies {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: var(--gray); /* Light gray background */
+            color: white; /* Text color for this section */
+        }
+
+        .companies h2 {
+            color: var(--primary); /* Primary color for heading */
+            margin-bottom: 2.5rem;
+            font-size: 2.2rem;
+        }
+
+        .company-logos {
+            display: flex;
+            flex-wrap: wrap; /* Allows logos to wrap to the next line */
+            justify-content: center; /* Center logos horizontally */
+            align-items: center; /* Align logos vertically */
+            gap: 2rem; /* Space between logos */
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .gallery-item {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .company-logo-item img {
+            max-width: 120px; /* Max width for logos */
+            height: auto; /* Maintain aspect ratio */
+            filter: grayscale(100%) brightness(150%); /* Make logos grayscale and brighter for subtle effect */
+            opacity: 0.8; /* Slightly transparent */
+            transition: all 0.3s ease;
         }
 
-        .gallery-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        .company-logo-item img:hover {
+            filter: grayscale(0%) brightness(100%); /* Color on hover */
+            opacity: 1; /* Fully opaque on hover */
+            transform: scale(1.05); /* Slight zoom effect */
         }
-
-        .gallery-item img {
-            width: 100%;
-            height: 220px; /* Fixed height for consistency */
-            object-fit: cover; /* Ensures images cover the area without distortion */
-            display: block;
-        }
-
 
         footer {
             background-color: var(--dark);
@@ -504,114 +563,44 @@
             color: var(--primary);
         }
 
-        /* Gallery Section CSS - Keep this as it styles the section title */
-.gallery {
+        /* New CSS for Company Logos Section */
+.companies {
     padding: 4rem 2rem;
     text-align: center;
-    background-color: var(--light);
+    background-color: var(--gray); /* Light gray background */
+    color: white; /* Text color for this section */
 }
 
-.gallery h2 {
-    color: var(--dark);
+.companies h2 {
+    color: var(--primary); /* Primary color for heading */
     margin-bottom: 2.5rem;
     font-size: 2.2rem;
 }
 
-/* Slideshow Container */
-.slideshow-container {
-    max-width: 800px; /* Adjust max-width as desired for your slideshow */
-    position: relative;
-    margin: 0 auto 2rem auto; /* Center the slideshow and add bottom margin */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-    border-radius: 10px; /* Rounded corners for the container */
-    overflow: hidden; /* Ensures image corners match container */
+.company-logos {
+    display: flex;
+    flex-wrap: wrap; /* Allows logos to wrap to the next line */
+    justify-content: center; /* Center logos horizontally */
+    align-items: center; /* Align logos vertically */
+    gap: 2rem; /* Space between logos */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Individual Slides */
-.mySlides {
-    display: none; /* Hidden by default */
-    width: 100%;
+.company-logo-item img {
+    max-width: 120px; /* Max width for logos */
+    height: auto; /* Maintain aspect ratio */
+    filter: grayscale(100%) brightness(150%); /* Make logos grayscale and brighter for subtle effect */
+    opacity: 0.8; /* Slightly transparent */
+    transition: all 0.3s ease;
 }
 
-.mySlides img {
-    width: 100%;
-    height: 400px; /* Set a fixed height for consistency */
-    object-fit: cover; /* Covers the area, cropping if necessary */
-    border-radius: 10px; /* Match container border-radius */
+.company-logo-item img:hover {
+    filter: grayscale(0%) brightness(100%); /* Color on hover */
+    opacity: 1; /* Fully opaque on hover */
+    transform: scale(1.05); /* Slight zoom effect */
 }
 
-/* Next & previous buttons */
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 24px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none; /* Prevent text selection */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-}
-
-/* Position the "next button" to the right */
-.next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a darker background color */
-.prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-/* The dots/bullets/indicators */
-.dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 5px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-}
-
-.active-dot, .dot:hover {
-    background-color: var(--primary); /* Use your primary color for active/hover */
-}
-
-/* Fading animation */
-.fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
-    -webkit-animation-name: fade; /* For Safari */
-    -webkit-animation-duration: 1.5s; /* For Safari */
-}
-
-@-webkit-keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-}
-
-@keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-}
-
-/* Media query for smaller screens */
-@media (max-width: 768px) {
-    .mySlides img {
-        height: 250px; /* Adjust height for smaller screens */
-    }
-    .prev, .next {
-        font-size: 18px;
-        padding: 12px;
-    }
-}
     </style>
 </head>
 
@@ -740,38 +729,50 @@
         </div>
     </section>
 
- <section class="gallery">
-    <h2>Our Campus & Students</h2>
-    <div class="slideshow-container">
-        <div class="mySlides fade">
-            <img src="4E9A7129-copy.jpg" alt="Students in a computer lab">
+    <section class="gallery">
+        <h2>Our Campus & Students</h2>
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img src="4E9A7129-copy.jpg" alt="Students in a computer lab">
+            </div>
+            <div class="mySlides fade">
+                <img src="20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
+            </div>
+            <div class="mySlides fade">
+                <img src="DSCF2122-copy.jpg" alt="Students working on computers in a lab">
+            </div>
+            <div class="mySlides fade">
+                <img src="Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
+            </div>
+            <div class="mySlides fade">
+                <img src="STUDENT5-1.jpg" alt="Students in a circular computer lab">
+            </div>
+            <div class="mySlides fade">
+                <img src="student-group-photo.jpg" alt="Large group photo of students and faculty">
+            </div>
         </div>
+        </section>
 
-        <div class="mySlides fade">
-            <img src="20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
+    <section class="companies">
+        <h2>Our Valued Placement Partners</h2>
+        <div class="company-logos">
+            <div class="company-logo-item"><img src="logos/google.png" alt="Google Logo"></div>
+            <div class="company-logo-item"><img src="logos/microsoft.png" alt="Microsoft Logo"></div>
+            <div class="company-logo-item"><img src="logos/amazon.png" alt="Amazon Logo"></div>
+            <div class="company-logo-item"><img src="logos/tcs.png" alt="TCS Logo"></div>
+            <div class="company-logo-item"><img src="logos/infosys.png" alt="Infosys Logo"></div>
+            <div class="company-logo-item"><img src="logos/wipro.png" alt="Wipro Logo"></div>
+            <div class="company-logo-item"><img src="logos/cognizant.png" alt="Cognizant Logo"></div>
+            <div class="company-logo-item"><img src="logos/hcl.png" alt="HCL Technologies Logo"></div>
+            <div class="company-logo-item"><img src="logos/capgemini.png" alt="Capgemini Logo"></div>
+            <div class="company-logo-item"><img src="logos/accenture.png" alt="Accenture Logo"></div>
+            <div class="company-logo-item"><img src="logos/ibm.png" alt="IBM Logo"></div>
+            <div class="company-logo-item"><img src="logos/deloitte.png" alt="Deloitte Logo"></div>
+            <div class="company-logo-item"><img src="logos/ey.png" alt="EY Logo"></div>
+            <div class="company-logo-item"><img src="logos/pwc.png" alt="PwC Logo"></div>
+            <div class="company-logo-item"><img src="logos/hp.png" alt="HP Logo"></div>
         </div>
-
-        <div class="mySlides fade">
-            <img src="DSCF2122-copy.jpg" alt="Students working on computers in a lab">
-        </div>
-
-        <div class="mySlides fade">
-            <img src="Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
-        </div>
-
-        <div class="mySlides fade">
-            <img src="STUDENT5-1.jpg" alt="Students in a circular computer lab">
-        </div>
-
-        <div class="mySlides fade">
-            <img src="student-group-photo.jpg" alt="Large group photo of students and faculty">
-        </div>
-
-        </div>
-    <br>
-
- 
-</section>
+    </section>
     <footer>
         <div class="footer-content">
             <div class="footer-column">
@@ -817,44 +818,79 @@
         <p> 2025 College Placement System. All rights reserved.</p>
     </footer>
     <script src="index.js"></script>
-
     <script>
       // Slideshow functionality (ONLY automatic advancement)
+
 let slideIndex = 0; // Start with index 0 for easier array access
+
 let autoSlideInterval;
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
+
     // Call showSlides once initially to display the first slide
+
     showSlides();
+
     // Start the automatic slideshow
+
     startAutoSlide();
+
 });
 
+
+
 // Main function to display slides
+
 function showSlides() {
+
     let i;
+
     let slides = document.getElementsByClassName("mySlides");
 
+
+
     // Hide all slides
+
     for (i = 0; i < slides.length; i++) {
+
         slides[i].style.display = "none";
+
     }
 
+
+
     slideIndex++; // Move to the next slide
+
     // Loop back to the first slide if we've gone past the last one
+
     if (slideIndex > slides.length) { slideIndex = 1 }
 
+
+
     // Display the current slide
+
     slides[slideIndex - 1].style.display = "block";
+
 }
 
+
+
 // Function to start the automatic slideshow
+
 function startAutoSlide() {
+
     // Clear any existing interval to prevent multiple intervals running
+
     clearInterval(autoSlideInterval);
+
     autoSlideInterval = setInterval(() => {
+
         showSlides(); // Advance to the next slide
+
     }, 4000); // Change image every 4 seconds (adjust as needed)
+
 }
     </script>
 
