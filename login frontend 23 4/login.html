@@ -9,330 +9,396 @@
     <style>
         /* Paste the ENHANCED CSS from previous response here */
         :root {
-            --primary: #00d4ff;
-            --secondary: #0077b6;
-            --dark: #03045e;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --accent: #ff7b00;
-            --error: #dc3545;
-            --success: #28a745;
-            --link-hover: #0096d2;
-            --button-hover-shadow: rgba(0, 212, 255, 0.4);
-        }
+    --primary: #00d4ff;
+    --secondary: #0077b6;
+    --dark: #03045e;
+    --light: #f8f9fa;
+    --gray: #6c757d;
+    --accent: #ff7b00;
+    --error: #dc3545;
+    --success: #28a745;
+    --link-hover: #0096d2;
+    --button-hover-shadow: rgba(0, 212, 255, 0.4);
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+    /* New animation variables */
+    --animation-duration: 0.6s;
+    --animation-ease: cubic-bezier(0.23, 1, 0.32, 1); /* Ease-out-back for bounce */
+    --fade-in-duration: 0.8s;
+}
 
-        body {
-            background: linear-gradient(135deg, var(--light) 0%, #e0f2f7 100%);
-            color: #333;
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+/* Global Box-sizing and Font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
 
-        nav {
-            background-color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
+/* Body Styling - Now with Subtle Background Animation */
+body {
+    background: linear-gradient(135deg, var(--light) 0%, #e0f2f7 100%);
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll on some animations */
+    animation: backgroundShift 15s infinite alternate ease-in-out; /* Slow, continuous background animation */
+}
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--dark);
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
+/* Keyframes for background animation */
+@keyframes backgroundShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
 
-        nav ul {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-            align-items: center;
-            margin: 0;
-        }
+/* Navigation Bar - Subtle entrance animation */
+nav {
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInSlideDown var(--fade-in-duration) forwards ease-out; /* Nav bar animates in */
+}
 
-        nav ul a {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark);
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
 
-        nav ul a:hover {
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
+nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    align-items: center;
+    margin: 0;
+}
 
-        nav ul a .fas {
-            margin-right: 0.5rem;
-        }
+nav ul a {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
 
-        .login {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem 1rem;
-        }
+nav ul a:hover {
+    color: var(--accent);
+    transform: translateY(-2px) scale(1.05); /* Added scale for more impact */
+}
 
-        .login-card {
-            max-width: 450px;
-            width: 100%;
-            padding: 2.5rem;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease-in-out;
-        }
+nav ul a .fas {
+    margin-right: 0.5rem;
+}
 
-        .login-card:hover {
-            transform: translateY(-5px);
-        }
+/* Login Section - Main content entrance animation */
+.login {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+}
 
-        .login h1 {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--dark);
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.8px;
-        }
+.login-card {
+    max-width: 450px;
+    width: 100%;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transform: scale(0.9); /* Start slightly smaller */
+    opacity: 0; /* Start invisible */
+    animation: cardPopIn var(--fade-in-duration) var(--animation-ease) forwards calc(var(--fade-in-duration) * 0.5); /* Delayed and bouncy pop-in */
+}
 
-        .login form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
-        }
+/* Keyframes for login card entrance */
+@keyframes cardPopIn {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
 
-        .login label {
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.95rem;
-            margin-bottom: 0.2rem;
-        }
 
-        .login input {
-            padding: 1rem 1.2rem;
-            border: 1px solid #c9d6df;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
-        }
+.login h1 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--dark);
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.8px;
+    transform: translateY(-10px); /* Start slightly up */
+    opacity: 0; /* Start invisible */
+    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.2s); /* Delayed animation for heading */
+}
 
-        .login input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
-            background-color: #f0faff;
-        }
+/* Keyframes for heading entrance */
+@keyframes fadeInSlideUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
-        .login button {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            display: flex; /* Use flexbox to center content */
-            justify-content: center;
-            align-items: center;
-            position: relative; /* For spinner positioning */
-        }
+.login form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
 
-        .login button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px var(--button-hover-shadow);
-            background: linear-gradient(to right, var(--primary), #008cc7);
-        }
+.login label {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
 
-        .login p {
-            text-align: center;
-            margin-top: 2rem;
-            color: var(--gray);
-            font-size: 0.95rem;
-        }
+.login input {
+    padding: 1rem 1.2rem;
+    border: 1px solid #c9d6df;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Added background-color transition */
+    width: 100%;
+    transform: translateX(-20px); /* Start slightly left */
+    opacity: 0; /* Start invisible */
+    animation: fadeInSlideRight var(--fade-in-duration) forwards ease-out; /* Entrance animation for inputs */
+}
 
-        .login a {
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
+/* Keyframes for input entrance */
+@keyframes fadeInSlideRight {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
 
-        .login a:hover {
-            color: var(--link-hover);
-            text-decoration: underline;
-        }
+/* Individual input delays for staggered effect */
+.login input:nth-of-type(1) {
+    animation-delay: calc(var(--fade-in-duration) + 0.4s);
+}
+.login input:nth-of-type(2) {
+    animation-delay: calc(var(--fade-in-duration) + 0.6s);
+}
 
-        .alert {
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.8rem;
-            font-weight: 500;
-            opacity: 0;
-            transform: translateY(-10px);
-            animation: fadeInSlideDown 0.5s forwards ease-out;
-        }
+.login input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
+    background-color: #f0faff;
+}
 
-        .alert-error {
-            background-color: rgba(220, 53, 69, 0.15);
-            color: var(--error);
-            border-left: 5px solid var(--error);
-        }
+.login button {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s var(--animation-ease); /* Apply ease to button hover */
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Hide overflowing spinner initially */
+    transform: translateY(20px); /* Start slightly down */
+    opacity: 0; /* Start invisible */
+    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.8s); /* Delayed animation for button */
+}
 
-        .alert-success {
-            background-color: rgba(40, 167, 69, 0.15);
-            color: var(--success);
-            border-left: 5px solid var(--success);
-        }
+.login button:hover {
+    transform: translateY(-4px) scale(1.02); /* More pronounced lift and slight scale */
+    box-shadow: 0 8px 20px var(--button-hover-shadow);
+    background: linear-gradient(to right, var(--primary), #008cc7);
+}
 
-        @keyframes fadeInSlideDown {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.login p {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--gray);
+    font-size: 0.95rem;
+    transform: translateY(20px); /* Start slightly down */
+    opacity: 0; /* Start invisible */
+    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 1s); /* Delayed animation for paragraph */
+}
 
-        /* Spinner specific CSS */
-        .spinner {
-            display: none; /* Hidden by default */
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-            margin-left: 10px; /* Space between text and spinner */
-            vertical-align: middle; /* Align with text */
-        }
+.login a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease, text-decoration 0.3s ease, transform 0.2s ease; /* Added transform for link hover */
+}
 
-        /* Keyframe for spin animation */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+.login a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+    transform: scale(1.05); /* Subtle scale on hover */
+}
 
-        /* When button is disabled/loading */
-        .login button:disabled {
-            cursor: not-allowed;
-            opacity: 0.8;
-            box-shadow: none;
-            transform: none;
-        }
-        
-        /* Hide text and icon when spinner is active */
-        .login button.loading .button-text {
-            display: none;
-        }
-        
-        /* Show spinner when active */
-        .login button.loading .spinner {
-            display: block;
-        }
+/* Alert Messages - Already animated, but ensure consistency */
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.8rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeInSlideDown 0.5s forwards ease-out; /* Already has animation */
+}
 
-        /* Media Queries for Responsiveness */
-        @media (max-width: 768px) {
-            nav {
-                padding: 0.8rem 1rem;
-            }
+.alert-error {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: var(--error);
+    border-left: 5px solid var(--error);
+}
 
-            .logo {
-                font-size: 1.6rem;
-            }
+.alert-success {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success);
+    border-left: 5px solid var(--success);
+}
 
-            nav ul {
-                gap: 1rem;
-            }
+@keyframes fadeInSlideDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-            .login-card {
-                margin: 2rem 1rem;
-                padding: 2rem;
-                border-radius: 10px;
-            }
+/* Spinner specific CSS - No major changes, already good */
+.spinner {
+    display: none;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+    vertical-align: middle;
+}
 
-            .login h1 {
-                font-size: 1.8rem;
-                margin-bottom: 2rem;
-            }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
-            .login form {
-                gap: 1.5rem;
-            }
+.login button:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+    box-shadow: none;
+    transform: none; /* Reset transform when disabled */
+}
 
-            .login input,
-            .login button {
-                padding: 0.9rem 1rem;
-                font-size: 0.95rem;
-            }
+.login button.loading .button-text {
+    display: none;
+}
 
-            .login p {
-                margin-top: 1.5rem;
-                font-size: 0.9rem;
-            }
-        }
+.login button.loading .spinner {
+    display: block;
+}
 
-        @media (max-width: 480px) {
-            nav {
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 1rem;
-            }
+/* Media Queries for Responsiveness - No significant animation changes needed here */
+@media (max-width: 768px) {
+    nav {
+        padding: 0.8rem 1rem;
+    }
 
-            nav ul {
-                margin-top: 1rem;
-                width: 100%;
-                justify-content: space-around;
-                gap: 0.5rem;
-            }
+    .logo {
+        font-size: 1.6rem;
+    }
 
-            nav ul li {
-                width: 50%;
-                text-align: center;
-            }
+    nav ul {
+        gap: 1rem;
+    }
 
-            nav ul a {
-                display: block;
-                padding: 0.5rem;
-            }
+    .login-card {
+        margin: 2rem 1rem;
+        padding: 2rem;
+        border-radius: 10px;
+    }
 
-            .login-card {
-                margin: 1.5rem 0.8rem;
-                padding: 1.5rem;
-            }
+    .login h1 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
 
-            .login h1 {
-                font-size: 1.6rem;
-                margin-bottom: 1.8rem;
-            }
-        }
+    .login form {
+        gap: 1.5rem;
+    }
+
+    .login input,
+    .login button {
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .login p {
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    nav ul {
+        margin-top: 1rem;
+        width: 100%;
+        justify-content: space-around;
+        gap: 0.5rem;
+    }
+
+    nav ul li {
+        width: 50%;
+        text-align: center;
+    }
+
+    nav ul a {
+        display: block;
+        padding: 0.5rem;
+    }
+
+    .login-card {
+        margin: 1.5rem 0.8rem;
+        padding: 1.5rem;
+    }
+
+    .login h1 {
+        font-size: 1.6rem;
+        margin-bottom: 1.8rem;
+    }
+}
     </style>
 </head>
 
