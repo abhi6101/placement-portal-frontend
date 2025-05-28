@@ -129,6 +129,10 @@
             gap: 1.5rem;
         }
 
+        .form-group {
+            position: relative; /* For positioning potential validation icons/messages */
+        }
+
         .verification label {
             font-weight: 600;
             color: var(--dark);
@@ -154,6 +158,18 @@
             border-color: var(--primary);
             box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
             background-color: white;
+        }
+
+        .verification input.is-invalid {
+            border-color: var(--error);
+            box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.25);
+        }
+
+        .verification .input-feedback {
+            font-size: 0.85rem;
+            color: var(--error);
+            margin-top: 0.5rem;
+            display: none; /* Hidden by default */
         }
 
         .verification button {
@@ -307,19 +323,21 @@
         <h1>Verify Your Account</h1>
         <p>A verification code has been sent to your email address. Please enter it below to activate your account.</p>
 
-        <div id="error-message" class="alert alert-error" style="display:none;"></div>
-        <div id="success-message" class="alert alert-success" style="display:none;"></div>
+        <div id="alert-container">
+            </div>
 
-        <form id="verifyCodeForm">
+        <form id="verifyCodeForm" novalidate>
             <div class="form-group">
                 <label for="identifier">Your Email/Username:</label>
                 <input type="text" id="identifier" name="identifier" required placeholder="Enter your registered email or username">
                 <small>This should be the email/username you registered with.</small>
+                <div class="input-feedback" id="identifier-feedback"></div>
             </div>
             <div class="form-group">
                 <label for="verificationCode">Verification Code (OTP):</label>
                 <input type="text" id="verificationCode" name="verificationCode" required maxlength="6" pattern="\d{6}" placeholder="e.g., 123456">
                 <small>Enter the 6-digit code sent to your email.</small>
+                <div class="input-feedback" id="verificationCode-feedback"></div>
             </div>
             <button type="submit">Verify Account <i class="fas fa-check-circle"></i></button>
         </form>
