@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Account - Placement Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Re-use your existing CSS variables and general body/nav styles */
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+            --error: #dc3545;
+            --success: #28a745;
+            --gradient-blue: linear-gradient(to right, #00d4ff, #0077b6);
+            --box-shadow-light: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --box-shadow-hover: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.2rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+            background-color: rgba(0, 212, 255, 0.05);
+        }
+
+        nav a.active {
+            color: var(--primary);
+            font-weight: 700;
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+
+        /* Verification section styles */
+        .verification {
+            max-width: 450px; /* Slightly narrower form for just code */
+            margin: 5rem auto;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow-light);
+            flex: 1;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .verification h1 {
+            text-align: center;
+            margin-bottom: 1.2rem;
+            color: var(--dark);
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .verification p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--gray);
+            font-size: 1.05rem;
+        }
+
+        .verification form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .verification label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.6rem;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .verification input {
+            padding: 0.9rem 1.1rem;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+            background-color: #fdfdfd;
+            text-align: center; /* Center text for OTP input */
+            letter-spacing: 2px; /* Space out OTP digits */
+        }
+
+        .verification input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
+            background-color: white;
+        }
+
+        .verification button {
+            background: var(--gradient-blue);
+            color: white;
+            padding: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 119, 182, 0.2);
+        }
+
+        .verification button:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1.1rem;
+            border-radius: 8px;
+            margin-bottom: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid;
+            animation: slideInTop 0.5s ease-out;
+        }
+
+        .alert-error {
+            background-color: rgba(220, 53, 69, 0.08);
+            color: var(--error);
+            border-color: var(--error);
+        }
+
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.08);
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        @keyframes slideInTop {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading state for button */
+        .verification button.is-loading {
+            background: var(--secondary);
+            cursor: not-allowed;
+            opacity: 0.8;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .verification button.is-loading .fa-spinner {
+            margin-left: 8px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: auto;
+            font-size: 0.95rem;
+            border-top: 5px solid var(--primary);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            nav a {
+                padding: 0.5rem 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.6rem;
+            }
+
+            .verification {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+
+            .verification h1 {
+                font-size: 1.8rem;
+            }
+
+            .verification p {
+                font-size: 0.95rem;
+            }
+
+            .verification button {
+                padding: 0.9rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                gap: 0.8rem;
+            }
+
+            .verification {
+                margin: 1rem 0.8rem;
+                padding: 1.2rem;
+            }
+
+            .verification h1 {
+                font-size: 1.6rem;
+            }
+
+            .verification input {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.9rem;
+            }
+
+            footer {
+                padding: 1.5rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Placement<span>Portal</span></div>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        </ul>
+    </nav>
+
+    <section class="verification">
+        <h1>Verify Your Account</h1>
+        <p>A verification code has been sent to your email address. Please enter it below to activate your account.</p>
+
+        <div id="error-message" class="alert alert-error" style="display:none;"></div>
+        <div id="success-message" class="alert alert-success" style="display:none;"></div>
+
+        <form id="verifyCodeForm">
+            <div class="form-group">
+                <label for="identifier">Your Email/Username:</label>
+                <input type="text" id="identifier" name="identifier" required placeholder="Enter your registered email or username">
+                <small>This should be the email/username you registered with.</small>
+            </div>
+            <div class="form-group">
+                <label for="verificationCode">Verification Code (OTP):</label>
+                <input type="text" id="verificationCode" name="verificationCode" required maxlength="6" pattern="\d{6}" placeholder="e.g., 123456">
+                <small>Enter the 6-digit code sent to your email.</small>
+            </div>
+            <button type="submit">Verify Account <i class="fas fa-check-circle"></i></button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 College Placement System</p>
+    </footer>
+
+    <script src="verify-account.js"></script>
+</body>
+</html>
