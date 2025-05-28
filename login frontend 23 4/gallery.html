@@ -196,6 +196,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: left;
             display: none; /* Hidden by default, shown by JS */
+            cursor: pointer; /* Indicate clickability */
         }
         .photo-item.show {
             display: block; /* Show filtered items */
@@ -227,6 +228,65 @@
         .photo-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* MODAL STYLES (NEW) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+            display: flex; /* Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain; /* Ensure image fits within modal, maintaining aspect ratio */
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s;
+        }
+
+        /* Close button (optional, but good for accessibility/manual close) */
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 1001; /* Above the image */
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.8);}
+            to {transform: scale(1);}
         }
 
         /* User Contribution Section */
@@ -677,11 +737,22 @@
         <p> 2025 College Placement System. All rights reserved.</p>
     </footer>
 
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
     <script>
         // Gallery filtering logic for gallery.html
         document.addEventListener('DOMContentLoaded', () => {
             const galleryItems = document.querySelectorAll('.photo-item');
             const categoryButtons = document.querySelectorAll('.gallery-categories .btn');
+
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeModalBtn = document.querySelector('.close-modal');
+
+            let closeTimer; // To store the setTimeout ID
 
             function filterGallery(category) {
                 galleryItems.forEach(item => {
@@ -708,6 +779,39 @@
                     const category = this.dataset.category;
                     filterGallery(category);
                 });
+            });
+
+            // Add click listener to each photo item for modal display
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const imgSrc = this.querySelector('img').src; // Get the source of the clicked image
+                    modalImage.src = imgSrc; // Set the modal image source
+                    imageModal.style.display = 'flex'; // Show the modal (using flex for centering)
+
+                    // Clear any existing timer before starting a new one
+                    if (closeTimer) {
+                        clearTimeout(closeTimer);
+                    }
+
+                    // Set a timeout to close the modal after 5 seconds
+                    closeTimer = setTimeout(() => {
+                        imageModal.style.display = 'none'; // Hide the modal
+                    }, 5000); // 5000 milliseconds = 5 seconds
+                });
+            });
+
+            // Close modal when the close button is clicked
+            closeModalBtn.addEventListener('click', () => {
+                imageModal.style.display = 'none';
+                clearTimeout(closeTimer); // Stop the timer if closed manually
+            });
+
+            // Close modal when clicking outside the image (on the overlay)
+            imageModal.addEventListener('click', (event) => {
+                if (event.target === imageModal) {
+                    imageModal.style.display = 'none';
+                    clearTimeout(closeTimer); // Stop the timer if closed by clicking overlay
+                }
             });
         });
     </script>
