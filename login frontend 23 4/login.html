@@ -7,22 +7,23 @@
     <title>Login - Placement Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Paste the ENHANCED CSS from previous response here */
-        :root {
+       :root {
+    /* Keep your existing color palette but adjust light/dark */
     --primary: #00d4ff;
     --secondary: #0077b6;
-    --dark: #03045e;
-    --light: #f8f9fa;
-    --gray: #6c757d;
+    --dark: #e0f2f7; /* Changed to a light color for text on dark background */
+    --light: #1a1a2e; /* New dark background */
+    --background-accent: #0f0f1d; /* Slightly darker accent for gradient */
+    --gray: #b0c4de; /* Lighter gray for secondary text */
     --accent: #ff7b00;
     --error: #dc3545;
     --success: #28a745;
     --link-hover: #0096d2;
     --button-hover-shadow: rgba(0, 212, 255, 0.4);
 
-    /* New animation variables */
+    /* Animation variables remain */
     --animation-duration: 0.6s;
-    --animation-ease: cubic-bezier(0.23, 1, 0.32, 1); /* Ease-out-back for bounce */
+    --animation-ease: cubic-bezier(0.23, 1, 0.32, 1);
     --fade-in-duration: 0.8s;
 }
 
@@ -34,15 +35,15 @@
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Body Styling - Now with Subtle Background Animation */
+/* Body Styling - Now with Dark Gradient Background Animation */
 body {
-    background: linear-gradient(135deg, var(--light) 0%, #e0f2f7 100%);
-    color: #333;
+    background: linear-gradient(135deg, var(--light) 0%, var(--background-accent) 100%); /* Dark gradient */
+    color: var(--dark); /* Light text on dark background */
     line-height: 1.6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    overflow-x: hidden; /* Prevent horizontal scroll on some animations */
+    overflow-x: hidden;
     animation: backgroundShift 15s infinite alternate ease-in-out; /* Slow, continuous background animation */
 }
 
@@ -58,8 +59,10 @@ body {
 
 /* Navigation Bar - Subtle entrance animation */
 nav {
-    background-color: white;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    background-color: rgba(255, 255, 255, 0.05); /* Slightly transparent white for a modern look */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Darker shadow for contrast */
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -67,16 +70,16 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
     opacity: 0;
     transform: translateY(-20px);
-    animation: fadeInSlideDown var(--fade-in-duration) forwards ease-out; /* Nav bar animates in */
+    animation: fadeInSlideDown var(--fade-in-duration) forwards ease-out;
 }
 
 .logo {
     font-size: 2rem;
     font-weight: 800;
-    color: var(--dark);
+    /* Keeping the gradient for the logo is good for branding */
     background: linear-gradient(to right, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -92,7 +95,7 @@ nav ul {
 }
 
 nav ul a {
-    color: var(--dark);
+    color: var(--dark); /* Light text for nav links */
     text-decoration: none;
     font-weight: 600;
     padding: 0.5rem 0;
@@ -101,14 +104,14 @@ nav ul a {
 
 nav ul a:hover {
     color: var(--accent);
-    transform: translateY(-2px) scale(1.05); /* Added scale for more impact */
+    transform: translateY(-2px) scale(1.05);
 }
 
 nav ul a .fas {
     margin-right: 0.5rem;
 }
 
-/* Login Section - Main content entrance animation */
+/* Login Section */
 .login {
     flex-grow: 1;
     display: flex;
@@ -122,15 +125,17 @@ nav ul a .fas {
     max-width: 450px;
     width: 100%;
     padding: 2.5rem;
-    background: white;
+    background: rgba(255, 255, 255, 0.08); /* Slightly transparent white for content */
+    backdrop-filter: blur(15px); /* Stronger frosted glass for card */
+    -webkit-backdrop-filter: blur(15px);
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    transform: scale(0.9); /* Start slightly smaller */
-    opacity: 0; /* Start invisible */
-    animation: cardPopIn var(--fade-in-duration) var(--animation-ease) forwards calc(var(--fade-in-duration) * 0.5); /* Delayed and bouncy pop-in */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+    transform: scale(0.9);
+    opacity: 0;
+    animation: cardPopIn var(--fade-in-duration) var(--animation-ease) forwards calc(var(--fade-in-duration) * 0.5);
 }
 
-/* Keyframes for login card entrance */
 @keyframes cardPopIn {
     to {
         transform: scale(1);
@@ -138,23 +143,21 @@ nav ul a .fas {
     }
 }
 
-
 .login h1 {
     text-align: center;
     margin-bottom: 2.5rem;
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--dark);
+    /* Keeping the gradient for the heading is effective */
     background: linear-gradient(to right, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.8px;
-    transform: translateY(-10px); /* Start slightly up */
-    opacity: 0; /* Start invisible */
-    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.2s); /* Delayed animation for heading */
+    transform: translateY(-10px);
+    opacity: 0;
+    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.2s);
 }
 
-/* Keyframes for heading entrance */
 @keyframes fadeInSlideUp {
     to {
         transform: translateY(0);
@@ -170,24 +173,25 @@ nav ul a .fas {
 
 .login label {
     font-weight: 600;
-    color: var(--dark);
+    color: var(--dark); /* Light text for labels */
     font-size: 0.95rem;
     margin-bottom: 0.2rem;
 }
 
 .login input {
     padding: 1rem 1.2rem;
-    border: 1px solid #c9d6df;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border for inputs */
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent dark background for inputs */
+    color: var(--dark); /* Light text color for input values */
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Added background-color transition */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     width: 100%;
-    transform: translateX(-20px); /* Start slightly left */
-    opacity: 0; /* Start invisible */
-    animation: fadeInSlideRight var(--fade-in-duration) forwards ease-out; /* Entrance animation for inputs */
+    transform: translateX(-20px);
+    opacity: 0;
+    animation: fadeInSlideRight var(--fade-in-duration) forwards ease-out;
 }
 
-/* Keyframes for input entrance */
 @keyframes fadeInSlideRight {
     to {
         transform: translateX(0);
@@ -206,34 +210,34 @@ nav ul a .fas {
 .login input:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
-    background-color: #f0faff;
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.4); /* Stronger, more vibrant glow on focus */
+    background-color: rgba(0, 0, 0, 0.4); /* Slightly darker on focus */
 }
 
 .login button {
     background: linear-gradient(to right, var(--primary), var(--secondary));
-    color: white;
+    color: white; /* Button text remains white */
     padding: 1rem;
     border: none;
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s var(--animation-ease); /* Apply ease to button hover */
+    transition: all 0.3s var(--animation-ease);
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Darker shadow for button */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: hidden; /* Hide overflowing spinner initially */
-    transform: translateY(20px); /* Start slightly down */
-    opacity: 0; /* Start invisible */
-    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.8s); /* Delayed animation for button */
+    overflow: hidden;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.8s);
 }
 
 .login button:hover {
-    transform: translateY(-4px) scale(1.02); /* More pronounced lift and slight scale */
+    transform: translateY(-4px) scale(1.02);
     box-shadow: 0 8px 20px var(--button-hover-shadow);
     background: linear-gradient(to right, var(--primary), #008cc7);
 }
@@ -241,27 +245,27 @@ nav ul a .fas {
 .login p {
     text-align: center;
     margin-top: 2rem;
-    color: var(--gray);
+    color: var(--gray); /* Lighter gray for paragraph text */
     font-size: 0.95rem;
-    transform: translateY(20px); /* Start slightly down */
-    opacity: 0; /* Start invisible */
-    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 1s); /* Delayed animation for paragraph */
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 1s);
 }
 
 .login a {
-    color: var(--secondary);
+    color: var(--primary); /* Use primary for links to stand out */
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease, text-decoration 0.3s ease, transform 0.2s ease; /* Added transform for link hover */
+    transition: color 0.3s ease, text-decoration 0.3s ease, transform 0.2s ease;
 }
 
 .login a:hover {
     color: var(--link-hover);
     text-decoration: underline;
-    transform: scale(1.05); /* Subtle scale on hover */
+    transform: scale(1.05);
 }
 
-/* Alert Messages - Already animated, but ensure consistency */
+/* Alert Messages - Adjust colors for dark theme readability */
 .alert {
     padding: 1rem 1.5rem;
     border-radius: 8px;
@@ -269,17 +273,17 @@ nav ul a .fas {
     font-weight: 500;
     opacity: 0;
     transform: translateY(-10px);
-    animation: fadeInSlideDown 0.5s forwards ease-out; /* Already has animation */
+    animation: fadeInSlideDown 0.5s forwards ease-out;
 }
 
 .alert-error {
-    background-color: rgba(220, 53, 69, 0.15);
+    background-color: rgba(220, 53, 69, 0.25); /* More opaque for visibility */
     color: var(--error);
     border-left: 5px solid var(--error);
 }
 
 .alert-success {
-    background-color: rgba(40, 167, 69, 0.15);
+    background-color: rgba(40, 167, 69, 0.25); /* More opaque for visibility */
     color: var(--success);
     border-left: 5px solid var(--success);
 }
@@ -291,7 +295,7 @@ nav ul a .fas {
     }
 }
 
-/* Spinner specific CSS - No major changes, already good */
+/* Spinner specific CSS - Remains white */
 .spinner {
     display: none;
     border: 4px solid rgba(255, 255, 255, 0.3);
@@ -313,7 +317,7 @@ nav ul a .fas {
     cursor: not-allowed;
     opacity: 0.8;
     box-shadow: none;
-    transform: none; /* Reset transform when disabled */
+    transform: none;
 }
 
 .login button.loading .button-text {
@@ -324,7 +328,7 @@ nav ul a .fas {
     display: block;
 }
 
-/* Media Queries for Responsiveness - No significant animation changes needed here */
+/* Media Queries for Responsiveness - No changes here */
 @media (max-width: 768px) {
     nav {
         padding: 0.8rem 1rem;
