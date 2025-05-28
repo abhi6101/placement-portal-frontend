@@ -2213,7 +2213,7 @@ let totalTimeTaken = 0;
 
 // --- Event Listeners ---
 
-// Subject selection
+// Subject selection - MODIFIED
 subjectButtons.forEach(button => {
     button.addEventListener('click', () => {
         // Remove 'selected' class from all buttons
@@ -2221,19 +2221,24 @@ subjectButtons.forEach(button => {
         // Add 'selected' class to the clicked button
         button.classList.add('selected');
         selectedSubject = button.dataset.subject;
-        startQuizBtn.disabled = false;
-        // Format subject name for display
-        const displaySubjectName = selectedSubject.replace(/_/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        quizInfoParagraph.innerHTML = `<i class="fas fa-play-circle"></i> Ready to start the ${displaySubjectName} quiz!`;
+        
+        // Directly start the quiz when a subject is clicked
+        startQuiz(); 
     });
 });
 
-// Start Quiz button
-startQuizBtn.addEventListener('click', () => {
-    if (selectedSubject) {
-        startQuiz();
-    }
-});
+// The startQuizBtn is now functionally redundant for starting the quiz directly,
+// but it remains in the HTML for visual consistency and could be repurposed
+// or removed if preferred. For now, we'll keep its display functionality.
+// We can modify its 'click' listener to do nothing or simply call startQuiz
+// if a subject is already selected, or remove it entirely if it's purely visual.
+// For this update, its click listener is removed as clicking the subject button itself starts the quiz.
+// startQuizBtn.addEventListener('click', () => {
+//     if (selectedSubject) {
+//         startQuiz();
+//     }
+// });
+
 
 // Next Question button
 nextQuestionBtn.addEventListener('click', () => {
@@ -2329,6 +2334,7 @@ function loadQuestion() {
 
         // Reset label background and border
         const label = radio.nextElementSibling;
+        label.classList.remove('correct', 'wrong'); // Ensure label classes are reset too
         label.style.backgroundColor = '';
         label.style.borderColor = '';
         label.style.color = '';
@@ -2377,14 +2383,7 @@ function checkAnswer() {
         const correctRadio = document.querySelector(`input[value="${correctAnswer}"]`);
         if (correctRadio) { // Ensure correct radio exists
             const correctLabel = correctRadio.nextElementSibling;
-            const correctLetterSpan = correctLabel.querySelector('.option-letter');
-
-            correctLabel.style.backgroundColor = '#2ecc71';
-            correctLabel.style.borderColor = '#27ae60';
-            correctLabel.style.color = '#fff';
-            if (correctLetterSpan) {
-                correctLetterSpan.style.backgroundColor = '#27ae60';
-            }
+            correctLabel.classList.add('correct'); // Add 'correct' class to label for consistent styling
         }
     }
 }
@@ -2397,7 +2396,10 @@ function updateProgressBar() {
 
 function startTimer() {
     clearInterval(timer); // Clear any existing timer
-    timeLeft = currentQuestions.length * 30; // 30 seconds per question, adjust as needed (e.g., 60 * 5 for 5 minutes total)
+    // Calculate total time: 30 seconds per question, but max 5 minutes for a short quiz
+    const maxTime = 5 * 60; // 5 minutes in seconds
+    const timePerQuestion = 30; // seconds
+    timeLeft = Math.min(currentQuestions.length * timePerQuestion, maxTime);
 
     timer = setInterval(() => {
         const minutes = Math.floor(timeLeft / 60);
@@ -2437,17 +2439,21 @@ function endQuiz(timedOut = false) {
     resultProgressPercent.textContent = `${percentage.toFixed(0)}%`;
     if (percentage >= 70) {
         resultMessage.textContent = "Excellent job! You aced it!";
-        resultMessage.style.color = '#2ecc71';
-        resultProgressBar.style.backgroundColor = '#2ecc71';
+        resultMessage.style.color = 'var(--accent-green)'; // Use CSS variable
+        resultProgressBar.style.backgroundColor = 'var(--accent-green)'; // Use CSS variable
     } else if (percentage >= 50) {
         resultMessage.textContent = "Good effort! Keep learning and try again.";
-        resultMessage.style.color = '#f1c40f';
-        resultProgressBar.style.backgroundColor = '#f1c40f';
+        resultMessage.style.color = 'var(--accent-yellow)'; // Use CSS variable
+        resultProgressBar.style.backgroundColor = 'var(--accent-yellow)'; // Use CSS variable
     } else {
         resultMessage.textContent = "You'll get there! Review and try again.";
-        resultMessage.style.color = '#e74c3c';
-        resultProgressBar.style.backgroundColor = '#e74c3c';
+        resultMessage.style.color = 'var(--accent-red)'; // Use CSS variable
+        resultProgressBar.style.backgroundColor = 'var(--accent-red)'; // Use CSS variable
     }
+
+    // Hide the start quiz button after the quiz starts, only useful in the subject selection screen.
+    startQuizBtn.style.display = 'none'; 
+    quizInfoParagraph.style.display = 'none';
 
     showSection(quizResultsSection);
 }
@@ -2461,7 +2467,10 @@ function resetQuiz() {
     timeLeft = 0;
     timerDisplay.textContent = '00:00'; // Reset timer display
     scoreDisplay.textContent = '0'; // Reset score display
-    startQuizBtn.disabled = true; // Disable start button until subject is selected
+    // Restore initial visibility and state for the subject selection screen
+    startQuizBtn.style.display = 'flex'; // Show and enable start button
+    startQuizBtn.disabled = true; 
+    quizInfoParagraph.style.display = 'flex'; // Show quiz info
     quizInfoParagraph.innerHTML = '<i class="fas fa-hand-pointer"></i> Select a subject to start the quiz!';
     subjectButtons.forEach(btn => btn.classList.remove('selected'));
 }
@@ -2480,4 +2489,3 @@ document.addEventListener('DOMContentLoaded', () => {
     resetQuiz(); // Ensure initial state is clean
     showSection(subjectSelectionSection);
 });
-
