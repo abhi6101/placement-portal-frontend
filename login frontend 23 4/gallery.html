@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Placement Portal - Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Your existing CSS rules (copied from index.html head) */
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Top Navigation Bar */
+        nav:first-of-type {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav:first-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav:first-of-type a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        nav:first-of-type a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Main Navigation Bar */
+        nav:last-of-type {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav:last-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        nav:last-of-type li {
+            flex-shrink: 0;
+        }
+
+        nav:last-of-type a,
+        nav:last-of-type button {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        nav:last-of-type a:hover,
+        nav:last-of-type button:hover {
+            color: var(--primary);
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+
+        nav:last-of-type a.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+        }
+
+        /* Gallery Page Specific CSS */
+        .gallery-page {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: var(--light);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-page h1 {
+            color: var(--dark);
+            margin-bottom: 2.5rem;
+            font-size: 2.8rem;
+        }
+
+        /* Category buttons for gallery page */
+        .gallery-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-categories .btn {
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            background: var(--dark);
+            color: white;
+            white-space: nowrap; /* Prevent buttons from wrapping words */
+        }
+
+        .gallery-categories .btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-categories .btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Photo Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .photo-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden; /* Ensures rounded corners */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            display: none; /* Hidden by default, shown by JS */
+        }
+        .photo-item.show {
+            display: block; /* Show filtered items */
+        }
+
+
+        .photo-item img {
+            width: 100%;
+            height: 200px; /* Consistent height for grid images */
+            object-fit: cover; /* Cover the area, crop if needed */
+            display: block; /* Remove extra space below image */
+        }
+
+        .photo-item .photo-info {
+            padding: 1rem;
+        }
+
+        .photo-item h4 {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .photo-item p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* User Contribution Section */
+        .gallery-contribution {
+            max-width: 800px;
+            margin: 4rem auto 0 auto; /* Adjust top margin for spacing */
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .gallery-contribution h3 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .gallery-contribution p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .gallery-contribution .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .gallery-contribution .contact-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .gallery-contribution .contact-links a.whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .gallery-contribution .contact-links a.whatsapp-btn:hover {
+            background-color: #1DA851;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .gallery-contribution .contact-links a.email-btn {
+            background-color: #DB4437;
+            color: white;
+        }
+
+        .gallery-contribution .contact-links a.email-btn:hover {
+            background-color: #b8332c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(219, 68, 55, 0.4);
+        }
+
+
+        /* Company Logos and Footer CSS (copied from index.html head) */
+        .companies {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .companies h2 {
+            color: var(--primary);
+            margin-bottom: 2.5rem;
+            font-size: 2.2rem;
+        }
+
+        .company-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .company-logo-item img {
+            max-width: 120px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .company-logo-item img:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gallery-categories .btn {
+                width: 80%; /* Make buttons wider on small screens */
+                max-width: 300px;
+            }
+        }
+
+        /* General Button Styles (copied from index.html head) */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">Placement<span>Portal</span></div>
+        <ul>
+            <li><a href="mailto:abhijain6101@gmail.com"><i class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
+            <li><a href="tel:+91-6266017070"><i class="fas fa-phone"></i> +91-6266017070</a></li>
+        </ul>
+    </nav>
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+    </nav>
+
+    <section class="gallery-page">
+        <h1>Our College Memories & Moments</h1>
+
+        <div class="gallery-categories">
+            <button class="btn active" data-category="all">All Photos</button>
+            <button class="btn" data-category="function">Functions & Events</button>
+            <button class="btn" data-category="lab">Lab Sessions</button>
+            <button class="btn" data-category="farewell">Teachers Farewell</button>
+            <button class="btn" data-category="campus">Campus Life</button>
+            <button class="btn" data-category="memories">General Memories</button>
+        </div>
+
+        <div class="photo-grid">
+            <div class="photo-item" data-category="lab campus">
+                <img src="4E9A7129-copy.jpg" alt="Students in a computer lab">
+                <div class="photo-info">
+                    <h4>Computer Lab Session</h4>
+                    <p>Focused learning in the computer lab.</p>
+                </div>
+            </div>
+            <div class="photo-item" data-category="campus">
+                <img src="20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
+                <div class="photo-info">
+                    <h4>IPS Academy Entrance</h4>
+                    <p>The inviting entrance to our School of Computers.</p>
+                </div>
+            </div>
+            <div class="photo-item" data-category="lab">
+                <img src="DSCF2122-copy.jpg" alt="Students working on computers in a lab">
+                <div class="photo-info">
+                    <h4>Hands-on Learning</h4>
+                    <p>Students actively engaged in lab exercises.</p>
+                </div>
+            </div>
+            <div class="photo-item" data-category="campus function memories">
+                <img src="Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
+                <div class="photo-info">
+                    <h4>Campus Group Photo</h4>
+                    <p>A memorable moment with students and faculty.</p>
+                </div>
+            </div>
+            <div class="photo-item" data-category="lab campus">
+                <img src="STUDENT5-1.jpg" alt="Students in a circular computer lab">
+                <div class="photo-info">
+                    <h4>Circular Lab Environment</h4>
+                    <p>Collaborative setup in our unique lab.</p>
+                </div>
+            </div>
+            <div class="photo-item" data-category="function memories">
+                <img src="student-group-photo.jpg" alt="Large group photo of students and faculty">
+                <div class="photo-info">
+                    <h4>Annual Event Crowd</h4>
+                    <p>Students and faculty gathered for a special occasion.</p>
+                </div>
+            </div>
+            </div>
+
+        <div class="gallery-contribution">
+            <h3>Share Your Photos & Good Memories!</h3>
+            <p>Have some great moments from college you'd like to share? Send them to us and we'll add them to our gallery!</p>
+            <div class="contact-links">
+                <a href="https://wa.me/916266017070?text=Hello!%20I%20want%20to%20share%20some%20photos%20for%20the%20college%20gallery." target="_blank" class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Us
+                </a>
+                <a href="mailto:abhijain6101@gmail.com?subject=College%20Gallery%20Photo%20Submission&body=Hello!%0A%0AI would like to share some photos for the college gallery. Please find them attached or let me know the best way to share.%0A%0ARegards,%0A[Your Name]" class="email-btn">
+                    <i class="fas fa-envelope"></i> Email Photos
+                </a>
+            </div>
+            <p style="margin-top: 1.5rem; color: var(--dark); font-size: 0.9rem;">(By submitting, you agree to allow us to display your photos on the website)</p>
+        </div>
+    </section>
+
+    <section class="companies">
+        <h2>Our Valued Placement Partners</h2>
+        <div class="company-logos">
+            <div class="company-logo-item">
+                <a href="https://www.accenture.com" target="_blank">
+                    <img src="accenture-logo.jpg" alt="Accenture">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.wipro.com" target="_blank">
+                    <img src="wipro-logo.jpg" alt="Wipro">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.infosys.com" target="_blank">
+                    <img src="infosys-logo.jpg" alt="Infosys">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.tcs.com" target="_blank">
+                    <img src="tcs-logo.jpg" alt="TCS">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.capgemini.com" target="_blank">
+                    <img src="capgemini-logo.jpg" alt="Capgemini">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.persistent.com" target="_blank">
+                    <img src="persistent-logo.jpg" alt="Persistent Systems">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://hexaware.com" target="_blank">
+                    <img src="hexaware-logo.jpg" alt="Hexaware">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.google.com" target="_blank">
+                    <img src="google.png" alt="Google">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.microsoft.com" target="_blank">
+                    <img src="microsoft.png" alt="Microsoft">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="jobs.html">Job Openings</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="resume.html">Resume Builder</a></li>
+                    <li><a href="interview.html">Interview Prep</a></li>
+                    <li><a href="videos.html">Study Materials</a></li>
+                    <li><a href="#">Career Guides</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+                <p style="margin-top: 1.5rem; color: #ccc;">abhijain6101@gmail.com</p>
+            </div>
+        </div>
+        <P> Created by Abhi jain</P>
+        <p> 2025 College Placement System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Gallery filtering logic for gallery.html
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleryItems = document.querySelectorAll('.photo-item');
+            const categoryButtons = document.querySelectorAll('.gallery-categories .btn');
+
+            function filterGallery(category) {
+                galleryItems.forEach(item => {
+                    const itemCategories = item.dataset.category ? item.dataset.category.split(' ') : [];
+                    if (category === 'all' || itemCategories.includes(category)) {
+                        item.classList.add('show');
+                    } else {
+                        item.classList.remove('show');
+                    }
+                });
+            }
+
+            // Initial display: show all photos
+            filterGallery('all');
+
+            // Add event listeners to category buttons
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove 'active' class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add 'active' class to the clicked button
+                    this.classList.add('active');
+
+                    const category = this.dataset.category;
+                    filterGallery(category);
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
