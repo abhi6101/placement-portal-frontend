@@ -358,3 +358,18 @@ footer {
         font-size: 0.85rem;
     }
 }
+
+/* Add this to your register.css file */
+
+.register button[type="submit"].is-loading {
+    background: var(--secondary); /* A darker blue, or any color you prefer */
+    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+    opacity: 0.8; /* Slightly reduce opacity */
+    transform: none; /* Remove the lift effect while loading */
+    box-shadow: none; /* Remove shadow while loading */
+}
+
+/* Optional: Add a spinner to the button for better visual feedback */
+.register button[type="submit"].is-loading .fa-spinner {
+    margin-left: 8px; /* Space between text and spinner */
+}
