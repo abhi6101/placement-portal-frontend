@@ -6,221 +6,305 @@
     <title>Verify Account - Placement Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Re-use your existing CSS variables and general body/nav styles */
         :root {
+            /* Keep your existing color palette but adjust light/dark */
             --primary: #00d4ff;
             --secondary: #0077b6;
-            --dark: #03045e;
-            --light: #f8f9fa;
-            --gray: #6c757d;
+            --dark: #e0f2f7; /* Changed to a light color for text on dark background */
+            --light: #1a1a2e; /* New dark background */
+            --background-accent: #0f0f1d; /* Slightly darker accent for gradient */
+            --gray: #b0c4de; /* Lighter gray for secondary text */
             --accent: #ff7b00;
             --error: #dc3545;
             --success: #28a745;
-            --gradient-blue: linear-gradient(to right, #00d4ff, #0077b6);
-            --box-shadow-light: 0 5px 15px rgba(0, 0, 0, 0.08);
-            --box-shadow-hover: 0 8px 20px rgba(0, 212, 255, 0.4);
+            --link-hover: #0096d2;
+            --button-hover-shadow: rgba(0, 212, 255, 0.4);
+
+            /* Animation variables remain */
+            --animation-duration: 0.6s;
+            --animation-ease: cubic-bezier(0.23, 1, 0.32, 1);
+            --fade-in-duration: 0.8s;
         }
 
+        /* Global Box-sizing and Font */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* Body Styling - Now with Dark Gradient Background Animation */
         body {
-            background-color: var(--light);
-            color: #333;
+            background: linear-gradient(135deg, var(--light) 0%, var(--background-accent) 100%); /* Dark gradient */
+            color: var(--dark); /* Light text on dark background */
             line-height: 1.6;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
             overflow-x: hidden;
+            animation: backgroundShift 15s infinite alternate ease-in-out; /* Slow, continuous background animation */
         }
 
+        /* Keyframes for background animation */
+        @keyframes backgroundShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Navigation Bar - Subtle entrance animation */
         nav {
-            background-color: white;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            padding: 1rem 3rem;
+            background-color: rgba(255, 255, 255, 0.05); /* Slightly transparent white for a modern look */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Darker shadow for contrast */
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
-            z-index: 100;
-            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInSlideDown var(--fade-in-duration) forwards ease-out;
         }
 
         .logo {
             font-size: 2rem;
             font-weight: 800;
-            background: var(--gradient-blue);
+            /* Keeping the gradient for the logo is good for branding */
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
+            letter-spacing: -0.5px;
         }
 
         nav ul {
             display: flex;
+            gap: 1.5rem;
             list-style: none;
-            gap: 2rem;
+            align-items: center;
+            margin: 0;
         }
 
-        nav a {
-            color: var(--dark);
+        nav ul a {
+            color: var(--dark); /* Light text for nav links */
             text-decoration: none;
-            font-weight: 500;
-            padding: 0.75rem 1.2rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease, transform 0.2s ease;
         }
 
-        nav a:hover {
-            color: var(--primary);
-            background-color: rgba(0, 212, 255, 0.05);
+        nav ul a:hover {
+            color: var(--accent);
+            transform: translateY(-2px) scale(1.05);
         }
 
-        nav a.active {
-            color: var(--primary);
-            font-weight: 700;
-            background-color: rgba(0, 212, 255, 0.1);
+        nav ul a .fas {
+            margin-right: 0.5rem;
         }
 
-        /* Verification section styles */
+        /* Verification Section - Adapted from .login-card styles */
         .verification {
-            max-width: 450px; /* Slightly narrower form for just code */
-            margin: 5rem auto;
-            padding: 2.5rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--box-shadow-light);
-            flex: 1;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .verification h1 {
-            text-align: center;
-            margin-bottom: 1.2rem;
-            color: var(--dark);
-            background: var(--gradient-blue);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 2.2rem;
-            font-weight: 700;
-        }
-
-        .verification p {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--gray);
-            font-size: 1.05rem;
-        }
-
-        .verification form {
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .verification-card { /* Renamed .verification to .verification-card to encapsulate styles better */
+            max-width: 450px;
+            width: 100%;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.08); /* Slightly transparent white for content */
+            backdrop-filter: blur(15px); /* Stronger frosted glass for card */
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+            transform: scale(0.9);
+            opacity: 0;
+            animation: cardPopIn var(--fade-in-duration) var(--animation-ease) forwards calc(var(--fade-in-duration) * 0.5);
+        }
+
+        @keyframes cardPopIn {
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .verification-card h1 {
+            text-align: center;
+            margin-bottom: 1.5rem; /* Adjusted margin */
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.8px;
+            transform: translateY(-10px);
+            opacity: 0;
+            animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.2s);
+        }
+
+        @keyframes fadeInSlideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .verification-card p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--gray); /* Lighter gray for paragraph text */
+            font-size: 1.05rem;
+            transform: translateY(10px);
+            opacity: 0;
+            animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.4s);
+        }
+
+        .verification-card form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem; /* Adjusted gap */
         }
 
         .form-group {
-            position: relative; /* For positioning potential validation icons/messages */
+            position: relative;
         }
 
-        .verification label {
+        .verification-card label {
             font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 0.6rem;
-            display: block;
+            color: var(--dark); /* Light text for labels */
             font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+            display: block;
         }
 
-        .verification input {
-            padding: 0.9rem 1.1rem;
-            border: 1px solid #ddd;
-            border-radius: 7px;
+        .verification-card input {
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border for inputs */
+            background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent dark background for inputs */
+            color: var(--dark); /* Light text color for input values */
+            border-radius: 8px;
             font-size: 1rem;
             width: 100%;
-            transition: all 0.3s ease;
-            background-color: #fdfdfd;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
             text-align: center; /* Center text for OTP input */
             letter-spacing: 2px; /* Space out OTP digits */
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: fadeInSlideRight var(--fade-in-duration) forwards ease-out;
         }
 
-        .verification input:focus {
+        @keyframes fadeInSlideRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Staggered input animation delays */
+        .verification-card .form-group:nth-of-type(1) input {
+            animation-delay: calc(var(--fade-in-duration) + 0.6s);
+        }
+        .verification-card .form-group:nth-of-type(2) input {
+            animation-delay: calc(var(--fade-in-duration) + 0.8s);
+        }
+
+        .verification-card input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
-            background-color: white;
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.4); /* Stronger, more vibrant glow on focus */
+            background-color: rgba(0, 0, 0, 0.4); /* Slightly darker on focus */
         }
 
-        .verification input.is-invalid {
+        .verification-card input.is-invalid {
             border-color: var(--error);
             box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.25);
         }
 
-        .verification .input-feedback {
+        .verification-card .input-feedback {
             font-size: 0.85rem;
             color: var(--error);
             margin-top: 0.5rem;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
-        .verification button {
-            background: var(--gradient-blue);
-            color: white;
-            padding: 1.1rem;
+        .verification-card button {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white; /* Button text remains white */
+            padding: 1rem;
             border: none;
             border-radius: 8px;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-            box-shadow: 0 4px 10px rgba(0, 119, 182, 0.2);
+            transition: all 0.3s var(--animation-ease);
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Darker shadow for button */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 1s);
         }
 
-        .verification button:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--box-shadow-hover);
+        .verification-card button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 20px var(--button-hover-shadow);
+            background: linear-gradient(to right, var(--primary), #008cc7);
         }
 
-        /* Alerts */
+        /* Alert Messages - Adjust colors for dark theme readability */
         .alert {
-            padding: 1.1rem;
+            padding: 1rem 1.5rem;
             border-radius: 8px;
             margin-bottom: 1.8rem;
-            font-weight: 600;
+            font-weight: 500;
             text-align: center;
-            border: 1px solid;
-            animation: slideInTop 0.5s ease-out;
+            border: 1px solid; /* Keep border for consistency */
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeInSlideDown 0.5s forwards ease-out;
         }
 
         .alert-error {
-            background-color: rgba(220, 53, 69, 0.08);
+            background-color: rgba(220, 53, 69, 0.25); /* More opaque for visibility */
             color: var(--error);
-            border-color: var(--error);
+            border-left: 5px solid var(--error);
+            border-color: var(--error); /* Ensure border color is set */
         }
 
         .alert-success {
-            background-color: rgba(40, 167, 69, 0.08);
+            background-color: rgba(40, 167, 69, 0.25); /* More opaque for visibility */
             color: var(--success);
-            border-color: var(--success);
+            border-left: 5px solid var(--success);
+            border-color: var(--success); /* Ensure border color is set */
         }
 
-        @keyframes slideInTop {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInSlideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Loading state for button */
-        .verification button.is-loading {
+        /* Spinner specific CSS - Remains white */
+        .verification-card button.is-loading {
             background: var(--secondary);
             cursor: not-allowed;
             opacity: 0.8;
@@ -228,26 +312,32 @@
             box-shadow: none;
         }
 
-        .verification button.is-loading .fa-spinner {
+        .verification-card button.is-loading .fa-spinner {
             margin-left: 8px;
         }
         
         /* Footer */
         footer {
-            background-color: var(--dark);
-            color: white;
+            background-color: rgba(255, 255, 255, 0.05); /* Match nav transparency */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--dark); /* Light text on dark background */
             text-align: center;
             padding: 2.5rem;
             margin-top: auto;
             font-size: 0.95rem;
-            border-top: 5px solid var(--primary);
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 1.2s);
         }
 
         /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             nav {
-                flex-direction: column;
-                padding: 1rem;
+                padding: 0.8rem 1rem;
+                flex-direction: column; /* Stack nav items vertically */
+                align-items: center;
             }
 
             nav ul {
@@ -257,55 +347,61 @@
                 gap: 1rem;
             }
 
-            nav a {
-                padding: 0.5rem 0.8rem;
-            }
-
             .logo {
                 font-size: 1.6rem;
             }
 
-            .verification {
+            .verification-card { /* Target .verification-card */
                 margin: 2rem 1rem;
-                padding: 1.5rem;
+                padding: 2rem;
+                border-radius: 10px;
             }
 
-            .verification h1 {
+            .verification-card h1 {
                 font-size: 1.8rem;
+                margin-bottom: 1.5rem;
             }
 
-            .verification p {
+            .verification-card p {
                 font-size: 0.95rem;
+                margin-bottom: 1.5rem;
             }
 
-            .verification button {
-                padding: 0.9rem;
-                font-size: 1rem;
+            .verification-card input,
+            .verification-card button {
+                padding: 0.9rem 1rem;
+                font-size: 0.95rem;
             }
         }
 
         @media (max-width: 480px) {
+            nav {
+                align-items: flex-start;
+                padding: 1rem;
+            }
+
             nav ul {
-                gap: 0.8rem;
+                justify-content: space-around;
+                gap: 0.5rem;
             }
 
-            .verification {
-                margin: 1rem 0.8rem;
-                padding: 1.2rem;
+            nav ul li {
+                width: 50%;
+                text-align: center;
             }
 
-            .verification h1 {
-                font-size: 1.6rem;
+            nav ul a {
+                padding: 0.5rem;
             }
 
-            .verification input {
-                padding: 0.7rem 0.9rem;
-                font-size: 0.9rem;
-            }
-
-            footer {
+            .verification-card { /* Target .verification-card */
+                margin: 1.5rem 0.8rem;
                 padding: 1.5rem;
-                font-size: 0.85rem;
+            }
+
+            .verification-card h1 {
+                font-size: 1.6rem;
+                margin-bottom: 1rem;
             }
         }
     </style>
@@ -320,27 +416,28 @@
     </nav>
 
     <section class="verification">
-        <h1>Verify Your Account</h1>
-        <p>A verification code has been sent to your email address. Please enter it below to activate your account.</p>
+        <div class="verification-card"> <h1>Verify Your Account</h1>
+            <p>A verification code has been sent to your email address. Please enter it below to activate your account.</p>
 
-        <div id="alert-container">
-            </div>
+            <div id="alert-container">
+                </div>
 
-        <form id="verifyCodeForm" novalidate>
-            <div class="form-group">
-                <label for="identifier">Your Email/Username:</label>
-                <input type="text" id="identifier" name="identifier" required placeholder="Enter your registered email or username">
-                <small>This should be the email/username you registered with.</small>
-                <div class="input-feedback" id="identifier-feedback"></div>
-            </div>
-            <div class="form-group">
-                <label for="verificationCode">Verification Code (OTP):</label>
-                <input type="text" id="verificationCode" name="verificationCode" required maxlength="6" pattern="\d{6}" placeholder="e.g., 123456">
-                <small>Enter the 6-digit code sent to your email.</small>
-                <div class="input-feedback" id="verificationCode-feedback"></div>
-            </div>
-            <button type="submit">Verify Account <i class="fas fa-check-circle"></i></button>
-        </form>
+            <form id="verifyCodeForm" novalidate>
+                <div class="form-group">
+                    <label for="identifier">Your Email/Username:</label>
+                    <input type="text" id="identifier" name="identifier" required placeholder="Enter your registered email or username">
+                    <small>This should be the email/username you registered with.</small>
+                    <div class="input-feedback" id="identifier-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="verificationCode">Verification Code (OTP):</label>
+                    <input type="text" id="verificationCode" name="verificationCode" required maxlength="6" pattern="\d{6}" placeholder="e.g., 123456">
+                    <small>Enter the 6-digit code sent to your email.</small>
+                    <div class="input-feedback" id="verificationCode-feedback"></div>
+                </div>
+                <button type="submit">Verify Account <i class="fas fa-check-circle"></i></button>
+            </form>
+        </div>
     </section>
 
     <footer>
