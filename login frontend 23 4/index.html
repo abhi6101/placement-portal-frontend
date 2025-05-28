@@ -325,7 +325,7 @@
             color: var(--gray);
         }
 
-        /* Gallery Section CSS */
+        /* Gallery Section CSS (for homepage slideshow preview) */
         .gallery {
             padding: 4rem 2rem;
             text-align: center;
@@ -338,59 +338,29 @@
             font-size: 2.2rem;
         }
 
-        /* Category buttons for gallery */
-        .gallery-categories {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem; /* Increased margin for more space */
-        }
-
-        .gallery-categories .btn {
-            padding: 0.7rem 1.5rem;
-            font-size: 1rem;
-            border-radius: 30px; /* Consistent with other buttons */
-            background: var(--dark); /* Use dark for category buttons */
-            color: white;
-        }
-
-        .gallery-categories .btn:hover {
-            background: var(--primary); /* Hover effect */
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .gallery-categories .btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
-        }
-
-
         /* Slideshow Container */
         .slideshow-container {
-            max-width: 800px; /* Adjust max-width as desired for your slideshow */
+            max-width: 800px;
             position: relative;
-            margin: 0 auto 2rem auto; /* Center the slideshow and add bottom margin */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-            border-radius: 10px; /* Rounded corners for the container */
-            overflow: hidden; /* Ensures image corners match container */
-            height: 400px; /* Fixed height for slideshow container */
+            margin: 0 auto 2rem auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 400px; /* Fixed height for consistency */
         }
 
         /* Individual Slides */
         .mySlides {
-            display: none; /* Hidden by default */
+            display: none;
             width: 100%;
-            height: 100%; /* Take full height of container */
+            height: 100%;
         }
 
         .mySlides img {
             width: 100%;
-            height: 100%; /* Set a fixed height for consistency */
-            object-fit: cover; /* Covers the area, cropping if necessary */
-            border-radius: 10px; /* Match container border-radius */
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
         }
 
         /* Fading animation */
@@ -398,110 +368,23 @@
             animation-name: fade;
             animation-duration: 1.5s;
             -webkit-animation-name: fade;
-            /* For Safari */
             -webkit-animation-duration: 1.5s;
-            /* For Safari */
         }
 
         @-webkit-keyframes fade {
-            from {
-                opacity: .4
-            }
-
-            to {
-                opacity: 1
-            }
+            from { opacity: .4 }
+            to { opacity: 1 }
         }
 
         @keyframes fade {
-            from {
-                opacity: .4
-            }
-
-            to {
-                opacity: 1
-            }
-        }
-
-        /* User Contribution Section */
-        .gallery-contribution {
-            max-width: 800px;
-            margin: 3rem auto 0 auto;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            text-align: center;
-        }
-
-        .gallery-contribution h3 {
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-
-        .gallery-contribution p {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-
-        .gallery-contribution .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .gallery-contribution .contact-links a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            padding: 0.8rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.05rem;
-        }
-
-        .gallery-contribution .contact-links a.whatsapp-btn {
-            background-color: #25D366; /* WhatsApp green */
-            color: white;
-        }
-
-        .gallery-contribution .contact-links a.whatsapp-btn:hover {
-            background-color: #1DA851;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
-        }
-
-        .gallery-contribution .contact-links a.email-btn {
-            background-color: #DB4437; /* Gmail red */
-            color: white;
-        }
-
-        .gallery-contribution .contact-links a.email-btn:hover {
-            background-color: #b8332c;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(219, 68, 55, 0.4);
+            from { opacity: .4 }
+            to { opacity: 1 }
         }
 
         /* Media query for smaller screens */
         @media (max-width: 768px) {
             .mySlides img {
                 height: 250px;
-                /* Adjust height for smaller screens */
-            }
-
-            .gallery-categories {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .gallery-categories .btn {
-                width: 80%; /* Make buttons wider on small screens */
-                max-width: 300px;
             }
         }
 
@@ -510,14 +393,11 @@
             padding: 4rem 2rem;
             text-align: center;
             background-color: var(--dark);
-            /* Changed to var(--dark) for matching nav bar */
             color: white;
-            /* Text color for this section */
         }
 
         .companies h2 {
             color: var(--primary);
-            /* Primary color for heading */
             margin-bottom: 2.5rem;
             font-size: 2.2rem;
         }
@@ -525,31 +405,21 @@
         .company-logos {
             display: flex;
             flex-wrap: wrap;
-            /* Allows logos to wrap to the next line */
             justify-content: center;
-            /* Center logos horizontally */
             align-items: center;
-            /* Align logos vertically */
             gap: 2rem;
-            /* Space between logos */
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .company-logo-item img {
             max-width: 120px;
-            /* Max width for logos */
             height: auto;
-            /* Maintain aspect ratio */
-            /* Removed filter and opacity here */
             transition: transform 0.3s ease;
-            /* Only transition for transform */
         }
 
         .company-logo-item img:hover {
-            /* Removed filter and opacity from here */
             transform: scale(1.1);
-            /* Zoom effect on hover */
         }
 
         footer {
@@ -645,10 +515,8 @@
             color: white;
             padding: 0.6rem 1.2rem;
             border-radius: 30px;
-            /* Changed to 30px for a more pill-like shape */
             text-decoration: none;
             font-weight: 600;
-            /* Changed to 600 for a bit bolder text */
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
@@ -656,17 +524,13 @@
 
         .btn:hover {
             transform: translateY(-3px);
-            /* Increased translateY for more pronounced lift */
             box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
-            /* Adjusted shadow */
         }
 
         .btn-outline {
             background: transparent;
             border: 2px solid var(--primary);
-            /* Uses primary color for outline */
             color: var(--primary);
-            /* Uses primary color for text */
         }
 
         .btn-outline:hover {
@@ -719,7 +583,7 @@
             <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
             <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
             <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
-            <li><a href="#gallery-section"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
             <li id="adminPanelLink" style="display: none;">
                 <a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a>
@@ -825,54 +689,29 @@
         </div>
     </section>
 
-    <section class="gallery" id="gallery-section">
-        <h2>Our Campus & Memories</h2>
-
-        <div class="gallery-categories">
-            <button class="btn active" data-category="all">All Photos</button>
-            <button class="btn" data-category="function">Functions & Events</button>
-            <button class="btn" data-category="lab">Lab Sessions</button>
-            <button class="btn" data-category="farewell">Farewell</button>
-            <button class="btn" data-category="campus">Campus Life</button>
-            <button class="btn" data-category="memories">General Memories</button>
-        </div>
-
+    <section class="gallery">
+        <h2>Our Campus Glimpses</h2>
         <div class="slideshow-container">
-            <div class="mySlides fade" data-category="lab campus">
+            <div class="mySlides fade">
                 <img src="4E9A7129-copy.jpg" alt="Students in a computer lab">
             </div>
-            <div class="mySlides fade" data-category="campus">
+            <div class="mySlides fade">
                 <img src="20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
             </div>
-            <div class="mySlides fade" data-category="lab">
+            <div class="mySlides fade">
                 <img src="DSCF2122-copy.jpg" alt="Students working on computers in a lab">
             </div>
-            <div class="mySlides fade" data-category="campus function memories">
+            <div class="mySlides fade">
                 <img src="Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
             </div>
-            <div class="mySlides fade" data-category="lab campus">
+            <div class="mySlides fade">
                 <img src="STUDENT5-1.jpg" alt="Students in a circular computer lab">
             </div>
-            <div class="mySlides fade" data-category="function memories">
+            <div class="mySlides fade">
                 <img src="student-group-photo.jpg" alt="Large group photo of students and faculty">
             </div>
-            </div>
-        <a href="#gallery-section" class="btn" style="margin-top: 1.5rem;">View Full Gallery</a>
-
-
-        <div class="gallery-contribution">
-            <h3>Share Your Photos & Good Memories!</h3>
-            <p>Have some great moments from college you'd like to share? Send them to us and we'll add them to our gallery!</p>
-            <div class="contact-links">
-                <a href="https://wa.me/916266017070?text=Hello!%20I%20want%20to%20share%20some%20photos%20for%20the%20college%20gallery." target="_blank" class="whatsapp-btn">
-                    <i class="fab fa-whatsapp"></i> WhatsApp Us
-                </a>
-                <a href="mailto:abhijain6101@gmail.com?subject=College%20Gallery%20Photo%20Submission&body=Hello!%0A%0AI would like to share some photos for the college gallery. Please find them attached or let me know the best way to share.%0A%0ARegards,%0A[Your Name]" class="email-btn">
-                    <i class="fas fa-envelope"></i> Email Photos
-                </a>
-            </div>
-            <p style="margin-top: 1.5rem; color: var(--dark); font-size: 0.9rem;">(By submitting, you agree to allow us to display your photos on the website)</p>
         </div>
+        <a href="gallery.html" class="btn" style="margin-top: 1.5rem;">View All Photos in Gallery</a>
     </section>
 
     <section class="companies">
@@ -923,7 +762,6 @@
                     <img src="microsoft.png" alt="Microsoft">
                 </a>
             </div>
-
         </div>
     </section>
 
@@ -936,7 +774,8 @@
                     <li><a href="jobs.html">Job Openings</a></li>
                     <li><a href="courses.html">Courses</a></li>
                     <li><a href="blog.html">Blog</a></li>
-                    <li><a href="#gallery-section">Gallery</a></li> </ul>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
             </div>
             <div class="footer-column">
                 <h3>Resources</h3>
@@ -961,7 +800,7 @@
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    </div>
+                </div>
                 <p style="margin-top: 1.5rem; color: #ccc;">abhijain6101@gmail.com</p>
             </div>
         </div>
@@ -971,143 +810,37 @@
 
     <script src="index.js"></script>
     <script>
-        // Slideshow functionality (ONLY automatic advancement)
-        let slideIndex = 0; // Start with index 0 for easier array access
+        // Slideshow functionality for the HOME PAGE (ONLY automatic advancement)
+        let slideIndex = 0;
         let autoSlideInterval;
-        let allSlides = []; // To store all slides for filtering
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Get all slides and store them
-            allSlides = Array.from(document.getElementsByClassName("mySlides"));
-            // Call showSlides once initially to display the first slide
             showSlides();
-            // Start the automatic slideshow
             startAutoSlide();
-
-            // Add event listeners for category buttons
-            document.querySelectorAll('.gallery-categories .btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    const category = this.dataset.category;
-                    filterGallery(category);
-
-                    // Update active state for buttons
-                    document.querySelectorAll('.gallery-categories .btn').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                });
-            });
         });
 
-        // Main function to display slides
         function showSlides() {
             let i;
-            // Filtered slides will be used for display
-            let slidesToDisplay = allSlides.filter(slide => slide.style.display === "block" || slide.style.display === ""); // Only consider currently visible slides or those not hidden
+            let slides = document.getElementsByClassName("mySlides");
 
-            // If no slides are being displayed, get all slides again
-            if (slidesToDisplay.length === 0) {
-                 // If no specific filter applied, show all images for the initial cycle
-                slidesToDisplay = allSlides.filter(slide => slide.style.display !== "none");
-                if (slidesToDisplay.length === 0 && allSlides.length > 0) { // Fallback if filter leaves no images
-                    slidesToDisplay = allSlides;
-                }
-            }
-            
-            // Hide all currently visible slides
-            for (i = 0; i < allSlides.length; i++) {
-                allSlides[i].style.display = "none";
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
             }
 
-            // If there are no slides to display (e.g., after filtering), just return
-            if (slidesToDisplay.length === 0) {
-                clearInterval(autoSlideInterval); // Stop slideshow if no images
-                return;
-            }
-
-            slideIndex++; // Move to the next slide
-            // Loop back to the first slide if we've gone past the last one
-            if (slideIndex > slidesToDisplay.length) {
+            slideIndex++;
+            if (slideIndex > slides.length) {
                 slideIndex = 1
             }
 
-            // Display the current slide
-            slidesToDisplay[slideIndex - 1].style.display = "block";
+            slides[slideIndex - 1].style.display = "block";
         }
 
-        // Function to start the automatic slideshow
         function startAutoSlide() {
-            // Clear any existing interval to prevent multiple intervals running
             clearInterval(autoSlideInterval);
             autoSlideInterval = setInterval(() => {
-                showSlides(); // Advance to the next slide
-            }, 4000); // Change image every 4 seconds (adjust as needed)
+                showSlides();
+            }, 4000); // Change image every 4 seconds
         }
-
-        // Function to filter gallery images based on category
-        function filterGallery(category) {
-            clearInterval(autoSlideInterval); // Stop auto-slide when filtering
-            slideIndex = 0; // Reset slide index for new filter
-
-            allSlides.forEach(slide => {
-                const slideCategories = slide.dataset.category ? slide.dataset.category.split(' ') : [];
-                if (category === "all" || slideCategories.includes(category)) {
-                    slide.style.display = "block";
-                } else {
-                    slide.style.display = "none";
-                }
-            });
-
-            // After filtering, restart slideshow with only visible slides
-            startAutoSlide(); // Restart auto-slide with the filtered set
-        }
-
-        // You might have existing login/logout logic in index.js.
-        // If not, here's a basic placeholder for local storage based user handling:
-        // (Ensure this doesn't conflict with your actual index.js)
-        /*
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginBtn = document.getElementById('loginBtn');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const userWelcome = document.getElementById('userWelcome');
-            const heroHeading = document.getElementById('heroHeading');
-            const heroSubtitle = document.getElementById('heroSubtitle');
-            const registerBtn = document.getElementById('registerBtn');
-            const adminPanelLink = document.getElementById('adminPanelLink');
-            const displayUsername = document.getElementById('displayUsername');
-            const displayRole = document.getElementById('displayRole');
-
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-            if (currentUser && currentUser.username) {
-                loginBtn.style.display = 'none';
-                logoutBtn.style.display = 'inline-block';
-                registerBtn.style.display = 'none';
-                userWelcome.style.display = 'block';
-                heroHeading.style.display = 'none';
-                heroSubtitle.style.display = 'none';
-                displayUsername.textContent = currentUser.username;
-                displayRole.textContent = currentUser.role || 'User'; // Default to 'User' if role isn't set
-
-                if (currentUser.role === 'admin') {
-                    adminPanelLink.style.display = 'block';
-                }
-            } else {
-                loginBtn.style.display = 'inline-block';
-                logoutBtn.style.display = 'none';
-                registerBtn.style.display = 'inline-block';
-                userWelcome.style.display = 'none';
-                heroHeading.style.display = 'block';
-                heroSubtitle.style.display = 'block';
-                adminPanelLink.style.display = 'none';
-            }
-
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('currentUser');
-                window.location.reload(); // Reload the page to reflect logout state
-            });
-        });
-        */
     </script>
 
 </body>
