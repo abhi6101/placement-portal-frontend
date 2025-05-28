@@ -7,7 +7,7 @@
     <title>Login - Placement Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Paste the ENHANCED CSS from above here */
+        /* Paste the ENHANCED CSS from previous response here */
         :root {
             --primary: #00d4ff;
             --secondary: #0077b6;
@@ -161,6 +161,10 @@
             transition: all 0.3s ease;
             letter-spacing: 0.5px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex; /* Use flexbox to center content */
+            justify-content: center;
+            align-items: center;
+            position: relative; /* For spinner positioning */
         }
 
         .login button:hover {
@@ -217,6 +221,44 @@
             }
         }
 
+        /* Spinner specific CSS */
+        .spinner {
+            display: none; /* Hidden by default */
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px; /* Space between text and spinner */
+            vertical-align: middle; /* Align with text */
+        }
+
+        /* Keyframe for spin animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* When button is disabled/loading */
+        .login button:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        /* Hide text and icon when spinner is active */
+        .login button.loading .button-text {
+            display: none;
+        }
+        
+        /* Show spinner when active */
+        .login button.loading .spinner {
+            display: block;
+        }
+
+        /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
             nav {
                 padding: 0.8rem 1rem;
@@ -303,7 +345,8 @@
     </nav>
 
     <section class="login">
-        <div class="login-card"> <h1>Login</h1>
+        <div class="login-card">
+            <h1>Login</h1>
             <div id="error-message" class="alert alert-error" role="alert" style="display:none;"></div>
             <div id="success-message" class="alert alert-success" role="alert" style="display:none;"></div>
 
@@ -316,7 +359,10 @@
                 <input type="password" id="password" name="password" required placeholder="Enter your password"
                     aria-label="Password input">
 
-                <button type="submit">Login <i class="fas fa-sign-in-alt"></i></button>
+                <button type="submit" id="loginButton">
+                    <span class="button-text">Login <i class="fas fa-sign-in-alt"></i></span>
+                    <span class="spinner"></span>
+                </button>
             </form>
             <p>Don't have an account? <a href="register.html">Register here</a></p>
         </div>
