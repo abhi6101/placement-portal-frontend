@@ -8,6 +8,7 @@
 // - link: The Google Drive shareable link to the PDF
 // IMPORTANT: You should update the 'title', 'company', and 'year' for each paper
 // to accurately reflect the content of your PDF files.
+
 const previousPapers = [
     { title: "TCS NQT Aptitude Paper 2023", category: "aptitude", company: "TCS", year: 2023, link: "https://drive.google.com/file/d/1--q6B-0SxOmNI1GqQY2LVF-hPEaF7YeU/view?usp=sharing" },
     { title: "Infosys Reasoning Questions 2022", category: "reasoning", company: "Infosys", year: 2022, link: "https://drive.google.com/file/d/1-7hbGf6yI8tvSKA_gNfPtw8Q8zzjS3O9/view?usp=sharing" },

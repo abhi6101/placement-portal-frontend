@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // }, 5000);
     }
 
+    
     // Helper function to hide all messages
     function hideMessages() {
         errorElement.style.display = "none";

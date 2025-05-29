@@ -18,6 +18,7 @@ const quizData = {
             options: { a: "src", b: "alt", c: "href", d: "Both a and b" },
             answer: "d"
         },
+        
         {
             question: "What is the correct HTML element for inserting a line break?",
             options: { a: "<lb>", b: "<break>", c: "<br>", d: "<newline>" },

@@ -20,6 +20,7 @@
 
 /* General Body Styling with Background Animation */
 body {
+    
     background: linear-gradient(135deg, var(--light-bg) 0%, var(--background-accent) 100%);
     color: var(--dark-text); /* Light text for general body */
     line-height: 1.6;
