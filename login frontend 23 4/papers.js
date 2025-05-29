@@ -1,199 +1,210 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const PAPERS_API_URL = "https://placement-portal-backend-nwaj.onrender.com/papers"; // Your backend endpoint for papers
+// IMPORTANT: Replace this with your actual Spring Boot backend URL.
+// Example: "https://your-springboot-backend.onrender.com/api/papers"
+const PAPERS_API_URL = "http://localhost:8080/api/papers"; // For local testing
+// const PAPERS_API_URL = "https://YOUR_BACKEND_APP_URL.onrender.com/api/papers"; // For Render deployment
 
-    const paperList = document.getElementById('paperList');
-    const searchForm = document.getElementById('searchForm');
-    const searchInput = document.getElementById('searchInput');
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const sortSelect = document.getElementById('sortSelect');
-    const paginationContainer = document.querySelector('.pagination');
-    const prevPageBtn = document.querySelector('.page-btn.prev-page');
-    const nextPageBtn = document.querySelector('.page-btn.next-page');
-    const pageNumbersSpan = document.getElementById('pageNumbers');
+const paperListContainer = document.getElementById('paperList');
+const searchInput = document.getElementById('searchInput');
+const searchForm = document.getElementById('searchForm');
+const filterButtons = document.querySelectorAll('.filter-btn');
+const sortSelect = document.getElementById('sortSelect');
+const paginationContainer = document.querySelector('.pagination');
+const prevPageBtn = document.querySelector('.prev-page');
+const nextPageBtn = document.querySelector('.next-page');
+const pageNumbersSpan = document.getElementById('pageNumbers');
 
-    let allPapers = []; // Stores all fetched papers
-    let filteredSortedPapers = []; // Papers after filtering and sorting
-    let currentPage = 1;
-    const papersPerPage = 9; // Number of papers to display per page
+let allPapers = []; // Stores the full list of papers from the API
+let filteredPapers = []; // Stores papers after search and filter
+let currentPage = 1;
+const papersPerPage = 10; // Adjust as needed
 
-    // --- Authentication Check (Optional, but recommended if papers are protected) ---
-    // If you want to protect access to papers, uncomment and ensure your backend also validates the token
-    const token = localStorage.getItem("authToken");
-    if (!token) {
-        // alert("You must be logged in to access this page.");
-        // window.location.href = "login.html"; // Redirect if not logged in
-        // return; // Stop execution if no token
-    }
-    // You might also want to add token expiration check here, similar to jobs.js
+// --- Fetch Papers from Backend ---
+async function fetchPapers() {
+    paperListContainer.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading previous papers...</div>';
+    try {
+        const token = localStorage.getItem('jwtToken'); // Get JWT token if authentication is required
 
-    // --- Fetch Papers from API ---
-    async function fetchPapers() {
-        try {
-            const headers = token ? { 'Authorization': `Bearer ${token}` } : {}; // Add auth header if token exists
-            const response = await fetch(PAPERS_API_URL, { headers });
-            if (!response.ok) {
-                throw new Error(`Failed to fetch papers: ${response.statusText}`);
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching papers:', error);
-            showError('Failed to load previous papers. Please try again later.');
-            return [];
-        }
-    }
-
-    // --- Load Papers and Initialize Display ---
-    async function loadPapers() {
-        paperList.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading previous papers...</div>';
-        const papers = await fetchPapers();
-        allPapers = papers;
-        filterAndSortPapers(); // Apply initial filters and sort, then display
-    }
-
-    // --- Display Papers on the Page ---
-    function displayPapers(papersToDisplay) {
-        if (papersToDisplay.length === 0) {
-            paperList.innerHTML = '<div class="error-message">No previous papers found matching your criteria.</div>';
-            paginationContainer.style.display = 'none'; // Hide pagination
-            return;
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`; // Add token to headers if it exists
         }
 
-        paperList.innerHTML = ''; // Clear current display
-        paginationContainer.style.display = 'flex'; // Show pagination
-
-        const startIndex = (currentPage - 1) * papersPerPage;
-        const endIndex = startIndex + papersPerPage;
-        const currentBatch = papersToDisplay.slice(startIndex, endIndex);
-
-        currentBatch.forEach(paper => {
-            const paperCard = document.createElement('div');
-            paperCard.className = 'paper-card';
-            paperCard.innerHTML = `
-                <div class="paper-header">
-                    <h3 class="paper-title">${paper.title}</h3>
-                </div>
-                <div class="paper-content">
-                    <div class="paper-meta">
-                        <span class="paper-meta-item">
-                            <i class="fas fa-tag"></i> Subject: ${paper.subject}
-                        </span>
-                        <span class="paper-meta-item">
-                            <i class="fas fa-calendar-alt"></i> Year: ${paper.year}
-                        </span>
-                        ${paper.company ? `<span class="paper-meta-item"><i class="fas fa-building"></i> Company: ${paper.company}</span>` : ''}
-                    </div>
-                    <div class="paper-actions">
-                        <a href="${paper.pdf_url}" target="_blank" class="btn btn-outline">
-                            <i class="fas fa-download"></i> Download PDF
-                        </a>
-                    </div>
-                </div>
-            `;
-            paperList.appendChild(paperCard);
+        const response = await fetch(PAPERS_API_URL, {
+            method: 'GET',
+            headers: headers
         });
 
-        updatePagination(papersToDisplay.length);
-    }
-
-    // --- Filtering and Sorting Logic ---
-    function filterAndSortPapers() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-        const sortValue = sortSelect.value;
-
-        let tempPapers = allPapers.filter(paper => {
-            const matchesSearch = paper.title.toLowerCase().includes(searchTerm) ||
-                                  paper.subject.toLowerCase().includes(searchTerm) ||
-                                  String(paper.year).includes(searchTerm) ||
-                                  (paper.company && paper.company.toLowerCase().includes(searchTerm));
-
-            let matchesFilter = true;
-            if (activeFilter !== 'all') {
-                matchesFilter = paper.subject.toLowerCase() === activeFilter;
+        if (!response.ok) {
+            if (response.status === 401 || response.status === 403) {
+                // If authentication is required but failed
+                paperListContainer.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> You need to be logged in to view papers or your session has expired. Please log in again.</div>';
+                // Optionally redirect to login page: window.location.href = 'login.html';
+                return;
             }
-            return matchesSearch && matchesFilter;
-        });
-
-        tempPapers.sort((a, b) => {
-            switch (sortValue) {
-                case 'oldest':
-                    return a.year - b.year; // Sort by year ascending
-                case 'title-asc':
-                    return a.title.localeCompare(b.title); // Sort by title A-Z
-                case 'title-desc':
-                    return b.title.localeCompare(a.title); // Sort by title Z-A
-                case 'newest':
-                default:
-                    return b.year - a.year; // Default to newest by year descending
-            }
-        });
-
-        filteredSortedPapers = tempPapers;
-        currentPage = 1; // Reset to first page after filtering/sorting
-        displayPapers(filteredSortedPapers);
-    }
-
-    // --- Pagination Logic ---
-    function updatePagination(totalPapers) {
-        const totalPages = Math.ceil(totalPapers / papersPerPage);
-        pageNumbersSpan.innerHTML = ''; // Clear existing page buttons
-
-        prevPageBtn.disabled = currentPage === 1;
-        nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
-
-        for (let i = 1; i <= totalPages; i++) {
-            const pageBtn = document.createElement('button');
-            pageBtn.className = 'page-btn';
-            if (i === currentPage) {
-                pageBtn.classList.add('active');
-            }
-            pageBtn.dataset.page = i;
-            pageBtn.textContent = i;
-            pageBtn.addEventListener('click', () => {
-                currentPage = i;
-                displayPapers(filteredSortedPapers);
-            });
-            pageNumbersSpan.appendChild(pageBtn);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
+        allPapers = await response.json();
+        console.log('Fetched papers:', allPapers);
+        filterAndSortPapers(); // Initial filter and sort after fetching
+    } catch (error) {
+        console.error('Error fetching papers:', error);
+        paperListContainer.innerHTML = `<div class="error-message"><i class="fas fa-exclamation-circle"></i> Failed to load papers. Please try again later. <br> Error: ${error.message}</div>`;
+    }
+}
+
+// --- Display Papers ---
+function displayPapers(papersToDisplay) {
+    paperListContainer.innerHTML = ''; // Clear previous content
+    if (papersToDisplay.length === 0) {
+        paperListContainer.innerHTML = '<div class="no-results"><i class="fas fa-info-circle"></i> No papers found matching your criteria.</div>';
+        return;
     }
 
-    prevPageBtn.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            displayPapers(filteredSortedPapers);
+    const start = (currentPage - 1) * papersPerPage;
+    const end = start + papersPerPage;
+    const paginatedPapers = papersToDisplay.slice(start, end);
+
+    paginatedPapers.forEach(paper => {
+        const paperCard = document.createElement('div');
+        paperCard.classList.add('paper-card');
+        paperCard.innerHTML = `
+            <h3>${paper.title}</h3>
+            <p><strong>Subject:</strong> ${paper.subject.charAt(0).toUpperCase() + paper.subject.slice(1)}</p>
+            <p><strong>Year:</strong> ${paper.year}</p>
+            <p><strong>Company:</strong> ${paper.company || 'N/A'}</p>
+            <p><strong>Uploaded:</strong> ${new Date(paper.uploadedAt).toLocaleDateString()}</p>
+            <a href="${paper.pdfUrl}" target="_blank" class="btn download-btn">
+                <i class="fas fa-download"></i> Download PDF
+            </a>
+        `;
+        paperListContainer.appendChild(paperCard);
+    });
+    updatePaginationControls(papersToDisplay.length);
+}
+
+// --- Filtering, Searching, and Sorting Logic ---
+function filterAndSortPapers() {
+    let tempPapers = [...allPapers]; // Start with a fresh copy of all papers
+
+    // 1. Search (if search input is not empty)
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    if (searchTerm) {
+        tempPapers = tempPapers.filter(paper =>
+            paper.title.toLowerCase().includes(searchTerm) ||
+            paper.subject.toLowerCase().includes(searchTerm) ||
+            String(paper.year).includes(searchTerm) ||
+            (paper.company && paper.company.toLowerCase().includes(searchTerm))
+        );
+    }
+
+    // 2. Filter (by subject button)
+    const activeFilter = document.querySelector('.filter-btn.active');
+    if (activeFilter && activeFilter.dataset.filter !== 'all') {
+        const filterSubject = activeFilter.dataset.filter;
+        tempPapers = tempPapers.filter(paper => paper.subject.toLowerCase() === filterSubject.toLowerCase());
+    }
+
+    // 3. Sort
+    const sortValue = sortSelect.value;
+    tempPapers.sort((a, b) => {
+        if (sortValue === 'newest') {
+            return new Date(b.uploadedAt) - new Date(a.uploadedAt);
+        } else if (sortValue === 'oldest') {
+            return new Date(a.uploadedAt) - new Date(b.uploadedAt);
+        } else if (sortValue === 'title-asc') {
+            return a.title.localeCompare(b.title);
+        } else if (sortValue === 'title-desc') {
+            return b.title.localeCompare(a.title);
         }
+        return 0; // Should not happen
     });
 
-    nextPageBtn.addEventListener('click', () => {
-        const totalPages = Math.ceil(filteredSortedPapers.length / papersPerPage);
-        if (currentPage < totalPages) {
-            currentPage++;
-            displayPapers(filteredSortedPapers);
-        }
-    });
+    filteredPapers = tempPapers;
+    currentPage = 1; // Reset to first page after filtering/sorting
+    displayPapers(filteredPapers);
+}
 
-    // --- Error Display ---
-    function showError(message) {
-        paperList.innerHTML = `<div class="error-message">${message}</div>`;
-        paginationContainer.style.display = 'none'; // Hide pagination on error
+// --- Pagination Controls ---
+function updatePaginationControls(totalPapers) {
+    const totalPages = Math.ceil(totalPapers / papersPerPage);
+    pageNumbersSpan.innerHTML = ''; // Clear existing page numbers
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.classList.add('page-btn');
+        pageButton.textContent = i;
+        pageButton.dataset.page = i;
+        if (i === currentPage) {
+            pageButton.classList.add('active');
+        }
+        pageButton.addEventListener('click', (e) => {
+            currentPage = parseInt(e.target.dataset.page);
+            displayPapers(filteredPapers);
+            updateActivePageButton();
+        });
+        pageNumbersSpan.appendChild(pageButton);
     }
 
-    // --- Event Listeners ---
-    searchForm.addEventListener('submit', function (e) {
-        e.preventDefault();
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+
+    // Show/hide pagination section
+    if (totalPages <= 1) {
+        paginationContainer.style.display = 'none';
+    } else {
+        paginationContainer.style.display = 'flex';
+    }
+}
+
+function updateActivePageButton() {
+    document.querySelectorAll('.page-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`.page-btn[data-page="${currentPage}"]`).classList.add('active');
+}
+
+prevPageBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        displayPapers(filteredPapers);
+        updateActivePageButton();
+    }
+});
+
+nextPageBtn.addEventListener('click', () => {
+    const totalPages = Math.ceil(filteredPapers.length / papersPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayPapers(filteredPapers);
+        updateActivePageButton();
+    }
+});
+
+// --- Event Listeners ---
+searchForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent page reload
+    filterAndSortPapers();
+});
+
+searchInput.addEventListener('input', () => {
+    // Optional: live search as user types, or just on submit
+    // If you want live search, uncomment the next line:
+    // filterAndSortPapers();
+});
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // Remove 'active' from all filter buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add 'active' to the clicked button
+        button.classList.add('active');
         filterAndSortPapers();
     });
-
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            filterAndSortPapers();
-        });
-    });
-
-    sortSelect.addEventListener('change', filterAndSortPapers);
-
-    // Initial load of papers
-    loadPapers();
 });
+
+sortSelect.addEventListener('change', filterAndSortPapers);
+
+// --- Initial Load ---
+document.addEventListener('DOMContentLoaded', fetchPapers);
