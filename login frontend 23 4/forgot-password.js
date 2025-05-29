@@ -44,6 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const email = emailInput.value.trim();
 
+        console.log("Value of email from input field:", email);
+
         hideAlert(errorMessageDiv);
         hideAlert(successMessageDiv);
 
