@@ -19,7 +19,17 @@
     </nav>
 
     <div class="register-container">
-        <section class="register">
+        <div id="persistent-alert-message" class="alert alert-info initial-state">
+            <div id="instruction-content"></div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="readInstructionsCheckbox">
+                <label for="readInstructionsCheckbox">I have read and understood these instructions.</label>
+            </div>
+            <button type="button" id="proceedToRegisterBtn" class="btn">Proceed to Registration <i class="fas fa-arrow-right"></i></button>
+            <div id="instruction-error-message" class="alert alert-error" style="display:none; margin-top: 1rem;"></div>
+        </div>
+
+        <section class="register" style="display:none;">
             <h1>Create Your Account</h1>
             <p>Join our placement portal to access job opportunities, courses, and career resources.</p>
 
@@ -64,8 +74,6 @@
             </form>
             <p>Already have an account? <a href="login.html">Login here</a></p>
         </section>
-
-        <div id="persistent-alert-message" class="alert alert-info"></div>
     </div>
 
     <footer>

@@ -6,46 +6,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmPasswordInput = document.getElementById("confirmPassword");
     const roleInput = document.getElementById("role");
 
-    const errorMessageDiv = document.getElementById("error-message");
-    const successMessageDiv = document.getElementById("success-message");
-    const registerButton = document.querySelector("#registrationForm button[type='submit']");
+    const errorMessageDiv = document.getElementById("error-message"); // For form errors
+    const successMessageDiv = document.getElementById("success-message"); // For form success
 
-    // Get the persistent alert message div
+    // Get the persistent instruction message div and its internal content holder
     const persistentAlertMessageDiv = document.getElementById("persistent-alert-message");
+    const instructionContentDiv = document.getElementById("instruction-content");
+    const instructionErrorMessageDiv = document.getElementById("instruction-error-message"); // For errors related to instructions checkbox
 
-    // Get the span elements for button text and spinner
+    // Get the new checkbox and button
+    const readInstructionsCheckbox = document.getElementById("readInstructionsCheckbox");
+    const proceedToRegisterBtn = document.getElementById("proceedToRegisterBtn");
+
+    const registerButton = document.querySelector("#registrationForm button[type='submit']");
     const buttonText = registerButton.querySelector(".button-text");
     const spinner = registerButton.querySelector(".spinner");
 
-    // Helper function to display messages (error/success/info)
+    // Helper function to display messages
+    // This function is now more flexible to handle different message elements
     function showMessage(element, message, type) {
-        // For the persistent message, we'll set innerHTML to support bullet points
-        if (element.id === 'persistent-alert-message') {
-            element.innerHTML = message; // Use innerHTML for HTML content
+        if (element.id === 'persistent-alert-message' || element.id === 'instruction-content') {
+            element.innerHTML = message; // Use innerHTML for HTML content (e.g., bullet points)
         } else {
-            element.textContent = message; // Use textContent for plain text
+            element.textContent = message; // Use textContent for plain text alerts
         }
         element.className = `alert alert-${type}`; // Dynamically set class
         element.style.display = "block"; // Show the alert
-
-        // Ensure only one primary message type is shown at a time (error/success)
-        // Persistent alert should remain unless form is submitted successfully
-        if (type === 'success') {
-            errorMessageDiv.style.display = 'none';
-            // ONLY HIDE PERSISTENT ALERT ON SUCCESSFUL REGISTRATION
-            persistentAlertMessageDiv.style.display = 'none';
-        } else if (type === 'error') {
-            successMessageDiv.style.display = 'none';
-            // Keep persistent alert visible on error
-        }
     }
 
-    // Helper function to hide all messages (except persistent for now)
-    function hideMessages() {
-        errorMessageDiv.style.display = "none";
-        errorMessageDiv.textContent = "";
-        successMessageDiv.style.display = "none";
-        successMessageDiv.textContent = "";
+    // Helper function to hide specific message elements
+    function hideElement(element) {
+        element.style.display = "none";
+        element.textContent = ""; // Clear text content
+        element.innerHTML = ""; // Clear inner HTML
     }
 
     // Function to show loading state (spinner)
@@ -79,31 +72,52 @@ document.addEventListener("DOMContentLoaded", () => {
         </ul>
     `;
 
-    // Step 1: Show the initial JS alert()
+    // --- Initial Page Load Logic ---
     window.onload = function() {
+        // Step 1: Show the initial JS alert()
         alert("Before registering, please read the instructions carefully. Click OK to continue.");
-        // After OK is clicked, display the persistent message
-        showMessage(persistentAlertMessageDiv, persistentAlertHTML, "info");
+
+        // Step 2: After OK is clicked, display the persistent message with checkbox and button
+        // The HTML already has persistentAlertMessageDiv visible by default
+        // We just need to populate its content
+        showMessage(instructionContentDiv, persistentAlertHTML, "info"); // Populate the inner div with content
+        persistentAlertMessageDiv.style.display = 'block'; // Ensure the main container is visible
+        registrationForm.style.display = 'none'; // Ensure the form is hidden
+
+        // Hide any previous form-related error/success messages
+        hideElement(errorMessageDiv);
+        hideElement(successMessageDiv);
     };
 
-    // REMOVED: The event listener to hide the persistent alert on input focus
-    /*
-    const formInputs = registrationForm.querySelectorAll('input, select');
-    formInputs.forEach(input => {
-        input.addEventListener('focus', () => {
-            persistentAlertMessageDiv.style.display = 'none';
-        });
-    });
-    */
+    // --- Logic for "Proceed to Registration" button ---
+    proceedToRegisterBtn.addEventListener('click', () => {
+        if (readInstructionsCheckbox.checked) {
+            // Hide any previous instruction-related errors
+            hideElement(instructionErrorMessageDiv);
 
+            // Hide the instruction message and show the registration form
+            persistentAlertMessageDiv.style.display = 'none';
+            registrationForm.style.display = 'block';
+
+            // Optional: Scroll to the top of the form for better UX
+            registrationForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        } else {
+            // Show error if checkbox is not ticked
+            showMessage(instructionErrorMessageDiv, "Please confirm you have read and understood the instructions to proceed.", "error");
+        }
+    });
+
+
+    // --- Registration Form Submission Logic ---
     registrationForm.addEventListener("submit", async (e) => {
         e.preventDefault(); // Prevent default form submission
 
-        hideMessages(); // Clear any previous error/success messages
-        // REMOVED: Hiding persistent message on form submission, it will only hide on success
-        // persistentAlertMessageDiv.style.display = 'none';
+        // Hide any previous form-related messages
+        hideElement(errorMessageDiv);
+        hideElement(successMessageDiv);
 
-        // Form validation
+        // Form validation (remains the same as before)
         const username = usernameInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
@@ -189,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 showMessage(successMessageDiv, result.message || "Registration successful! Please check your email for the verification code.", "success");
                 registrationForm.reset(); // Clear the form on successful registration
 
-                // NEW: Redirect to the verification page, passing the email for convenience
+                // Redirect to the verification page
                 setTimeout(() => {
                     window.location.href = `verify-account.html?email=${encodeURIComponent(email)}`;
                 }, 3000); // Give user time to read success message

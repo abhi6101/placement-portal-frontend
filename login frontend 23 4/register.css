@@ -567,3 +567,101 @@ footer {
     }
 }
 
+/* Add this to your register.css file */
+
+/* Initial state for the persistent alert - visible by default */
+#persistent-alert-message.initial-state {
+    display: block; /* Ensure it's visible initially */
+    opacity: 1; /* Ensure full opacity */
+    animation: none; /* Disable initial fade-in for this specific state */
+}
+
+/* Styling for the checkbox container */
+.checkbox-container {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--dark-text);
+    font-size: 0.95rem;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary); /* Styles the checkbox itself */
+    cursor: pointer;
+    border-radius: 4px; /* Slightly rounded corners */
+}
+
+.checkbox-container label {
+    margin: 0; /* Override default label margin */
+    font-weight: normal; /* Override default label font-weight */
+    cursor: pointer;
+}
+
+/* Styling for the new "Proceed" button */
+#proceedToRegisterBtn {
+    margin-top: 1.5rem;
+    width: 100%; /* Make it full width */
+    font-size: 1.05rem;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 119, 182, 0.25);
+}
+
+#proceedToRegisterBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow-hover);
+}
+
+/* Ensure the main registration section is hidden by default */
+.register {
+    /* Keep your existing .register styles, just add this for initial state */
+    display: none; /* This will be overridden by JS when user proceeds */
+}
+
+/* Keep previous .register-container styles as they are: */
+.register-container {
+    display: flex;
+    flex-direction: column; /* Default for mobile: stacked */
+    max-width: 1200px; /* Max width for the whole container */
+    margin: 3.5rem auto; /* Center the container */
+    padding: 0 1rem; /* Add some padding on smaller screens */
+    gap: 2rem; /* Space between the form and the message */
+    flex: 1; /* Allow it to grow */
+}
+
+/* Responsive adjustments for the persistent alert message */
+@media (min-width: 992px) {
+    .register-container {
+        flex-direction: row; /* Side-by-side for desktop */
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .register {
+        margin-right: 2rem;
+    }
+
+    #persistent-alert-message {
+        width: 350px;
+        min-width: 300px;
+        flex-shrink: 0;
+        margin-top: 0; /* Reset margin top for desktop side-by-side */
+        box-shadow: var(--box-shadow-card);
+    }
+}
+
+@media (max-width: 768px) {
+    .register {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    #persistent-alert-message {
+        margin: 0 1rem 2rem 1rem;
+    }
+}
+
+/* Keep other alert styles (alert-error, alert-success) as they are */
