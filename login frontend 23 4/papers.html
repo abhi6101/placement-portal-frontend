@@ -61,7 +61,8 @@
             font-size: 1.1em;
         }
 
-        .filter-section input[type="text"] {
+        .filter-section input[type="text"],
+        .filter-section select { /* Added select to this style */
             padding: 12px 15px; /* More padding */
             width: 80%; /* Wider input */
             max-width: 500px; /* Increased max-width */
@@ -70,9 +71,16 @@
             font-size: 17px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08); /* Inner shadow */
             transition: all 0.3s ease;
+            appearance: none; /* Remove default select arrow */
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230077b6%22%20d%3D%22M287%2C197.96l-14.73-14.73l-123.6-123.6l-123.6%2C123.6l-14.73%2C14.73L146.46%2C292.4L287%2C197.96z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 12px auto;
+            cursor: pointer;
         }
 
-        .filter-section input[type="text"]:focus {
+        .filter-section input[type="text"]:focus,
+        .filter-section select:focus { /* Added select to this focus style */
             outline: none;
             border-color: var(--primary); /* Highlight on focus */
             box-shadow: 0 0 8px rgba(0, 212, 255, 0.3); /* Glow effect */
@@ -152,6 +160,15 @@
         .header-bar span {
             color: var(--primary);
         }
+
+        /* Styles for the new subject filter section */
+        .subject-filter-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px; /* Space above this filter group */
+        }
     </style>
 </head>
 <body>
@@ -162,8 +179,15 @@
         <h1>MCA Exam Papers</h1>
 
         <div class="filter-section">
-            <label for="subjectFilter">Filter by Subject or Filename:</label>
-            <input type="text" id="subjectFilter" placeholder="e.g., AI, DBMS, May 2024">
+            <label for="textFilter">Filter by Filename:</label>
+            <input type="text" id="textFilter" placeholder="e.g., May 2024">
+        </div>
+
+        <div class="filter-section subject-filter-group">
+            <label for="subjectSelect">Filter by Subject:</label>
+            <select id="subjectSelect">
+                <option value="">All Subjects</option>
+                </select>
         </div>
 
         <ul id="filesList" class="files-list">
@@ -218,7 +242,6 @@
             if (filename.includes("web_technology") || filename.includes("wt-t") || filename.includes("wt_r") || filename.includes("wt_")) return "Web Technology";
             if (filename.includes("mcadd-404-accounting")) return "Accounting & Finance";
 
-
             // Fallback: If no specific subject is found, try to extract the first word
             const parts = filename.split('_');
             if (parts.length > 0) {
@@ -230,9 +253,9 @@
             return "Miscellaneous"; // Default if no clear subject
         }
 
-
         const filesList = document.getElementById('filesList');
-        const subjectFilterInput = document.getElementById('subjectFilter');
+        const textFilterInput = document.getElementById('textFilter'); // Renamed ID for clarity
+        const subjectSelect = document.getElementById('subjectSelect'); // New: Subject select element
 
         // Augment fileData with a 'subject' property
         const processedFileData = fileData.map(file => ({
@@ -240,20 +263,45 @@
             subject: getSubject(file.name)
         }));
 
-        function renderFiles(filterText = '') {
+        // Get unique subjects for the dropdown
+        function getUniqueSubjects() {
+            const subjects = new Set();
+            processedFileData.forEach(file => {
+                subjects.add(file.subject);
+            });
+            return Array.from(subjects).sort(); // Convert to array and sort alphabetically
+        }
+
+        // Populate the subject dropdown
+        function populateSubjectDropdown() {
+            const uniqueSubjects = getUniqueSubjects();
+            uniqueSubjects.forEach(subject => {
+                const option = document.createElement('option');
+                option.value = subject;
+                option.textContent = subject;
+                subjectSelect.appendChild(option);
+            });
+        }
+
+        function renderFiles() {
             filesList.innerHTML = ''; // Clear current list
 
-            const lowerCaseFilter = filterText.toLowerCase().trim();
+            const currentTextFilter = textFilterInput.value.toLowerCase().trim();
+            const currentSubjectFilter = subjectSelect.value.toLowerCase(); // Get selected subject value
+
             const filteredFiles = processedFileData.filter(file => {
-                // Check if filter text is in the filename or the extracted subject
-                return file.name.toLowerCase().includes(lowerCaseFilter) ||
-                       file.subject.toLowerCase().includes(lowerCaseFilter);
+                const matchesText = file.name.toLowerCase().includes(currentTextFilter) ||
+                                    file.subject.toLowerCase().includes(currentTextFilter);
+
+                const matchesSubject = currentSubjectFilter === "" || file.subject.toLowerCase() === currentSubjectFilter;
+
+                return matchesText && matchesSubject; // Must match both filters
             });
 
             if (filteredFiles.length === 0) {
                 const noResultsItem = document.createElement('li');
                 noResultsItem.className = 'no-results';
-                noResultsItem.textContent = 'No files found matching your filter.';
+                noResultsItem.textContent = 'No files found matching your criteria.';
                 filesList.appendChild(noResultsItem);
                 return;
             }
@@ -275,14 +323,13 @@
             });
         }
 
-        // Initial render of all files
+        // Initial setup: populate dropdown and render all files
+        populateSubjectDropdown();
         renderFiles();
 
-        // Add event listener for the filter input
-        subjectFilterInput.addEventListener('input', (event) => {
-            renderFiles(event.target.value);
-        });
-
+        // Add event listeners for both filter inputs
+        textFilterInput.addEventListener('input', renderFiles);
+        subjectSelect.addEventListener('change', renderFiles); // Listen for change on select
     </script>
 </body>
 </html>
