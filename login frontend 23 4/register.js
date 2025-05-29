@@ -65,9 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <strong>Important Registration Notice:</strong>
         <ul>
             <li>Before you register, please read these instructions carefully.</li>
-            <li>You **must** register with an **active email address** because account verification via an OTP sent to your email is required after registration.</li>
-            <li>Choose a **memorable password** as there is **no 'Forgot Password' option**.</li>
-            <li>If you ever need to change your password, you will have to **contact the administrator** directly.</li>
+            <li>You must register with an active email address because account verification via an OTP sent to your email is required after registration.</li>
+            <li>Choose a memorable password as there is no 'Forgot Password' option.</li>
+            <li>If you ever need to change your password, you will have to contact the administrator directly.</li>
         </ul>
     `;
 
