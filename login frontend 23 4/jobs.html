@@ -135,6 +135,7 @@
 
     <script>
        document.addEventListener('DOMContentLoaded', function () {
+    codocument.addEventListener('DOMContentLoaded', function () {
     const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs"; // Your existing jobs API
     const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job";
 
@@ -205,8 +206,8 @@
         applicationFormModal.style.display = 'flex'; // Show the modal
     }
 
-    // Call the openApplicationModal function after a 10-second delay
-    setTimeout(openApplicationModal, 10000); // 10000 milliseconds = 10 seconds
+    // REMOVE OR COMMENT OUT THIS LINE:
+    // setTimeout(openApplicationModal, 10000); // 10000 milliseconds = 10 seconds
 
     // Close modal when close button (x) is clicked
     closeButton.onclick = function() {
@@ -222,6 +223,7 @@
         }
     }
 
+    // ... (rest of your existing JavaScript code) ...
     // Fetch jobs from API
     async function fetchJobs() {
         try {
