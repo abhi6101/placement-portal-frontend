@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const email = emailInput.value.trim();
 
-        console.log("Value of email from input field:", email);
+        console.log("Value of email from input field:", email); //
 
         hideAlert(errorMessageDiv);
         hideAlert(successMessageDiv);
@@ -57,12 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
         showLoadingState();
 
         try {
-            // This is the endpoint your backend should provide for initiating password reset
-            const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/forgot-password", {
+            // !!! IMPORTANT: CHANGE THIS URL TO YOUR BACKEND API URL !!!
+            const response = await fetch("https://hack-2-hired.onrender.com/api/auth/forgot-password", { // Corrected URL
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-               // In public/js/forgot-password.js
-body: JSON.stringify({ emailOrUsername: email }), // NEW - Fixes the DTO mismatch
+                body: JSON.stringify({ emailOrUsername: email }),
             });
 
             const data = await response.json();
