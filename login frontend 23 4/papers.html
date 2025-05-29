@@ -134,6 +134,7 @@
             font-weight: 600;
             white-space: nowrap;
             box-shadow: 0 2px 5px rgba(0, 212, 255, 0.2); /* Tag shadow */
+            margin-left: 10px; /* Space between download button and tag */
         }
 
         .no-results {
@@ -168,6 +169,25 @@
             align-items: center;
             gap: 15px;
             margin-top: 20px; /* Space above this filter group */
+        }
+
+        /* New style for the download button */
+        .download-btn {
+            background-color: var(--secondary); /* Use secondary color for button */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            margin-left: 15px; /* Space between filename and button */
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary); /* Lighter blue on hover */
+            transform: translateY(-1px);
         }
     </style>
 </head>
@@ -254,8 +274,8 @@
         }
 
         const filesList = document.getElementById('filesList');
-        const textFilterInput = document.getElementById('textFilter'); // Renamed ID for clarity
-        const subjectSelect = document.getElementById('subjectSelect'); // New: Subject select element
+        const textFilterInput = document.getElementById('textFilter');
+        const subjectSelect = document.getElementById('subjectSelect');
 
         // Augment fileData with a 'subject' property
         const processedFileData = fileData.map(file => ({
@@ -287,7 +307,7 @@
             filesList.innerHTML = ''; // Clear current list
 
             const currentTextFilter = textFilterInput.value.toLowerCase().trim();
-            const currentSubjectFilter = subjectSelect.value.toLowerCase(); // Get selected subject value
+            const currentSubjectFilter = subjectSelect.value.toLowerCase();
 
             const filteredFiles = processedFileData.filter(file => {
                 const matchesText = file.name.toLowerCase().includes(currentTextFilter) ||
@@ -295,7 +315,7 @@
 
                 const matchesSubject = currentSubjectFilter === "" || file.subject.toLowerCase() === currentSubjectFilter;
 
-                return matchesText && matchesSubject; // Must match both filters
+                return matchesText && matchesSubject;
             });
 
             if (filteredFiles.length === 0) {
@@ -308,16 +328,35 @@
 
             filteredFiles.forEach(file => {
                 const listItem = document.createElement('li');
-                const fileLink = document.createElement('a');
-                fileLink.href = file.url;
-                fileLink.textContent = file.name;
-                fileLink.target = "_blank"; // Open link in a new tab
+
+                // Container for filename and download button
+                const fileInfoContainer = document.createElement('div');
+                fileInfoContainer.style.display = 'flex';
+                fileInfoContainer.style.alignItems = 'center';
+                fileInfoContainer.style.flexGrow = '1'; // Allow it to take space
+
+                const fileNameSpan = document.createElement('span'); // Use a span for the file name text
+                fileNameSpan.textContent = file.name;
+                fileNameSpan.style.fontWeight = 'bold';
+                fileNameSpan.style.fontSize = '1.1em';
+                fileNameSpan.style.wordBreak = 'break-word';
+                fileNameSpan.style.marginRight = '10px'; // Space between text and button
+
+                const downloadButton = document.createElement('button'); // Create the button
+                downloadButton.className = 'download-btn';
+                downloadButton.textContent = 'Download';
+                downloadButton.onclick = () => { // Add click handler
+                    window.open(file.url, '_blank'); // Open URL in new tab for download
+                };
+
+                fileInfoContainer.appendChild(fileNameSpan);
+                fileInfoContainer.appendChild(downloadButton);
 
                 const subjectTag = document.createElement('span');
                 subjectTag.className = 'subject-tag';
                 subjectTag.textContent = file.subject;
 
-                listItem.appendChild(fileLink);
+                listItem.appendChild(fileInfoContainer); // Append the container
                 listItem.appendChild(subjectTag);
                 filesList.appendChild(listItem);
             });
@@ -329,7 +368,7 @@
 
         // Add event listeners for both filter inputs
         textFilterInput.addEventListener('input', renderFiles);
-        subjectSelect.addEventListener('change', renderFiles); // Listen for change on select
+        subjectSelect.addEventListener('change', renderFiles);
     </script>
 </body>
 </html>
