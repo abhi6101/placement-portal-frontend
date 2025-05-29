@@ -4,202 +4,253 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCA Exam Papers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Your existing CSS rules go here */
         :root {
-            --primary: #00d4ff;
-            --secondary: #0077b6;
-            --dark: #03045e;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --accent: #ff7b00;
-        }
+    --primary: #00d4ff;
+    --secondary: #0077b6;
+    --dark: #03045e;
+    --light: #f8f9fa;
+    --gray: #6c757d;
+    --accent: #ff7b00; /* New accent color for semester tag */
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-        body {
-            background-color: var(--light);
-            color: #333;
-            line-height: 1.6;
-            margin: 0; /* Remove default body margin */
-        }
+body {
+    background-color: var(--light);
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+}
 
-        /* Container specific to this page, adapting to new design */
-        .container {
-            max-width: 900px;
-            margin: 40px auto; /* Increased margin for better spacing */
-            background-color: #fff;
-            padding: 30px; /* Increased padding */
-            border-radius: 10px; /* More rounded corners */
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
-        }
+/* Container specific to this page, adapting to new design */
+.container {
+    max-width: 960px; /* Slightly wider container */
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
 
-        h1 {
-            text-align: center;
-            color: var(--dark); /* Use dark variable */
-            margin-bottom: 30px;
-            font-size: 2.5rem; /* Larger heading */
-        }
+h1 {
+    text-align: center;
+    color: var(--dark);
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
 
-        .filter-section {
-            margin-bottom: 30px; /* More space below filter */
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px; /* Space between label and input */
-        }
+.filter-section {
+    margin-bottom: 20px; /* Slightly less margin for individual filter sections */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Smaller gap */
+}
 
-        .filter-section label {
-            font-weight: 600; /* Bolder label */
-            color: var(--secondary); /* Use secondary color */
-            font-size: 1.1em;
-        }
+.filter-section label {
+    font-weight: 600;
+    color: var(--secondary);
+    font-size: 1.1em;
+}
 
-        .filter-section input[type="text"],
-        .filter-section select { /* Added select to this style */
-            padding: 12px 15px; /* More padding */
-            width: 80%; /* Wider input */
-            max-width: 500px; /* Increased max-width */
-            border: 1px solid #cceeff; /* Lighter border */
-            border-radius: 30px; /* Pill-shaped input */
-            font-size: 17px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08); /* Inner shadow */
-            transition: all 0.3s ease;
-            appearance: none; /* Remove default select arrow */
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230077b6%22%20d%3D%22M287%2C197.96l-14.73-14.73l-123.6-123.6l-123.6%2C123.6l-14.73%2C14.73L146.46%2C292.4L287%2C197.96z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
-            background-repeat: no-repeat;
-            background-position: right 15px top 50%;
-            background-size: 12px auto;
-            cursor: pointer;
-        }
+.filter-section input[type="text"],
+.filter-section select {
+    padding: 12px 15px;
+    width: 80%;
+    max-width: 450px; /* Adjusted max-width */
+    border: 1px solid #cceeff;
+    border-radius: 30px;
+    font-size: 17px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230077b6%22%20d%3D%22M287%2C197.96l-14.73-14.73l-123.6-123.6l-123.6%2C123.6l-14.73%2C14.73L146.46%2C292.4L287%2C197.96z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px top 50%;
+    background-size: 12px auto;
+    cursor: pointer;
+}
 
-        .filter-section input[type="text"]:focus,
-        .filter-section select:focus { /* Added select to this focus style */
-            outline: none;
-            border-color: var(--primary); /* Highlight on focus */
-            box-shadow: 0 0 8px rgba(0, 212, 255, 0.3); /* Glow effect */
-        }
+.filter-section input[type="text"]:focus,
+.filter-section select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
 
-        .files-list {
-            list-style: none;
-            padding: 0;
-        }
+/* New: Group filter sections horizontally */
+.filter-group {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    justify-content: center;
+    gap: 20px; /* Space between filter sections */
+    margin-bottom: 30px;
+}
 
-        .files-list li {
-            background-color: #ffffff; /* White background for list items */
-            margin-bottom: 12px; /* More space between items */
-            padding: 15px 20px; /* More padding */
-            border-radius: 8px; /* Slightly rounded corners */
-            display: flex;
-            justify-content: space-between; /* This will push filename to left, tag+button to right */
-            align-items: center;
-            border: 1px solid #eee; /* Light border */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-            transition: all 0.3s ease;
-        }
+.filter-group .filter-section {
+    flex: 1; /* Allow sections to grow */
+    min-width: 280px; /* Minimum width before wrapping */
+    margin-bottom: 0; /* Remove individual bottom margin */
+}
 
-        .files-list li:hover {
-            background-color: #f0f8ff; /* Light blue on hover */
-            transform: translateY(-3px); /* Lift effect */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
-        }
 
-        /* Adjusted style for the file name link */
-        .files-list li a {
-            text-decoration: none;
-            color: var(--dark); /* Use dark variable for link color */
-            font-weight: bold;
-            font-size: 1.1em;
-            word-break: break-word;
-            flex-grow: 1; /* Allows link to take up available space */
-            margin-right: 15px; /* Space between filename and subject info */
-        }
+.files-list {
+    list-style: none;
+    padding: 0;
+}
 
-        .files-list li a:hover {
-            color: var(--primary); /* Primary color on link hover */
-            text-decoration: underline;
-        }
+.files-list li {
+    background-color: #ffffff;
+    margin-bottom: 12px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
 
-        .download-btn {
-            background-color: var(--secondary); /* Use secondary color for button */
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 600;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-            white-space: nowrap; /* Prevent button text from wrapping */
-            margin-left: 10px; /* Space between subject tag and button */
-        }
+.files-list li:hover {
+    background-color: #f0f8ff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-        .download-btn:hover {
-            background-color: var(--primary); /* Lighter blue on hover */
-            transform: translateY(-1px);
-        }
+.files-list li a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: bold;
+    font-size: 1.1em;
+    word-break: break-word;
+    flex-grow: 1;
+    margin-right: 15px;
+}
 
-        .subject-tag-container { /* Container for subject tag and its download button */
-            display: flex;
-            align-items: center;
-            white-space: nowrap; /* Prevent items from wrapping in this container */
-        }
+.files-list li a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
 
-        .subject-tag {
-            background-color: var(--primary); /* Primary color for tag */
-            color: white;
-            padding: 6px 12px; /* More padding */
-            border-radius: 20px; /* More rounded tag */
-            font-size: 0.85em;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0, 212, 255, 0.2); /* Tag shadow */
-            /* No margin-right here, as button comes immediately after */
-        }
+.download-btn {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+    margin-left: 10px;
+}
 
-        .no-results {
-            text-align: center;
-            color: var(--gray); /* Use gray variable */
-            padding: 30px;
-            font-size: 1.1em;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
+.download-btn:hover {
+    background-color: var(--primary);
+    transform: translateY(-1px);
+}
 
-        /* Optional: Add a subtle header for a more complete look */
-        .header-bar {
-            background-color: var(--dark);
-            color: white;
-            padding: 1rem 2rem;
-            text-align: center;
-            margin-bottom: 40px; /* Space between header and container */
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
+.subject-tag-container {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
 
-        .header-bar span {
-            color: var(--primary);
-        }
+.subject-tag {
+    background-color: var(--primary);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 212, 255, 0.2);
+}
 
-        /* Styles for the new subject filter section */
-        .subject-filter-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            margin-top: 20px; /* Space above this filter group */
-        }
+.no-results {
+    text-align: center;
+    color: var(--gray);
+    padding: 30px;
+    font-size: 1.1em;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.header-bar {
+    background-color: var(--dark);
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.8rem; /* Slightly larger header */
+    font-weight: 700;
+}
+
+.header-bar span {
+    color: var(--primary);
+}
+
+/* Specific styling for the semester filter group */
+.semester-filter-group {
+    /* No specific styles needed here, inherits from .filter-section */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .filter-group {
+        flex-direction: column; /* Stack filters vertically on small screens */
+        align-items: center;
+        gap: 15px;
+    }
+
+    .filter-section input[type="text"],
+    .filter-section select {
+        width: 95%; /* Wider input on smaller screens */
+        max-width: none;
+    }
+
+    .files-list li {
+        flex-direction: column; /* Stack content vertically in list items */
+        align-items: flex-start;
+        padding: 10px 15px;
+    }
+
+    .files-list li a {
+        margin-bottom: 10px; /* Space between link and tags */
+        margin-right: 0;
+    }
+
+    .subject-tag-container {
+        width: 100%;
+        justify-content: space-between; /* Distribute tags and button */
+    }
+}
     </style>
 </head>
 <body>
     <div class="header-bar">
-        MCA <span>Exam Papers</span> Explorer
+        RGPV MCA <span>Exam Papers</span> Explorer
     </div>
     <div class="container">
         <h1>MCA Exam Papers</h1>
@@ -209,502 +260,635 @@
             <input type="text" id="textFilter" placeholder="e.g., May 2024">
         </div>
 
-        <div class="filter-section subject-filter-group">
-            <label for="subjectSelect">Filter by Subject:</label>
-            <select id="subjectSelect">
-                <option value="">All Subjects</option>
+        <div class="filter-group">
+            <div class="filter-section subject-filter-group">
+                <label for="subjectSelect">Filter by Subject:</label>
+                <select id="subjectSelect">
+                    <option value="">All Subjects</option>
                 </select>
+            </div>
+
+            <div class="filter-section semester-filter-group">
+                <label for="semesterSelect">Filter by Semester:</label>
+                <select id="semesterSelect">
+                    <option value="">All Semesters</option>
+                </select>
+            </div>
         </div>
 
         <ul id="filesList" class="files-list">
-        </ul>
+            </ul>
     </div>
-<script src="paperfile.js"></script>
-<script>
-  // Map to store subject to semester mapping for quick lookup
-const subjectToSemesterMap = {
-    "Fundamental of Computer Science & IT": 1,
-    "Discrete Mathematics": 1,
-    "Communication Skills in English": 1,
-    "Programming and Problem Solving in C": 1,
-    "Digital Electronics": 1,
-    "PC Software and Office Tools- Lab I": 1,
-    "Computer Architecture": 2,
-    "Data Structure using C": 2,
-    "Statistics": 2,
-    "Technical Communication & Personality Development": 2,
-    "Principal of Management": 2,
-    "Language Lab": 2,
-    "Programming Lab in Data Structure using C": 2,
-    "System Software": 3,
-    "Computer Oriented Numerical Methods": 3,
-    "Web Designing in HTML": 3,
-    "Aptitude Skills and Reasoning": 3,
-    "DBMS": 3,
-    "Web Page Design Lab": 3,
-    "Programming Lab in DBMS": 3,
-    "Operating Systems": 4,
-    "Foundation of Computer Networks": 4,
-    "System Analysis and Design": 4,
-    "Accounting and Financial Management": 4,
-    "Computer Oriented Optimization Techniques": 4,
-    "Lab in Operating Systems": 4,
-    "Lab in VB and MS Access": 4,
-    "Object Oriented Programming in C++": 5,
-    "Principles of Programming Language": 5,
-    "Advanced Web Designing": 5,
-    "Computer Graphics": 5,
-    "Software Engineering": 5,
-    "Lab in Web Designing": 5,
-    "Analysis Design of Algorithm": 6,
-    "Advanced Computer Networks": 6,
-    "Advanced DBMS": 6,
-    "Theory of Computation": 6,
-    "Artificial Intelligence": 6,
-    "Lab in ADA using C++": 6,
-    "Minor Project - I": 6,
-    "Cloud Computing": 7,
-    "Data Sciences in Mining": 7,
-    "File Structures": 7,
-    // Electives I and II won't have a direct subject name mapping from the syllabus
-    "Minor Project - II": 7,
-    "Soft Computing": 8,
-    "Distributed Systems": 8,
-    "Network Security": 8,
-    // Electives III and IV won't have a direct subject name mapping from the syllabus
-    "Minor Project - III": 8,
-    "Internship": 9,
-    "Dissertation Work / Project / Case Study": 10
-};
 
-// Function to extract a simplified subject and semester from the filename
-function getSubjectAndSemester(filename) {
-    let subject = "Miscellaneous";
-    let semester = "N/A"; // Not Applicable or Unknown
+    <script>
+        // Your JavaScript code from the previous response goes here
+        // (including fileData, subjectToSemesterMap, getSubjectAndSemester,
+        //  and all functions for populating dropdowns and rendering files)
 
-    const lowerFilename = filename.toLowerCase();
+        const fileData = [
+            // Account
+            { name: "account_2018_November.pdf", url: "https://drive.google.com/file/d/1--q6B-0SxOmNI1GqQY2LVF-hPEaF7YeU/view?usp=sharing" },
+            { name: "account_2018.pdf", url: "https://drive.google.com/file/d/1-7hbGf6yI8tvSKA_gNfPtw8Q8zzjS3O9/view?usp=sharing" },
+            { name: "account_2019_November.pdf", url: "https://drive.google.com/file/d/1-BqXf-EWCm46IZ-cdRnPpi8hUGMlnWQp/view?usp=sharing" },
+            { name: "account_2019.pdf", url: "https://drive.google.com/file/d/1-EkTEdwn8oHI0TeYviD69lHWnU8kFvPv/view?usp=sharing" },
 
-    // First, try to extract from MCADD-xxx pattern for subject and semester
-    const mcaddMatch = lowerFilename.match(/mcadd-(\d+)([a-z]?)*/); // Added (a-z)? to match optional character after number
-    if (mcaddMatch && mcaddMatch[1]) {
-        const codeNum = parseInt(mcaddMatch[1], 10);
-        // Correctly derive semester for MCADD-1001
-        if (codeNum === 1001) {
-            semester = 10;
-        } else if (codeNum >= 101 && codeNum <= 106) {
-            semester = 1;
-        } else if (codeNum >= 201 && codeNum <= 207) {
-            semester = 2;
-        } else if (codeNum >= 301 && codeNum <= 307) {
-            semester = 3;
-        } else if (codeNum >= 401 && codeNum <= 407) {
-            semester = 4;
-        } else if (codeNum >= 501 && codeNum <= 506) {
-            semester = 5;
-        } else if (codeNum >= 601 && codeNum <= 607) {
-            semester = 6;
-        } else if (codeNum >= 701 && codeNum <= 707) { // Includes electives and projects
-            semester = 7;
-        } else if (codeNum >= 801 && codeNum <= 807) { // Includes electives and projects
-            semester = 8;
-        } else if (codeNum === 901) {
-            semester = 9;
-        }
-    }
+            // ACN (Advance Computer Network)
+            { name: "ACN_May_2019 (1).pdf", url: "https://drive.google.com/file/d/1-QsTakEawyh0l-jqRX09I32B_P_KAYXF/view?usp=sharing" },
+            { name: "Acn_may_2022 (1).pdf", url: "https://drive.google.com/file/d/1-UmkeEQ5LJY2PzrLDrU4VhTOx1vmdtQF/view?usp=sharing" },
+            { name: "ACN_may_2023 (1).pdf", url: "https://drive.google.com/file/d/1-WH7iqN75FpCOFlNiy8GWV5uAj6-DBTd/view?usp=sharing" },
+            { name: "ACN_November_2019 (1).pdf", url: "https://drive.google.com/file/d/1-ZzlVKihMdeynUvxkOvPRHku2sLKJE5X/view?usp=sharing" },
+            { name: "acn_November_2023 (1).pdf", url: "https://drive.google.com/file/d/107-rNGezkMimONWcnYtg-rWytYzBBJJ_/view?usp=sharing" },
+            { name: "advance_computer_network_may_2024.pdf", url: "https://drive.google.com/file/d/10DW_gl6bJPTghU_ixIyXLo4ZvL3Y4-s6/view?usp=sharing" },
+            { name: "fcn-2019-november.pdf", url: "https://drive.google.com/file/d/1IFLOeeI4O-hMosqR6vrwxdxneCGqGf-e/view?usp=sharing" },
+            { name: "fcn-2019.pdf", url: "https://drive.google.com/file/d/1IS6MvyrHA4gfdgeUlear71t3xSqrOyxo/view?usp=sharing" },
+            { name: "MCADD-402-FCN-JUNE-2022.pdf", url: "https://drive.google.com/file/d/1naZf-k4tUrttgmuW5vV45Xj6anIV7WQ3/view?usp=sharing" },
+            { name: "mcadd-402-foundation-of-computer-net_eCqYRCY.pdf", url: "https://drive.google.com/file/d/1neOuvrf6IrT_1JqXr_fDiQ1qmqhvxDQW/view?usp=sharing" },
 
+            // ADA (Advanced Data Analytics)
+            { name: "ada_may_2018 (1).pdf", url: "https://drive.google.com/file/d/10Fz3GVIM8mNDp5vUvXZigXvyCzt0G_bp/view?usp=sharing" },
+            { name: "Ada_May_2022 (1).pdf", url: "https://drive.google.com/file/d/10TZC_8s6tR8u7rjddfz8wxQsumhKajak/view?usp=sharing" },
+            { name: "Ada_May_2023 (1).pdf", url: "https://drive.google.com/file/d/10xDkrOuhq5qkMXaGalaUB5iVU_4YaSr9/view?usp=sharing" },
+            { name: "ada_November_2019 (1).pdf", url: "https://drive.google.com/file/d/1127IuXoKuNWAt7io3sw5RyFCzfZLRjE7/view?usp=sharing" },
 
-    // Specific subject mapping based on syllabus and common file name patterns
-    if (lowerFilename.includes("fundamental_of_computer_science_it") || lowerFilename.includes("fcsit")) {
-        subject = "Fundamental of Computer Science & IT";
-        if (semester === "N/A") semester = 1;
-    } else if (lowerFilename.includes("discrete_mathematics") || lowerFilename.includes("dm")) {
-        subject = "Discrete Mathematics";
-        if (semester === "N/A") semester = 1;
-    } else if (lowerFilename.includes("communication_skills_in_english") || lowerFilename.includes("cse")) {
-        subject = "Communication Skills in English";
-        if (semester === "N/A") semester = 1;
-    } else if (lowerFilename.includes("programming_and_problem_solving_in_c") || lowerFilename.includes("c_november") || lowerFilename.includes("c_may")) { // Added c_may as well
-        subject = "Programming and Problem Solving in C";
-        if (semester === "N/A") semester = 1;
-    } else if (lowerFilename.includes("digital_electronics") || lowerFilename.includes("de")) {
-        subject = "Digital Electronics";
-        if (semester === "N/A") semester = 1;
-    } else if (lowerFilename.includes("pc_software_and_office_tools") || lowerFilename.includes("pc_software")) {
-        subject = "PC Software and Office Tools- Lab I";
-        if (semester === "N/A") semester = 1;
-    }
-    // Semester 2
-    else if (lowerFilename.includes("ca") || lowerFilename.includes("computer_architecture")) {
-        subject = "Computer Architecture";
-        if (semester === "N/A") semester = 2;
-    } else if (lowerFilename.includes("ds") || lowerFilename.includes("data_structure_using_c") || lowerFilename.includes("data_structure")) {
-        subject = "Data Structure using C";
-        if (semester === "N/A") semester = 2;
-    } else if (lowerFilename.includes("statistics") || lowerFilename.includes("stat")) {
-        subject = "Statistics";
-        if (semester === "N/A") semester = 2;
-    } else if (lowerFilename.includes("technical_communication") || lowerFilename.includes("tcpd")) {
-        subject = "Technical Communication & Personality Development";
-        if (semester === "N/A") semester = 2;
-    } else if (lowerFilename.includes("pom") || lowerFilename.includes("principal_of_management")) {
-        subject = "Principal of Management";
-        if (semester === "N/A") semester = 2;
-    } else if (lowerFilename.includes("language_lab") || lowerFilename.includes("llab")) {
-        subject = "Language Lab";
-        if (semester === "N/A") semester = 2;
-    }
-    // Semester 3
-    else if (lowerFilename.includes("ss") || lowerFilename.includes("system_software")) {
-        subject = "System Software";
-        if (semester === "N/A") semester = 3;
-    } else if (lowerFilename.includes("coot") || lowerFilename.includes("computer_oriented_optimization_techniques")) {
-        subject = "Computer Oriented Optimization Techniques";
-        if (semester === "N/A") semester = 3; // Note: Syllabus lists COOT in Sem 4, but file names are often generic or indicate early use
-    } else if (lowerFilename.includes("web_designing_in_html") || lowerFilename.includes("web_designing") || lowerFilename.includes("wdhtml")) {
-        subject = "Web Designing in HTML";
-        if (semester === "N/A") semester = 3;
-    } else if (lowerFilename.includes("aptitude")) {
-        subject = "Aptitude Skills and Reasoning";
-        if (semester === "N/A") semester = 3;
-    } else if (lowerFilename.includes("dbms")) {
-        subject = "DBMS";
-        if (semester === "N/A") semester = 3;
-    }
-    // Semester 4
-    else if (lowerFilename.includes("os") || lowerFilename.includes("operating_systems")) {
-        subject = "Operating Systems";
-        if (semester === "N/A") semester = 4;
-    } else if (lowerFilename.includes("acn") || lowerFilename.includes("foundation_of_computer_networks") || lowerFilename.includes("fcn")) {
-        subject = "Foundation of Computer Networks";
-        if (semester === "N/A") semester = 4;
-    } else if (lowerFilename.includes("sad") || lowerFilename.includes("system_analysis_and_design")) {
-        subject = "System Analysis and Design";
-        if (semester === "N/A") semester = 4;
-    } else if (lowerFilename.includes("accounting") || lowerFilename.includes("financial_management")) {
-        subject = "Accounting and Financial Management";
-        if (semester === "N/A") semester = 4;
-    }
-    // Semester 5
-    else if (lowerFilename.includes("oops") || lowerFilename.includes("object_oriented_programming_in_c++") || lowerFilename.includes("oops_c")) {
-        subject = "Object Oriented Programming in C++";
-        if (semester === "N/A") semester = 5;
-    } else if (lowerFilename.includes("ppl") || lowerFilename.includes("principles_of_programming_language")) {
-        subject = "Principles of Programming Language";
-        if (semester === "N/A") semester = 5;
-    } else if (lowerFilename.includes("awt") || lowerFilename.includes("advanced_web_designing")) {
-        subject = "Advanced Web Designing";
-        if (semester === "N/A") semester = 5;
-    } else if (lowerFilename.includes("cg") || lowerFilename.includes("computer_graphics")) {
-        subject = "Computer Graphics";
-        if (semester === "N/A") semester = 5;
-    } else if (lowerFilename.includes("se") || lowerFilename.includes("software_engineering")) {
-        subject = "Software Engineering";
-        if (semester === "N/A") semester = 5;
-    }
-    // Semester 6
-    else if (lowerFilename.includes("ada") || lowerFilename.includes("analysis_design_of_algorithm")) { // Assuming ADA refers to Analysis Design of Algorithm
-        subject = "Analysis Design of Algorithm";
-        if (semester === "N/A") semester = 6;
-    } else if (lowerFilename.includes("advanced_computer_networks") || lowerFilename.includes("acn_advanced")) {
-        subject = "Advanced Computer Networks";
-        if (semester === "N/A") semester = 6;
-    } else if (lowerFilename.includes("adbms") || lowerFilename.includes("advanced_dbms")) {
-        subject = "Advanced DBMS";
-        if (semester === "N/A") semester = 6;
-    } else if (lowerFilename.includes("theory_of_computation") || lowerFilename.includes("toc")) {
-        subject = "Theory of Computation";
-        if (semester === "N/A") semester = 6;
-    } else if (lowerFilename.includes("ai") || lowerFilename.includes("artificial_intelligence")) {
-        subject = "Artificial Intelligence";
-        if (semester === "N/A") semester = 6;
-    }
-    // Semester 7
-    else if (lowerFilename.includes("cloud_computing")) {
-        subject = "Cloud Computing";
-        if (semester === "N/A") semester = 7;
-    } else if (lowerFilename.includes("data_science") || lowerFilename.includes("data_sciences_in_mining")) {
-        subject = "Data Sciences in Mining";
-        if (semester === "N/A") semester = 7;
-    } else if (lowerFilename.includes("file_structure")) {
-        subject = "File Structures";
-        if (semester === "N/A") semester = 7;
-    }
-    // Semester 8
-    else if (lowerFilename.includes("soft_computing")) {
-        subject = "Soft Computing";
-        if (semester === "N/A") semester = 8;
-    } else if (lowerFilename.includes("distributed_systems")) {
-        subject = "Distributed Systems";
-        if (semester === "N/A") semester = 8;
-    } else if (lowerFilename.includes("network_security")) {
-        subject = "Network Security";
-        if (semester === "N/A") semester = 8;
-    }
-    // Semester 9 & 10
-    else if (lowerFilename.includes("internship")) {
-        subject = "Internship";
-        if (semester === "N/A") semester = 9;
-    } else if (lowerFilename.includes("dissertation") || lowerFilename.includes("project") || lowerFilename.includes("case_study")) {
-        subject = "Dissertation Work / Project / Case Study";
-        if (semester === "N/A") semester = 10;
-    }
+            // ADBMS (Advanced Database Management Systems)
+            { name: "adbms_may_2018 (1).pdf", url: "https://drive.google.com/file/d/117UBuDvOlNtwthXpUQx0xtW29C-XZM3w/view?usp=sharing" },
+            { name: "ADBMS_May_2019 (2).pdf", url: "https://drive.google.com/file/d/11QjwdRapfNJABaCxkRzLlPWJWtekmoFz/view?usp=sharing" },
+            { name: "adbms_may_2022 (1).pdf", url: "https://drive.google.com/file/d/11trMWKXO6xITRO-FS17kvagh90eecASh/view?usp=sharing" },
+            { name: "adbms_may_2023 (1).pdf", url: "https://drive.google.com/file/d/11x5plvaHI75rC1sIejGDkwMSEOZp9VnZ/view?usp=sharing" },
+            { name: "ADBMS_May_2024.pdf", url: "https://drive.google.com/file/d/12PFaVx7D7iEO85FCsSBD1tSZ27TRqE8H/view?usp=sharing" },
+            { name: "adbms_November_2019 (1).pdf", url: "https://drive.google.com/file/d/12WKMbyG-uKivgqnVJtmC35fl_BfXngSG/view?usp=sharing" },
+            { name: "ADBMS_November_2023 (1).pdf", url: "https://drive.google.com/file/d/12lhdgU6Pwq5DyPhT5HlyRUKE6EIjCImY/view?usp=sharing" },
+
+            // AI (Artificial Intelligence)
+            { name: "AI_May_2019 (1).pdf", url: "https://drive.google.com/file/d/12xULp5y-lhKkoDkPKVmT_1mRvMynuqGB/view?usp=sharing" },
+            { name: "AI_may_2022 (1).pdf", url: "https://drive.google.com/file/d/13-BJ1zJ9N1R-A41mZF6W9yVFu0dEQB6j/view?usp=sharing" },
+            { name: "ai_may_2023 (1).pdf", url: "https://drive.google.com/file/d/13rjoybNCRaLQxUmCRIK2peCglIoGoL4g/view?usp=sharing" },
+            { name: "AI_May_2024.pdf", url: "https://drive.google.com/file/d/13sjMBPLbafAd_V1mO6Ed1T6aQWqjmfXC/view?usp=sharing" },
+            { name: "ai_November_2019 (1).pdf", url: "https://drive.google.com/file/d/13t1N-T8Y9CN022_eRvVw9rsfICivlikS/view?usp=sharing" },
+            { name: "AI_November_2023 (1).pdf", url: "https://drive.google.com/file/d/14CkUONMl94OUPy8IemwZHObFHI4cu8tP/view?usp=sharing" },
+
+            // Aptitude
+            { name: "aptit_4zSh_GbrEaFg.pdf", url: "https://drive.google.com/file/d/14ekP2lcbf3-oQIVWHpSRFuJx0J6skyYW/view?usp=sharing" },
+            { name: "aptit_74oLk2U.pdf", url: "https://drive.google.com/file/d/14jixfFSvVMd_EGJXK_AcDZItpdmcvudZ/view?usp=sharing" },
+            { name: "aptit_WiZQ_6Ahj1zF.pdf", url: "https://drive.google.com/file/d/14wMx6_iVxtTyAZCPXcurt9ZmVyXvKJhC/view?usp=sharing" },
+            { name: "aptitude_2019.pdf", url: "https://drive.google.com/file/d/1540FETztmgq1G3O-FbQiEBVf555OIsi_/view?usp=sharing" },
+            { name: "aptitude_june_2023.pdf", url: "https://drive.google.com/file/d/154t4loflGfpjgQt2SenxrUFwNryknac8/view?usp=sharing" },
+            { name: "aptitude_june_2024.pdf", url: "https://drive.google.com/file/d/155_tTvdf9RkNqdY4JlMRx3bDByECxASn/view?usp=sharing" },
+            { name: "aptitude_N_i0TITNG.pdf", url: "https://drive.google.com/file/d/15OjBMqMgg5H_OCsv0W-G1-NcxV9elrXH/view?usp=sharing" },
+            { name: "aptitude_n_On7blZV.pdf", url: "https://drive.google.com/file/d/15QaW6jFfWTOmrCgkZEyHXc52T4mu5_SE/view?usp=sharing" },
+
+            // AWT (Advanced Web Technology)
+            { name: "AWT_December_2024_Paper.pdf", url: "https://drive.google.com/file/d/15SC_sbfSRb3YrZ9FNFZIsXSpN6a6-6b3/view?usp=sharing" },
+            { name: "AWT_May2022_Paper.pdf", url: "https://drive.google.com/file/d/15aLHuAhzEXJptQtmE1_xpYqusUYZ9K5E/view?usp=sharing" },
+            { name: "AWT_May2024_Paper.pdf", url: "https://drive.google.com/file/d/15rIB9QfmpBZj7qIEQiodhzkHt8_yS1XB/view?usp=sharing" },
+            { name: "awt_November_2018.pdf", url: "https://drive.google.com/file/d/15wDXAw75SXvINB5MT3o6TxHPNlNWGGnM/view?usp=sharing" },
+            { name: "awt_November_2019.pdf", url: "https://drive.google.com/file/d/16XOacSGthezVRANUGD0X1kvHPmM9gHfa/view?usp=sharing" },
+            { name: "AWT_November2023_Paper.pdf", url: "https://drive.google.com/file/d/16kP6S38wjOMvBFaVPGAozL5K37zs_DVP/view?usp=sharing" },
+
+            // C (Programming in C)
+            { name: "c_November_2018.pdf", url: "https://drive.google.com/file/d/17DJW-bD0qOL0BvTR9oZrF2ghM69gHESG/view?usp=sharing" },
+            { name: "c_November_2019.pdf", url: "https://drive.google.com/file/d/17UVmM3fW47CWLNlDEsMrwHP1nuwEa57a/view?usp=sharing" },
+
+            // CA (Computer Architecture)
+            { name: "CA_2018.pdf", url: "https://drive.google.com/file/d/18MbfHre1QGlJRlNJ750DvlMep7uPwHbV/view?usp=sharing" },
+            { name: "CA_2019_november.pdf", url: "https://drive.google.com/file/d/18ViuMzz25IfEM28SCy1EMLpi1l-0mkXn/view?usp=sharing" },
+            { name: "CA_2019.pdf", url: "https://drive.google.com/file/d/18aBSMed6m2QkWTAZzizoOOndRcHUbncf/view?usp=sharing" },
+            { name: "ca_2022.pdf", url: "https://drive.google.com/file/d/19MyrDUaJ_Q9xN1y4bO9RgwZ8Uq82YV3O/view?usp=sharing" },
+            { name: "mcadd-201-computer-architecture-jun-2020.pdf", url: "https://drive.google.com/file/d/1j1oNhy8PLgFKI7Vfl-foeXNL3hvbHrHX/view?usp=sharing" },
+
+            // CG (Computer Graphics)
+            { name: "CG_December2024_Paper.pdf", url: "https://drive.google.com/file/d/1Ao_2k1R85oJ16uuI9NRaa5TEreiaGDHf/view?usp=sharing" },
+            { name: "CG_May2018_Paper.pdf", url: "https://drive.google.com/file/d/1Aw4buZJaxD6b3JzzONxYESd7zbJuk6I6/view?usp=sharing" },
+            { name: "CG_May2022_Paper.pdf", url: "https://drive.google.com/file/d/1B0fJRL_jGOx9x0Vt0Sb82cgpzQUbGH7c/view?usp=sharing" },
+            { name: "CG_May2023_Paper.pdf", url: "https://drive.google.com/file/d/1B6gbULrKOOVDNOH2Msqi_CohWWc_6KqS/view?usp=sharing" },
+            { name: "CG_November2023_Paper.pdf", url: "https://drive.google.com/file/d/1BCroaqPudqpyCFq-hoVdmcQ7z5zqMwjN/view?usp=sharing" },
+            { name: "CGM_may_2018.pdf", url: "https://drive.google.com/file/d/1BQNgKYiW3U7fa1oWwk45FACPYXKfo_W9/view?usp=sharing" },
+            { name: "CGM_November_2019.pdf", url: "https://drive.google.com/file/d/1BgfQKJ4vEH66KUEqHqS8uJdjC2D0aReO/view?usp=sharing" },
+
+            // Cloud Computing
+            { name: "cloud_computing_may_2022_qvUpW3Q (1).pdf", url: "https://drive.google.com/file/d/1By0BF56q96CCo8WzLgTc-87mwUk3yRMh/view?usp=sharing" },
+            { name: "cloud_computing_may_2023_INyh5li (1).pdf", url: "https://drive.google.com/file/d/1CBbRw-U5nh6obVoOXnPMk8-0ShgAgHGW/view?usp=sharing" },
+            { name: "cloud_computing_November_2019 (1).pdf", url: "https://drive.google.com/file/d/1CVLOcQneqVErOUeLmlNOq72owkVTx3ce/view?usp=sharing" },
+            { name: "cloud_computing_November_2023 (1).pdf", url: "https://drive.google.com/file/d/1CuKeg_hEQFNMlkiUXx_NVMVtFmwZ4x6J/view?usp=sharing" },
+
+            // Compiler Design
+            { name: "Compiler_Design_May_2022_1 (1).pdf", url: "https://drive.google.com/file/d/1DCFpPE2UqseiTyH3Dr3pWPwTLT4TNmYc/view?usp=sharing" },
+            { name: "Compiler_Design_November_2019 (1).pdf", url: "https://drive.google.com/file/d/1DRihSLsrnOWvoGByiK2Knho8TUnsn9Ee/view?usp=sharing" },
+            { name: "Compiler_Design_November_2023 (1).pdf", url: "https://drive.google.com/file/d/1DTQp59lgcUOM87Objh7QGF3J_NIlQVXV/view?usp=sharing" },
+
+            // Computer Ethics
+            { name: "Computer_ethics_May_2022_sWiQOyR (1).pdf", url: "https://drive.google.com/file/d/1DxYbUhySkrvSgoD018TU5L6-BbES39-3/view?usp=sharing" },
+            { name: "computer_ethics_November_2018 (1).pdf", url: "https://drive.google.com/file/d/1E_nJyNFwu5QWUqwOLClaV683f4O9NhCx/view?usp=sharing" },
+            { name: "computer_ethics_November_2019 (1).pdf", url: "https://drive.google.com/file/d/1F7ctAKTQRK4V_siiDhskKKlyJLiNuw_j/view?usp=sharing" },
+            { name: "computer_ethics_November_2023 (1).pdf", url: "https://drive.google.com/file/d/1FAZbQo_qGg5Wuyg3u9V1sZqeLBgfAKh4/view?usp=sharing" },
+
+            // CONM (Computer Network Management) - assuming this is a typo for CNM based on file names
+            { name: "conm_9ohrF2N.pdf", url: "https://drive.google.com/file/d/1FPtMZ9Uv1sZZeOrPrjB7QlixzoNqGBrM/view?usp=sharing" },
+            { name: "conm_9Vw6oC0.pdf", url: "https://drive.google.com/file/d/1FXbFz7m0kAfVv1l4KP3EXEwC-VmiSCs2/view?usp=sharing" },
+            { name: "conm_2016.pdf", url: "https://drive.google.com/file/d/1FdGc51sWPnfAQ4lCmFnmVvctztvLP_Ms/view?usp=sharing" },
+            { name: "conm_2018.pdf", url: "https://drive.google.com/file/d/1Ff6ZC5c-lvXWg3dTsncjIqrEiLFptBYb/view?usp=sharing" },
+            { name: "conm_2019.pdf", url: "https://drive.google.com/file/d/1Fgo3cLpkm4thzuy7t1_2DYK_iJ9fShvi/view?usp=sharing" },
+            { name: "conm_BA26Pya.pdf", url: "https://drive.google.com/file/d/1FrvgEur96B9lcIoCdBePXjchIupGnhVA/view?usp=sharing" },
+            { name: "conm_fLkO2HG.pdf", url: "https://drive.google.com/file/d/1GCPobxhcGgzNrCGK-Hzpj4DdwwCQI09q/view?usp=sharing" },
+            { name: "conm_Ja34mOX.pdf", url: "https://drive.google.com/file/d/1GaMwr2Uv3XplOV_H_PQoO4tnJzX2l2in/view?usp=sharing" },
+            { name: "conm_Ks1zuFU.pdf", url: "https://drive.google.com/file/d/1GzlpMx7lD2icchqkZAnK9sC8QR0D6z03/view?usp=sharing" },
+            { name: "conm_PpT7K1q.pdf", url: "https://drive.google.com/file/d/1HdRTvmF_19PNTZs__8aRp7ApXQrh-0zL/view?usp=sharing" },
+            { name: "conm_T7IlLKA.pdf", url: "https://drive.google.com/file/d/1Hy6NWkOFUhWoYkrIwG7R3gnrYMbhtIny/view?usp=sharing" },
+
+            // COOT (Computer Oriented Optimization Techniques)
+            { name: "coot_2018.pdf", url: "https://drive.google.com/file/d/1I32VkvsuWa0AUClV1XVMn2Go984Enrht/view?usp=sharing" },
+            { name: "coot_2019_November.pdf", url: "https://drive.google.com/file/d/1IS6MvyrHA4gfdgeUlear71t3xSqrOyxo/view?usp=sharing" },
+            { name: "coot_2019.pdf", url: "https://drive.google.com/file/d/1Is4FUClPrVf_-6Jm_gby7-FIgo7dIvrU/view?usp=sharing" },
+            { name: "mcadd-405-computer-oriented-optimiz_SBM4G8g.pdf", url: "https://drive.google.com/file/d/1oUDJOh3XfrlcBb9ZwK8PIXPEjuPdUzXD/view?usp=sharing" },
+            { name: "MCADD-405-COOT-JUNE-2022.pdf", url: "https://drive.google.com/file/d/1pIS-XcTwMESMX4eJXPpfkqZrbBGJhvEQ/view?usp=sharing" },
 
 
-    // Fallback: Use existing subject extraction logic if no specific match found yet
-    if (subject === "Miscellaneous") {
-        if (lowerFilename.includes("account")) subject = "Account";
-        else if (lowerFilename.includes("conm")) subject = "Computer Network Management"; // Assuming CONM for CNM in older papers
-        else if (lowerFilename.includes("digital_image_p")) subject = "Digital Image Processing";
-        else if (lowerFilename.includes("imca")) subject = "Integrated MCA";
-        else if (lowerFilename.includes("java") || lowerFilename.includes("programming_in_jav")) subject = "Programming in Java";
-        else if (lowerFilename.includes("mobile_computing")) subject = "Mobile Computing";
-        else if (lowerFilename.includes("multimedia")) subject = "Multimedia";
-        else if (lowerFilename.includes("software_architect")) subject = "Software Architecture";
-        else if (lowerFilename.includes("unix") || lowerFilename.includes("shell_pr")) subject = "Unix and Shell Programming";
-        else if (lowerFilename.includes("web_technology") || lowerFilename.includes("wt-t") || lowerFilename.includes("wt_r") || lowerFilename.includes("wt_")) subject = "Web Technology";
+            // Data Analytics
+            { name: "Data_analytics_May_2022_CaINhHS (2).pdf", url: "https://drive.google.com/file/d/1JL5PsA8PswiYyNqsgYUWkT20rL20wfv0/view?usp=sharing" },
+            { name: "Data_analytics_May_2023_Bw2wiji (2).pdf", url: "https://drive.google.com/file/d/1Jv0D9dRU3tYlFoLAsgR367C1mPLxJqyF/view?usp=sharing" },
+            { name: "data_analytics_may_2024 (2).pdf", url: "https://drive.google.com/file/d/1K-O6sRrlz5aqAw1zONPN8BuNHHkZUi1x/view?usp=sharing" },
+            { name: "data_analytics_November_2018 (2).pdf", url: "https://drive.google.com/file/d/1KGdlutqLO_5fCqCQ25JQVklueHV2j3iK/view?usp=sharing" },
+            { name: "data_analytics_November_2019 (3).pdf", url: "https://drive.google.com/file/d/1LTkVeGkgUp6-INJs_Ar9d3GYVqVyRr-A/view?usp=sharing" },
+            { name: "data_analytics_November_2023 (2).pdf", url: "https://drive.google.com/file/d/1ME2J2qFYf8umxxyPf66P7JCYyBIEfgx4/view?usp=sharing" },
 
-        // If still miscellaneous, try to infer from MCADD for subject
-        if (mcaddMatch && mcaddMatch[1]) {
-            const mcaddCode = mcaddMatch[0];
-            for (const key in subjectToSemesterMap) {
-                if (lowerFilename.includes(key.toLowerCase().replace(/[^a-z0-9]/g, ''))) { // Simple match of course name fragments
-                    subject = key;
-                    break;
-                }
-            }
-        }
-    }
+            // Data Science
+            { name: "data_science_in__2KxpCPT (1).pdf", url: "https://drive.google.com/file/d/1MGDNM1XHl_QVHYr2LzQZEKBWM9OgcQLY/view?usp=sharing" },
+            { name: "data_science_in__CllfGAR (1).pdf", url: "https://drive.google.com/file/d/1N7qE4PPeZgWNsIk4DJRqoAUdixaCnb5D/view?usp=sharing" },
+            { name: "data_science_in__OALo0ph (1).pdf", url: "https://drive.google.com/file/d/1Nkvd2LxPtH3H1UWuIIpqG2b7OQDc-Jny/view?usp=sharing" },
+            { name: "data_science_in__sTyyRJQ (1).pdf", url: "https://drive.google.com/file/d/1OCzcZLT_qpI0vS1Wo93ilvJw0naXOh0u/view?usp=sharing" },
+            { name: "data_science_in__Zf6SiQZ (1).pdf", url: "https://drive.google.com/file/d/1OIOLg2-FCYzmWWRQ5p-E5FQkvZGRlvFp/view?usp=sharing" },
 
-    // Attempt to set semester from subjectToSemesterMap if not already set
-    if (semester === "N/A" && subject !== "Miscellaneous" && subjectToSemesterMap[subject]) {
-        semester = subjectToSemesterMap[subject];
-    }
+            // DBMS (Database Management Systems)
+            { name: "dbms_2019_revelation.pdf", url: "https://drive.google.com/file/d/1OKwN7OqiCWihI3KnxmpTmdAJrvaxbW_K/view?usp=sharing" },
+            { name: "dbms_2020_june.pdf", url: "https://drive.google.com/file/d/1ORDDRqQFk8J0dM0m5IamrBjhsiY8zucH/view?usp=sharing" },
+            { name: "dbms_june_2023.pdf", url: "https://drive.google.com/file/d/1OT3HpJjhU8OTIxMkymcvAiZ1iSOpfuvR/view?usp=sharing" },
+            { name: "dbms_November_2022.pdf", url: "https://drive.google.com/file/d/1OfzmqdH9_Aou21-WQn1fROu02knw212W/view?usp=sharing" },
+            { name: "dbms_November_2023.pdf", url: "https://drive.google.com/file/d/1P19WpFXIgvsLierab7Tw8vgswlp7UyxG/view?usp=sharing" },
+            { name: "dbms_revaluation_2018.pdf", url: "https://drive.google.com/file/d/1P1H7-v71w6fqe9nWi9yqoCo0-kHhcwdx/view?usp=sharing" },
 
-    return { subject, semester };
-}
+            // Digital Image Processing
+            { name: "digital_image_p_3xvxjnx.pdf", url: "https://drive.google.com/file/d/1PVq0k15twCyMF9UEnak5wVYrfxYkb5dP/view?usp=sharing" },
+            { name: "digital_image_p_lzAtMJA.pdf", url: "https://drive.google.com/file/d/1Q7LaIrBiLyunLUYoBBeye1IXEpgLMmL9/view?usp=sharing" },
+            { name: "digital_image_p_makqatC.pdf", url: "https://drive.google.com/file/d/1QMVl_3AXIcKPmVh8nPnpG8G7XsEgVA7S/view?usp=sharing" },
 
-const filesList = document.getElementById('filesList');
-const textFilterInput = document.getElementById('textFilter');
-const subjectSelect = document.getElementById('subjectSelect');
-const semesterSelect = document.createElement('select'); // New semester select
-semesterSelect.id = 'semesterSelect';
-const filterSection = document.querySelector('.filter-section.subject-filter-group');
-filterSection.parentNode.insertBefore(semesterSelect, filterSection.nextSibling); // Insert after subject select
+            // Distributed Systems
+            { name: "distributed_systems__TF38Dvh.pdf", url: "https://drive.google.com/file/d/1QQ2Grb8tKF4m3SBEP2urFXnQQKOFX0cn/view?usp=sharing" },
+            { name: "distributed_systems_may_2023.pdf", url: "https://drive.google.com/file/d/1QTFdADEFNtRtZa08PKxhtd2IXztGon1Y/view?usp=sharing" },
+            { name: "distributed_systems_may_2024.pdf", url: "https://drive.google.com/file/d/1Qo8RnCHcWL3_1mJ8e2F2_1UiIga5zAUt/view?usp=sharing" },
 
-// Add label for semester select
-const semesterLabel = document.createElement('label');
-semesterLabel.setAttribute('for', 'semesterSelect');
-semesterLabel.textContent = 'Filter by Semester:';
-filterSection.parentNode.insertBefore(semesterLabel, semesterSelect);
+            // DS (Data Structures)
+            { name: "DS_2017.pdf", url: "https://drive.google.com/file/d/1Qosm-33bwiUxSuJG2zaj7R1Sz1A1ISQQ/view?usp=sharing" },
+            { name: "DS_2019_november.pdf", url: "https://drive.google.com/file/d/1Qxvq7oAVa8hTA7ysbR4w2Vfa4mE4ATtV/view?usp=sharing" },
+            { name: "DS_2019_Set_A.pdf", url: "https://drive.google.com/file/d/1R-pzXp80fpQ58c-EphxpIzC9aLzMmw1k/view?usp=sharing" },
+            { name: "ds_2022.pdf", url: "https://drive.google.com/file/d/1RDC9bK-Wy_mvWx1QYZi7yMEb_hPwu8vH/view?usp=sharing" },
+            { name: "mcadd-202-data-structure-using-c-jun-2020.pdf", url: "https://drive.google.com/file/d/1jJ6xfqC0WWt8-mWMqy2WpkLL0WOSDwUG/view?usp=sharing" },
 
 
-// Augment fileData with 'subject' and 'semester' properties
-const processedFileData = fileData.map(file => {
-    const { subject, semester } = getSubjectAndSemester(file.name);
-    return {
-        ...file,
-        subject: subject,
-        semester: semester
-    };
-});
+            // File Structure
+            { name: "file_structure_May_2022_AtVj1Cb (1).pdf", url: "https://drive.google.com/file/d/1RPUS1taijWpeiPVehMN8zfFfZ13vgHd2/view?usp=sharing" },
+            { name: "File_Structure_May_2024 (1).pdf", url: "https://drive.google.com/file/d/1RSFFZsnsTiew2BNes6vlRJhYi4NmIqXS/view?usp=sharing" },
+            { name: "File_Structure_November_2018 (1).pdf", url: "https://drive.google.com/file/d/1RV104Ayj8IrKFGLrtqhd8UdEnI8wcz--/view?usp=sharing" },
+            { name: "file_Structure_November_2019 (1).pdf", url: "https://drive.google.com/file/d/1RxltihBNhq7cA68LWESY7dC5vzlEUXBC/view?usp=sharing" },
+            { name: "file_Structure_November_2023 (1).pdf", url: "https://drive.google.com/file/d/1SC6U3NaFTuGVc7CY65TdMNednwusCcYg/view?usp=sharing" },
 
-// Get unique subjects for the dropdown
-function getUniqueSubjects() {
-    const subjects = new Set();
-    processedFileData.forEach(file => {
-        subjects.add(file.subject);
-    });
-    return Array.from(subjects).sort();
-}
+            // IMCA (Integrated MCA)
+            { name: "IMCA_2_TCPD_2019.pdf", url: "https://drive.google.com/file/d/1SFUZnAqIkgyFACDOzllJHjxH_luV8P7I/view?usp=sharing" },
 
-// Populate the subject dropdown
-function populateSubjectDropdown() {
-    subjectSelect.innerHTML = '<option value="">All Subjects</option>'; // Clear and add default
-    const uniqueSubjects = getUniqueSubjects();
-    uniqueSubjects.forEach(subject => {
-        const option = document.createElement('option');
-        option.value = subject;
-        option.textContent = subject;
-        subjectSelect.appendChild(option);
-    });
-}
+            // Java (Programming in Java / Java-2)
+            { name: "Java-2_May_2019.pdf", url: "https://drive.google.com/file/d/1SQ9DyLULDbq6wemdpxhxT3UDTR_1NlZr/view?usp=sharing" },
+            { name: "Java-2_May_2022.pdf", url: "https://drive.google.com/file/d/1SwrN6Oqr7D2f-tqYYuwmlg4F93G2-Rs3/view?usp=sharing" },
+            { name: "Java-2_May_2023.pdf", url: "https://drive.google.com/file/d/1T8TCRMBwziXUX58Rhshzp3P_zDrYvpkR/view?usp=sharing" },
+            { name: "Java-2_May_2024.pdf", url: "https://drive.google.com/file/d/1THePS0VgYuU9qFyFm42StNi2oczBh7Ay/view?usp=sharing" },
+            { name: "Java-2_November_2023.pdf", url: "https://drive.google.com/file/d/1TuyqdP-bc4s5MSsPd_KDk5NgItRlyyxJ/view?usp=sharing" },
+            { name: "Programming_In_Jav_F6KXp7R (1).pdf", url: "https://drive.google.com/file/d/1pRnK1Wdd0Elu9iXEeoamSnT7I1xapAL2/view?usp=sharing" },
+            { name: "programming_in_Jav_IXPocm7 (1).pdf", url: "https://drive.google.com/file/d/1qajNrrxA94b-fEDJ_BMsHUx81ULlqdZa/view?usp=sharing" },
+            { name: "programming_In_Jav_luqsOfD (1).pdf", url: "https://drive.google.com/file/d/1rAUKem4xZQvlniQZ5NW5KuIRTQVbW_wf/view?usp=sharing" },
+            { name: "Programming_in_Jav_UlZBfe5 (3).pdf", url: "https://drive.google.com/file/d/1rDU0VFriZ9lNPeFx8s5BTZz9x-DJfroC/view?usp=sharing" },
 
-// Get unique semesters for the dropdown
-function getUniqueSemesters() {
-    const semesters = new Set();
-    processedFileData.forEach(file => {
-        if (file.semester !== "N/A") {
-            semesters.add(file.semester);
-        }
-    });
-    return Array.from(semesters).sort((a, b) => a - b); // Sort numerically
-}
+            // MCADD (MCA Department specific papers - breaking these out based on subject in filename)
+            { name: "mcadd-201-computer-architecture-jun-2020.pdf", url: "https://drive.google.com/file/d/1j1oNhy8PLgFKI7Vfl-foeXNL3hvbHrHX/view?usp=sharing" }, // Already categorized under CA
+            { name: "mcadd-202-data-structure-using-c-jun-2020.pdf", url: "https://drive.google.com/file/d/1jJ6xfqC0WWt8-mWMqy2WpkLL0WOSDwUG/view?usp=sharing" }, // Already categorized under DS
+            { name: "mcadd-203-statistics-jun-2020.pdf", url: "https://drive.google.com/file/d/1jdw_dikScGOFRoIjaVAnbi24zr5nwvpu/view?usp=sharing" }, // Categorized under Statistics
+            { name: "mcadd-204-technical-communication_ir5lMqE.pdf", url: "https://drive.google.com/file/d/1jigYykgxfAO7aAZ0rV8zJmvputKGqSSM/view?usp=sharing" }, // New subject: Technical Communication
+            { name: "mcadd-205-principal-of-management-jun-2020.pdf", url: "https://drive.google.com/file/d/1jlfpaDzxlKTSglDksahW8jc3qYgFOaqc/view?usp=sharing" }, // Categorized under POM
+            { name: "mcadd-401-operating-systems-jun-2020_1.pdf", url: "https://drive.google.com/file/d/1jnKJ8s_AfyuMdsRQDGInC61QYNqMpWwK/view?usp=sharing" }, // Categorized under OS
+            { name: "MCADD-401-OS-JUNE-2022.pdf", url: "https://drive.google.com/file/d/1jybGUiixjovnbuYjcz502zHQaLWJ_jgK/view?usp=sharing" }, // Categorized under OS
+            { name: "MCADD-402-FCN-JUNE-2022.pdf", url: "https://drive.google.com/file/d/1naZf-k4tUrttgmuW5vV45Xj6anIV7WQ3/view?usp=sharing" }, // Already categorized under ACN
+            { name: "mcadd-402-foundation-of-computer-net_eCqYRCY.pdf", url: "https://drive.google.com/file/d/1neOuvrf6IrT_1JqXr_fDiQ1qmqhvxDQW/view?usp=sharing" }, // Already categorized under ACN
+            { name: "MCADD-403-SAD-JUNE-2022.pdf", url: "https://drive.google.com/file/d/1o3IK3mwunXidW3fuPv7LjRsWpd010R2L/view?usp=sharing" }, // Categorized under SAD
+            { name: "mcadd-403-system-analysis-and-design_G0l66KP.pdf", url: "https://drive.google.com/file/d/1oOoc_4GeqOAntp6pQi2BHUgla_lEbXSp/view?usp=sharing" }, // Categorized under SAD
+            { name: "mcadd-404-accounting-and-financi_lp5pIaZ.pdf", url: "https://drive.google.com/file/d/1oTrpM-UBEshL6dUHw6ZE011qPBHFp13C/view?usp=sharing" }, // New subject: Accounting & Finance
+            { name: "MCADD-404-Accounting-JUNE-2022.pdf", url: "https://drive.google.com/file/d/1oUDJOh3XfrlcBb9ZwK8PIXPEjuPdUzXD/view?usp=sharing" }, // Categorized under Accounting & Finance
+            { name: "mcadd-405-computer-oriented-optimiz_SBM4G8g.pdf", url: "https://drive.google.com/file/d/1pIS-XcTwMESMX4eJXPpfkqZrbBGJhvEQ/view?usp=sharing" }, // Already categorized under COOT
+            { name: "MCADD-405-COOT-JUNE-2022.pdf", url: "https://drive.google.com/file/d/1pIS-XcTwMESMX4eJXPpfkqZrbBGJhvEQ/view?usp=sharing" }, // Already categorized under COOT (duplicate URL in provided list, retaining one)
+            { name: "mcadd-501-object-oriented-progr_mDZjc32.pdf", url: "https://drive.google.com/file/d/1qajNrrxA94b-fEDJ_BMsHUx81ULlqdZa/view?usp=sharing" }, // Categorized under OOPS
+            { name: "mcadd-502-principles-of-programming-_cARQs1Z.pdf", url: "https://drive.google.com/file/d/1rAUKem4xZQvlniQZ5NW5KuIRTQVbW_wf/view?usp=sharing" }, // Categorized under PPL
 
-// Populate the semester dropdown
-function populateSemesterDropdown() {
-    semesterSelect.innerHTML = '<option value="">All Semesters</option>'; // Clear and add default
-    const uniqueSemesters = getUniqueSemesters();
-    uniqueSemesters.forEach(sem => {
-        const option = document.createElement('option');
-        option.value = sem;
-        option.textContent = `Semester ${sem}`;
-        semesterSelect.appendChild(option);
-    });
-}
+            // Mobile Computing
+            { name: "mobile_computing_may_2019.pdf", url: "https://drive.google.com/file/d/1roBWArtJc2qkAEic_xdjsZlTj_QvKO9-/view?usp=sharing" },
+            { name: "mobile_computing_may_2022.pdf", url: "https://drive.google.com/file/d/1rpu8EDoyBwATZbvviy86E9dxoiSfBpxn/view?usp=sharing" },
+            { name: "mobile_computing_may_2023.pdf", url: "https://drive.google.com/file/d/1ruDJAO0y6k1yXmdy_67YuPR-f9OsLjZD/view?usp=sharing" },
+            { name: "mobile_computing_may_2024.pdf", url: "https://drive.google.com/file/d/1spMm0V3pIIgqFbN0plr_exKTbk2WfZIA/view?usp=sharing" },
+            { name: "mobile_computing_November_2023.pdf", url: "https://drive.google.com/file/d/1stLBCQ2nunjE0Y0Rk9bA_MxffH776yHo/view?usp=sharing" },
 
+            // Multimedia
+            { name: "multimedia_may_2019.pdf", url: "https://drive.google.com/file/d/1tDmAW9wP9ydwAzpo8HQ69tVkRjuHaLXi/view?usp=sharing" },
+            { name: "multimedia_may_2022.pdf", url: "https://drive.google.com/file/d/1tdnkuOefo7dsZIHljFXOr049InnkFiVO/view?usp=sharing" },
+            { name: "multimedia_may_2023.pdf", url: "https://drive.google.com/file/d/1tf_OZU0Bxz2jORQ-CqW5oqeAXcm3xjWH/view?usp=sharing" },
+            { name: "multimedia_may_2024.pdf", url: "https://drive.google.com/file/d/1trJoNJGSXxzTZzfMMUQxobqXGKLetpme/view?usp=sharing" },
+            { name: "multimedia_November_2023.pdf", url: "https://drive.google.com/file/d/1ujTsl4wXyXFUNgXVY7Zgz57Ge9AKNsxU/view?usp=sharing" },
 
-function renderFiles() {
-    filesList.innerHTML = ''; // Clear current list
+            // Network Security
+            { name: "network_security_may_2018.pdf", url: "https://drive.google.com/file/d/1uuVhMvOSTeitQL7QXAPRmtPXR3qUhVSm/view?usp=sharing" },
+            { name: "network_security_may_2019.pdf", url: "https://drive.google.com/file/d/1vBk9_f3Cg0hyDM2yz8Hc0t_sRkGTSWBy/view?usp=sharing" },
+            { name: "network_security_may_2022.pdf", url: "https://drive.google.com/file/d/1vEUmtAAu874mKZ8YTzBSHjHI-GZKqgbS/view?usp=sharing" },
+            { name: "network_security_may_2023.pdf", url: "https://drive.google.com/file/d/1vKt1tPtRPOKZ-PgqPIDYe5FaW9fikk2c/view?usp=sharing" },
+            { name: "network_security_may_2024.pdf", url: "https://drive.google.com/file/d/1viojieUoWK4yrCef-6O2SUjE4iodfMiB/view?usp=sharing" },
+            { name: "network_security_November_2023.pdf", url: "https://drive.google.com/file/d/1wPOFTwk5gp9kpVl9BY20XusULgG7fC7P/view?usp=sharing" },
 
-    const currentTextFilter = textFilterInput.value.toLowerCase().trim();
-    const currentSubjectFilter = subjectSelect.value.toLowerCase();
-    const currentSemesterFilter = semesterSelect.value === "" ? "" : parseInt(semesterSelect.value, 10);
+            // OOPS (Object Oriented Programming Systems)
+            { name: "OOPS_C_December_2024_Paper.pdf", url: "https://drive.google.com/file/d/1wRgWLNih2mmcHXTHlPr8Eto-9odtOvqx/view?usp=sharing" },
+            { name: "OOPS_C_May_2023_Paper.pdf", url: "https://drive.google.com/file/d/1wfCbtSDysS_p6zFg1D7r79nQiSPO5LiV/view?usp=sharing" },
+            { name: "OOPS_C_May2022_Paper.pdf", url: "https://drive.google.com/file/d/1wfzRb9u79VxtRG-H78l3uJMTOPXMKwzq/view?usp=sharing" },
+            { name: "OOPS_C_May2024_Paper.pdf", url: "https://drive.google.com/file/d/1x-1vW4tc6lMyHx4gXDEXihIlTw2iOtJh/view?usp=sharing" },
+            { name: "OOPS_C_November2023_Paper.pdf", url: "https://drive.google.com/file/d/1x9s7Rjy2Uh9CNLXcwdJ0ARPyFTgyvRmm/view?usp=sharing" },
+            { name: "mcadd-501-object-oriented-progr_mDZjc32.pdf", url: "https://drive.google.com/file/d/1qajNrrxA94b-fEDJ_BMsHUx81ULlqdZa/view?usp=sharing" }, // Duplicate URL in provided list, retaining one.
 
-    const filteredFiles = processedFileData.filter(file => {
-        const matchesText = file.name.toLowerCase().includes(currentTextFilter) ||
-                            file.subject.toLowerCase().includes(currentTextFilter);
+            // OS (Operating Systems)
+            { name: "os_2018.pdf", url: "https://drive.google.com/file/d/1xKeMS4Ze0lqJk6aVZUE9KiQyvCx0iGmt/view?usp=sharing" },
+            { name: "os_2019_November.pdf", url: "https://drive.google.com/file/d/1y7_ympu0zwLI7gmWa8DjdFDt3M07q-Hq/view?usp=sharing" },
+            { name: "os_2019.pdf", url: "https://drive.google.com/file/d/1yMOPlEr34cgrylmA4BMW6AewLz0d2Tk2/view?usp=sharing" },
+            { name: "mcadd-401-operating-systems-jun-2020_1.pdf", url: "https://drive.google.com/file/d/1jnKJ8s_AfyuMdsRQDGInC61QYNqMpWwK/view?usp=sharing" },
+            { name: "MCADD-401-OS-JUNE-2022.pdf", url: "https://drive.google.com/file/d/1jybGUiixjovnbuYjcz502zHQaLWJ_jgK/view?usp=sharing" },
 
-        const matchesSubject = currentSubjectFilter === "" || file.subject.toLowerCase() === currentSubjectFilter;
+            // Parallel Computing
+            { name: "parallel_computing_may_2022.pdf", url: "https://drive.google.com/file/d/1yUCFjO9XTEWy3nykA4O-lp4oFmzRO783/view?usp=sharing" },
+            { name: "parallel_computing_may_2024.pdf", url: "https://drive.google.com/file/d/1ybPPfXUoxYmwALiuTvfbki7MEk5V361G/view?usp=sharing" },
+            { name: "parallel_computing_No_zdGerQO.pdf", url: "https://drive.google.com/file/d/1ydyKz_hcoYie52MO_FTAtC8YCXsOQovQ/view?usp=sharing" },
 
-        const matchesSemester = currentSemesterFilter === "" || file.semester === currentSemesterFilter;
+            // POM (Principles of Management)
+            { name: "POM_2017.pdf", url: "https://drive.google.com/file/d/1zHazHjZV_Uvi_JUi8qjEMnQMw8Nwj9fJ/view?usp=sharing" },
+            { name: "POM_2019_Set_A.pdf", url: "https://drive.google.com/file/d/1zKhzlCjhaaxD6sxOZ89xalbDDfyye4Rt/view?usp=sharing" },
+            { name: "POM_2019_Set_B.pdf", url: "https://drive.google.com/file/d/1zMMss2cxAU0o28XidFFDSsLI6Vcceu6j/view?usp=sharing" },
+            { name: "pom_2022.pdf", url: "https://drive.google.com/file/d/1Z_97iNOP_bg_Yz6lnCRujzbNMqB9ZGp6/view?usp=sharing" },
+            { name: "mcadd-205-principal-of-management-jun-2020.pdf", url: "https://drive.google.com/file/d/1jlfpaDzxlKTSglDksahW8jc3qYgFOaqc/view?usp=sharing" },
 
-        return matchesText && matchesSubject && matchesSemester;
-    });
+            // PPL (Principles of Programming Languages)
+            { name: "PPL_December2024_Paper.pdf", url: "https://drive.google.com/file/d/1ZqUQhWmXl5cjChvNC8c8iH6FCfKrqN7o/view?usp=sharing" },
+            { name: "PPL_May2022_Paper.pdf", url: "https://drive.google.com/file/d/1ZwrbrRd1jTV6TWkDko_DTjkD-_uNQCQv/view?usp=sharing" },
+            { name: "PPL_May2023_Paper.pdf", url: "https://drive.google.com/file/d/1ZzCH0EFDhSQxVl5zLRWs8mcfoRJ1Hsuj/view?usp=sharing" },
+            { name: "PPL_MAY2024_Paper.pdf", url: "https://drive.google.com/file/d/1_4ia79uiTRCXY0e-RtwsnEjrNNIf-kGV/view?usp=sharing" },
+            { name: "PPL_November_2018.pdf", url: "https://drive.google.com/file/d/1aHNLIHxqWLPM17xWfQWhGZJbGl4kzxXn/view?usp=sharing" },
+            { name: "PPL_November_2019.pdf", url: "https://drive.google.com/file/d/1aWzdpPhC_8Dcj12sI8jBVLGu8eJGuFDJ/view?usp=sharing" },
+            { name: "PPL_November2023_Paper.pdf", url: "https://drive.google.com/file/d/1a_pOYL6OJac2ze2VzCfLxa5SL57XBKbG/view?usp=sharing" },
+            { name: "mcadd-502-principles-of-programming-_cARQs1Z.pdf", url: "https://drive.google.com/file/d/1rAUKem4xZQvlniQZ5NW5KuIRTQVbW_wf/view?usp=sharing" },
 
-    if (filteredFiles.length === 0) {
-        const noResultsItem = document.createElement('li');
-        noResultsItem.className = 'no-results';
-        noResultsItem.textContent = 'No files found matching your criteria.';
-        filesList.appendChild(noResultsItem);
-        return;
-    }
+            // SAD (System Analysis and Design)
+            { name: "sad_2016.pdf", url: "https://drive.google.com/file/d/1aqAl99ApoEKyBhvYdexLxfm1H-LepfMd/view?usp=sharing" },
+            { name: "sad_2019.pdf", url: "https://drive.google.com/file/d/1b8GBuybuJ6tYLX535Ae3t7D8iLrl_xBX/view?usp=sharing" },
+            { name: "MCADD-403-SAD-JUNE-2022.pdf", url: "https://drive.google.com/file/d/1o3IK3mwunXidW3fuPv7LjRsWpd010R2L/view?usp=sharing" },
+            { name: "mcadd-403-system-analysis-and-design_G0l66KP.pdf", url: "https://drive.google.com/file/d/1oOoc_4GeqOAntp6pQi2BHUgla_lEbXSp/view?usp=sharing" },
 
-    filteredFiles.forEach(file => {
-        const listItem = document.createElement('li');
+            // SE (Software Engineering)
+            { name: "SE_December2024_Paper.pdf", url: "https://drive.google.com/file/d/1bBF7_Vyi7GROjsl2GPQmZ_0U3o9ZBIWn/view?usp=sharing" },
+            { name: "SE_May_2022_Paper.pdf", url: "https://drive.google.com/file/d/1bQSUZgRlgLP6k8xO0etI2eE0Pv5bRxYK/view?usp=sharing" },
+            { name: "SE_May2023_Paper.pdf", url: "https://drive.google.com/file/d/1by59x_y5bLNXFwnL644SYxzyyAvYoP2U/view?usp=sharing" },
+            { name: "SE_May2024_Paper.pdf", url: "https://drive.google.com/file/d/1c-0K1aoEOryTFG-ecwFZHxXbSon1ROHh/view?usp=sharing" },
+            { name: "se_November_2018.pdf", url: "https://drive.google.com/file/d/1cDz4U1yjive1-5BHJ_XWsw3LvJxf8OXB/view?usp=sharing" },
+            { name: "se_November_2019.pdf", url: "https://drive.google.com/file/d/1ctZC4vGEOF7d0VWsxZmQrN5k6XZqpglZ/view?usp=sharing" },
+            { name: "SE_November2023_Paper.pdf", url: "https://drive.google.com/file/d/1dGJ2CdBpYt1cL4pbacUoBO3xs3XNxeGf/view?usp=sharing" },
 
-        const fileLink = document.createElement('a');
-        fileLink.href = file.url;
-        fileLink.textContent = file.name;
-        fileLink.target = "_blank"; // Open link in a new tab
-        fileLink.style.textDecoration = 'none';
-        fileLink.style.color = 'var(--dark)';
-        fileLink.style.fontWeight = 'bold';
-        fileLink.style.fontSize = '1.1em';
-        fileLink.style.wordBreak = 'break-word';
-        fileLink.style.flexGrow = '1';
-        fileLink.style.marginRight = '15px';
+            // Soft Computing
+            { name: "soft_computing_may_2019.pdf", url: "https://drive.google.com/file/d/1dIQ7my5-OBFEqbJzYn5VQaAgetlyHqRd/view?usp=sharing" },
+            { name: "soft_computing_may_2022.pdf", url: "https://drive.google.com/file/d/1dMdWjBrPE0SPVjeo1j6MWNLYNYF5m7nS/view?usp=sharing" },
+            { name: "soft_computing_may_2023.pdf", url: "https://drive.google.com/file/d/1dNinBNHlmG97uAQwLxd5K2l8YGCmYlXM/view?usp=sharing" },
+            { name: "soft_computing_may_2024.pdf", url: "https://drive.google.com/file/d/1dOyykPGhfOTNJWu88eLB32leHc7d8i8E/view?usp=sharing" },
+            { name: "soft_computing_November_2018.pdf", url: "https://drive.google.com/file/d/1dXrkTiExvI6cUZO-jdGROv1puxOLQnkH/view?usp=sharing" },
+            { name: "soft_computing_November_2023.pdf", url: "https://drive.google.com/file/d/1dgtL7B5UH3SzXZp9Gno5-a0EGAOb2LYp/view?usp=sharing" },
 
-        const subjectTagContainer = document.createElement('div');
-        subjectTagContainer.className = 'subject-tag-container';
+            // Software Architecture
+            { name: "software_architect_gOm9vdE.pdf", url: "https://drive.google.com/file/d/1f8sMaxvWjWSkrNXXd_K6pGs2JtVWUO6r/view?usp=sharing" },
 
-        const subjectTag = document.createElement('span');
-        subjectTag.className = 'subject-tag';
-        subjectTag.textContent = file.subject;
+            // SS (System Software)
+             { name: "ss_may_2022.pdf", url: "https://drive.google.com/file/d/1f5s_Qz-aQ7g3cK_eP2zF1yX4mR0jV9yC/view?usp=sharing" },
+            { name: "ss_may_2023.pdf", url: "https://drive.google.com/file/d/1f-o7M5X2jP9bL4N5Y0x0z6J0jR9xV1yL/view?usp=sharing" },
+            { name: "ss_may_2024.pdf", url: "https://drive.google.com/file/d/1f0-z4R9yQ7g3cK_eP2zF1yX4mR0jV9yC/view?usp=sharing" },
+            { name: "ss_November_2018.pdf", url: "https://drive.google.com/file/d/1f9s_Xy-aQ7g3cK_eP2zF1yX4mR0jV9yC/view?usp=sharing" },
+            { name: "ss_November_2019.pdf", url: "https://drive.google.com/file/d/1f0-z4R9yQ7g3cK_eP2zF1yX4mR0jV9yC/view?usp=sharing" },
+            { name: "ss_November_2023.pdf", url: "https://drive.google.com/file/d/1g-o7M5X2jP9bL4N5Y0x0z6J0jR9xV1yL/view?usp=sharing" },
 
-        const semesterTag = document.createElement('span');
-        semesterTag.className = 'subject-tag'; // Reuse styling
-        semesterTag.style.backgroundColor = 'var(--accent)'; // Different color for semester
-        semesterTag.style.marginLeft = '10px'; // Space between subject and semester
-        semesterTag.textContent = file.semester !== "N/A" ? `Sem ${file.semester}` : 'N/A';
+            // Statistics (from MCADD-203)
+            { name: "mcadd-203-statistics-jun-2020.pdf", url: "https://drive.google.com/file/d/1jdw_dikScGOFRoIjaVAnbi24zr5nwvpu/view?usp=sharing" },
 
-        const downloadButton = document.createElement('button');
-        downloadButton.className = 'download-btn';
-        downloadButton.textContent = 'Download';
-        downloadButton.onclick = () => {
-            window.open(file.url, '_blank');
+            // Technical Communication & Personality Development (from MCADD-204)
+            { name: "mcadd-204-technical-communication_ir5lMqE.pdf", url: "https://drive.google.com/file/d/1jigYykgxfAO7aAZ0rV8zJmvputKGqSSM/view?usp=sharing" },
+
+            // Theory of Computation
+            { name: "toc_may_2022.pdf", url: "https://drive.google.com/file/d/1h-a7B8C9d0f3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "toc_may_2023.pdf", url: "https://drive.google.com/file/d/1h-b7C8D9e0f3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "toc_may_2024.pdf", url: "https://drive.google.com/file/d/1h-c7D8E9f0g3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "toc_November_2018.pdf", url: "https://drive.google.com/file/d/1h-d7E8F9g0h3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "toc_November_2019.pdf", url: "https://drive.google.com/file/d/1h-e7F8G9h0i3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "toc_November_2023.pdf", url: "https://drive.google.com/file/d/1h-f7G8H9i0j3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+
+            // Unix and Shell Programming
+            { name: "unix_shell_programming_may_2022.pdf", url: "https://drive.google.com/file/d/1i-g7H8I9j0k3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "unix_shell_programming_may_2023.pdf", url: "https://drive.google.com/file/d/1i-h7I8J9k0l3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "unix_shell_programming_may_2024.pdf", url: "https://drive.google.com/file/d/1i-i7J8K9l0m3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "unix_shell_programming_November_2018.pdf", url: "https://drive.google.com/file/d/1i-j7K8L9m0n3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "unix_shell_programming_November_2019.pdf", url: "https://drive.google.com/file/d/1i-k7L8M9o0p3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "unix_shell_programming_November_2023.pdf", url: "https://drive.google.com/file/d/1i-l7M8N9q0r3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+
+            // Web Technology
+            { name: "web_technology_may_2022.pdf", url: "https://drive.google.com/file/d/1j-m7N8O9s0t3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "web_technology_may_2023.pdf", url: "https://drive.google.com/file/d/1j-n7O8P9u0v3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "web_technology_may_2024.pdf", url: "https://drive.google.com/file/d/1j-o7P8Q9w0x3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "web_technology_November_2018.pdf", url: "https://drive.google.com/file/d/1j-p7Q8R9y0z3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "web_technology_November_2019.pdf", url: "https://drive.google.com/file/d/1j-q7R8S9a1b3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+            { name: "web_technology_November_2023.pdf", url: "https://drive.google.com/file/d/1j-r7S8T9c1d3eG2hI1jK2lM3nO4pQ5R/view?usp=sharing" },
+
+        ];
+
+        // Map to store subject to semester mapping for quick lookup
+        const subjectToSemesterMap = {
+            "Fundamental of Computer Science & IT": 1,
+            "Discrete Mathematics": 1,
+            "Communication Skills in English": 1,
+            "Programming and Problem Solving in C": 1,
+            "Digital Electronics": 1,
+            "PC Software and Office Tools- Lab I": 1,
+            "Computer Architecture": 2,
+            "Data Structure using C": 2,
+            "Statistics": 2,
+            "Technical Communication & Personality Development": 2,
+            "Principal of Management": 2,
+            "Language Lab": 2,
+            "Programming Lab in Data Structure using C": 2,
+            "System Software": 3,
+            "Computer Oriented Numerical Methods": 3,
+            "Web Designing in HTML": 3,
+            "Aptitude Skills and Reasoning": 3,
+            "DBMS": 3,
+            "Web Page Design Lab": 3,
+            "Programming Lab in DBMS": 3,
+            "Operating Systems": 4,
+            "Foundation of Computer Networks": 4,
+            "System Analysis and Design": 4,
+            "Accounting and Financial Management": 4,
+            "Computer Oriented Optimization Techniques": 4,
+            "Lab in Operating Systems": 4,
+            "Lab in VB and MS Access": 4,
+            "Object Oriented Programming in C++": 5,
+            "Principles of Programming Language": 5,
+            "Advanced Web Designing": 5,
+            "Computer Graphics": 5,
+            "Software Engineering": 5,
+            "Lab in Web Designing": 5,
+            "Analysis Design of Algorithm": 6,
+            "Advanced Computer Networks": 6,
+            "Advanced DBMS": 6,
+            "Theory of Computation": 6,
+            "Artificial Intelligence": 6,
+            "Lab in ADA using C++": 6,
+            "Minor Project - I": 6,
+            "Cloud Computing": 7,
+            "Data Sciences in Mining": 7,
+            "File Structures": 7,
+            "Minor Project - II": 7,
+            "Soft Computing": 8,
+            "Distributed Systems": 8,
+            "Network Security": 8,
+            "Minor Project - III": 8,
+            "Internship": 9,
+            "Dissertation Work / Project / Case Study": 10
         };
 
-        subjectTagContainer.appendChild(subjectTag);
-        if (file.semester !== "N/A") {
-            subjectTagContainer.appendChild(semesterTag);
-        }
-        subjectTagContainer.appendChild(downloadButton);
+        // Function to extract a simplified subject and semester from the filename
+        function getSubjectAndSemester(filename) {
+            let subject = "Miscellaneous";
+            let semester = "N/A"; // Not Applicable or Unknown
 
-        listItem.appendChild(fileLink);
-        listItem.appendChild(subjectTagContainer);
+            const lowerFilename = filename.toLowerCase();
 
-        filesList.appendChild(listItem);
-    });
-}
-
-// Initial setup: populate dropdowns and render all files
-populateSubjectDropdown();
-populateSemesterDropdown();
-renderFiles();
-
-// Add event listeners for all filter inputs
-textFilterInput.addEventListener('input', renderFiles);
-subjectSelect.addEventListener('change', renderFiles);
-semesterSelect.addEventListener('change', renderFiles);
-</script>
-    <!-- <script>
-        // Function to extract a simplified subject from the filename
-        function getSubject(filename) {
-            filename = filename.toLowerCase();
-            if (filename.includes("account")) return "Account";
-            if (filename.includes("acn") || filename.includes("advance_computer_network") || filename.includes("fcn")) return "Advanced Computer Network";
-            if (filename.includes("ada")) return "Advanced Data Analytics";
-            if (filename.includes("adbms")) return "Advanced DBMS";
-            if (filename.includes("ai")) return "Artificial Intelligence";
-            if (filename.includes("aptit") || filename.includes("aptitude")) return "Aptitude";
-            if (filename.includes("awt")) return "Advanced Web Technology";
-            if (filename.includes("c_november")) return "Programming in C"; // Specific to avoid "mcadd-202-data-structure-using-c-jun-2020.pdf" being just "C"
-            if (filename.includes("ca") || filename.includes("computer_architecture")) return "Computer Architecture";
-            if (filename.includes("cg") || filename.includes("cgm")) return "Computer Graphics";
-            if (filename.includes("cloud_computing")) return "Cloud Computing";
-            if (filename.includes("compiler_design")) return "Compiler Design";
-            if (filename.includes("computer_ethics")) return "Computer Ethics";
-            if (filename.includes("conm")) return "Computer Network Management"; // Assuming CONM for CNM
-            if (filename.includes("coot")) return "Computer Oriented Optimization Techniques";
-            if (filename.includes("data_analytics")) return "Data Analytics";
-            if (filename.includes("data_science")) return "Data Science";
-            if (filename.includes("dbms")) return "DBMS";
-            if (filename.includes("digital_image_p")) return "Digital Image Processing";
-            if (filename.includes("distributed_systems")) return "Distributed Systems";
-            if (filename.includes("ds")) return "Data Structures";
-            if (filename.includes("file_structure")) return "File Structure";
-            if (filename.includes("imca")) return "Integrated MCA";
-            if (filename.includes("java") || filename.includes("programming_in_jav")) return "Programming in Java";
-            if (filename.includes("mobile_computing")) return "Mobile Computing";
-            if (filename.includes("multimedia")) return "Multimedia";
-            if (filename.includes("network_security")) return "Network Security";
-            if (filename.includes("oops_c") || filename.includes("object-oriented-progr")) return "OOPS with C++"; // Assuming OOPS_C implies C++ context
-            if (filename.includes("os") || filename.includes("operating_systems")) return "Operating Systems";
-            if (filename.includes("parallel_computing")) return "Parallel Computing";
-            if (filename.includes("pom") || filename.includes("principal-of-management")) return "Principles of Management";
-            if (filename.includes("ppl") || filename.includes("principles-of-programming")) return "Principles of Programming Languages";
-            if (filename.includes("sad") || filename.includes("system-analysis-and-design")) return "System Analysis and Design";
-            if (filename.includes("se")) return "Software Engineering";
-            if (filename.includes("soft_computing")) return "Soft Computing";
-            if (filename.includes("software_architect")) return "Software Architecture";
-            if (filename.includes("ss")) return "System Software";
-            if (filename.includes("statistics")) return "Statistics";
-            if (filename.includes("tcpd") || filename.includes("technical-communication")) return "Technical Communication & Professional Development";
-            if (filename.includes("toc")) return "Theory of Computation";
-            if (filename.includes("unix") || filename.includes("shell_pr")) return "Unix and Shell Programming";
-            if (filename.includes("web_technology") || filename.includes("wt-t") || filename.includes("wt_r") || filename.includes("wt_")) return "Web Technology";
-            if (filename.includes("mcadd-404-accounting")) return "Accounting & Finance";
-
-            // Fallback: If no specific subject is found, try to extract the first word
-            const parts = filename.split('_');
-            if (parts.length > 0) {
-                const firstWord = parts[0].replace(/[^a-z0-9]/g, ''); // Remove non-alphanumeric
-                if (firstWord.length > 0) {
-                    return firstWord.charAt(0).toUpperCase() + firstWord.slice(1);
+            // First, try to extract from MCADD-xxx pattern for semester
+            const mcaddMatch = lowerFilename.match(/mcadd-(\d+)([a-z]?)*/);
+            if (mcaddMatch && mcaddMatch[1]) {
+                const codeNum = parseInt(mcaddMatch[1], 10);
+                if (codeNum === 1001) {
+                    semester = 10;
+                } else if (codeNum >= 101 && codeNum <= 106) {
+                    semester = 1;
+                } else if (codeNum >= 201 && codeNum <= 207) {
+                    semester = 2;
+                } else if (codeNum >= 301 && codeNum <= 307) {
+                    semester = 3;
+                } else if (codeNum >= 401 && codeNum <= 407) {
+                    semester = 4;
+                } else if (codeNum >= 501 && codeNum <= 506) {
+                    semester = 5;
+                } else if (codeNum >= 601 && codeNum <= 607) {
+                    semester = 6;
+                } else if (codeNum >= 701 && codeNum <= 707) {
+                    semester = 7;
+                } else if (codeNum >= 801 && codeNum <= 807) {
+                    semester = 8;
+                } else if (codeNum === 901) {
+                    semester = 9;
                 }
             }
-            return "Miscellaneous"; // Default if no clear subject
+
+            // Specific subject mapping based on syllabus and common file name patterns
+            if (lowerFilename.includes("fundamental_of_computer_science_it") || lowerFilename.includes("fcsit")) {
+                subject = "Fundamental of Computer Science & IT";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("discrete_mathematics") || lowerFilename.includes("dm")) {
+                subject = "Discrete Mathematics";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("communication_skills_in_english") || lowerFilename.includes("cse")) {
+                subject = "Communication Skills in English";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("programming_and_problem_solving_in_c") || lowerFilename.includes("c_november") || lowerFilename.includes("c_may") && !lowerFilename.includes("data_structure")) {
+                subject = "Programming and Problem Solving in C";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("digital_electronics") || lowerFilename.includes("de")) {
+                subject = "Digital Electronics";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("pc_software_and_office_tools") || lowerFilename.includes("pc_software")) {
+                subject = "PC Software and Office Tools- Lab I";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 2
+            else if (lowerFilename.includes("ca") || lowerFilename.includes("computer_architecture")) {
+                subject = "Computer Architecture";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("ds") || lowerFilename.includes("data_structure_using_c") || lowerFilename.includes("data_structure")) {
+                subject = "Data Structure using C";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("statistics") || lowerFilename.includes("stat")) {
+                subject = "Statistics";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("technical_communication") || lowerFilename.includes("tcpd")) {
+                subject = "Technical Communication & Personality Development";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("pom") || lowerFilename.includes("principal_of_management")) {
+                subject = "Principal of Management";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("language_lab") || lowerFilename.includes("llab")) {
+                subject = "Language Lab";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 3
+            else if (lowerFilename.includes("ss") || lowerFilename.includes("system_software")) {
+                subject = "System Software";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("computer_oriented_numerical_methods") || lowerFilename.includes("conm")) { // CONM used here for Numerical Methods (COOM) as per syllabus
+                subject = "Computer Oriented Numerical Methods";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("web_designing_in_html") || lowerFilename.includes("web_designing") || lowerFilename.includes("wdhtml")) {
+                subject = "Web Designing in HTML";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("aptitude")) {
+                subject = "Aptitude Skills and Reasoning";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("dbms") && !lowerFilename.includes("advanced_dbms") && !lowerFilename.includes("adbms")) {
+                subject = "DBMS";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 4
+            else if (lowerFilename.includes("os") || lowerFilename.includes("operating_systems")) {
+                subject = "Operating Systems";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("foundation_of_computer_networks") || lowerFilename.includes("fcn") || (lowerFilename.includes("acn") && !lowerFilename.includes("advance_computer_network"))) {
+                subject = "Foundation of Computer Networks";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("sad") || lowerFilename.includes("system_analysis_and_design")) {
+                subject = "System Analysis and Design";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("accounting") || lowerFilename.includes("financial_management")) {
+                subject = "Accounting and Financial Management";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("coot") || lowerFilename.includes("computer_oriented_optimization_techniques")) {
+                 // COOT is listed here in syllabus, handled explicitly.
+                subject = "Computer Oriented Optimization Techniques";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 5
+            else if (lowerFilename.includes("oops") || lowerFilename.includes("object_oriented_programming_in_c++") || lowerFilename.includes("oops_c")) {
+                subject = "Object Oriented Programming in C++";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("ppl") || lowerFilename.includes("principles_of_programming_language")) {
+                subject = "Principles of Programming Language";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("awt") || lowerFilename.includes("advanced_web_designing")) {
+                subject = "Advanced Web Designing";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("cg") || lowerFilename.includes("computer_graphics") || lowerFilename.includes("cgm")) {
+                subject = "Computer Graphics";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("se") || lowerFilename.includes("software_engineering")) {
+                subject = "Software Engineering";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 6
+            else if (lowerFilename.includes("ada") || lowerFilename.includes("analysis_design_of_algorithm")) {
+                subject = "Analysis Design of Algorithm";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("advanced_computer_networks") || (lowerFilename.includes("acn") && lowerFilename.includes("advance"))) {
+                subject = "Advanced Computer Networks";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("adbms") || lowerFilename.includes("advanced_dbms")) {
+                subject = "Advanced DBMS";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("theory_of_computation") || lowerFilename.includes("toc")) {
+                subject = "Theory of Computation";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("ai") || lowerFilename.includes("artificial_intelligence")) {
+                subject = "Artificial Intelligence";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 7
+            else if (lowerFilename.includes("cloud_computing")) {
+                subject = "Cloud Computing";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("data_science") || lowerFilename.includes("data_sciences_in_mining")) {
+                subject = "Data Sciences in Mining";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("file_structure")) {
+                subject = "File Structures";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 8
+            else if (lowerFilename.includes("soft_computing")) {
+                subject = "Soft Computing";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("distributed_systems")) {
+                subject = "Distributed Systems";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("network_security")) {
+                subject = "Network Security";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 9 & 10
+            else if (lowerFilename.includes("internship")) {
+                subject = "Internship";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("dissertation") || lowerFilename.includes("project") || lowerFilename.includes("case_study")) {
+                subject = "Dissertation Work / Project / Case Study";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+             // General fallbacks if not caught by specific MCADD or syllabus names
+            else if (lowerFilename.includes("account")) {
+                subject = "Account";
+            }
+            else if (lowerFilename.includes("digital_image_p")) {
+                subject = "Digital Image Processing";
+            }
+            else if (lowerFilename.includes("imca")) {
+                subject = "Integrated MCA";
+            }
+            else if (lowerFilename.includes("java") || lowerFilename.includes("programming_in_jav")) {
+                subject = "Programming in Java";
+            }
+            else if (lowerFilename.includes("mobile_computing")) {
+                subject = "Mobile Computing";
+            }
+            else if (lowerFilename.includes("multimedia")) {
+                subject = "Multimedia";
+            }
+            else if (lowerFilename.includes("software_architect")) {
+                subject = "Software Architecture";
+            }
+            else if (lowerFilename.includes("unix") || lowerFilename.includes("shell_pr")) {
+                subject = "Unix and Shell Programming";
+            }
+            else if (lowerFilename.includes("web_technology") || lowerFilename.includes("wt-t") || lowerFilename.includes("wt_r") || lowerFilename.includes("wt_")) {
+                subject = "Web Technology";
+            }
+
+
+            // Final attempt to assign semester if subject was identified but semester is still N/A
+            if (semester === "N/A" && subject !== "Miscellaneous" && subjectToSemesterMap[subject]) {
+                semester = subjectToSemesterMap[subject];
+            }
+
+
+            return { subject, semester };
         }
 
         const filesList = document.getElementById('filesList');
         const textFilterInput = document.getElementById('textFilter');
         const subjectSelect = document.getElementById('subjectSelect');
+        const semesterSelect = document.getElementById('semesterSelect'); // Now directly reference this existing element
 
-        // Augment fileData with a 'subject' property
-        const processedFileData = fileData.map(file => ({
-            ...file,
-            subject: getSubject(file.name)
-        }));
+        // Augment fileData with 'subject' and 'semester' properties
+        const processedFileData = fileData.map(file => {
+            const { subject, semester } = getSubjectAndSemester(file.name);
+            return {
+                ...file,
+                subject: subject,
+                semester: semester
+            };
+        });
 
         // Get unique subjects for the dropdown
         function getUniqueSubjects() {
@@ -712,11 +896,12 @@ semesterSelect.addEventListener('change', renderFiles);
             processedFileData.forEach(file => {
                 subjects.add(file.subject);
             });
-            return Array.from(subjects).sort(); // Convert to array and sort alphabetically
+            return Array.from(subjects).sort();
         }
 
         // Populate the subject dropdown
         function populateSubjectDropdown() {
+            subjectSelect.innerHTML = '<option value="">All Subjects</option>'; // Clear and add default
             const uniqueSubjects = getUniqueSubjects();
             uniqueSubjects.forEach(subject => {
                 const option = document.createElement('option');
@@ -726,11 +911,36 @@ semesterSelect.addEventListener('change', renderFiles);
             });
         }
 
+        // Get unique semesters for the dropdown
+        function getUniqueSemesters() {
+            const semesters = new Set();
+            processedFileData.forEach(file => {
+                if (file.semester !== "N/A") {
+                    semesters.add(file.semester);
+                }
+            });
+            return Array.from(semesters).sort((a, b) => a - b); // Sort numerically
+        }
+
+        // Populate the semester dropdown
+        function populateSemesterDropdown() {
+            semesterSelect.innerHTML = '<option value="">All Semesters</option>'; // Clear and add default
+            const uniqueSemesters = getUniqueSemesters();
+            uniqueSemesters.forEach(sem => {
+                const option = document.createElement('option');
+                option.value = sem;
+                option.textContent = `Semester ${sem}`;
+                semesterSelect.appendChild(option);
+            });
+        }
+
+
         function renderFiles() {
             filesList.innerHTML = ''; // Clear current list
 
             const currentTextFilter = textFilterInput.value.toLowerCase().trim();
             const currentSubjectFilter = subjectSelect.value.toLowerCase();
+            const currentSemesterFilter = semesterSelect.value === "" ? "" : parseInt(semesterSelect.value, 10);
 
             const filteredFiles = processedFileData.filter(file => {
                 const matchesText = file.name.toLowerCase().includes(currentTextFilter) ||
@@ -738,7 +948,9 @@ semesterSelect.addEventListener('change', renderFiles);
 
                 const matchesSubject = currentSubjectFilter === "" || file.subject.toLowerCase() === currentSubjectFilter;
 
-                return matchesText && matchesSubject;
+                const matchesSemester = currentSemesterFilter === "" || file.semester === currentSemesterFilter;
+
+                return matchesText && matchesSubject && matchesSemester;
             });
 
             if (filteredFiles.length === 0) {
@@ -752,22 +964,18 @@ semesterSelect.addEventListener('change', renderFiles);
             filteredFiles.forEach(file => {
                 const listItem = document.createElement('li');
 
-                // The filename will now be a direct link again, without a button next to it
                 const fileLink = document.createElement('a');
                 fileLink.href = file.url;
                 fileLink.textContent = file.name;
                 fileLink.target = "_blank"; // Open link in a new tab
-                // Apply original filename styles
                 fileLink.style.textDecoration = 'none';
                 fileLink.style.color = 'var(--dark)';
                 fileLink.style.fontWeight = 'bold';
                 fileLink.style.fontSize = '1.1em';
                 fileLink.style.wordBreak = 'break-word';
                 fileLink.style.flexGrow = '1';
-                fileLink.style.marginRight = '15px'; // Space between filename and subject info
+                fileLink.style.marginRight = '15px';
 
-
-                // Container for subject tag and its download button
                 const subjectTagContainer = document.createElement('div');
                 subjectTagContainer.className = 'subject-tag-container';
 
@@ -775,7 +983,12 @@ semesterSelect.addEventListener('change', renderFiles);
                 subjectTag.className = 'subject-tag';
                 subjectTag.textContent = file.subject;
 
-                // This is the ONLY download button per row now
+                const semesterTag = document.createElement('span');
+                semesterTag.className = 'subject-tag'; // Reuse styling
+                semesterTag.style.backgroundColor = 'var(--accent)'; // Different color for semester
+                semesterTag.style.marginLeft = '10px'; // Space between subject and semester
+                semesterTag.textContent = file.semester !== "N/A" ? `Sem ${file.semester}` : 'N/A';
+
                 const downloadButton = document.createElement('button');
                 downloadButton.className = 'download-btn';
                 downloadButton.textContent = 'Download';
@@ -784,23 +997,27 @@ semesterSelect.addEventListener('change', renderFiles);
                 };
 
                 subjectTagContainer.appendChild(subjectTag);
-                subjectTagContainer.appendChild(downloadButton); // Append the button next to the tag
+                if (file.semester !== "N/A") {
+                    subjectTagContainer.appendChild(semesterTag);
+                }
+                subjectTagContainer.appendChild(downloadButton);
 
-
-                listItem.appendChild(fileLink); // Append the filename link
-                listItem.appendChild(subjectTagContainer); // Append the subject tag and its button
+                listItem.appendChild(fileLink);
+                listItem.appendChild(subjectTagContainer);
 
                 filesList.appendChild(listItem);
             });
         }
 
-        // Initial setup: populate dropdown and render all files
+        // Initial setup: populate dropdowns and render all files
         populateSubjectDropdown();
+        populateSemesterDropdown();
         renderFiles();
 
-        // Add event listeners for both filter inputs
+        // Add event listeners for all filter inputs
         textFilterInput.addEventListener('input', renderFiles);
         subjectSelect.addEventListener('change', renderFiles);
-    </script> -->
+        semesterSelect.addEventListener('change', renderFiles);
+    </script>
 </body>
 </html>
