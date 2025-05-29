@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav>
+     <nav>
         <div class="logo">Placement<span>Portal</span></div>
         <ul>
             <li><a href="mailto:abhijain6101@gmail.com"><i class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
@@ -165,10 +165,9 @@
                     const payload = JSON.parse(atob(token.split('.')[1]));
                     return {
                         username: payload.sub,
-                        email: payload.email || `${payload.sub}@example.com`, // Fallback email
-                        rollNo: payload.rollNo || 'N/A', // Fallback rollNo
-                        phone: payload.phone || 'N/A', // Fallback phone
-                        userId: payload.userId, // Assuming your token has a userId claim
+                        email: payload.email || `${payload.sub}@example.com`,
+                        rollNo: payload.rollNo || 'N/A',
+                        phone: payload.phone || 'N/A',
                         exp: payload.exp
                     };
                 } catch (e) {
@@ -181,43 +180,18 @@
             const token = localStorage.getItem("authToken");
             if (!token) {
                 alert("You must be logged in to access this page.");
-                window.location.href = "login.html"; // Redirect to login page
-                return; // Stop execution
+                window.location.href = "login.html";
+                return;
             } else {
                 currentUserDetails = getUserDetailsFromToken(token);
                 if (!currentUserDetails || currentUserDetails.exp < Date.now() / 1000) {
                     alert("Session expired or invalid token. Please log in again.");
-                    localStorage.clear(); // Clear expired token
-                    window.location.href = "login.html"; // Redirect to login
-                    return; // Stop execution
+                    localStorage.clear();
+                    window.location.href = "login.html";
+                    return;
                 }
             }
 
-            // Function to open the application modal
-            function openApplicationModal() {
-                // Pre-fill form fields if user details are available
-                if (currentUserDetails) {
-                    formApplicantName.value = currentUserDetails.username !== 'N/A' ? currentUserDetails.username : '';
-                    formApplicantEmail.value = currentUserDetails.email !== 'N/A' ? currentUserDetails.email : '';
-                    formApplicantPhone.value = currentUserDetails.phone !== 'N/A' ? currentUserDetails.phone : '';
-                    formApplicantRollNo.value = currentUserDetails.rollNo !== 'N/A' ? currentUserDetails.rollNo : '';
-                }
-                applicationFormModal.style.display = 'flex'; // Show the modal
-            }
-
-            // Close modal when close button (x) is clicked
-            closeButton.onclick = function() {
-                applicationFormModal.style.display = "none";
-                jobApplicationForm.reset(); // Reset form when closed
-            }
-
-            // Close modal when clicking outside of it
-            window.onclick = function(event) {
-                if (event.target == applicationFormModal) {
-                    applicationFormModal.style.display = "none";
-                    jobApplicationForm.reset(); // Reset form when closed
-                }
-            }
 
             // Fetch jobs from API
             async function fetchJobs() {
@@ -238,7 +212,7 @@
             async function loadJobs() {
                 jobList.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading jobs...</div>';
                 const jobs = await fetchJobs();
-                allJobs = jobs; // Store all fetched jobs
+                allJobs = jobs;
                 filterAndSortJobs(); // This will call displayJobs
             }
 
@@ -252,19 +226,19 @@
                 });
             }
 
-            // Show error message in job list area
+            // Show error
             function showError(message) {
                 jobList.innerHTML = `<div class="error-message">${message}</div>`;
             }
 
-            // Display jobs in the UI
+            // Display jobs
             function displayJobs(jobs) {
                 if (jobs.length === 0) {
-                    jobList.innerHTML = '<div class="error-message">No jobs found matching your criteria.</div>';
+                    jobList.innerHTML = '<div class="error-message">No jobs found matching your criteria</div>';
                     return;
                 }
 
-                jobList.innerHTML = ''; // Clear existing jobs
+                jobList.innerHTML = '';
 
                 jobs.forEach(job => {
                     const jobCard = document.createElement('div');
@@ -273,7 +247,6 @@
                     let jobTypeClass = 'full-time';
                     let jobTypeText = 'Full Time';
 
-                    // Determine job type based on title/description keywords
                     if (job.title.toLowerCase().includes('intern') || job.description.toLowerCase().includes('intern')) {
                         jobTypeClass = 'internship';
                         jobTypeText = 'Internship';
@@ -304,7 +277,7 @@
                                 <a href="job-details.html?id=${job.id}" class="btn btn-outline">
                                     <i class="fas fa-eye"></i> View Details
                                 </a>
-                                <button class="btn apply-btn" data-job-id="${job.id}" data-job-title="${job.title}" data-company-name="${job.company_name}">
+                                <button class="btn apply-btn" data-job-id="${job.id}">
                                     <i class="fas fa-paper-plane"></i> Apply Now
                                 </button>
                             </div>
@@ -315,7 +288,7 @@
                 });
             }
 
-            // Filter and Sort jobs based on current criteria
+            // Filter + Sort jobs
             function filterAndSortJobs() {
                 const searchTerm = searchInput.value.toLowerCase();
                 const locationTerm = locationInput.value.toLowerCase();
@@ -326,34 +299,25 @@
                         job.company_name.toLowerCase().includes(searchTerm) ||
                         job.description.toLowerCase().includes(searchTerm);
 
-                    // You'll need to update your API or job data to include location for this to work effectively.
-                    // For now, it will always be true.
-                    const matchesLocation = locationTerm === '' || (job.location && job.location.toLowerCase().includes(locationTerm));
-
+                    const matchesLocation = true; // Placeholder for location filter
                     let matchesFilter = true;
+
                     if (activeFilter !== 'all') {
                         switch (activeFilter) {
                             case 'it':
-                                matchesFilter = (job.category && job.category.toLowerCase().includes('it')) ||
-                                                job.title.toLowerCase().includes('software') ||
-                                                job.title.toLowerCase().includes('developer') ||
-                                                job.description.toLowerCase().includes('software') ||
-                                                job.description.toLowerCase().includes('developer');
+                                matchesFilter = job.title.toLowerCase().includes('software') ||
+                                    job.description.toLowerCase().includes('developer');
                                 break;
                             case 'engineering':
-                                matchesFilter = (job.category && job.category.toLowerCase().includes('engineering')) ||
-                                                job.title.toLowerCase().includes('engineer') ||
-                                                job.description.toLowerCase().includes('engineer');
+                                matchesFilter = job.title.toLowerCase().includes('engineer');
                                 break;
                             case 'finance':
-                                matchesFilter = (job.category && job.category.toLowerCase().includes('finance')) ||
-                                                job.title.toLowerCase().includes('finance') ||
-                                                job.description.toLowerCase().includes('accountant');
+                                matchesFilter = job.title.toLowerCase().includes('finance') ||
+                                    job.description.toLowerCase().includes('accountant');
                                 break;
                             case 'internship':
-                                matchesFilter = (job.type && job.type.toLowerCase() === 'internship') ||
-                                                job.title.toLowerCase().includes('intern') ||
-                                                job.description.toLowerCase().includes('internship');
+                                matchesFilter = job.title.toLowerCase().includes('intern') ||
+                                    job.description.toLowerCase().includes('internship');
                                 break;
                         }
                     }
@@ -369,23 +333,20 @@
                         case 'salary-low':
                             return a.salary - b.salary;
                         case 'deadline':
-                            return new Date(a.last_date) - new Date(b.last_date); // Ascending deadline
-                        default: // newest
-                            return new Date(b.created_at || b.last_date) - new Date(a.created_at || a.last_date); // Assuming created_at or last_date can represent creation date
+                            return new Date(a.last_date) - new Date(b.last_date);
+                        default:
+                            return new Date(b.created_at || b.last_date) - new Date(a.created_at || a.last_date);
                     }
                 });
 
                 displayJobs(filteredJobs);
             }
 
-            // Event listeners for search, filter, and sort
+            // Event listeners
             searchForm.addEventListener('submit', function (e) {
                 e.preventDefault();
                 filterAndSortJobs();
             });
-
-            searchInput.addEventListener('input', filterAndSortJobs); // Live search
-            locationInput.addEventListener('input', filterAndSortJobs); // Live search
 
             filterButtons.forEach(button => {
                 button.addEventListener('click', function () {
@@ -397,90 +358,112 @@
 
             sortSelect.addEventListener('change', filterAndSortJobs);
 
-            // Event listener for "Apply Now" buttons to open the modal
+            // --- Event listener for Job Apply buttons to open modal ---
             jobList.addEventListener('click', async function (event) {
                 const applyButton = event.target.closest('.apply-btn');
 
                 if (applyButton && !applyButton.disabled) {
                     const jobId = applyButton.dataset.jobId;
-                    const jobTitle = applyButton.dataset.jobTitle;
-                    const companyName = applyButton.dataset.companyName;
+                    const job = allJobs.find(j => j.id == jobId);
+
+                    if (!job) {
+                        alert('Error: Job details not found. Cannot apply.');
+                        return;
+                    }
+
+                    if (!currentUserDetails) {
+                        alert("Error: User details not available. Please log in again.");
+                        localStorage.clear();
+                        window.location.href = "login.html";
+                        return;
+                    }
 
                     // Populate the modal form with job details and user's pre-filled info
-                    jobTitleForApplication.textContent = `${jobTitle} at ${companyName}`;
+                    jobTitleForApplication.textContent = `${job.title} at ${job.company_name}`;
                     appliedJobId.value = jobId; // Store job ID in a hidden field
+                    formApplicantName.value = currentUserDetails.username || '';
+                    formApplicantEmail.value = currentUserDetails.email || '';
+                    formApplicantPhone.value = currentUserDetails.phone || '';
+                    formApplicantRollNo.value = currentUserDetails.rollNo || '';
 
-                    openApplicationModal(); // Open the modal immediately upon clicking "Apply Now"
+                    // Show the modal
+                    applicationFormModal.style.display = 'flex'; // Use flex to center the modal
                 }
             });
 
-            // Handle application form submission
-            jobApplicationForm.addEventListener('submit', async function (e) {
-                e.preventDefault();
+            // Close modal when close button is clicked
+            closeButton.addEventListener('click', function () {
+                applicationFormModal.style.display = 'none';
+                jobApplicationForm.reset(); // Clear form fields on close
+            });
 
-                const submitBtn = jobApplicationForm.querySelector('.btn[type="submit"]');
-                const originalBtnText = submitBtn.innerHTML;
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            // Close modal when clicking outside the modal content
+            window.addEventListener('click', function (event) {
+                if (event.target == applicationFormModal) {
+                    applicationFormModal.style.display = 'none';
+                    jobApplicationForm.reset(); // Clear form fields on close
+                }
+            });
 
-                const formData = new FormData(jobApplicationForm);
-                const jobIdToApply = formData.get('jobId');
+            // --- Handle form submission for job application from the modal ---
+            jobApplicationForm.addEventListener('submit', async function (event) {
+                event.preventDefault(); // Prevent default form submission
 
-                if (!currentUserDetails || !currentUserDetails.userId) {
-                    alert("Error: User not identified for application. Please log in again.");
-                    localStorage.clear();
-                    window.location.href = "login.html";
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
+                const formData = new FormData(jobApplicationForm); // Get form data, including file
+                const jobId = formData.get('jobId'); // Retrieve jobId from hidden input
+
+                // Add job-specific details from the `job` object
+                const job = allJobs.find(j => j.id == jobId);
+                if (job) {
+                    formData.append('jobTitle', job.title);
+                    formData.append('companyName', job.company_name);
+                } else {
+                    alert('Error: Could not find job details for application. Please try again.');
                     return;
                 }
 
-                // Add applicant's User ID to formData for the backend
-                formData.append('userId', currentUserDetails.userId);
-
-                // Ensure resume is included and is PDF
-                const resumeFile = resumeInput.files[0];
-                if (!resumeFile) {
-                    alert("Please upload your resume.");
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
-                    return;
-                }
-                if (resumeFile.type !== 'application/pdf') {
-                    alert("Only PDF files are allowed for resume upload.");
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
-                    return;
-                }
+                const submitButton = jobApplicationForm.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
 
                 try {
-                    const response = await fetch(`${APPLY_JOB_API_URL}/${jobIdToApply}`, {
+                    const token = localStorage.getItem("authToken");
+                    const response = await fetch(APPLY_JOB_API_URL, {
                         method: 'POST',
                         headers: {
-                            'Authorization': `Bearer ${token}` // Include the JWT token
+                            'Authorization': `Bearer ${token}`
                         },
-                        body: formData // FormData automatically handles Content-Type for file uploads
+                        body: formData // Send FormData directly
                     });
 
                     if (response.ok) {
-                        const result = await response.json();
-                        alert(result.message || 'Application submitted successfully!');
-                        applicationFormModal.style.display = 'none'; // Close modal
-                        jobApplicationForm.reset(); // Clear form
+                        alert(`Application for "${job.title}" submitted successfully! HR will be notified.`);
+                        applicationFormModal.style.display = 'none'; // Hide the modal
+                        jobApplicationForm.reset(); // Clear the form
+
+                        // Optionally update the original "Apply Now" button in the job card
+                        const originalApplyButton = document.querySelector(`.apply-btn[data-job-id="${jobId}"]`);
+                        if (originalApplyButton) {
+                            originalApplyButton.innerText = 'Applied';
+                            originalApplyButton.disabled = true;
+                            originalApplyButton.style.backgroundColor = '#6c757d';
+                            originalApplyButton.style.cursor = 'not-allowed';
+                        }
+
                     } else {
                         const errorData = await response.json();
-                        alert(`Application failed: ${errorData.message || response.statusText}`);
+                        alert(`Failed to submit application: ${errorData.message || response.statusText || 'Unknown error'}`);
                     }
                 } catch (error) {
-                    console.error('Error submitting application:', error);
-                    alert('An error occurred during application submission. Please try again.');
+                    console.error('Error submitting job application:', error);
+                    alert('An error occurred while submitting your application. Please check your network and try again.');
                 } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Application';
                 }
             });
 
-            // Initial load of jobs when the page loads
+            // Initial load of jobs
             loadJobs();
         });
     </script>
@@ -488,3 +471,5 @@
 </body>
 
 </html>
+
+
