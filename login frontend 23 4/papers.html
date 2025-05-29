@@ -3,188 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCA Exam Papers Explorer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>File Explorer</title>
     <style>
-        :root {
-            --primary-color: #007bff; /* Blue */
-            --primary-dark-color: #0056b3; /* Darker blue */
-            --secondary-color: #6c757d; /* Gray */
-            --background-light: #f8f9fa; /* Light gray */
-            --background-card: #ffffff; /* White */
-            --text-dark: #343a40; /* Dark gray for text */
-            --text-light: #ffffff; /* White for text on dark backgrounds */
-            --border-color: #e2e6ea; /* Light border */
-            --shadow-light: rgba(0, 0, 0, 0.05);
-            --shadow-medium: rgba(0, 0, 0, 0.1);
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: var(--background-light);
-            color: var(--text-dark);
-            line-height: 1.6;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
         }
-
         .container {
-            max-width: 960px;
-            margin: 30px auto;
-            background-color: var(--background-card);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px var(--shadow-light);
-            border: 1px solid var(--border-color);
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         h1 {
             text-align: center;
-            color: var(--primary-dark-color);
-            margin-bottom: 35px;
-            font-weight: 700;
-            font-size: 2.2em;
-        }
-
-        .filter-section {
+            color: #333;
             margin-bottom: 30px;
+        }
+        .filter-section {
+            margin-bottom: 20px;
             text-align: center;
         }
-
         .filter-section label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            color: var(--secondary-color);
-            font-size: 1.1em;
+            margin-right: 10px;
+            font-weight: bold;
         }
-
         .filter-section input[type="text"] {
-            padding: 12px 18px;
-            width: 80%;
-            max-width: 500px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1em;
-            box-shadow: inset 0 1px 3px var(--shadow-light);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            padding: 10px;
+            width: 70%;
+            max-width: 400px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
         }
-
-        .filter-section input[type="text"]:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-            outline: none;
-        }
-
         .files-list {
             list-style: none;
             padding: 0;
         }
-
         .files-list li {
-            background-color: var(--background-light);
-            margin-bottom: 15px;
-            padding: 15px 20px;
-            border-radius: 8px;
+            background-color: #e9e9e9;
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border-radius: 4px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 10px var(--shadow-light);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #ddd;
+            transition: background-color 0.2s ease;
         }
-
         .files-list li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px var(--shadow-medium);
+            background-color: #dcdcdc;
         }
-
         .files-list li a {
             text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 600;
-            word-break: break-word;
-            flex-grow: 1; /* Allow link to take available space */
-            margin-right: 15px; /* Space between link and tag */
-            font-size: 1.05em;
+            color: #007bff;
+            font-weight: bold;
+            word-break: break-word; /* Ensures long filenames wrap */
         }
-
         .files-list li a:hover {
             text-decoration: underline;
-            color: var(--primary-dark-color);
         }
-
         .subject-tag {
-            background-color: var(--primary-color);
-            color: var(--text-light);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 500;
-            white-space: nowrap;
-            flex-shrink: 0; /* Prevent tag from shrinking */
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            margin-left: 10px;
+            white-space: nowrap; /* Prevents tag from wrapping */
         }
-
         .no-results {
             text-align: center;
-            color: var(--secondary-color);
-            padding: 30px;
-            font-style: italic;
-            font-size: 1.1em;
-            background-color: var(--background-card);
-            border-radius: 8px;
-            border: 1px dashed var(--border-color);
-        }
-
-        /* Basic Responsiveness */
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px auto;
-                padding: 20px;
-                border-radius: 8px;
-            }
-            h1 {
-                font-size: 1.8em;
-                margin-bottom: 25px;
-            }
-            .filter-section input[type="text"] {
-                width: 90%;
-            }
-            .files-list li {
-                flex-direction: column; /* Stack link and tag on small screens */
-                align-items: flex-start;
-                padding: 12px 15px;
-            }
-            .files-list li a {
-                margin-bottom: 8px;
-                margin-right: 0;
-            }
-            .subject-tag {
-                align-self: flex-end; /* Align tag to the right when stacked */
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 15px;
-            }
-            h1 {
-                font-size: 1.5em;
-            }
-            .filter-section input[type="text"] {
-                font-size: 0.9em;
-                padding: 10px 15px;
-            }
-            .files-list li a {
-                font-size: 0.95em;
-            }
-            .subject-tag {
-                font-size: 0.8em;
-                padding: 5px 10px;
-            }
+            color: #666;
+            padding: 20px;
         }
     </style>
 </head>
@@ -193,8 +87,8 @@
         <h1>MCA Exam Papers</h1>
 
         <div class="filter-section">
-            <label for="subjectFilter">Search for Papers:</label>
-            <input type="text" id="subjectFilter" placeholder="e.g., AI, DBMS, May 2024, Network">
+            <label for="subjectFilter">Filter by Subject or Filename:</label>
+            <input type="text" id="subjectFilter" placeholder="e.g., AI, DBMS, May 2024">
         </div>
 
         <ul id="filesList" class="files-list">
@@ -511,7 +405,7 @@
             { name: "TOC_May_2018_ (1).pdf", url: "https://drive.google.com/file/d/1kTBQpN3yFNG4qI91GE8JE9UtIgSqBvIy/view?usp=sharing" },
             { name: "Toc_May_2022 (1).pdf", url: "https://drive.google.com/file/d/1kTWCnH0IiXt3LO7ZOFtIre1ri3ImVha4/view?usp=sharing" },
             { name: "Toc_May_2023 (1).pdf", url: "https://drive.google.com/file/d/1kec4gkUKlNaRZV4bg4JW046_qI-9bmSm/view?usp=sharing" },
-            { name: "TOC_May_2024.pdf", url: "https://drive.google.com/file/d/1kgtqTMakMVYSNv53MmnyD9Ikgt83P/view?usp=sharing" },
+            { name: "TOC_May_2024.pdf", url: "https://drive.google.com/file/d/1kgtqTMakMVYSNv53MmnyD9IkgxEgts3P/view?usp=sharing" },
             { name: "TOC_November_2019 (1).pdf", url: "https://drive.google.com/file/d/1kikFTDq5Ob_SVhQgVjdz3shcvLHHBinl/view?usp=sharing" },
             { name: "Toc_November_2023 (1).pdf", url: "https://drive.google.com/file/d/1lvu20LM_HN9X9g3YVIhm1HMMMmIbngX3/view?usp=sharing" },
 
@@ -539,14 +433,14 @@
         // Function to extract a simplified subject from the filename
         function getSubject(filename) {
             filename = filename.toLowerCase();
-            if (filename.includes("account") || filename.includes("accounting")) return "Account & Finance";
+            if (filename.includes("account")) return "Account";
             if (filename.includes("acn") || filename.includes("advance_computer_network") || filename.includes("fcn")) return "Advanced Computer Network";
             if (filename.includes("ada")) return "Advanced Data Analytics";
             if (filename.includes("adbms")) return "Advanced DBMS";
             if (filename.includes("ai")) return "Artificial Intelligence";
             if (filename.includes("aptit") || filename.includes("aptitude")) return "Aptitude";
             if (filename.includes("awt")) return "Advanced Web Technology";
-            if (filename.includes("c_november") && !filename.includes("data_structure")) return "Programming in C"; // Specific to avoid "mcadd-202-data-structure-using-c-jun-2020.pdf" being just "C"
+            if (filename.includes("c_november")) return "Programming in C"; // Specific to avoid "mcadd-202-data-structure-using-c-jun-2020.pdf" being just "C"
             if (filename.includes("ca") || filename.includes("computer_architecture")) return "Computer Architecture";
             if (filename.includes("cg") || filename.includes("cgm")) return "Computer Graphics";
             if (filename.includes("cloud_computing")) return "Cloud Computing";
@@ -559,14 +453,14 @@
             if (filename.includes("dbms")) return "DBMS";
             if (filename.includes("digital_image_p")) return "Digital Image Processing";
             if (filename.includes("distributed_systems")) return "Distributed Systems";
-            if (filename.includes("ds") && !filename.includes("oops")) return "Data Structures"; // To differentiate from DS in OOPS
+            if (filename.includes("ds")) return "Data Structures";
             if (filename.includes("file_structure")) return "File Structure";
             if (filename.includes("imca")) return "Integrated MCA";
             if (filename.includes("java") || filename.includes("programming_in_jav")) return "Programming in Java";
             if (filename.includes("mobile_computing")) return "Mobile Computing";
             if (filename.includes("multimedia")) return "Multimedia";
             if (filename.includes("network_security")) return "Network Security";
-            if (filename.includes("oops_c") || filename.includes("object-oriented-progr")) return "OOPS with C++";
+            if (filename.includes("oops_c") || filename.includes("object-oriented-progr")) return "OOPS with C++"; // Assuming OOPS_C implies C++ context
             if (filename.includes("os") || filename.includes("operating_systems")) return "Operating Systems";
             if (filename.includes("parallel_computing")) return "Parallel Computing";
             if (filename.includes("pom") || filename.includes("principal-of-management")) return "Principles of Management";
@@ -581,17 +475,15 @@
             if (filename.includes("toc")) return "Theory of Computation";
             if (filename.includes("unix") || filename.includes("shell_pr")) return "Unix and Shell Programming";
             if (filename.includes("web_technology") || filename.includes("wt-t") || filename.includes("wt_r") || filename.includes("wt_")) return "Web Technology";
+            if (filename.includes("mcadd-404-accounting")) return "Accounting & Finance";
 
 
             // Fallback: If no specific subject is found, try to extract the first word
-            const parts = filename.split(/[_-\.]/); // Split by underscore, hyphen, or dot
+            const parts = filename.split('_');
             if (parts.length > 0) {
-                let firstMeaningfulWord = parts[0].replace(/[^a-z0-9]/g, '');
-                if (firstMeaningfulWord.length < 3 && parts.length > 1) { // If first word is too short (like 'mcadd'), try next
-                     firstMeaningfulWord = parts[1].replace(/[^a-z0-9]/g, '');
-                }
-                if (firstMeaningfulWord.length > 0) {
-                    return firstMeaningfulWord.charAt(0).toUpperCase() + firstMeaningfulWord.slice(1);
+                const firstWord = parts[0].replace(/[^a-z0-9]/g, ''); // Remove non-alphanumeric
+                if (firstWord.length > 0) {
+                    return firstWord.charAt(0).toUpperCase() + firstWord.slice(1);
                 }
             }
             return "Miscellaneous"; // Default if no clear subject
@@ -620,14 +512,10 @@
             if (filteredFiles.length === 0) {
                 const noResultsItem = document.createElement('li');
                 noResultsItem.className = 'no-results';
-                noResultsItem.textContent = 'No files found matching your filter. Try a different keyword.';
+                noResultsItem.textContent = 'No files found matching your filter.';
                 filesList.appendChild(noResultsItem);
                 return;
             }
-
-            // Sort files alphabetically by name
-            filteredFiles.sort((a, b) => a.name.localeCompare(b.name));
-
 
             filteredFiles.forEach(file => {
                 const listItem = document.createElement('li');
@@ -635,7 +523,6 @@
                 fileLink.href = file.url;
                 fileLink.textContent = file.name;
                 fileLink.target = "_blank"; // Open link in a new tab
-                fileLink.rel = "noopener noreferrer"; // Security best practice for target="_blank"
 
                 const subjectTag = document.createElement('span');
                 subjectTag.className = 'subject-tag';
