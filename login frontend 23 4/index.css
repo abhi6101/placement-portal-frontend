@@ -21,6 +21,24 @@
             color: #333;
             line-height: 1.6;
         }
+        /* In your index.css file */
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-right: 20px; /* Adjust as needed */
+}
+
+.logo-img {
+    max-height: 40px; /* Adjust this value to control the height of your logo */
+    width: auto; /* Maintain aspect ratio */
+    vertical-align: middle;
+    /* If your image isn't perfectly circular or has unwanted edges,
+       you might add or adjust these properties: */
+    /* border-radius: 50%; */
+    /* overflow: hidden; */
+}
 
         /* Top Navigation Bar */
         nav:first-of-type {
