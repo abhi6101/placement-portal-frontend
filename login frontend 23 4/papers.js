@@ -1,4 +1,3 @@
-// papers.js
 
 // Array to store information about previous year papers.
 // Each object contains:
@@ -7,6 +6,8 @@
 // - company: The company associated with the paper
 // - year: The year the paper is from (for sorting and display)
 // - link: The Google Drive shareable link to the PDF
+// IMPORTANT: You should update the 'title', 'company', and 'year' for each paper
+// to accurately reflect the content of your PDF files.
 const previousPapers = [
     { title: "TCS NQT Aptitude Paper 2023", category: "aptitude", company: "TCS", year: 2023, link: "https://drive.google.com/file/d/1--q6B-0SxOmNI1GqQY2LVF-hPEaF7YeU/view?usp=sharing" },
     { title: "Infosys Reasoning Questions 2022", category: "reasoning", company: "Infosys", year: 2022, link: "https://drive.google.com/file/d/1-7hbGf6yI8tvSKA_gNfPtw8Q8zzjS3O9/view?usp=sharing" },
@@ -249,34 +250,37 @@ const nextPageBtn = document.querySelector('.next-page');
 
 // Pagination variables
 let currentPage = 1;
-const papersPerPage = 10; // Number of papers to display per page
+const papersPerPage = 10; // Number of papers to display per page. You can adjust this value.
 
 /**
  * Displays a given array of papers on the page, handling pagination.
+ * It clears existing content and renders new paper cards.
  * @param {Array<Object>} papersToDisplay - The array of paper objects to render.
  */
 function displayPapers(papersToDisplay) {
-    // Clear the current content of the paper list container
+    // Clear the current content of the paper list container to avoid duplicates
     paperListContainer.innerHTML = '';
 
-    // Calculate the start and end index for the current page
+    // Calculate the start and end index for the papers on the current page
     const startIndex = (currentPage - 1) * papersPerPage;
     const endIndex = startIndex + papersPerPage;
-    // Slice the array to get only the papers for the current page
+    // Get only the papers relevant to the current page
     const paginatedPapers = papersToDisplay.slice(startIndex, endIndex);
 
-    // If no papers are found for the current filter/search, display a message
+    // If no papers are found after filtering/searching, display a "no results" message
     if (paginatedPapers.length === 0) {
         paperListContainer.innerHTML = '<p class="no-results">No papers found matching your criteria.</p>';
-        return;
+        return; // Exit the function if no papers to display
     }
 
-    // Iterate over the paginated papers and create a card for each
+    // Iterate over the paginated papers and create a card (div) for each
     paginatedPapers.forEach(paper => {
         const paperCard = document.createElement('div');
-        paperCard.classList.add('paper-card', paper.category); // Add 'paper-card' class and category for styling/filtering
+        // Add 'paper-card' class for general styling and the paper's category for specific filtering styles
+        paperCard.classList.add('paper-card', paper.category);
 
-        // Populate the card with paper details and a link to the PDF
+        // Populate the card's inner HTML with paper details
+        // The 'target="_blank"' attribute ensures the PDF opens in a new tab
         paperCard.innerHTML = `
             <h3>${paper.title}</h3>
             <p><strong>Company:</strong> ${paper.company}</p>
@@ -286,135 +290,142 @@ function displayPapers(papersToDisplay) {
                 <i class="fas fa-download"></i> View Paper
             </a>
         `;
-        paperListContainer.appendChild(paperCard); // Add the created card to the container
+        // Append the newly created paper card to the main paper list container
+        paperListContainer.appendChild(paperCard);
     });
 }
 
 /**
- * Updates the pagination buttons based on the total number of filtered papers.
+ * Updates the pagination buttons (page numbers, prev/next) based on the
+ * total number of papers available after filtering and searching.
  * @param {Array<Object>} filteredPapers - The array of papers after applying filters and search.
  */
 function updatePagination(filteredPapers) {
-    // Calculate total pages needed
+    // Calculate the total number of pages required
     const totalPages = Math.ceil(filteredPapers.length / papersPerPage);
-    // Clear existing page number buttons
+    // Clear any existing page number buttons
     pageNumbersContainer.innerHTML = '';
 
     // Create a button for each page
     for (let i = 1; i <= totalPages; i++) {
         const pageBtn = document.createElement('button');
         pageBtn.classList.add('page-btn');
-        // Set 'active' class for the current page button
+        // Mark the current page button as active for styling
         if (i === currentPage) {
             pageBtn.classList.add('active');
         }
-        pageBtn.dataset.page = i; // Store page number in a data attribute
-        pageBtn.textContent = i;
-        // Add click listener to change page and re-render papers
+        pageBtn.dataset.page = i; // Store the page number as a data attribute
+        pageBtn.textContent = i; // Set the button's text to the page number
+        // Add a click event listener to each page button
         pageBtn.addEventListener('click', () => {
-            currentPage = i;
-            filterAndSortPapers(); // Re-run filter/sort to update display for new page
+            currentPage = i; // Update the current page
+            filterAndSortPapers(); // Re-run the main function to update the display
         });
-        pageNumbersContainer.appendChild(pageBtn);
+        pageNumbersContainer.appendChild(pageBtn); // Add the page button to the pagination container
     }
 
-    // Disable/enable previous and next buttons based on current page
+    // Disable the 'Previous' button if on the first page
     prevPageBtn.disabled = currentPage === 1;
-    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0; // Also disable if no pages
+    // Disable the 'Next' button if on the last page or if there are no pages
+    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
 }
 
 /**
- * Filters, sorts, and then displays the papers based on current search, filter, and sort selections.
+ * This is the main function that orchestrates the filtering, sorting,
+ * and displaying of papers. It's called whenever a search, filter, or sort
+ * action occurs, or on initial page load.
  */
 function filterAndSortPapers() {
-    // Start with a copy of the original papers array to avoid modifying it directly
+    // Start with a shallow copy of the original papers array to perform operations on
+    // without modifying the original data source.
     let filtered = [...previousPapers];
 
-    // --- Search functionality ---
-    const searchTerm = searchInput.value.toLowerCase().trim();
+    // --- Apply Search Filter ---
+    const searchTerm = searchInput.value.toLowerCase().trim(); // Get and clean the search input
     if (searchTerm) {
+        // Filter papers where title, company, category, or year includes the search term
         filtered = filtered.filter(paper =>
             paper.title.toLowerCase().includes(searchTerm) ||
             paper.company.toLowerCase().includes(searchTerm) ||
             paper.category.toLowerCase().includes(searchTerm) ||
-            String(paper.year).includes(searchTerm)
+            String(paper.year).includes(searchTerm) // Convert year to string for consistent searching
         );
     }
 
-    // --- Category filtering ---
-    // Find the currently active filter button
+    // --- Apply Category Filter ---
+    // Find the currently active category filter button
     const activeFilter = document.querySelector('.filter-btn.active');
-    // If a filter other than 'all' is active, filter by category
+    // If an active filter exists and it's not the 'all' filter, apply the category filter
     if (activeFilter && activeFilter.dataset.filter !== 'all') {
         filtered = filtered.filter(paper => paper.category === activeFilter.dataset.filter);
     }
 
-    // --- Sorting ---
-    const sortBy = sortSelect.value; // Get the selected sort option
+    // --- Apply Sorting ---
+    const sortBy = sortSelect.value; // Get the selected sorting option from the dropdown
     switch (sortBy) {
         case 'newest':
-            // Sort by year in descending order (newest first)
+            // Sort by year in descending order (e.g., 2024, 2023, ...)
             filtered.sort((a, b) => b.year - a.year);
             break;
         case 'oldest':
-            // Sort by year in ascending order (oldest first)
+            // Sort by year in ascending order (e.g., 2020, 2021, ...)
             filtered.sort((a, b) => a.year - b.year);
             break;
         case 'title-asc':
-            // Sort by title alphabetically ascending
+            // Sort by title alphabetically in ascending order (A-Z)
             filtered.sort((a, b) => a.title.localeCompare(b.title));
             break;
         case 'title-desc':
-            // Sort by title alphabetically descending
+            // Sort by title alphabetically in descending order (Z-A)
             filtered.sort((a, b) => b.title.localeCompare(a.title));
             break;
     }
 
-    // Display the filtered and sorted papers for the current page
+    // After filtering and sorting, display the papers for the current page
     displayPapers(filtered);
-    // Update pagination controls based on the filtered set of papers
+    // And update the pagination controls based on the new set of filtered papers
     updatePagination(filtered);
 }
 
 // --- Event Listeners ---
 
-// Listen for form submission on the search bar
+// Event listener for the search form submission
 searchForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent default form submission (page reload)
-    currentPage = 1; // Reset to the first page for a new search
-    filterAndSortPapers(); // Apply search and update display
+    e.preventDefault(); // Prevent the default form submission behavior (page reload)
+    currentPage = 1; // Reset to the first page when a new search is performed
+    filterAndSortPapers(); // Re-run the main function to apply the new search
 });
 
-// Listen for clicks on filter buttons
+// Event listeners for category filter buttons
 filterButtons.forEach(button => {
     button.addEventListener('click', () => {
         // Remove 'active' class from all filter buttons
         filterButtons.forEach(btn => btn.classList.remove('active'));
         // Add 'active' class to the clicked button
         button.classList.add('active');
-        currentPage = 1; // Reset to the first page for a new filter
-        filterAndSortPapers(); // Apply filter and update display
+        currentPage = 1; // Reset to the first page when a new filter is applied
+        filterAndSortPapers(); // Re-run the main function to apply the new filter
     });
 });
 
-// Listen for changes on the sort dropdown
+// Event listener for changes in the sort dropdown
 sortSelect.addEventListener('change', () => {
-    currentPage = 1; // Reset to the first page for a new sort
-    filterAndSortPapers(); // Apply sort and update display
+    currentPage = 1; // Reset to the first page when sorting changes
+    filterAndSortPapers(); // Re-run the main function to apply the new sort order
 });
 
-// Listen for click on the 'Previous Page' button
+// Event listener for the 'Previous Page' button
 prevPageBtn.addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage--; // Decrement page number
-        filterAndSortPapers(); // Update display
+    if (currentPage > 1) { // Only go back if not already on the first page
+        currentPage--; // Decrement the current page number
+        filterAndSortPapers(); // Update the display for the previous page
     }
 });
 
-// Listen for click on the 'Next Page' button
+// Event listener for the 'Next Page' button
 nextPageBtn.addEventListener('click', () => {
-    // Determine the total number of pages based on the currently filtered papers
-    // We need to re-calculate filtered papers to get the correct total for 'next' button logic
+    // To correctly determine if there's a next page, we need to know the total pages
+    // based on the *currently filtered* set of papers.
     let currentFilteredPapers = [...previousPapers];
     const searchTerm = searchInput.value.toLowerCase().trim();
     if (searchTerm) {
@@ -431,14 +442,14 @@ nextPageBtn.addEventListener('click', () => {
     }
     const totalPages = Math.ceil(currentFilteredPapers.length / papersPerPage);
 
-    if (currentPage < totalPages) {
-        currentPage++; // Increment page number
-        filterAndSortPapers(); // Update display
+    if (currentPage < totalPages) { // Only go forward if not already on the last page
+        currentPage++; // Increment the current page number
+        filterAndSortPapers(); // Update the display for the next page
     }
 });
 
 // --- Initial Load ---
-// Ensure the DOM is fully loaded before running the script
+// This ensures that the script runs only after the entire HTML document has been loaded and parsed.
 document.addEventListener('DOMContentLoaded', () => {
-    filterAndSortPapers(); // Call this function to initially display all papers
+    filterAndSortPapers(); // Call the main function to initially display all papers and set up pagination
 });
