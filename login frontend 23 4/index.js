@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Error decoding JWT token:", e);
             return null;
         }
-        
     };
 
     // Function to update UI based on auth state
