@@ -65,11 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // NEW: Enhanced initial alert message
     const initialAlertText = `
-        **Important Registration Notice:**
-        Before you register, please read these instructions carefully.
-        You **must** register with an **active email address** because account verification via an OTP sent to your email is required after registration.
-        Choose a **memorable password** as there is **no 'Forgot Password' option**.
-        If you ever need to change your password, you will have to **contact the administrator** directly.
+        **Welcome to the Placement Portal! Just a Quick Read Before You Sign Up...**
+
+    We're excited to have you! To make your registration process as smooth as possible and ensure your account stays secure, please keep these important notes in mind:
+
+    * **Your Go-To Email:** We'll send an **OTP (One-Time Password)** to verify your account right after you register. Please use an **active email address** that you can access instantly.
+    * **Memorable Password, Please:** This is crucial! We don't have a "Forgot Password" feature, so pick a password you're confident you won't forget.
+    * **Admin Support for Changes:** If you ever need to update your password in the future, you'll need to **contact the administrator** directly for assistance.
+
+    Your cooperation helps us maintain a secure and efficient platform. Happy registering!
     `;
 
     // Display the initial alert message when the page loads
