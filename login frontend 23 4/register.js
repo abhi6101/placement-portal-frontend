@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // Persistent alert should remain unless form is submitted successfully
         if (type === 'success') {
             errorMessageDiv.style.display = 'none';
-            persistentAlertMessageDiv.style.display = 'none'; // Hide persistent alert on success
+            // ONLY HIDE PERSISTENT ALERT ON SUCCESSFUL REGISTRATION
+            persistentAlertMessageDiv.style.display = 'none';
         } else if (type === 'error') {
             successMessageDiv.style.display = 'none';
-            // We can choose to keep persistent alert visible or hide it on error
-            // For now, keeping it visible
+            // Keep persistent alert visible on error
         }
     }
 
@@ -86,19 +86,22 @@ document.addEventListener("DOMContentLoaded", () => {
         showMessage(persistentAlertMessageDiv, persistentAlertHTML, "info");
     };
 
-    // Optional: Hide the persistent alert when the user starts typing in any input field
+    // REMOVED: The event listener to hide the persistent alert on input focus
+    /*
     const formInputs = registrationForm.querySelectorAll('input, select');
     formInputs.forEach(input => {
         input.addEventListener('focus', () => {
             persistentAlertMessageDiv.style.display = 'none';
         });
     });
+    */
 
     registrationForm.addEventListener("submit", async (e) => {
         e.preventDefault(); // Prevent default form submission
 
         hideMessages(); // Clear any previous error/success messages
-        persistentAlertMessageDiv.style.display = 'none'; // Hide persistent message on form submission
+        // REMOVED: Hiding persistent message on form submission, it will only hide on success
+        // persistentAlertMessageDiv.style.display = 'none';
 
         // Form validation
         const username = usernameInput.value.trim();
