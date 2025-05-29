@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const registrationForm = document.getElementById("registrationForm");
+    const registrationForm = document.getElementById("registrationForm"); // This targets the <form>
+    // NEW: Get a reference to the parent <section> element
+    const registerSection = document.querySelector(".register");
+
     const usernameInput = document.getElementById("username");
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
@@ -23,22 +26,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const spinner = registerButton.querySelector(".spinner");
 
     // Helper function to display messages
-    // This function is now more flexible to handle different message elements
     function showMessage(element, message, type) {
         if (element.id === 'persistent-alert-message' || element.id === 'instruction-content') {
-            element.innerHTML = message; // Use innerHTML for HTML content (e.g., bullet points)
+            element.innerHTML = message;
         } else {
-            element.textContent = message; // Use textContent for plain text alerts
+            element.textContent = message;
         }
-        element.className = `alert alert-${type}`; // Dynamically set class
-        element.style.display = "block"; // Show the alert
+        element.className = `alert alert-${type}`;
+        element.style.display = "block";
     }
 
     // Helper function to hide specific message elements
     function hideElement(element) {
         element.style.display = "none";
-        element.textContent = ""; // Clear text content
-        element.innerHTML = ""; // Clear inner HTML
+        element.textContent = "";
+        element.innerHTML = "";
     }
 
     // Function to show loading state (spinner)
@@ -78,11 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Before registering, please read the instructions carefully. Click OK to continue.");
 
         // Step 2: After OK is clicked, display the persistent message with checkbox and button
-        // The HTML already has persistentAlertMessageDiv visible by default
-        // We just need to populate its content
         showMessage(instructionContentDiv, persistentAlertHTML, "info"); // Populate the inner div with content
-        persistentAlertMessageDiv.style.display = 'block'; // Ensure the main container is visible
-        registrationForm.style.display = 'none'; // Ensure the form is hidden
+        persistentAlertMessageDiv.style.display = 'block'; // Ensure the instruction container is visible
+        registerSection.style.display = 'none'; // IMPORTANT: Ensure the whole section is hidden initially
 
         // Hide any previous form-related error/success messages
         hideElement(errorMessageDiv);
@@ -95,12 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
             // Hide any previous instruction-related errors
             hideElement(instructionErrorMessageDiv);
 
-            // Hide the instruction message and show the registration form
+            // Hide the instruction message
             persistentAlertMessageDiv.style.display = 'none';
-            registrationForm.style.display = 'block';
+            // IMPORTANT: Show the entire registration section
+            registerSection.style.display = 'block';
 
             // Optional: Scroll to the top of the form for better UX
-            registrationForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            registerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
         } else {
             // Show error if checkbox is not ticked
@@ -109,43 +110,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // --- Registration Form Submission Logic ---
+    // --- Registration Form Submission Logic (remains unchanged) ---
     registrationForm.addEventListener("submit", async (e) => {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault();
 
-        // Hide any previous form-related messages
         hideElement(errorMessageDiv);
         hideElement(successMessageDiv);
 
-        // Form validation (remains the same as before)
         const username = usernameInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         const confirmPassword = confirmPasswordInput.value;
         const role = roleInput.value;
 
-        // --- Start Form Validations ---
         if (username === "") {
             showMessage(errorMessageDiv, "Username cannot be empty.", "error");
             return;
         }
-
         if (username.includes(" ")) {
             showMessage(errorMessageDiv, "Username cannot contain spaces.", "error");
             return;
         }
-
         if (!username.startsWith('@')) {
             showMessage(errorMessageDiv, "Username must start with '@'.", "error");
             return;
         }
-
         const usernameWithoutAt = username.substring(1);
         if (usernameWithoutAt !== usernameWithoutAt.toLowerCase()) {
             showMessage(errorMessageDiv, "The part of the username after '@' must be in lowercase.", "error");
             return;
         }
-
         if (email === "") {
             showMessage(errorMessageDiv, "Email Address cannot be empty.", "error");
             return;
@@ -155,32 +149,26 @@ document.addEventListener("DOMContentLoaded", () => {
             showMessage(errorMessageDiv, "Please enter a valid email address.", "error");
             return;
         }
-
         if (role === "" || role === "--Select Role--") {
             showMessage(errorMessageDiv, "Please select a role.", "error");
             return;
         }
-
         if (password.length < 8) {
             showMessage(errorMessageDiv, "Password must be at least 8 characters long.", "error");
             return;
         }
-
         const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).*$/;
         if (!passwordRegex.test(password)) {
             showMessage(errorMessageDiv, "Password must contain at least 1 number and 1 special character.", "error");
             return;
         }
-
         if (password !== confirmPassword) {
             showMessage(errorMessageDiv, "Passwords do not match.", "error");
             return;
         }
-        // --- End Form Validations ---
 
-        showLoadingState(); // Show spinner and disable button
+        showLoadingState();
 
-        // --- Start Registration Request ---
         const userData = {
             username: username,
             email: email,
@@ -201,12 +189,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 showMessage(successMessageDiv, result.message || "Registration successful! Please check your email for the verification code.", "success");
-                registrationForm.reset(); // Clear the form on successful registration
+                registrationForm.reset();
 
-                // Redirect to the verification page
                 setTimeout(() => {
                     window.location.href = `verify-account.html?email=${encodeURIComponent(email)}`;
-                }, 3000); // Give user time to read success message
+                }, 3000);
             } else {
                 showMessage(errorMessageDiv, result.message || "Registration failed. Please try again.", "error");
             }
@@ -214,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showMessage(errorMessageDiv, "Registration failed. Please check your network connection and try again.", "error");
             console.error("Registration error:", error);
         } finally {
-            hideLoadingState(); // Always hide spinner and re-enable button
+            hideLoadingState();
         }
     });
 });
