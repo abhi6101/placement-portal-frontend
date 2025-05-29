@@ -1,730 +1,477 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Board - Find Your Dream Job</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        :root {
-            --primary: #00d4ff;
-            --secondary: #0077b6;
-            --dark: #03045e;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --accent: #ff7b00;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-        }
+    <title>Job Listings | Placement Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="jobs.css">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        /* Top Navigation Bar */
-        nav:first-of-type {
-            background-color: var(--dark);
-            color: white;
-            padding: 0.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
- 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
- 
-        .logo span {
-            color: var(--primary);
-        }
- 
-        nav:first-of-type ul {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-            align-items: center;
-        }
- 
-        nav:first-of-type a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color 0.3s ease;
-        }
- 
-        nav:first-of-type a:hover {
-            color: var(--primary);
-        }
- 
-        .btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none; /* Ensure buttons don't have default borders */
-            cursor: pointer; /* Add pointer cursor for buttons */
-        }
- 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
-        }
- 
-        /* Main Navigation Bar */
-        nav:last-of-type {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 0.8rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
- 
-        nav:last-of-type ul {
-            display: flex;
-            list-style: none;
-            gap: 1rem;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-        }
- 
-        nav:last-of-type li {
-            flex-shrink: 0;
-        }
- 
-        nav:last-of-type a, nav:last-of-type button {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
- 
-        nav:last-of-type a:hover, nav:last-of-type button:hover {
-            color: var(--primary);
-            background-color: rgba(0, 212, 255, 0.1);
-        }
- 
-        nav:last-of-type a.active {
-            background-color: rgba(0, 212, 255, 0.2);
-            color: var(--primary);
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .page-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .page-header p {
-            font-size: 1.1rem;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Search Section */
-        .search-container {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem;
-        }
-
-        .search-form {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 250px;
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
-        }
-
-        .search-btn {
-            padding: 0.8rem 2rem;
-        }
-
-        /* Filter Section */
-        .filter-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.6rem 1.2rem;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            color: #333; /* Ensure text color is readable */
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border-color: transparent;
-        }
-
-        .sort-options {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .sort-options select {
-            padding: 0.6rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            color: #333; /* Ensure text color is readable */
-            background-color: white;
-        }
-
-        /* Job Listings */
-        .job-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .job-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex; /* Make job card a flex container */
-            flex-direction: column; /* Stack content vertically */
-        }
-
-        .job-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .job-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .job-title {
-            font-size: 1.3rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .job-company {
-            color: var(--secondary);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .job-type {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .job-type.full-time {
-            background-color: rgba(0, 212, 255, 0.1);
-            color: var(--primary);
-        }
-
-        .job-type.internship {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: var(--warning);
-        }
-
-        .job-type.remote {
-            background-color: rgba(40, 167, 69, 0.1);
-            color: var(--success);
-        }
-
-        .job-content {
-            padding: 1.5rem;
-            flex-grow: 1; /* Allow content to grow and push actions to bottom */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .job-description {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .job-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: auto; /* Push metadata to the bottom if description is short */
-        }
-
-        .job-meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .job-meta-item i {
-            color: var(--primary);
-        }
-
-        .job-actions {
-            display: flex;
-            gap: 1rem;
-            padding: 0 1.5rem 1.5rem; /* Add padding to match content */
-        }
-
-        .job-actions .btn {
-            flex: 1;
-            text-align: center;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .page-btn {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: white;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #333; /* Ensure text color is readable */
-            text-decoration: none; /* Remove underline from page numbers */
-            font-weight: 500;
-        }
-
-        .page-btn:hover, .page-btn.active {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            border-color: transparent;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        footer p {
-            margin-bottom: 1rem;
-        }
-
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            nav:first-of-type {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            .container {
-                padding: 0 1rem;
-            }
-
-            .search-form {
-                flex-direction: column;
-            }
-
-            .search-btn {
-                width: 100%;
-            }
-
-            .filter-section {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .job-list {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            grid-column: 1 / -1;
-        }
-
-        .loading i {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Error State */
-        .error-message {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 2rem;
-            color: var(--danger);
-            background: rgba(220, 53, 69, 0.1);
-            border-radius: 5px;
-        }
-    </style>
 </head>
+
 <body>
-    <nav>
-        <div class="logo">Job<span>Board</span></div>
+     <nav>
+        <div class="logo">Placement<span>Portal</span></div>
         <ul>
-            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="#"><i class="fas fa-briefcase"></i> Post Job</a></li>
-            <li><a href="#"><i class="fas fa-user-circle"></i> Profile</a></li>
-            <li><a href="#" class="btn">Sign Up</a></li>
+            <li><a href="mailto:abhijain6101@gmail.com"><i class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
+            <li><a href="tel:+91-6266017070"><i class="fas fa-phone"></i> +91-6266017070</a></li>
         </ul>
     </nav>
 
-    <nav>
+    <nav class="main-nav">
         <ul>
-            <li><a href="#" class="active"><i class="fas fa-search"></i> Browse Jobs</a></li>
-            <li><a href="#"><i class="fas fa-building"></i> Companies</a></li>
-            <li><a href="#"><i class="fas fa-file-alt"></i> Resumes</a></li>
-            <li><button><i class="fas fa-bell"></i> Job Alerts</button></li>
-            <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
+          <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+          <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+           <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+             <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+          <li><a href="courses.html"  ><i class="fas fa-book"></i> Courses</a></li>
+          <li><a href="blog.html" ><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
     </nav>
 
     <div class="container">
-        <header class="page-header">
-            <h1>Find Your Dream Job Today!</h1>
-            <p>Explore thousands of job opportunities from leading companies worldwide.</p>
-        </header>
+        <div class="page-header">
+            <h1>Job Opportunities</h1>
+            <p>Browse through our latest job openings from top companies and kickstart your career</p>
+        </div>
 
-        <section class="search-container">
-            <form class="search-form">
-                <input type="text" class="search-input" placeholder="Job title, keywords, or company">
-                <input type="text" class="search-input" placeholder="Location (e.g., New York, remote)">
-                <button type="submit" class="btn search-btn"><i class="fas fa-search"></i> Search Jobs</button>
+        <div class="search-container">
+            <form class="search-form" id="searchForm">
+                <input type="text" class="search-input" id="searchInput" placeholder="Job title, keywords, or company">
+                <input type="text" class="search-input" id="locationInput" placeholder="Location">
+                <button type="submit" class="btn search-btn">
+                    <i class="fas fa-search"></i> Search Jobs
+                </button>
             </form>
-        </section>
+        </div>
 
-        <section class="filter-section">
+        <div class="filter-section">
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All Jobs</button>
-                <button class="filter-btn" data-filter="full-time">Full-Time</button>
-                <button class="filter-btn" data-filter="part-time">Part-Time</button>
-                <button class="filter-btn" data-filter="internship">Internship</button>
-                <button class="filter-btn" data-filter="remote">Remote</button>
+                <button class="filter-btn" data-filter="it">IT/Software</button>
+                <button class="filter-btn" data-filter="engineering">Engineering</button>
+                <button class="filter-btn" data-filter="finance">Finance</button>
+                <button class="filter-btn" data-filter="internship">Internships</button>
             </div>
             <div class="sort-options">
-                <label for="sort-by">Sort By:</label>
-                <select id="sort-by">
-                    <option value="relevance">Relevance</option>
-                    <option value="date">Date Posted</option>
-                    <option value="salary-high-low">Salary (High to Low)</option>
-                    <option value="salary-low-high">Salary (Low to High)</option>
+                <label for="sortSelect">Sort by:</label>
+                <select id="sortSelect">
+                    <option value="newest">Newest First</option>
+                    <option value="salary-high">Salary (High to Low)</option>
+                    <option value="salary-low">Salary (Low to High)</option>
+                    <option value="deadline">Application Deadline</option>
                 </select>
             </div>
-        </section>
+        </div>
 
-        <section class="job-list" id="jobListings">
-            <div class="job-card">
-                <div class="job-header">
-                    <h3 class="job-title">Senior Frontend Developer</h3>
-                    <p class="job-company"><i class="fas fa-building"></i> Tech Solutions Inc.</p>
-                    <span class="job-type full-time">Full-Time</span>
-                </div>
-                <div class="job-content">
-                    <p class="job-description">We are seeking an experienced Senior Frontend Developer to lead our new product initiative. You will be responsible for building responsive and user-friendly web applications using React, Next.js, and TypeScript. Strong understanding of modern web development practices and component-based architecture is a must.</p>
-                    <div class="job-meta">
-                        <div class="job-meta-item"><i class="fas fa-map-marker-alt"></i> New York, NY</div>
-                        <div class="job-meta-item"><i class="fas fa-dollar-sign"></i> $120,000 - $150,000/year</div>
-                        <div class="job-meta-item"><i class="fas fa-clock"></i> Posted 2 days ago</div>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <a href="#" class="btn apply-btn">Apply Now</a>
-                    <a href="#" class="btn btn-outline view-details-btn">View Details</a>
-                </div>
+        <div class="job-list" id="jobList">
+            <div class="loading">
+                <i class="fas fa-spinner"></i> Loading jobs...
             </div>
-
-            <div class="job-card">
-                <div class="job-header">
-                    <h3 class="job-title">UX/UI Designer</h3>
-                    <p class="job-company"><i class="fas fa-building"></i> Creative Minds Studio</p>
-                    <span class="job-type remote">Remote</span>
-                </div>
-                <div class="job-content">
-                    <p class="job-description">Join our innovative design team as a UX/UI Designer. You will work on user research, wireframing, prototyping, and creating stunning interfaces for web and mobile applications. Proficiency in Figma, Sketch, or Adobe XD is required. A portfolio demonstrating your design process is essential.</p>
-                    <div class="job-meta">
-                        <div class="job-meta-item"><i class="fas fa-map-marker-alt"></i> Worldwide (Remote)</div>
-                        <div class="job-meta-item"><i class="fas fa-dollar-sign"></i> $90,000 - $110,000/year</div>
-                        <div class="job-meta-item"><i class="fas fa-clock"></i> Posted 1 week ago</div>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <a href="#" class="btn apply-btn">Apply Now</a>
-                    <a href="#" class="btn btn-outline view-details-btn">View Details</a>
-                </div>
-            </div>
-
-            <div class="job-card">
-                <div class="job-header">
-                    <h3 class="job-title">Marketing Intern</h3>
-                    <p class="job-company"><i class="fas fa-building"></i> Global Brands Co.</p>
-                    <span class="job-type internship">Internship</span>
-                </div>
-                <div class="job-content">
-                    <p class="job-description">We are looking for a enthusiastic Marketing Intern to support our digital marketing campaigns. You will assist with social media content creation, email marketing, and market research. This is a great opportunity for students or recent graduates to gain hands-on experience in a fast-paced environment.</p>
-                    <div class="job-meta">
-                        <div class="job-meta-item"><i class="fas fa-map-marker-alt"></i> London, UK</div>
-                        <div class="job-meta-item"><i class="fas fa-dollar-sign"></i> Paid Internship</div>
-                        <div class="job-meta-item"><i class="fas fa-clock"></i> Posted 3 days ago</div>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <a href="#" class="btn apply-btn">Apply Now</a>
-                    <a href="#" class="btn btn-outline view-details-btn">View Details</a>
-                </div>
-            </div>
-
-            <div class="job-card">
-                <div class="job-header">
-                    <h3 class="job-title">Data Scientist</h3>
-                    <p class="job-company"><i class="fas fa-building"></i> Data Insights LLC</p>
-                    <span class="job-type full-time">Full-Time</span>
-                </div>
-                <div class="job-content">
-                    <p class="job-description">Seeking a Data Scientist to analyze complex datasets, build predictive models, and provide actionable insights. Strong skills in Python or R, SQL, and machine learning libraries are essential. Experience with big data technologies (Spark, Hadoop) is a plus.</p>
-                    <div class="job-meta">
-                        <div class="job-meta-item"><i class="fas fa-map-marker-alt"></i> San Francisco, CA</div>
-                        <div class="job-meta-item"><i class="fas fa-dollar-sign"></i> $130,000 - $170,000/year</div>
-                        <div class="job-meta-item"><i class="fas fa-clock"></i> Posted 5 days ago</div>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <a href="#" class="btn apply-btn">Apply Now</a>
-                    <a href="#" class="btn btn-outline view-details-btn">View Details</a>
-                </div>
-            </div>
-
-            <div class="job-card">
-                <div class="job-header">
-                    <h3 class="job-title">Customer Support Specialist</h3>
-                    <p class="job-company"><i class="fas fa-building"></i> ServiceFirst Solutions</p>
-                    <span class="job-type remote">Remote</span>
-                </div>
-                <div class="job-content">
-                    <p class="job-description">Provide excellent customer support to our users via chat, email, and phone. Troubleshoot issues, answer product questions, and ensure customer satisfaction. Strong communication skills and a customer-centric attitude are key. Previous experience in customer service preferred.</p>
-                    <div class="job-meta">
-                        <div class="job-meta-item"><i class="fas fa-map-marker-alt"></i> Anywhere (Remote)</div>
-                        <div class="job-meta-item"><i class="fas fa-dollar-sign"></i> $45,000 - $55,000/year</div>
-                        <div class="job-meta-item"><i class="fas fa-clock"></i> Posted 1 day ago</div>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <a href="#" class="btn apply-btn">Apply Now</a>
-                    <a href="#" class="btn btn-outline view-details-btn">View Details</a>
-                </div>
-            </div>
-
-            <div class="job-card">
-                <div class="job-header">
-                    <h3 class="job-title">Junior Backend Developer</h3>
-                    <p class="job-company"><i class="fas fa-building"></i> Innovate Hub</p>
-                    <span class="job-type full-time">Full-Time</span>
-                </div>
-                <div class="job-content">
-                    <p class="job-description">We are seeking a motivated Junior Backend Developer to join our growing team. You will assist in developing and maintaining server-side logic, databases, and APIs. Familiarity with Node.js, Python, or Java and a willingness to learn new technologies is a plus.</p>
-                    <div class="job-meta">
-                        <div class="job-meta-item"><i class="fas fa-map-marker-alt"></i> Austin, TX</div>
-                        <div class="job-meta-item"><i class="fas fa-dollar-sign"></i> $70,000 - $90,000/year</div>
-                        <div class="job-meta-item"><i class="fas fa-clock"></i> Posted 4 days ago</div>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <a href="#" class="btn apply-btn">Apply Now</a>
-                    <a href="#" class="btn btn-outline view-details-btn">View Details</a>
-                </div>
-            </div>
-            </section>
+        </div>
 
         <div class="pagination">
-            <a href="#" class="page-btn active">1</a>
-            <a href="#" class="page-btn">2</a>
-            <a href="#" class="page-btn">3</a>
-            <a href="#" class="page-btn">4</a>
-            <a href="#" class="page-btn">5</a>
+            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 
+
+    <div id="applicationFormModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Apply for <span id="jobTitleForApplication"></span></h2>
+            <form id="jobApplicationForm" enctype="multipart/form-data">
+                <input type="hidden" id="appliedJobId" name="jobId">
+
+                <div class="form-group">
+                    <label for="applicantName">Full Name:</label>
+                    <input type="text" id="applicantName" name="applicantName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicantEmail">Email:</label>
+                    <input type="email" id="applicantEmail" name="applicantEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicantPhone">Phone Number:</label>
+                    <input type="tel" id="applicantPhone" name="applicantPhone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicantRollNo">Roll Number (if applicable):</label>
+                    <input type="text" id="applicantRollNo" name="applicantRollNo">
+                </div>
+
+                <div class="form-group">
+                    <label for="resume">Upload Resume (PDF only):</label>
+                    <input type="file" id="resume" name="resume" accept=".pdf" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="coverLetter">Cover Letter (Optional):</label>
+                    <textarea id="coverLetter" name="coverLetter" rows="5"></textarea>
+                </div>
+
+                <button type="submit" class="btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+
     <footer>
-        <p>&copy; 2025 JobBoard. All rights reserved.</p>
-        <p>Designed with <i class="fas fa-heart"></i> by YourName</p>
-        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        <p>Created by Abhi Jain</p>
+        <p>&copy; 2025 College Placement System. All rights reserved. | Contact: <a
+                href="mailto:abhijain6101@gmail.com">abhijain6101@gmail.com</a></p>
     </footer>
 
     <script>
-        // --- Basic JavaScript for Filter and Pagination Active States (Client-side) ---
+        document.addEventListener('DOMContentLoaded', function () {
+            const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs"; // Your existing jobs API
+            const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job";
 
-        // Handle filter buttons
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                // In a real application, you'd filter jobs here based on button.dataset.filter
-                console.log('Filtering by:', button.dataset.filter);
-            });
-        });
+            const jobList = document.getElementById('jobList');
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = document.getElementById('searchInput');
+            const locationInput = document.getElementById('locationInput');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const sortSelect = document.getElementById('sortSelect');
 
-        // Handle pagination buttons
-        const pageButtons = document.querySelectorAll('.page-btn');
-        pageButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent default link behavior
-                pageButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                // In a real application, you'd load jobs for the selected page here
-                console.log('Loading page:', button.textContent);
-            });
-        });
+            const applicationFormModal = document.getElementById('applicationFormModal');
+            const closeButton = document.querySelector('.close-button');
+            const jobApplicationForm = document.getElementById('jobApplicationForm');
+            const jobTitleForApplication = document.getElementById('jobTitleForApplication');
+            const appliedJobId = document.getElementById('appliedJobId');
+            const formApplicantName = document.getElementById('applicantName');
+            const formApplicantEmail = document.getElementById('applicantEmail');
+            const formApplicantPhone = document.getElementById('applicantPhone');
+            const formApplicantRollNo = document.getElementById('applicantRollNo');
+            const resumeInput = document.getElementById('resume');
 
-        // Example for "Apply Now" and "View Details" buttons (just console logs)
-        const applyButtons = document.querySelectorAll('.apply-btn');
-        applyButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
+            let allJobs = [];
+            let currentUserDetails = null; // To store user details from token
+
+            // Function to extract user details from JWT token
+            function getUserDetailsFromToken(token) {
+                try {
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    return {
+                        username: payload.sub,
+                        email: payload.email || `${payload.sub}@example.com`,
+                        rollNo: payload.rollNo || 'N/A',
+                        phone: payload.phone || 'N/A',
+                        exp: payload.exp
+                    };
+                } catch (e) {
+                    console.error("Error parsing token or missing claims:", e);
+                    return null;
+                }
+            }
+
+            // Authentication check and user details extraction
+            const token = localStorage.getItem("authToken");
+            if (!token) {
+                alert("You must be logged in to access this page.");
+                window.location.href = "login.html";
+                return;
+            } else {
+                currentUserDetails = getUserDetailsFromToken(token);
+                if (!currentUserDetails || currentUserDetails.exp < Date.now() / 1000) {
+                    alert("Session expired or invalid token. Please log in again.");
+                    localStorage.clear();
+                    window.location.href = "login.html";
+                    return;
+                }
+            }
+
+
+            // Fetch jobs from API
+            async function fetchJobs() {
+                try {
+                    const response = await fetch(API_URL);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch jobs');
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error('Error fetching jobs:', error);
+                    showError('Failed to load jobs. Please try again later.');
+                    return [];
+                }
+            }
+
+            // Load jobs from API then render
+            async function loadJobs() {
+                jobList.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading jobs...</div>';
+                const jobs = await fetchJobs();
+                allJobs = jobs;
+                filterAndSortJobs(); // This will call displayJobs
+            }
+
+            // Format date
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-IN', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                });
+            }
+
+            // Show error
+            function showError(message) {
+                jobList.innerHTML = `<div class="error-message">${message}</div>`;
+            }
+
+            // Display jobs
+            function displayJobs(jobs) {
+                if (jobs.length === 0) {
+                    jobList.innerHTML = '<div class="error-message">No jobs found matching your criteria</div>';
+                    return;
+                }
+
+                jobList.innerHTML = '';
+
+                jobs.forEach(job => {
+                    const jobCard = document.createElement('div');
+                    jobCard.className = 'job-card';
+
+                    let jobTypeClass = 'full-time';
+                    let jobTypeText = 'Full Time';
+
+                    if (job.title.toLowerCase().includes('intern') || job.description.toLowerCase().includes('intern')) {
+                        jobTypeClass = 'internship';
+                        jobTypeText = 'Internship';
+                    } else if (job.title.toLowerCase().includes('remote') || job.description.toLowerCase().includes('remote')) {
+                        jobTypeClass = 'remote';
+                        jobTypeText = 'Remote';
+                    }
+
+                    jobCard.innerHTML = `
+                        <div class="job-header">
+                            <h3 class="job-title">${job.title}</h3>
+                            <div class="job-company">
+                                <i class="fas fa-building"></i> ${job.company_name}
+                            </div>
+                            <span class="job-type ${jobTypeClass}">${jobTypeText}</span>
+                        </div>
+                        <div class="job-content">
+                            <p class="job-description">${job.description}</p>
+                            <div class="job-meta">
+                                <span class="job-meta-item">
+                                    <i class="fas fa-rupee-sign"></i> ₹${job.salary.toLocaleString('en-IN')} per annum
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="fas fa-calendar-alt"></i> Apply before ${formatDate(job.last_date)}
+                                </span>
+                            </div>
+                            <div class="job-actions">
+                                <a href="job-details.html?id=${job.id}" class="btn btn-outline">
+                                    <i class="fas fa-eye"></i> View Details
+                                </a>
+                                <button class="btn apply-btn" data-job-id="${job.id}">
+                                    <i class="fas fa-paper-plane"></i> Apply Now
+                                </button>
+                            </div>
+                        </div>
+                    `;
+
+                    jobList.appendChild(jobCard);
+                });
+            }
+
+            // Filter + Sort jobs
+            function filterAndSortJobs() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const locationTerm = locationInput.value.toLowerCase();
+                const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+
+                let filteredJobs = allJobs.filter(job => {
+                    const matchesSearch = job.title.toLowerCase().includes(searchTerm) ||
+                        job.company_name.toLowerCase().includes(searchTerm) ||
+                        job.description.toLowerCase().includes(searchTerm);
+
+                    const matchesLocation = true; // Placeholder for location filter
+                    let matchesFilter = true;
+
+                    if (activeFilter !== 'all') {
+                        switch (activeFilter) {
+                            case 'it':
+                                matchesFilter = job.title.toLowerCase().includes('software') ||
+                                    job.description.toLowerCase().includes('developer');
+                                break;
+                            case 'engineering':
+                                matchesFilter = job.title.toLowerCase().includes('engineer');
+                                break;
+                            case 'finance':
+                                matchesFilter = job.title.toLowerCase().includes('finance') ||
+                                    job.description.toLowerCase().includes('accountant');
+                                break;
+                            case 'internship':
+                                matchesFilter = job.title.toLowerCase().includes('intern') ||
+                                    job.description.toLowerCase().includes('internship');
+                                break;
+                        }
+                    }
+
+                    return matchesSearch && matchesLocation && matchesFilter;
+                });
+
+                const sortValue = sortSelect.value;
+                filteredJobs.sort((a, b) => {
+                    switch (sortValue) {
+                        case 'salary-high':
+                            return b.salary - a.salary;
+                        case 'salary-low':
+                            return a.salary - b.salary;
+                        case 'deadline':
+                            return new Date(a.last_date) - new Date(b.last_date);
+                        default:
+                            return new Date(b.created_at || b.last_date) - new Date(a.created_at || a.last_date);
+                    }
+                });
+
+                displayJobs(filteredJobs);
+            }
+
+            // Event listeners
+            searchForm.addEventListener('submit', function (e) {
                 e.preventDefault();
-                alert('Apply Now clicked! (In a real app, this would lead to an application form or external link)');
-                console.log('Apply Now clicked for job:', button.closest('.job-card').querySelector('.job-title').textContent);
+                filterAndSortJobs();
             });
-        });
 
-        const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
-        viewDetailsButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert('View Details clicked! (In a real app, this would navigate to a job detail page)');
-                console.log('View Details clicked for job:', button.closest('.job-card').querySelector('.job-title').textContent);
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    filterAndSortJobs();
+                });
             });
-        });
 
-        // Sticky main navigation bar functionality (if needed, though CSS handles it)
-        // const mainNav = document.querySelector('nav:last-of-type');
-        // window.addEventListener('scroll', () => {
-        //     if (window.scrollY > mainNav.offsetTop) {
-        //         mainNav.classList.add('sticky'); // Add a 'sticky' class if you want extra styles
-        //     } else {
-        //         mainNav.classList.remove('sticky');
-        //     }
-        // });
+            sortSelect.addEventListener('change', filterAndSortJobs);
+
+            // --- Event listener for Job Apply buttons to open modal ---
+            jobList.addEventListener('click', async function (event) {
+                const applyButton = event.target.closest('.apply-btn');
+
+                if (applyButton && !applyButton.disabled) {
+                    const jobId = applyButton.dataset.jobId;
+                    const job = allJobs.find(j => j.id == jobId);
+
+                    if (!job) {
+                        alert('Error: Job details not found. Cannot apply.');
+                        return;
+                    }
+
+                    if (!currentUserDetails) {
+                        alert("Error: User details not available. Please log in again.");
+                        localStorage.clear();
+                        window.location.href = "login.html";
+                        return;
+                    }
+
+                    // Populate the modal form with job details and user's pre-filled info
+                    jobTitleForApplication.textContent = `${job.title} at ${job.company_name}`;
+                    appliedJobId.value = jobId; // Store job ID in a hidden field
+                    formApplicantName.value = currentUserDetails.username || '';
+                    formApplicantEmail.value = currentUserDetails.email || '';
+                    formApplicantPhone.value = currentUserDetails.phone || '';
+                    formApplicantRollNo.value = currentUserDetails.rollNo || '';
+
+                    // Show the modal
+                    applicationFormModal.style.display = 'flex'; // Use flex to center the modal
+                }
+            });
+
+            // Close modal when close button is clicked
+            closeButton.addEventListener('click', function () {
+                applicationFormModal.style.display = 'none';
+                jobApplicationForm.reset(); // Clear form fields on close
+            });
+
+            // Close modal when clicking outside the modal content
+            window.addEventListener('click', function (event) {
+                if (event.target == applicationFormModal) {
+                    applicationFormModal.style.display = 'none';
+                    jobApplicationForm.reset(); // Clear form fields on close
+                }
+            });
+
+            // --- Handle form submission for job application from the modal ---
+            jobApplicationForm.addEventListener('submit', async function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(jobApplicationForm); // Get form data, including file
+                const jobId = formData.get('jobId'); // Retrieve jobId from hidden input
+
+                // Add job-specific details from the `job` object
+                const job = allJobs.find(j => j.id == jobId);
+                if (job) {
+                    formData.append('jobTitle', job.title);
+                    formData.append('companyName', job.company_name);
+                } else {
+                    alert('Error: Could not find job details for application. Please try again.');
+                    return;
+                }
+
+                const submitButton = jobApplicationForm.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
+
+                try {
+                    const token = localStorage.getItem("authToken");
+                    const response = await fetch(APPLY_JOB_API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: formData // Send FormData directly
+                    });
+
+                    if (response.ok) {
+                        alert(`Application for "${job.title}" submitted successfully! HR will be notified.`);
+                        applicationFormModal.style.display = 'none'; // Hide the modal
+                        jobApplicationForm.reset(); // Clear the form
+
+                        // Optionally update the original "Apply Now" button in the job card
+                        const originalApplyButton = document.querySelector(`.apply-btn[data-job-id="${jobId}"]`);
+                        if (originalApplyButton) {
+                            originalApplyButton.innerText = 'Applied';
+                            originalApplyButton.disabled = true;
+                            originalApplyButton.style.backgroundColor = '#6c757d';
+                            originalApplyButton.style.cursor = 'not-allowed';
+                        }
+
+                    } else {
+                        const errorData = await response.json();
+                        alert(`Failed to submit application: ${errorData.message || response.statusText || 'Unknown error'}`);
+                    }
+                } catch (error) {
+                    console.error('Error submitting job application:', error);
+                    alert('An error occurred while submitting your application. Please check your network and try again.');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Application';
+                }
+            });
+
+            // Initial load of jobs
+            loadJobs();
+        });
     </script>
+
 </body>
+
 </html>
+
+
