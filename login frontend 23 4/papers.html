@@ -32,79 +32,54 @@
             margin: 0;
         }
 
-        /* Navigation Bar Styles */
-        nav {
-            background-color: var(--dark);
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap; /* Allow wrapping for responsiveness */
-        }
-
-        nav .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-right: 20px; /* Space between logo and links */
-        }
-
-        nav .logo span {
-            color: var(--primary);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 25px; /* Space between nav items */
-            flex-wrap: wrap;
-            justify-content: center; /* Center items on smaller screens */
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.05rem;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-        }
-
-        nav ul li a i {
-            margin-right: 8px;
-            color: var(--primary); /* Icon color */
-        }
-
-        nav ul li a:hover {
-            color: var(--primary);
-        }
-
-        /* Main Navigation Bar Styles */
-        .main-nav {
-            background-color: var(--secondary);
-            padding: 0.8rem 2rem;
-            margin-bottom: 20px; /* Space below main nav */
+       
+        /* Main Navigation Bar */
+        nav:last-of-type {
+            background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-
-        .main-nav ul {
-            justify-content: space-around; /* Distribute items evenly */
-            gap: 15px;
+  
+        nav:last-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
         }
-
-        .main-nav ul li a {
-            font-weight: 600;
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+  
+        nav:last-of-type li {
+            flex-shrink: 0;
         }
-
-        .main-nav ul li a:hover,
-        .main-nav ul li a.active {
-            background-color: var(--primary);
+  
+        nav:last-of-type a, nav:last-of-type button {
             color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
-
+  
+        nav:last-of-type a:hover, nav:last-of-type button:hover {
+            color: var(--primary);
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+  
+        nav:last-of-type a.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+        }
         /* Container specific to this page, adapting to new design */
         .container {
             max-width: 960px; /* Slightly wider container */
