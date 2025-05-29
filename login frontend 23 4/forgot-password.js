@@ -59,7 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/forgot-password", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }), // Send the email/username
+               // In public/js/forgot-password.js
+body: JSON.stringify({ emailOrUsername: email }), // NEW - Fixes the DTO mismatch
             });
 
             const data = await response.json();
