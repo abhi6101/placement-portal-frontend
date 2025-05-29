@@ -10,21 +10,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const successMessageDiv = document.getElementById("success-message");
     const registerButton = document.querySelector("#registrationForm button[type='submit']");
 
+    // NEW: Get the initial alert message div
+    const initialAlertMessageDiv = document.getElementById("initial-alert-message");
+
     // Get the span elements for button text and spinner
     const buttonText = registerButton.querySelector(".button-text");
     const spinner = registerButton.querySelector(".spinner");
 
-    // Helper function to display messages (error/success)
+    // Helper function to display messages (error/success/info)
     function showMessage(element, message, type) {
         element.textContent = message;
         element.className = `alert alert-${type}`; // Dynamically set class
         element.style.display = "block"; // Show the alert
 
-        // Ensure only one message type is shown at a time
+        // Ensure only one primary message type is shown at a time (error/success)
+        // Initial alert can coexist or be hidden based on preference
         if (type === 'success') {
             errorMessageDiv.style.display = 'none';
-        } else { // type === 'error'
+            initialAlertMessageDiv.style.display = 'none'; // Hide initial alert on success
+        } else if (type === 'error') {
             successMessageDiv.style.display = 'none';
+            initialAlertMessageDiv.style.display = 'none'; // Hide initial alert on error
         }
     }
 
@@ -34,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         errorMessageDiv.textContent = "";
         successMessageDiv.style.display = "none";
         successMessageDiv.textContent = "";
+        // Keep initial alert visible unless explicitly hidden by showMessage or user interaction
     }
 
     // Function to show loading state (spinner)
@@ -56,10 +63,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // NEW: Enhanced initial alert message
+    const initialAlertText = `
+        **Important Registration Notice:**
+        Before you register, please read these instructions carefully.
+        You **must** register with an **active email address** because account verification via an OTP sent to your email is required after registration.
+        Choose a **memorable password** as there is **no 'Forgot Password' option**.
+        If you ever need to change your password, you will have to **contact the administrator** directly.
+    `;
+
+    // Display the initial alert message when the page loads
+    showMessage(initialAlertMessageDiv, initialAlertText, "info");
+
+
+    // Optional: Hide the initial alert when the user starts typing in any input field
+    const formInputs = registrationForm.querySelectorAll('input, select');
+    formInputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            initialAlertMessageDiv.style.display = 'none';
+        });
+    });
+
+
     registrationForm.addEventListener("submit", async (e) => {
         e.preventDefault(); // Prevent default form submission
 
-        hideMessages(); // Clear any previous messages
+        hideMessages(); // Clear any previous error/success messages
+        initialAlertMessageDiv.style.display = 'none'; // Hide initial message on form submission
 
         // Form validation
         const username = usernameInput.value.trim();

@@ -445,3 +445,9 @@ footer {
         font-size: 0.85rem;
     }
 }
+/* Add this to your register.css file */
+.alert-info {
+    background-color: rgba(0, 119, 182, 0.25); /* A blue-ish background */
+    color: var(--primary); /* Primary color for text */
+    border-color: var(--primary);
+}
