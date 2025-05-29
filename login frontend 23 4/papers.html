@@ -97,7 +97,7 @@
             padding: 15px 20px; /* More padding */
             border-radius: 8px; /* Slightly rounded corners */
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* This will push filename to left, tag+button to right */
             align-items: center;
             border: 1px solid #eee; /* Light border */
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
@@ -110,22 +110,18 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
         }
 
-        .file-name-container { /* New container for file name and its download button */
-            display: flex;
-            align-items: center;
-            flex-grow: 1; /* Allows this part to take up available space */
-            word-break: break-word; /* Ensure long names wrap */
-        }
-
-        .file-name { /* Style for the file name text */
+        /* Adjusted style for the file name link */
+        .files-list li a {
             text-decoration: none;
             color: var(--dark); /* Use dark variable for link color */
             font-weight: bold;
             font-size: 1.1em;
-            margin-right: 15px; /* Space between filename and button */
+            word-break: break-word;
+            flex-grow: 1; /* Allows link to take up available space */
+            margin-right: 15px; /* Space between filename and subject info */
         }
 
-        .file-name:hover {
+        .files-list li a:hover {
             color: var(--primary); /* Primary color on link hover */
             text-decoration: underline;
         }
@@ -141,6 +137,7 @@
             font-weight: 600;
             transition: background-color 0.2s ease, transform 0.2s ease;
             white-space: nowrap; /* Prevent button text from wrapping */
+            margin-left: 10px; /* Space between subject tag and button */
         }
 
         .download-btn:hover {
@@ -151,7 +148,6 @@
         .subject-tag-container { /* Container for subject tag and its download button */
             display: flex;
             align-items: center;
-            margin-left: 20px; /* Space between file info and subject info */
             white-space: nowrap; /* Prevent items from wrapping in this container */
         }
 
@@ -163,7 +159,7 @@
             font-size: 0.85em;
             font-weight: 600;
             box-shadow: 0 2px 5px rgba(0, 212, 255, 0.2); /* Tag shadow */
-            margin-right: 10px; /* Space between subject tag and its button */
+            /* No margin-right here, as button comes immediately after */
         }
 
         .no-results {
@@ -339,25 +335,22 @@
             filteredFiles.forEach(file => {
                 const listItem = document.createElement('li');
 
-                // --- Section for File Name and its Download Button ---
-                const fileNameContainer = document.createElement('div');
-                fileNameContainer.className = 'file-name-container';
+                // The filename will now be a direct link again, without a button next to it
+                const fileLink = document.createElement('a');
+                fileLink.href = file.url;
+                fileLink.textContent = file.name;
+                fileLink.target = "_blank"; // Open link in a new tab
+                // Apply original filename styles
+                fileLink.style.textDecoration = 'none';
+                fileLink.style.color = 'var(--dark)';
+                fileLink.style.fontWeight = 'bold';
+                fileLink.style.fontSize = '1.1em';
+                fileLink.style.wordBreak = 'break-word';
+                fileLink.style.flexGrow = '1';
+                fileLink.style.marginRight = '15px'; // Space between filename and subject info
 
-                const fileNameSpan = document.createElement('span'); // Changed to span for text only
-                fileNameSpan.className = 'file-name'; // Apply styling
-                fileNameSpan.textContent = file.name;
 
-                const downloadBtnFileName = document.createElement('button'); // Download button for file name
-                downloadBtnFileName.className = 'download-btn';
-                downloadBtnFileName.textContent = 'Download';
-                downloadBtnFileName.onclick = () => {
-                    window.open(file.url, '_blank');
-                };
-
-                fileNameContainer.appendChild(fileNameSpan);
-                fileNameContainer.appendChild(downloadBtnFileName);
-
-                // --- Section for Subject Tag and its Download Button ---
+                // Container for subject tag and its download button
                 const subjectTagContainer = document.createElement('div');
                 subjectTagContainer.className = 'subject-tag-container';
 
@@ -365,19 +358,20 @@
                 subjectTag.className = 'subject-tag';
                 subjectTag.textContent = file.subject;
 
-                const downloadBtnSubject = document.createElement('button'); // Download button for subject
-                downloadBtnSubject.className = 'download-btn';
-                downloadBtnSubject.textContent = 'Download';
-                downloadBtnSubject.onclick = () => {
+                // This is the ONLY download button per row now
+                const downloadButton = document.createElement('button');
+                downloadButton.className = 'download-btn';
+                downloadButton.textContent = 'Download';
+                downloadButton.onclick = () => {
                     window.open(file.url, '_blank');
                 };
 
                 subjectTagContainer.appendChild(subjectTag);
-                subjectTagContainer.appendChild(downloadBtnSubject);
+                subjectTagContainer.appendChild(downloadButton); // Append the button next to the tag
 
 
-                listItem.appendChild(fileNameContainer);
-                listItem.appendChild(subjectTagContainer); // Append the new container
+                listItem.appendChild(fileLink); // Append the filename link
+                listItem.appendChild(subjectTagContainer); // Append the subject tag and its button
 
                 filesList.appendChild(listItem);
             });
