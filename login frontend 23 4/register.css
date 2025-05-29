@@ -714,3 +714,58 @@ footer {
 }
 
 /* Keep other existing styles for .register-container, .checkbox-container, etc. */
+/* Add this to your register.css file */
+
+/* Keyframe for the instruction message sliding out to the right and fading */
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%); /* Slides out to the right */
+        filter: blur(5px); /* Optional: add a slight blur as it slides out */
+    }
+}
+
+/* Keyframe for the registration form sliding in from the left and fading */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100%); /* Starts off-screen to the left */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* Slides into its normal position */
+    }
+}
+
+
+/* Class to apply the slide-out-right animation to the instruction message */
+#persistent-alert-message.slide-hide {
+    animation: slideOutRight 0.7s ease-out forwards; /* 0.7s duration for slide out */
+}
+
+/* Initial state and transition for the registration section */
+.register {
+    display: none; /* Initially hidden, controlled by JS */
+    opacity: 0; /* Start invisible for a fade-in effect */
+    /* No initial transform here, as it will be handled by the slideInLeft animation */
+}
+
+/* Class to reveal the registration section with animation */
+.register.show-form {
+    animation: slideInLeft 0.7s ease-out forwards; /* 0.7s duration for slide in */
+}
+
+/* Ensure #persistent-alert-message initially shows with no animation */
+#persistent-alert-message {
+    /* Keep your existing base styles for the alert */
+    animation: none !important; /* Override any previous fade-in animation on initial load */
+    opacity: 1 !important; /* Ensure it's fully visible at the start */
+    transform: translateX(0) !important; /* Ensure no initial transform */
+    filter: blur(0px) !important; /* Ensure no blur at the start */
+}
+
+/* Keep other existing styles for .register-container, .checkbox-container, etc. */

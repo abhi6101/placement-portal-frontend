@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     const registrationForm = document.getElementById("registrationForm");
-    const registerSection = document.querySelector(".register"); // Reference to the parent <section>
-
     const usernameInput = document.getElementById("username");
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
@@ -10,133 +8,118 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const errorMessageDiv = document.getElementById("error-message");
     const successMessageDiv = document.getElementById("success-message");
-
-    const persistentAlertMessageDiv = document.getElementById("persistent-alert-message");
-    const instructionContentDiv = document.getElementById("instruction-content");
-    const instructionErrorMessageDiv = document.getElementById("instruction-error-message");
-
-    const readInstructionsCheckbox = document.getElementById("readInstructionsCheckbox");
-    const proceedToRegisterBtn = document.getElementById("proceedToRegisterBtn");
-
     const registerButton = document.querySelector("#registrationForm button[type='submit']");
+
+    // NEW: Get the initial alert message div
+    const initialAlertMessageDiv = document.getElementById("initial-alert-message");
+
+    // Get the span elements for button text and spinner
     const buttonText = registerButton.querySelector(".button-text");
     const spinner = registerButton.querySelector(".spinner");
 
-    // Helper function to display messages
+    // Helper function to display messages (error/success/info)
     function showMessage(element, message, type) {
-        if (element.id === 'persistent-alert-message' || element.id === 'instruction-content') {
-            element.innerHTML = message;
-        } else {
-            element.textContent = message;
+        element.textContent = message;
+        element.className = `alert alert-${type}`; // Dynamically set class
+        element.style.display = "block"; // Show the alert
+
+        // Ensure only one primary message type is shown at a time (error/success)
+        // Initial alert can coexist or be hidden based on preference
+        if (type === 'success') {
+            errorMessageDiv.style.display = 'none';
+            initialAlertMessageDiv.style.display = 'none'; // Hide initial alert on success
+        } else if (type === 'error') {
+            successMessageDiv.style.display = 'none';
+            initialAlertMessageDiv.style.display = 'none'; // Hide initial alert on error
         }
-        element.className = `alert alert-${type}`;
-        element.style.display = "block";
     }
 
-    // Helper function to hide specific message elements
-    function hideElement(element) {
-        element.style.display = "none";
-        element.textContent = "";
-        element.innerHTML = "";
+    // Helper function to hide all messages
+    function hideMessages() {
+        errorMessageDiv.style.display = "none";
+        errorMessageDiv.textContent = "";
+        successMessageDiv.style.display = "none";
+        successMessageDiv.textContent = "";
+        // Keep initial alert visible unless explicitly hidden by showMessage or user interaction
     }
 
     // Function to show loading state (spinner)
     function showLoadingState() {
-        if (registerButton) {
+        if (registerButton) { // Ensure button exists before manipulating
             registerButton.disabled = true;
             registerButton.classList.add('is-loading');
-            if (buttonText) buttonText.style.display = "none";
-            if (spinner) spinner.style.display = "block";
+            if (buttonText) buttonText.style.display = "none"; // Hide button text
+            if (spinner) spinner.style.display = "block"; // Show spinner
         }
     }
 
     // Function to hide loading state
     function hideLoadingState() {
-        if (registerButton) {
+        if (registerButton) { // Ensure button exists before manipulating
             registerButton.disabled = false;
             registerButton.classList.remove('is-loading');
-            if (buttonText) buttonText.style.display = "inline";
-            if (spinner) spinner.style.display = "none";
+            if (buttonText) buttonText.style.display = "inline"; // Show button text
+            if (spinner) spinner.style.display = "none"; // Hide spinner
         }
     }
 
-    // Enhanced message for the persistent alert, formatted for bullet points
-    const persistentAlertHTML = `
-        <strong>Important Registration Notice:</strong>
-        <ul>
-            <li>Before you register, please read these instructions carefully.</li>
-            <li>You **must** register with an **active email address** because account verification via an OTP sent to your email is required after registration.</li>
-            <li>Choose a **memorable password** as there is **no 'Forgot Password' option**.</li>
-            <li>If you ever need to change your password, you will have to **contact the administrator** directly.</li>
-        </ul>
+    // NEW: Enhanced initial alert message
+    const initialAlertText = `
+        **Important Registration Notice:**
+        Before you register, please read these instructions carefully.
+        You **must** register with an **active email address** because account verification via an OTP sent to your email is required after registration.
+        Choose a **memorable password** as there is **no 'Forgot Password' option**.
+        If you ever need to change your password, you will have to **contact the administrator** directly.
     `;
 
-    // --- Initial Page Load Logic ---
-    showMessage(instructionContentDiv, persistentAlertHTML, "info");
-    persistentAlertMessageDiv.style.display = 'block';
-    registerSection.style.display = 'none'; // Ensure the main form section is hidden initially
+    // Display the initial alert message when the page loads
+    showMessage(initialAlertMessageDiv, initialAlertText, "info");
 
-    hideElement(errorMessageDiv);
-    hideElement(successMessageDiv);
 
-    // --- Logic for "Proceed to Registration" button ---
-    proceedToRegisterBtn.addEventListener('click', () => {
-        if (readInstructionsCheckbox.checked) {
-            hideElement(instructionErrorMessageDiv);
-
-            // 1. Add the 'blur-hide' class to start the blur-out animation
-            persistentAlertMessageDiv.classList.add('blur-hide');
-
-            // 2. Use setTimeout to wait for the animation to finish
-            // The delay should match the animation duration in CSS (0.6s or 600ms)
-            setTimeout(() => {
-                // After the blur-out animation, fully hide the element
-                persistentAlertMessageDiv.style.display = 'none';
-                persistentAlertMessageDiv.classList.remove('blur-hide'); // Clean up the class
-
-                // Show the registration form
-                registerSection.style.display = 'block';
-                // Add 'show-form' class to trigger its fade-in/slide-up transition
-                registerSection.classList.add('show-form');
-
-                // Optional: Scroll to the top of the form for better UX
-                registerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 600); // This timeout matches the CSS animation duration
-        } else {
-            showMessage(instructionErrorMessageDiv, "Please confirm you have read and understood the instructions to proceed.", "error");
-        }
+    // Optional: Hide the initial alert when the user starts typing in any input field
+    const formInputs = registrationForm.querySelectorAll('input, select');
+    formInputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            initialAlertMessageDiv.style.display = 'none';
+        });
     });
 
-    // --- Registration Form Submission Logic ---
+
     registrationForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default form submission
 
-        hideElement(errorMessageDiv);
-        hideElement(successMessageDiv);
+        hideMessages(); // Clear any previous error/success messages
+        initialAlertMessageDiv.style.display = 'none'; // Hide initial message on form submission
 
+        // Form validation
         const username = usernameInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         const confirmPassword = confirmPasswordInput.value;
         const role = roleInput.value;
 
+        // --- Start Form Validations ---
         if (username === "") {
             showMessage(errorMessageDiv, "Username cannot be empty.", "error");
             return;
         }
+
         if (username.includes(" ")) {
             showMessage(errorMessageDiv, "Username cannot contain spaces.", "error");
             return;
         }
+
         if (!username.startsWith('@')) {
             showMessage(errorMessageDiv, "Username must start with '@'.", "error");
             return;
         }
+
         const usernameWithoutAt = username.substring(1);
         if (usernameWithoutAt !== usernameWithoutAt.toLowerCase()) {
             showMessage(errorMessageDiv, "The part of the username after '@' must be in lowercase.", "error");
             return;
         }
+
         if (email === "") {
             showMessage(errorMessageDiv, "Email Address cannot be empty.", "error");
             return;
@@ -146,26 +129,32 @@ document.addEventListener("DOMContentLoaded", () => {
             showMessage(errorMessageDiv, "Please enter a valid email address.", "error");
             return;
         }
-        if (role === "" || role === "--Select Role--") {
+
+        if (role === "" || role === "--Select Role--") { // Added check for default select option text
             showMessage(errorMessageDiv, "Please select a role.", "error");
             return;
         }
+
         if (password.length < 8) {
             showMessage(errorMessageDiv, "Password must be at least 8 characters long.", "error");
             return;
         }
+
         const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).*$/;
         if (!passwordRegex.test(password)) {
             showMessage(errorMessageDiv, "Password must contain at least 1 number and 1 special character.", "error");
             return;
         }
+
         if (password !== confirmPassword) {
             showMessage(errorMessageDiv, "Passwords do not match.", "error");
             return;
         }
+        // --- End Form Validations ---
 
-        showLoadingState();
+        showLoadingState(); // Show spinner and disable button
 
+        // --- Start Registration Request ---
         const userData = {
             username: username,
             email: email,
@@ -186,11 +175,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 showMessage(successMessageDiv, result.message || "Registration successful! Please check your email for the verification code.", "success");
-                registrationForm.reset();
+                registrationForm.reset(); // Clear the form on successful registration
 
+                // NEW: Redirect to the verification page, passing the email for convenience
                 setTimeout(() => {
                     window.location.href = `verify-account.html?email=${encodeURIComponent(email)}`;
-                }, 3000);
+                }, 3000); // Give user time to read success message
             } else {
                 showMessage(errorMessageDiv, result.message || "Registration failed. Please try again.", "error");
             }
@@ -198,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showMessage(errorMessageDiv, "Registration failed. Please check your network connection and try again.", "error");
             console.error("Registration error:", error);
         } finally {
-            hideLoadingState();
+            hideLoadingState(); // Always hide spinner and re-enable button
         }
     });
 });
