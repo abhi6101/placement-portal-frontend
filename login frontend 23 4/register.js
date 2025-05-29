@@ -65,17 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
         <strong>Important Registration Notice:</strong>
         <ul>
             <li>Before you register, please read these instructions carefully.</li>
-            <li>You must register with an active email address because account verification via an OTP sent to your email is required after registration.</li>
-            <li>Choose a memorable password as there is no 'Forgot Password' option.</li>
-            <li>If you ever need to change your password, you will have to contact the administrator directly.</li>
+            <li>You **must** register with an **active email address** because account verification via an OTP sent to your email is required after registration.</li>
+            <li>Choose a **memorable password** as there is **no 'Forgot Password' option**.</li>
+            <li>If you ever need to change your password, you will have to **contact the administrator** directly.</li>
         </ul>
     `;
 
     // --- Initial Page Load Logic ---
-    // Removed window.onload with alert()
-    // Now, the persistent message is shown directly on DOMContentLoaded
-    showMessage(instructionContentDiv, persistentAlertHTML, "info"); // Populate the inner div with content
-    persistentAlertMessageDiv.style.display = 'block'; // Ensure the instruction container is visible
+    showMessage(instructionContentDiv, persistentAlertHTML, "info");
+    persistentAlertMessageDiv.style.display = 'block';
     registerSection.style.display = 'none'; // Ensure the main form section is hidden initially
 
     hideElement(errorMessageDiv);
@@ -86,11 +84,24 @@ document.addEventListener("DOMContentLoaded", () => {
         if (readInstructionsCheckbox.checked) {
             hideElement(instructionErrorMessageDiv);
 
-            persistentAlertMessageDiv.style.display = 'none';
-            registerSection.style.display = 'block'; // Show the entire registration section
+            // 1. Add the 'blur-hide' class to start the blur-out animation
+            persistentAlertMessageDiv.classList.add('blur-hide');
 
-            registerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // 2. Use setTimeout to wait for the animation to finish
+            // The delay should match the animation duration in CSS (0.6s or 600ms)
+            setTimeout(() => {
+                // After the blur-out animation, fully hide the element
+                persistentAlertMessageDiv.style.display = 'none';
+                persistentAlertMessageDiv.classList.remove('blur-hide'); // Clean up the class
 
+                // Show the registration form
+                registerSection.style.display = 'block';
+                // Add 'show-form' class to trigger its fade-in/slide-up transition
+                registerSection.classList.add('show-form');
+
+                // Optional: Scroll to the top of the form for better UX
+                registerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 600); // This timeout matches the CSS animation duration
         } else {
             showMessage(instructionErrorMessageDiv, "Please confirm you have read and understood the instructions to proceed.", "error");
         }

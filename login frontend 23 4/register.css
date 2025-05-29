@@ -665,3 +665,52 @@ footer {
 }
 
 /* Keep other alert styles (alert-error, alert-success) as they are */
+
+
+/* Add this to your register.css file */
+
+/* Keyframe for the blur-out animation */
+@keyframes blurOut {
+    from {
+        opacity: 1;
+        filter: blur(0px);
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        filter: blur(8px); /* Increased blur for a more noticeable effect */
+        transform: scale(0.95); /* Slight scale down adds to the transition */
+    }
+}
+
+/* Class to apply the blur-out animation to the instruction message */
+#persistent-alert-message.blur-hide {
+    animation: blurOut 0.6s ease-out forwards; /* 0.6s duration for the blur transition */
+}
+
+/* Base styles for the registration section when it's revealed */
+.register {
+    display: none; /* Initially hidden, controlled by JS */
+    opacity: 0; /* Start invisible for a fade-in effect */
+    transform: translateY(20px); /* Start slightly below for a subtle slide-up effect */
+    /* Add transitions for smooth revealing */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Class to reveal the registration section with animation */
+.register.show-form {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Ensure #persistent-alert-message initially shows with no animation from before */
+#persistent-alert-message {
+    /* Keep your existing base styles for the alert */
+    /* Example: padding, border-radius, background-color, etc. */
+    animation: none !important; /* Override any previous fade-in animation on initial load */
+    opacity: 1 !important; /* Ensure it's fully visible at the start */
+    filter: blur(0px) !important; /* Ensure no blur at the start */
+    transform: scale(1) !important; /* Ensure no scale at the start */
+}
+
+/* Keep other existing styles for .register-container, .checkbox-container, etc. */
