@@ -62,7 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
         showLoadingState(); // Show spinner and disable button
 
         try {
-            const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/login", {
+            // !!! IMPORTANT: CHANGE THIS URL TO YOUR BACKEND API URL !!!
+            const response = await fetch("https://hack-2-hired.onrender.com/api/auth/login", { // Corrected URL
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
