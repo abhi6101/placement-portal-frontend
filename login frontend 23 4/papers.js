@@ -1,7 +1,8 @@
-// IMPORTANT: Replace this with your actual Spring Boot backend URL.
-// Example: "https://your-springboot-backend.onrender.com/api/papers"
-const PAPERS_API_URL = "https://YOUR_BACKEND_APP_URL.onrender.com/api/papers"; // For Render deployment 
-// const PAPERS_API_URL = "https://YOUR_BACKEND_APP_URL.onrender.com/api/papers"; // For Render deployment
+// IMPORTANT: Replace "https://YOUR_BACKEND_APP_URL.onrender.com" with your actual Spring Boot backend's base URL.
+// Example: If your backend URL is https://my-placement-backend.onrender.com,
+// then PAPERS_API_URL should be "https://my-placement-backend.onrender.com/api/papers"
+const BACKEND_BASE_URL = "https://placement-portal-backend-nwaj.onrender.com";
+const PAPERS_API_URL = `${BACKEND_BASE_URL}/api/papers`;
 
 const paperListContainer = document.getElementById('paperList');
 const searchInput = document.getElementById('searchInput');
