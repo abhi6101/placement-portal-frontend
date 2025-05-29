@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const successMessageDiv = document.getElementById("success-message");
     const registerButton = document.querySelector("#registrationForm button[type='submit']");
 
-    // NEW: Get the initial alert message div
-    const initialAlertMessageDiv = document.getElementById("initial-alert-message");
+    // Get the persistent alert message div
+    const persistentAlertMessageDiv = document.getElementById("persistent-alert-message");
 
     // Get the span elements for button text and spinner
     const buttonText = registerButton.querySelector(".button-text");
@@ -19,81 +19,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Helper function to display messages (error/success/info)
     function showMessage(element, message, type) {
-        element.textContent = message;
+        // For the persistent message, we'll set innerHTML to support bullet points
+        if (element.id === 'persistent-alert-message') {
+            element.innerHTML = message; // Use innerHTML for HTML content
+        } else {
+            element.textContent = message; // Use textContent for plain text
+        }
         element.className = `alert alert-${type}`; // Dynamically set class
         element.style.display = "block"; // Show the alert
 
         // Ensure only one primary message type is shown at a time (error/success)
-        // Initial alert can coexist or be hidden based on preference
+        // Persistent alert should remain unless form is submitted successfully
         if (type === 'success') {
             errorMessageDiv.style.display = 'none';
-            initialAlertMessageDiv.style.display = 'none'; // Hide initial alert on success
+            persistentAlertMessageDiv.style.display = 'none'; // Hide persistent alert on success
         } else if (type === 'error') {
             successMessageDiv.style.display = 'none';
-            initialAlertMessageDiv.style.display = 'none'; // Hide initial alert on error
+            // We can choose to keep persistent alert visible or hide it on error
+            // For now, keeping it visible
         }
     }
 
-    // Helper function to hide all messages
+    // Helper function to hide all messages (except persistent for now)
     function hideMessages() {
         errorMessageDiv.style.display = "none";
         errorMessageDiv.textContent = "";
         successMessageDiv.style.display = "none";
         successMessageDiv.textContent = "";
-        // Keep initial alert visible unless explicitly hidden by showMessage or user interaction
     }
 
     // Function to show loading state (spinner)
     function showLoadingState() {
-        if (registerButton) { // Ensure button exists before manipulating
+        if (registerButton) {
             registerButton.disabled = true;
             registerButton.classList.add('is-loading');
-            if (buttonText) buttonText.style.display = "none"; // Hide button text
-            if (spinner) spinner.style.display = "block"; // Show spinner
+            if (buttonText) buttonText.style.display = "none";
+            if (spinner) spinner.style.display = "block";
         }
     }
 
     // Function to hide loading state
     function hideLoadingState() {
-        if (registerButton) { // Ensure button exists before manipulating
+        if (registerButton) {
             registerButton.disabled = false;
             registerButton.classList.remove('is-loading');
-            if (buttonText) buttonText.style.display = "inline"; // Show button text
-            if (spinner) spinner.style.display = "none"; // Hide spinner
+            if (buttonText) buttonText.style.display = "inline";
+            if (spinner) spinner.style.display = "none";
         }
     }
 
-    // NEW: Enhanced initial alert message
-    const initialAlertText = `
-        **Welcome to the Placement Portal! Just a Quick Read Before You Sign Up...**
-
-    We're excited to have you! To make your registration process as smooth as possible and ensure your account stays secure, please keep these important notes in mind:
-
-    * **Your Go-To Email:** We'll send an **OTP (One-Time Password)** to verify your account right after you register. Please use an **active email address** that you can access instantly.
-    * **Memorable Password, Please:** This is crucial! We don't have a "Forgot Password" feature, so pick a password you're confident you won't forget.
-    * **Admin Support for Changes:** If you ever need to update your password in the future, you'll need to **contact the administrator** directly for assistance.
-
-    Your cooperation helps us maintain a secure and efficient platform. Happy registering!
+    // Enhanced message for the persistent alert, formatted for bullet points
+    const persistentAlertHTML = `
+        <strong>Important Registration Notice:</strong>
+        <ul>
+            <li>Before you register, please read these instructions carefully.</li>
+            <li>You <strong>must</strong> register with an <strong>active email address</strong> because account verification via an OTP sent to your email is required after registration.</li>
+            <li>Choose a <strong>memorable password</strong> as there is <strong>no 'Forgot Password' option</strong>.</li>
+            <li>If you ever need to change your password, you will have to <strong>contact the administrator</strong> directly.</li>
+        </ul>
     `;
 
-    // Display the initial alert message when the page loads
-    showMessage(initialAlertMessageDiv, initialAlertText, "info");
+    // Step 1: Show the initial JS alert()
+    window.onload = function() {
+        alert("Before registering, please read the instructions carefully. Click OK to continue.");
+        // After OK is clicked, display the persistent message
+        showMessage(persistentAlertMessageDiv, persistentAlertHTML, "info");
+    };
 
-
-    // Optional: Hide the initial alert when the user starts typing in any input field
+    // Optional: Hide the persistent alert when the user starts typing in any input field
     const formInputs = registrationForm.querySelectorAll('input, select');
     formInputs.forEach(input => {
         input.addEventListener('focus', () => {
-            initialAlertMessageDiv.style.display = 'none';
+            persistentAlertMessageDiv.style.display = 'none';
         });
     });
-
 
     registrationForm.addEventListener("submit", async (e) => {
         e.preventDefault(); // Prevent default form submission
 
         hideMessages(); // Clear any previous error/success messages
-        initialAlertMessageDiv.style.display = 'none'; // Hide initial message on form submission
+        persistentAlertMessageDiv.style.display = 'none'; // Hide persistent message on form submission
 
         // Form validation
         const username = usernameInput.value.trim();
@@ -134,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        if (role === "" || role === "--Select Role--") { // Added check for default select option text
+        if (role === "" || role === "--Select Role--") {
             showMessage(errorMessageDiv, "Please select a role.", "error");
             return;
         }
