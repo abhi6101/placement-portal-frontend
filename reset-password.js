@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             // API Endpoint for Resetting Password
             // Ensure this matches your backend's endpoint for password reset confirmation
-            const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/reset-password", {
+            const response = await fetch("https://hack-2-hired.onrender.com/api/auth/reset-password", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ token: resetToken, newPassword: newPassword }),
