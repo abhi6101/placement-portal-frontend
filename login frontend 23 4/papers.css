@@ -1,0 +1,112 @@
+/* papers.css - Styles specific to the Previous Papers page */
+
+/* Reuse general layout styles from jobs.css */
+
+/* Paper List Grid */
+.paper-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjust minmax as needed */
+    gap: 25px; /* Gap between cards */
+    margin-top: 30px;
+    padding-bottom: 50px; /* Add some space at the bottom */
+}
+
+/* Individual Paper Card */
+.paper-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.paper-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.paper-card .paper-header {
+    margin-bottom: 15px;
+}
+
+.paper-card .paper-title {
+    font-size: 1.5em; /* Larger title */
+    color: #333;
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+
+.paper-card .paper-meta {
+    font-size: 0.95em;
+    color: #666;
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between meta items */
+}
+
+.paper-card .paper-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.paper-card .paper-meta-item i {
+    color: #007bff; /* Accent color for icons */
+}
+
+.paper-card .paper-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+/* Reusing .btn and .btn-outline from jobs.css */
+.paper-card .btn {
+    padding: 10px 20px;
+    font-size: 0.95em;
+}
+
+/* Pagination styles can largely be reused from jobs.css, but ensure they apply correctly */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+    gap: 10px; /* Space between page buttons and numbers */
+}
+
+.pagination .page-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #007bff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+}
+
+.pagination .page-btn.active {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+}
+
+.pagination .page-btn:hover:not(.active) {
+    background-color: #e2e6ea;
+    color: #0056b3;
+}
+
+.pagination .page-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.pagination .page-numbers {
+    display: flex;
+    gap: 5px;
+}

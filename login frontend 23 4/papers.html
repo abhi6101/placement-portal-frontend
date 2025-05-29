@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Year Papers | Placement Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="jobs.css"> <link rel="stylesheet" href="papers.css"> </head>
+
+<body>
+    <nav>
+        <div class="logo">Placement<span>Portal</span></div>
+        <ul>
+            <li><a href="mailto:abhijain6101@gmail.com"><i class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
+            <li><a href="tel:+91-6266017070"><i class="fas fa-phone"></i> +91-6266017070</a></li>
+        </ul>
+    </nav>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li class="active"><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Previous Year Papers</h1>
+            <p>Access and download previous year question papers from various companies and subjects to prepare for placements.</p>
+        </div>
+
+        <div class="search-container">
+            <form class="search-form" id="searchForm">
+                <input type="text" class="search-input" id="searchInput" placeholder="Paper title, subject, year, or company">
+                <button type="submit" class="btn search-btn">
+                    <i class="fas fa-search"></i> Search Papers
+                </button>
+            </form>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="aptitude">Aptitude</button>
+                <button class="filter-btn" data-filter="coding">Coding</button>
+                <button class="filter-btn" data-filter="reasoning">Reasoning</button>
+                <button class="filter-btn" data-filter="verbal">Verbal Ability</button>
+                </div>
+            <div class="sort-options">
+                <label for="sortSelect">Sort by:</label>
+                <select id="sortSelect">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="title-asc">Title (A-Z)</option>
+                    <option value="title-desc">Title (Z-A)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="paper-list" id="paperList">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Loading previous papers...
+            </div>
+            </div>
+
+        <div class="pagination">
+            <button class="page-btn prev-page"><i class="fas fa-chevron-left"></i></button>
+            <span id="pageNumbers" class="page-numbers">
+                <button class="page-btn active" data-page="1">1</button>
+                </span>
+            <button class="page-btn next-page"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Created by Abhi Jain</p>
+        <p>&copy; 2025 College Placement System. All rights reserved. | Contact: <a
+                href="mailto:abhijain6101@gmail.com">abhijain6101@gmail.com</a></p>
+    </footer>
+
+    <script src="papers.js"></script> </body>
+
+</html>
