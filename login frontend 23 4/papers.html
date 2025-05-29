@@ -610,58 +610,78 @@ h1 {
         ];
 
         // Map to store subject to semester mapping for quick lookup
-        const subjectToSemesterMap = {
-            "Fundamental of Computer Science & IT": 1,
-            "Discrete Mathematics": 1,
-            "Communication Skills in English": 1,
-            "Programming and Problem Solving in C": 1,
-            "Digital Electronics": 1,
-            "PC Software and Office Tools- Lab I": 1,
-            "Computer Architecture": 2,
-            "Data Structure using C": 2,
-            "Statistics": 2,
-            "Technical Communication & Personality Development": 2,
-            "Principal of Management": 2,
-            "Language Lab": 2,
-            "Programming Lab in Data Structure using C": 2,
-            "System Software": 3,
-            "Computer Oriented Numerical Methods": 3,
-            "Web Designing in HTML": 3,
-            "Aptitude Skills and Reasoning": 3,
-            "DBMS": 3,
-            "Web Page Design Lab": 3,
-            "Programming Lab in DBMS": 3,
-            "Operating Systems": 4,
-            "Foundation of Computer Networks": 4,
-            "System Analysis and Design": 4,
-            "Accounting and Financial Management": 4,
-            "Computer Oriented Optimization Techniques": 4,
-            "Lab in Operating Systems": 4,
-            "Lab in VB and MS Access": 4,
-            "Object Oriented Programming in C++": 5,
-            "Principles of Programming Language": 5,
-            "Advanced Web Designing": 5,
-            "Computer Graphics": 5,
-            "Software Engineering": 5,
-            "Lab in Web Designing": 5,
-            "Analysis Design of Algorithm": 6,
-            "Advanced Computer Networks": 6,
-            "Advanced DBMS": 6,
-            "Theory of Computation": 6,
-            "Artificial Intelligence": 6,
-            "Lab in ADA using C++": 6,
-            "Minor Project - I": 6,
-            "Cloud Computing": 7,
-            "Data Sciences in Mining": 7,
-            "File Structures": 7,
-            "Minor Project - II": 7,
-            "Soft Computing": 8,
-            "Distributed Systems": 8,
-            "Network Security": 8,
-            "Minor Project - III": 8,
-            "Internship": 9,
-            "Dissertation Work / Project / Case Study": 10
-        };
+      // Map to store subject to semester mapping for quick lookup
+const subjectToSemesterMap = {
+    // Semester 1
+    "Fundamental of Computer Science & IT": 1,
+    "Discrete Mathematics": 1,
+    "Communication Skills in English": 1,
+    "Programming and Problem Solving in C": 1,
+    "Digital Electronics": 1,
+    "PC Software and Office Tools- Lab I": 1,
+
+    // Semester 2
+    "Computer Architecture": 2,
+    "Data Structure using C": 2,
+    "Statistics": 2,
+    "Technical Communication & Personality Development": 2,
+    "Principal of Management": 2,
+    "Language Lab": 2,
+    "Programming Lab in Data Structure using C": 2,
+
+    // Semester 3
+    "System Software": 3,
+    "Computer Oriented Numerical Methods": 3, // Often referred to as COOM or CONM
+    "Web Designing in HTML": 3,
+    "Aptitude Skills and Reasoning": 3,
+    "DBMS": 3,
+    "Web Page Design Lab": 3,
+    "Programming Lab in DBMS": 3,
+
+    // Semester 4
+    "Operating Systems": 4,
+    "Foundation of Computer Networks": 4, // Often referred to as FCN
+    "System Analysis and Design": 4,
+    "Accounting and Financial Management": 4,
+    "Computer Oriented Optimization Techniques": 4, // Often referred to as COOT
+    "Lab in Operating Systems": 4,
+    "Lab in VB and MS Access": 4,
+
+    // Semester 5
+    "Object Oriented Programming in C++": 5, // Often referred to as OOPS with C++
+    "Principles of Programming Language": 5, // Often referred to as PPL
+    "Advanced Web Designing": 5, // Often referred to as AWT
+    "Computer Graphics": 5, // Often referred to as CG
+    "Software Engineering": 5, // Often referred to as SE
+    "Lab in Web Designing": 5,
+
+    // Semester 6
+    "Analysis Design of Algorithm": 6, // Often referred to as ADA
+    "Advanced Computer Networks": 6, // Often referred to as ACN
+    "Advanced DBMS": 6, // Often referred to as ADBMS
+    "Theory of Computation": 6, // Often referred to as TOC
+    "Artificial Intelligence": 6, // Often referred to as AI
+    "Lab in ADA using C++": 6,
+    "Minor Project - I": 6,
+
+    // Semester 7
+    "Cloud Computing": 7,
+    "Data Sciences in Mining": 7, // Often referred to as Data Science or Data Analytics
+    "File Structures": 7,
+    "Minor Project - II": 7,
+
+    // Semester 8
+    "Soft Computing": 8,
+    "Distributed Systems": 8,
+    "Network Security": 8,
+    "Minor Project - III": 8,
+
+    // Semester 9 (Internship)
+    "Internship": 9,
+
+    // Semester 10 (Project/Dissertation)
+    "Dissertation Work / Project / Case Study": 10
+};
 
         // Function to extract a simplified subject and semester from the filename
         function getSubjectAndSemester(filename) {
