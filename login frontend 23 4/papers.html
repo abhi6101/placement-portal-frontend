@@ -591,14 +591,14 @@
 </head>
 <body>
     <div class="header-bar">
-        MCA <span>Exam Papers</span> Explorer
+        MCA <span>Syllabus</span> Explorer
     </div>
     <div class="container">
-        <h1>MCA Exam Papers</h1>
+        <h1>MCA Syllabus Documents</h1>
 
         <div class="filter-section">
-            <label for="textFilter">Filter by Filename or Subject:</label>
-            <input type="text" id="textFilter" placeholder="e.g., Operating Systems, First Semester">
+            <label for="textFilter">Filter by Filename or Subject Name:</label>
+            <input type="text" id="textFilter" placeholder="e.g., Operating Systems, DBMS">
         </div>
 
         <div class="filter-section subject-filter-group">
@@ -614,14 +614,14 @@
 
     <script>
         const fileData = [
-            { name: "1.pdf", url: "1.pdf", subject: "First Semester", subjects_list: [
+            { name: "1.pdf", url: "uploaded:1.pdf", semester: "First Semester", subjects_list: [
                 "Fundamental of Computer Science & IT",
                 "Discrete Mathematics",
                 "Communication Skills in English",
                 "Programming and problem solving in C",
                 "Digital Electronics"
             ]},
-            { name: "2.pdf", url: "2.pdf", subject: "Second Semester", subjects_list: [
+            { name: "2.pdf", url: "uploaded:2.pdf", semester: "Second Semester", subjects_list: [
                 "Computer Architecture",
                 "Data Structure using C",
                 "Statistics",
@@ -630,7 +630,7 @@
                 "Language Lab",
                 "Programming Lab in Data Structure using C"
             ]},
-            { name: "3.pdf", url: "3.pdf", subject: "Third Semester", subjects_list: [
+            { name: "3.pdf", url: "uploaded:3.pdf", semester: "Third Semester", subjects_list: [
                 "System Software",
                 "Computer oriented numerical methods",
                 "Web designing in HTML",
@@ -639,7 +639,7 @@
                 "Web page Design Lab",
                 "Programming Lab in DBMS"
             ]},
-            { name: "4.pdf", url: "4.pdf", subject: "Fourth Semester", subjects_list: [
+            { name: "4.pdf", url: "uploaded:4.pdf", semester: "Fourth Semester", subjects_list: [
                 "Operating Systems",
                 "Foundation of Computer Networks",
                 "System Analysis and Design",
@@ -648,7 +648,7 @@
                 "Lab in Operating Systems",
                 "Lab in VB and MS Access"
             ]},
-            { name: "5.pdf", url: "5.pdf", subject: "Fifth Semester", subjects_list: [
+            { name: "5.pdf", url: "uploaded:5.pdf", semester: "Fifth Semester", subjects_list: [
                 "Object Oriented Programming in C++",
                 "Principles of Programming Language",
                 "Advanced Web Designing",
@@ -656,7 +656,7 @@
                 "Software Engineering",
                 "Lab in Web Designing"
             ]},
-            { name: "6.pdf", url: "6.pdf", subject: "Sixth Semester", subjects_list: [
+            { name: "6.pdf", url: "uploaded:6.pdf", semester: "Sixth Semester", subjects_list: [
                 "Analysis Design of Algorithm",
                 "Advanced Computer Networks",
                 "Advanced DBMS",
@@ -665,7 +665,7 @@
                 "Lab in ADA using C++",
                 "Minor Project -I"
             ]},
-            { name: "7.pdf", url: "7.pdf", subject: "Seventh Semester", subjects_list: [
+            { name: "7.pdf", url: "uploaded:7.pdf", semester: "Seventh Semester", subjects_list: [
                 "Cloud Computing",
                 "Data Sciences in Mining",
                 "File Structures",
@@ -674,7 +674,7 @@
                 "Lab -I",
                 "Minor Project -II"
             ]},
-            { name: "8.pdf", url: "8.pdf", subject: "Eighth Semester", subjects_list: [
+            { name: "8.pdf", url: "uploaded:8.pdf", semester: "Eighth Semester", subjects_list: [
                 "Soft Computing",
                 "Distributed Systems",
                 "Network Security",
@@ -683,10 +683,10 @@
                 "Lab -II",
                 "Minor Project -III"
             ]},
-            { name: "9.pdf", url: "9.pdf", subject: "Ninth Semester", subjects_list: [
+            { name: "9.pdf", url: "uploaded:9.pdf", semester: "Ninth Semester", subjects_list: [
                 "Internship"
             ]},
-            { name: "10.pdf", url: "10.pdf", subject: "Tenth Semester", subjects_list: [
+            { name: "10.pdf", url: "uploaded:10.pdf", semester: "Tenth Semester", subjects_list: [
                 "Dissertation work (DW)/Project/Case Study"
             ]}
         ];
@@ -696,26 +696,26 @@
         const textFilterInput = document.getElementById('textFilter');
         const subjectSelect = document.getElementById('subjectSelect');
 
-        // Get unique subjects (semesters in this case) for the dropdown
-        function getUniqueSubjects() {
-            const subjects = new Set();
+        // Get unique semesters for the dropdown (sorted numerically)
+        function getUniqueSemesters() {
+            const semesters = new Set();
             fileData.forEach(file => {
-                subjects.add(file.subject);
+                semesters.add(file.semester);
             });
-            return Array.from(subjects).sort((a, b) => {
+            return Array.from(semesters).sort((a, b) => {
                 const aNum = parseInt(a.match(/\d+/)[0]);
                 const bNum = parseInt(b.match(/\d+/)[0]);
                 return aNum - bNum;
             });
         }
 
-        // Populate the subject dropdown
-        function populateSubjectDropdown() {
-            const uniqueSubjects = getUniqueSubjects();
-            uniqueSubjects.forEach(subject => {
+        // Populate the semester dropdown
+        function populateSemesterDropdown() {
+            const uniqueSemesters = getUniqueSemesters();
+            uniqueSemesters.forEach(semester => {
                 const option = document.createElement('option');
-                option.value = subject;
-                option.textContent = subject;
+                option.value = semester;
+                option.textContent = semester;
                 subjectSelect.appendChild(option);
             });
         }
@@ -724,18 +724,20 @@
             filesList.innerHTML = ''; // Clear current list
 
             const currentTextFilter = textFilterInput.value.toLowerCase().trim();
-            const currentSubjectFilter = subjectSelect.value.toLowerCase();
+            const currentSemesterFilter = subjectSelect.value.toLowerCase();
 
             const filteredFiles = fileData.filter(file => {
-                const matchesSubjectText = file.subject.toLowerCase().includes(currentTextFilter);
+                // Check text filter against filename, semester name, and individual subjects
                 const matchesFileName = file.name.toLowerCase().includes(currentTextFilter);
-                const matchesIndividualSubject = file.subjects_list.some(sub => sub.toLowerCase().includes(currentTextFilter));
+                const matchesSemesterName = file.semester.toLowerCase().includes(currentTextFilter);
+                const matchesAnySubjectInList = file.subjects_list.some(sub => sub.toLowerCase().includes(currentTextFilter));
 
-                const matchesText = matchesSubjectText || matchesFileName || matchesIndividualSubject;
+                const matchesText = matchesFileName || matchesSemesterName || matchesAnySubjectInList;
 
-                const matchesSubjectDropdown = currentSubjectFilter === "" || file.subject.toLowerCase() === currentSubjectFilter;
+                // Check semester dropdown filter
+                const matchesSemesterDropdown = currentSemesterFilter === "" || file.semester.toLowerCase() === currentSemesterFilter;
 
-                return matchesText && matchesSubjectDropdown;
+                return matchesText && matchesSemesterDropdown;
             });
 
             if (filteredFiles.length === 0) {
@@ -754,12 +756,12 @@
                 fileLink.textContent = file.name;
                 fileLink.target = "_blank"; // Open link in a new tab
 
-                const subjectTagContainer = document.createElement('div');
-                subjectTagContainer.className = 'subject-tag-container';
+                const semesterTagContainer = document.createElement('div');
+                semesterTagContainer.className = 'subject-tag-container'; /* Reusing class for consistency */
 
-                const subjectTag = document.createElement('span');
-                subjectTag.className = 'subject-tag';
-                subjectTag.textContent = file.subject; // Display the Semester
+                const semesterTag = document.createElement('span');
+                semesterTag.className = 'subject-tag'; /* Reusing class for consistency */
+                semesterTag.textContent = file.semester; // Display the Semester
 
                 const downloadButton = document.createElement('button');
                 downloadButton.className = 'download-btn';
@@ -768,18 +770,18 @@
                     window.open(file.url, '_blank');
                 };
 
-                subjectTagContainer.appendChild(subjectTag);
-                subjectTagContainer.appendChild(downloadButton);
+                semesterTagContainer.appendChild(semesterTag);
+                semesterTagContainer.appendChild(downloadButton);
 
                 listItem.appendChild(fileLink);
-                listItem.appendChild(subjectTagContainer);
+                listItem.appendChild(semesterTagContainer);
 
                 filesList.appendChild(listItem);
             });
         }
 
         // Initial setup: populate dropdown and render all files
-        populateSubjectDropdown();
+        populateSemesterDropdown(); // Call the correct function
         renderFiles();
 
         // Add event listeners for both filter inputs
