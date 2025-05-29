@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const registrationForm = document.getElementById("registrationForm"); // This targets the <form>
-    // NEW: Get a reference to the parent <section> element
-    const registerSection = document.querySelector(".register");
+    const registrationForm = document.getElementById("registrationForm");
+    const registerSection = document.querySelector(".register"); // Reference to the parent <section>
 
     const usernameInput = document.getElementById("username");
     const emailInput = document.getElementById("email");
@@ -9,15 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmPasswordInput = document.getElementById("confirmPassword");
     const roleInput = document.getElementById("role");
 
-    const errorMessageDiv = document.getElementById("error-message"); // For form errors
-    const successMessageDiv = document.getElementById("success-message"); // For form success
+    const errorMessageDiv = document.getElementById("error-message");
+    const successMessageDiv = document.getElementById("success-message");
 
-    // Get the persistent instruction message div and its internal content holder
     const persistentAlertMessageDiv = document.getElementById("persistent-alert-message");
     const instructionContentDiv = document.getElementById("instruction-content");
-    const instructionErrorMessageDiv = document.getElementById("instruction-error-message"); // For errors related to instructions checkbox
+    const instructionErrorMessageDiv = document.getElementById("instruction-error-message");
 
-    // Get the new checkbox and button
     const readInstructionsCheckbox = document.getElementById("readInstructionsCheckbox");
     const proceedToRegisterBtn = document.getElementById("proceedToRegisterBtn");
 
@@ -68,49 +65,38 @@ document.addEventListener("DOMContentLoaded", () => {
         <strong>Important Registration Notice:</strong>
         <ul>
             <li>Before you register, please read these instructions carefully.</li>
-            <li>You <strong>must</strong> register with an <strong>active email address</strong> because account verification via an OTP sent to your email is required after registration.</li>
-            <li>Choose a <strong>memorable password</strong> as there is <strong>no 'Forgot Password' option</strong>.</li>
-            <li>If you ever need to change your password, you will have to <strong>contact the administrator</strong> directly.</li>
+            <li>You **must** register with an **active email address** because account verification via an OTP sent to your email is required after registration.</li>
+            <li>Choose a **memorable password** as there is **no 'Forgot Password' option**.</li>
+            <li>If you ever need to change your password, you will have to **contact the administrator** directly.</li>
         </ul>
     `;
 
     // --- Initial Page Load Logic ---
-    window.onload = function() {
-        // Step 1: Show the initial JS alert()
-        alert("Before registering, please read the instructions carefully. Click OK to continue.");
+    // Removed window.onload with alert()
+    // Now, the persistent message is shown directly on DOMContentLoaded
+    showMessage(instructionContentDiv, persistentAlertHTML, "info"); // Populate the inner div with content
+    persistentAlertMessageDiv.style.display = 'block'; // Ensure the instruction container is visible
+    registerSection.style.display = 'none'; // Ensure the main form section is hidden initially
 
-        // Step 2: After OK is clicked, display the persistent message with checkbox and button
-        showMessage(instructionContentDiv, persistentAlertHTML, "info"); // Populate the inner div with content
-        persistentAlertMessageDiv.style.display = 'block'; // Ensure the instruction container is visible
-        registerSection.style.display = 'none'; // IMPORTANT: Ensure the whole section is hidden initially
-
-        // Hide any previous form-related error/success messages
-        hideElement(errorMessageDiv);
-        hideElement(successMessageDiv);
-    };
+    hideElement(errorMessageDiv);
+    hideElement(successMessageDiv);
 
     // --- Logic for "Proceed to Registration" button ---
     proceedToRegisterBtn.addEventListener('click', () => {
         if (readInstructionsCheckbox.checked) {
-            // Hide any previous instruction-related errors
             hideElement(instructionErrorMessageDiv);
 
-            // Hide the instruction message
             persistentAlertMessageDiv.style.display = 'none';
-            // IMPORTANT: Show the entire registration section
-            registerSection.style.display = 'block';
+            registerSection.style.display = 'block'; // Show the entire registration section
 
-            // Optional: Scroll to the top of the form for better UX
             registerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
         } else {
-            // Show error if checkbox is not ticked
             showMessage(instructionErrorMessageDiv, "Please confirm you have read and understood the instructions to proceed.", "error");
         }
     });
 
-
-    // --- Registration Form Submission Logic (remains unchanged) ---
+    // --- Registration Form Submission Logic ---
     registrationForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
