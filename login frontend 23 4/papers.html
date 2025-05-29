@@ -932,85 +932,105 @@
             });
         }
 
+function renderFiles() {
+    filesList.innerHTML = ''; // Clear current list
 
-        function renderFiles() {
-            filesList.innerHTML = ''; // Clear current list
+    const currentTextFilter = textFilterInput.value.toLowerCase().trim();
+    const currentSubjectFilter = subjectSelect.value.toLowerCase();
+    // Ensure currentSemesterFilter is treated as a number for strict matching, or an empty string
+    const currentSemesterFilter = semesterSelect.value === "" ? "" : parseInt(semesterSelect.value, 10);
 
-            const currentTextFilter = textFilterInput.value.toLowerCase().trim();
-            const currentSubjectFilter = subjectSelect.value.toLowerCase();
-            const currentSemesterFilter = semesterSelect.value === "" ? "" : parseInt(semesterSelect.value, 10);
+    let filteredNormalFiles = []; // For files matching the semester filter (and not miscellaneous)
+    let filteredMiscellaneousFiles = []; // For all miscellaneous files
 
-            const filteredFiles = processedFileData.filter(file => {
-                const matchesText = file.name.toLowerCase().includes(currentTextFilter) ||
-                                    file.subject.toLowerCase().includes(currentTextFilter);
+    processedFileData.forEach(file => {
+        const matchesText = file.name.toLowerCase().includes(currentTextFilter) ||
+                            file.subject.toLowerCase().includes(currentTextFilter);
 
-                const matchesSubject = currentSubjectFilter === "" || file.subject.toLowerCase() === currentSubjectFilter;
+        const matchesSubject = currentSubjectFilter === "" || file.subject.toLowerCase() === currentSubjectFilter;
 
-                // MODIFIED SEMESTER FILTERING LOGIC
-                const matchesSemester =
-                    currentSemesterFilter === "" || // If "All Semesters" is selected
-                    file.semester === currentSemesterFilter || // Or if the file matches the selected semester
-                    file.subject === "Miscellaneous"; // Or if the file is 'Miscellaneous'
+        // Check if the file is miscellaneous
+        const isMiscellaneous = file.subject === "Miscellaneous";
 
-                return matchesText && matchesSubject && matchesSemester;
-            });
+        // Determine if the file belongs to the currently selected semester
+        const matchesSelectedSemester = currentSemesterFilter === "" || file.semester === currentSemesterFilter;
 
-            if (filteredFiles.length === 0) {
-                const noResultsItem = document.createElement('li');
-                noResultsItem.className = 'no-results';
-                noResultsItem.textContent = 'No files found matching your criteria.';
-                filesList.appendChild(noResultsItem);
-                return;
+        if (matchesText && matchesSubject) { // Only consider files that pass text and subject filters
+            if (isMiscellaneous) {
+                // If it's a miscellaneous file, add it to the miscellaneous list
+                filteredMiscellaneousFiles.push(file);
+            } else if (matchesSelectedSemester) {
+                // If it's a non-miscellaneous file and matches the semester filter, add to normal files
+                filteredNormalFiles.push(file);
             }
-
-            filteredFiles.forEach(file => {
-                const listItem = document.createElement('li');
-
-                const fileLink = document.createElement('a');
-                fileLink.href = file.url;
-                fileLink.textContent = file.name;
-                fileLink.target = "_blank"; // Open link in a new tab
-                fileLink.style.textDecoration = 'none';
-                fileLink.style.color = 'var(--dark)';
-                fileLink.style.fontWeight = 'bold';
-                fileLink.style.fontSize = '1.1em';
-                fileLink.style.wordBreak = 'break-word';
-                fileLink.style.flexGrow = '1';
-                fileLink.style.marginRight = '15px';
-
-                const subjectTagContainer = document.createElement('div');
-                subjectTagContainer.className = 'subject-tag-container';
-
-                const subjectTag = document.createElement('span');
-                subjectTag.className = 'subject-tag';
-                subjectTag.textContent = file.subject;
-
-                const semesterTag = document.createElement('span');
-                semesterTag.className = 'subject-tag'; // Reuse styling
-                semesterTag.style.backgroundColor = 'var(--accent)'; // Different color for semester
-                semesterTag.style.marginLeft = '10px'; // Space between subject and semester
-                semesterTag.textContent = file.semester !== "N/A" ? `Sem ${file.semester}` : 'N/A';
-
-                const downloadButton = document.createElement('button');
-                downloadButton.className = 'download-btn';
-                downloadButton.textContent = 'Download';
-                downloadButton.onclick = () => {
-                    window.open(file.url, '_blank');
-                };
-
-                subjectTagContainer.appendChild(subjectTag);
-                if (file.semester !== "N/A") {
-                    subjectTagContainer.appendChild(semesterTag);
-                }
-                subjectTagContainer.appendChild(downloadButton);
-
-                listItem.appendChild(fileLink);
-                listItem.appendChild(subjectTagContainer);
-
-                filesList.appendChild(listItem);
-            });
         }
+    });
 
+    // Optional: Sort files within their categories for consistent display
+    // Sort normal files by name
+    filteredNormalFiles.sort((a, b) => a.name.localeCompare(b.name));
+    // Sort miscellaneous files by name
+    filteredMiscellaneousFiles.sort((a, b) => a.name.localeCompare(b.name));
+
+    // Concatenate the two lists: normal files first, then miscellaneous files
+    const filesToDisplay = filteredNormalFiles.concat(filteredMiscellaneousFiles);
+
+
+    if (filesToDisplay.length === 0) {
+        const noResultsItem = document.createElement('li');
+        noResultsItem.className = 'no-results';
+        noResultsItem.textContent = 'No files found matching your criteria.';
+        filesList.appendChild(noResultsItem);
+        return;
+    }
+
+    filesToDisplay.forEach(file => {
+        const listItem = document.createElement('li');
+
+        const fileLink = document.createElement('a');
+        fileLink.href = file.url;
+        fileLink.textContent = file.name;
+        fileLink.target = "_blank"; // Open link in a new tab
+        fileLink.style.textDecoration = 'none';
+        fileLink.style.color = 'var(--dark)';
+        fileLink.style.fontWeight = 'bold';
+        fileLink.style.fontSize = '1.1em';
+        fileLink.style.wordBreak = 'break-word';
+        fileLink.style.flexGrow = '1';
+        fileLink.style.marginRight = '15px';
+
+        const subjectTagContainer = document.createElement('div');
+        subjectTagContainer.className = 'subject-tag-container';
+
+        const subjectTag = document.createElement('span');
+        subjectTag.className = 'subject-tag';
+        subjectTag.textContent = file.subject;
+
+        const semesterTag = document.createElement('span');
+        semesterTag.className = 'subject-tag'; // Reuse styling
+        semesterTag.style.backgroundColor = 'var(--accent)'; // Different color for semester
+        semesterTag.style.marginLeft = '10px'; // Space between subject and semester
+        semesterTag.textContent = file.semester !== "N/A" ? `Sem ${file.semester}` : 'N/A';
+
+        const downloadButton = document.createElement('button');
+        downloadButton.className = 'download-btn';
+        downloadButton.textContent = 'Download';
+        downloadButton.onclick = () => {
+            window.open(file.url, '_blank');
+        };
+
+        subjectTagContainer.appendChild(subjectTag);
+        if (file.semester !== "N/A") {
+            subjectTagContainer.appendChild(semesterTag);
+        }
+        subjectTagContainer.appendChild(downloadButton);
+
+        listItem.appendChild(fileLink);
+        listItem.appendChild(subjectTagContainer);
+
+        filesList.appendChild(listItem);
+    });
+}
         // Initial setup: populate dropdowns and render all files
         populateSubjectDropdown();
         populateSemesterDropdown();
