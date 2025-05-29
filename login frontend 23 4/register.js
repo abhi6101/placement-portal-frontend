@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
         element.className = `alert alert-${type}`; // Dynamically set class
         element.style.display = "block"; // Show the alert
 
-        
         // Ensure only one message type is shown at a time
         if (type === 'success') {
             errorMessageDiv.style.display = 'none';

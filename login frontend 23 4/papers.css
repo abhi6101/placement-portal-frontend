@@ -24,7 +24,6 @@
         /* Top Navigation Bar */
         nav:first-of-type {
             background-color: var(--dark);
-       
             color: white;
             padding: 0.8rem 2rem;
             display: flex;

@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alertDiv.style.display = 'block'; // Ensure it's visible
     };
 
-    
     // Function to hide input feedback
     const hideInputFeedback = (inputElement, feedbackElement) => {
         inputElement.classList.remove('is-invalid');
