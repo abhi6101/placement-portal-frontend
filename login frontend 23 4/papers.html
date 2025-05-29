@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intregated MCA Exam Papers</title>
+    <title>Integrated MCA Exam Papers</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* CSS will go here (copy from previous response) */
-
         :root {
             --primary: #00d4ff;
             --secondary: #0077b6;
@@ -31,6 +30,79 @@
             color: #333;
             line-height: 1.6;
             margin: 0;
+        }
+
+        /* Navigation Bar Styles */
+        nav {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Allow wrapping for responsiveness */
+        }
+
+        nav .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-right: 20px; /* Space between logo and links */
+        }
+
+        nav .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px; /* Space between nav items */
+            flex-wrap: wrap;
+            justify-content: center; /* Center items on smaller screens */
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a i {
+            margin-right: 8px;
+            color: var(--primary); /* Icon color */
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        /* Main Navigation Bar Styles */
+        .main-nav {
+            background-color: var(--secondary);
+            padding: 0.8rem 2rem;
+            margin-bottom: 20px; /* Space below main nav */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-nav ul {
+            justify-content: space-around; /* Distribute items evenly */
+            gap: 15px;
+        }
+
+        .main-nav ul li a {
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .main-nav ul li a:hover,
+        .main-nav ul li a.active {
+            background-color: var(--primary);
+            color: var(--dark);
         }
 
         /* Container specific to this page, adapting to new design */
@@ -211,6 +283,24 @@
 
         /* Media queries for responsiveness */
         @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
             .container {
                 margin: 20px auto;
                 padding: 20px;
@@ -251,11 +341,33 @@
     </style>
 </head>
 <body>
+    <nav>
+        <div class="logo">Placement<span>Portal</span></div>
+        <ul>
+            <li><a href="mailto:abhijain6101@gmail.com"><i class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
+            <li><a href="tel:+91-6266017070"><i class="fas fa-phone"></i> +91-6266017070</a></li>
+        </ul>
+    </nav>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
     <div class="header-bar">
-        RGPV Intregated MCA <span>Exam Papers</span> Explorer
+        RGPV Integrated MCA <span>Exam Papers</span> Explorer
     </div>
     <div class="container">
-        <h1>Intregated MCA Exam Papers</h1>
+        <h1>Integrated MCA Exam Papers</h1>
 
         <div class="filter-section">
             <label for="textFilter">Filter by Filename:</label>
@@ -279,8 +391,10 @@
         </div>
 
         <ul id="filesList" class="files-list">
-            </ul>
+        </ul>
     </div>
+</body>
+</html>
 
     <script>
         const fileData = [
