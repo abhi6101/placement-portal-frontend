@@ -1,6 +1,6 @@
 // IMPORTANT: Replace this with your actual Spring Boot backend URL.
 // Example: "https://your-springboot-backend.onrender.com/api/papers"
-const PAPERS_API_URL = "http://localhost:8080/api/papers"; // For local testing
+const PAPERS_API_URL = "https://YOUR_BACKEND_APP_URL.onrender.com/api/papers"; // For Render deployment 
 // const PAPERS_API_URL = "https://YOUR_BACKEND_APP_URL.onrender.com/api/papers"; // For Render deployment
 
 const paperListContainer = document.getElementById('paperList');
