@@ -110,19 +110,49 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
         }
 
-        .files-list li a {
+        .file-name-container { /* New container for file name and its download button */
+            display: flex;
+            align-items: center;
+            flex-grow: 1; /* Allows this part to take up available space */
+            word-break: break-word; /* Ensure long names wrap */
+        }
+
+        .file-name { /* Style for the file name text */
             text-decoration: none;
             color: var(--dark); /* Use dark variable for link color */
             font-weight: bold;
             font-size: 1.1em;
-            word-break: break-word;
-            flex-grow: 1; /* Allows link to take up available space */
-            margin-right: 15px; /* Space between link and tag */
+            margin-right: 15px; /* Space between filename and button */
         }
 
-        .files-list li a:hover {
+        .file-name:hover {
             color: var(--primary); /* Primary color on link hover */
             text-decoration: underline;
+        }
+
+        .download-btn {
+            background-color: var(--secondary); /* Use secondary color for button */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            white-space: nowrap; /* Prevent button text from wrapping */
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary); /* Lighter blue on hover */
+            transform: translateY(-1px);
+        }
+
+        .subject-tag-container { /* Container for subject tag and its download button */
+            display: flex;
+            align-items: center;
+            margin-left: 20px; /* Space between file info and subject info */
+            white-space: nowrap; /* Prevent items from wrapping in this container */
         }
 
         .subject-tag {
@@ -132,9 +162,8 @@
             border-radius: 20px; /* More rounded tag */
             font-size: 0.85em;
             font-weight: 600;
-            white-space: nowrap;
             box-shadow: 0 2px 5px rgba(0, 212, 255, 0.2); /* Tag shadow */
-            margin-left: 10px; /* Space between download button and tag */
+            margin-right: 10px; /* Space between subject tag and its button */
         }
 
         .no-results {
@@ -169,25 +198,6 @@
             align-items: center;
             gap: 15px;
             margin-top: 20px; /* Space above this filter group */
-        }
-
-        /* New style for the download button */
-        .download-btn {
-            background-color: var(--secondary); /* Use secondary color for button */
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 600;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-            margin-left: 15px; /* Space between filename and button */
-        }
-
-        .download-btn:hover {
-            background-color: var(--primary); /* Lighter blue on hover */
-            transform: translateY(-1px);
         }
     </style>
 </head>
@@ -329,35 +339,46 @@
             filteredFiles.forEach(file => {
                 const listItem = document.createElement('li');
 
-                // Container for filename and download button
-                const fileInfoContainer = document.createElement('div');
-                fileInfoContainer.style.display = 'flex';
-                fileInfoContainer.style.alignItems = 'center';
-                fileInfoContainer.style.flexGrow = '1'; // Allow it to take space
+                // --- Section for File Name and its Download Button ---
+                const fileNameContainer = document.createElement('div');
+                fileNameContainer.className = 'file-name-container';
 
-                const fileNameSpan = document.createElement('span'); // Use a span for the file name text
+                const fileNameSpan = document.createElement('span'); // Changed to span for text only
+                fileNameSpan.className = 'file-name'; // Apply styling
                 fileNameSpan.textContent = file.name;
-                fileNameSpan.style.fontWeight = 'bold';
-                fileNameSpan.style.fontSize = '1.1em';
-                fileNameSpan.style.wordBreak = 'break-word';
-                fileNameSpan.style.marginRight = '10px'; // Space between text and button
 
-                const downloadButton = document.createElement('button'); // Create the button
-                downloadButton.className = 'download-btn';
-                downloadButton.textContent = 'Download';
-                downloadButton.onclick = () => { // Add click handler
-                    window.open(file.url, '_blank'); // Open URL in new tab for download
+                const downloadBtnFileName = document.createElement('button'); // Download button for file name
+                downloadBtnFileName.className = 'download-btn';
+                downloadBtnFileName.textContent = 'Download';
+                downloadBtnFileName.onclick = () => {
+                    window.open(file.url, '_blank');
                 };
 
-                fileInfoContainer.appendChild(fileNameSpan);
-                fileInfoContainer.appendChild(downloadButton);
+                fileNameContainer.appendChild(fileNameSpan);
+                fileNameContainer.appendChild(downloadBtnFileName);
+
+                // --- Section for Subject Tag and its Download Button ---
+                const subjectTagContainer = document.createElement('div');
+                subjectTagContainer.className = 'subject-tag-container';
 
                 const subjectTag = document.createElement('span');
                 subjectTag.className = 'subject-tag';
                 subjectTag.textContent = file.subject;
 
-                listItem.appendChild(fileInfoContainer); // Append the container
-                listItem.appendChild(subjectTag);
+                const downloadBtnSubject = document.createElement('button'); // Download button for subject
+                downloadBtnSubject.className = 'download-btn';
+                downloadBtnSubject.textContent = 'Download';
+                downloadBtnSubject.onclick = () => {
+                    window.open(file.url, '_blank');
+                };
+
+                subjectTagContainer.appendChild(subjectTag);
+                subjectTagContainer.appendChild(downloadBtnSubject);
+
+
+                listItem.appendChild(fileNameContainer);
+                listItem.appendChild(subjectTagContainer); // Append the new container
+
                 filesList.appendChild(listItem);
             });
         }
