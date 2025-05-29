@@ -14,33 +14,7 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        /* Add this to your index.css file */
-
-.logo-link {
-    display: flex; /* Ensures image is centered if needed and treats it as a block */
-    align-items: center;
-    height: 100%; /* Ensure it takes full height of parent nav */
-    margin-right: 20px; /* Maintains space similar to the text logo */
-}
-
-.logo-img {
-    max-height: 40px; /* Adjust this value to control the height of your logo */
-    width: auto; /* Maintain aspect ratio */
-    vertical-align: middle; /* Aligns the image nicely with other nav content */
-}
-
-/* You might want to remove or modify the original .logo styles if you're not using text anymore */
-/* For example, if you completely replace the text logo, you can remove: */
-/*
-.logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-
-.logo span {
-    color: var(--primary);
-}
-*/
+        
 
         body {
             background-color: var(--light);
