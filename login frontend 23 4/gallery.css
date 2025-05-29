@@ -1,0 +1,489 @@
+
+        /* Your existing CSS rules (copied from index.html head) */
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Top Navigation Bar */
+        nav:first-of-type {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav:first-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav:first-of-type a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        nav:first-of-type a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Main Navigation Bar */
+        nav:last-of-type {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav:last-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        nav:last-of-type li {
+            flex-shrink: 0;
+        }
+
+        nav:last-of-type a,
+        nav:last-of-type button {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        nav:last-of-type a:hover,
+        nav:last-of-type button:hover {
+            color: var(--primary);
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+
+        nav:last-of-type a.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+        }
+
+        /* Gallery Page Specific CSS */
+        .gallery-page {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: var(--light);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-page h1 {
+            color: var(--dark);
+            margin-bottom: 2.5rem;
+            font-size: 2.8rem;
+        }
+
+        /* Category buttons for gallery page */
+        .gallery-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-categories .btn {
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            background: var(--dark);
+            color: white;
+            white-space: nowrap; /* Prevent buttons from wrapping words */
+        }
+
+        .gallery-categories .btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-categories .btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Photo Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .photo-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden; /* Ensures rounded corners */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            display: none; /* Hidden by default, shown by JS */
+            cursor: pointer; /* Indicate clickability */
+        }
+        .photo-item.show {
+            display: block; /* Show filtered items */
+        }
+
+
+        .photo-item img {
+            width: 100%;
+            height: 200px; /* Consistent height for grid images */
+            object-fit: cover; /* Cover the area, crop if needed */
+            display: block; /* Remove extra space below image */
+        }
+
+        .photo-item .photo-info {
+            padding: 1rem;
+        }
+
+        .photo-item h4 {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .photo-item p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* MODAL STYLES (NEW) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+            display: flex; /* Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain; /* Ensure image fits within modal, maintaining aspect ratio */
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s;
+        }
+
+        /* Close button (optional, but good for accessibility/manual close) */
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 1001; /* Above the image */
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.8);}
+            to {transform: scale(1);}
+        }
+
+        /* User Contribution Section */
+        .gallery-contribution {
+            max-width: 800px;
+            margin: 4rem auto 0 auto; /* Adjust top margin for spacing */
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .gallery-contribution h3 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .gallery-contribution p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .gallery-contribution .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .gallery-contribution .contact-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .gallery-contribution .contact-links a.whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .gallery-contribution .contact-links a.whatsapp-btn:hover {
+            background-color: #1DA851;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .gallery-contribution .contact-links a.email-btn {
+            background-color: #DB4437;
+            color: white;
+        }
+
+        .gallery-contribution .contact-links a.email-btn:hover {
+            background-color: #b8332c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(219, 68, 55, 0.4);
+        }
+
+
+        /* Company Logos and Footer CSS (copied from index.html head) */
+        .companies {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .companies h2 {
+            color: var(--primary);
+            margin-bottom: 2.5rem;
+            font-size: 2.2rem;
+        }
+
+        .company-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .company-logo-item img {
+            max-width: 120px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .company-logo-item img:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .gallery-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gallery-categories .btn {
+                width: 80%; /* Make buttons wider on small screens */
+                max-width: 300px;
+            }
+        }
+
+        /* General Button Styles (copied from index.html head) */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+   
