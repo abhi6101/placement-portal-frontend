@@ -403,7 +403,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCA Exam Papers</title>
     <style>
-        /* Your existing CSS rules go here */
         :root {
             --primary: #00d4ff;
             --secondary: #0077b6;
@@ -424,53 +423,52 @@
             background-color: var(--light);
             color: #333;
             line-height: 1.6;
-            margin: 0; /* Remove default body margin */
+            margin: 0;
         }
 
-        /* Container specific to this page, adapting to new design */
         .container {
             max-width: 900px;
-            margin: 40px auto; /* Increased margin for better spacing */
+            margin: 40px auto;
             background-color: #fff;
-            padding: 30px; /* Increased padding */
-            border-radius: 10px; /* More rounded corners */
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
-            color: var(--dark); /* Use dark variable */
+            color: var(--dark);
             margin-bottom: 30px;
-            font-size: 2.5rem; /* Larger heading */
+            font-size: 2.5rem;
         }
 
         .filter-section {
-            margin-bottom: 30px; /* More space below filter */
+            margin-bottom: 30px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px; /* Space between label and input */
+            gap: 15px;
         }
 
         .filter-section label {
-            font-weight: 600; /* Bolder label */
-            color: var(--secondary); /* Use secondary color */
+            font-weight: 600;
+            color: var(--secondary);
             font-size: 1.1em;
         }
 
         .filter-section input[type="text"],
-        .filter-section select { /* Added select to this style */
-            padding: 12px 15px; /* More padding */
-            width: 80%; /* Wider input */
-            max-width: 500px; /* Increased max-width */
-            border: 1px solid #cceeff; /* Lighter border */
-            border-radius: 30px; /* Pill-shaped input */
+        .filter-section select {
+            padding: 12px 15px;
+            width: 80%;
+            max-width: 500px;
+            border: 1px solid #cceeff;
+            border-radius: 30px;
             font-size: 17px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08); /* Inner shadow */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
-            appearance: none; /* Remove default select arrow */
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230077b6%22%20d%3D%22M287%2C197.96l-14.73-14.73l-123.6-123.6l-123.6%2C123.6l-14.73%2C14.73L146.46%2C292.4L287%2C197.96z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230077b6%22%20d%3D%22M287%2C197.96l-14.73-14.73l-123.6-123.6l-123.6%2C123.6l-14.73%2C14.73L146.46%2C292.4L287%2C197.96z%22%2F%3E%3C%2Fsvg%3E');
             background-repeat: no-repeat;
             background-position: right 15px top 50%;
             background-size: 12px auto;
@@ -478,10 +476,10 @@
         }
 
         .filter-section input[type="text"]:focus,
-        .filter-section select:focus { /* Added select to this focus style */
+        .filter-section select:focus {
             outline: none;
-            border-color: var(--primary); /* Highlight on focus */
-            box-shadow: 0 0 8px rgba(0, 212, 255, 0.3); /* Glow effect */
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
         }
 
         .files-list {
@@ -490,42 +488,41 @@
         }
 
         .files-list li {
-            background-color: #ffffff; /* White background for list items */
-            margin-bottom: 12px; /* More space between items */
-            padding: 15px 20px; /* More padding */
-            border-radius: 8px; /* Slightly rounded corners */
+            background-color: #ffffff;
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            border-radius: 8px;
             display: flex;
-            justify-content: space-between; /* This will push filename to left, tag+button to right */
+            justify-content: space-between;
             align-items: center;
-            border: 1px solid #eee; /* Light border */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            border: 1px solid #eee;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
         }
 
         .files-list li:hover {
-            background-color: #f0f8ff; /* Light blue on hover */
-            transform: translateY(-3px); /* Lift effect */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+            background-color: #f0f8ff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        /* Adjusted style for the file name link */
         .files-list li a {
             text-decoration: none;
-            color: var(--dark); /* Use dark variable for link color */
+            color: var(--dark);
             font-weight: bold;
             font-size: 1.1em;
             word-break: break-word;
-            flex-grow: 1; /* Allows link to take up available space */
-            margin-right: 15px; /* Space between filename and subject info */
+            flex-grow: 1;
+            margin-right: 15px;
         }
 
         .files-list li a:hover {
-            color: var(--primary); /* Primary color on link hover */
+            color: var(--primary);
             text-decoration: underline;
         }
 
         .download-btn {
-            background-color: var(--secondary); /* Use secondary color for button */
+            background-color: var(--secondary);
             color: white;
             border: none;
             padding: 8px 15px;
@@ -534,35 +531,34 @@
             font-size: 0.9em;
             font-weight: 600;
             transition: background-color 0.2s ease, transform 0.2s ease;
-            white-space: nowrap; /* Prevent button text from wrapping */
-            margin-left: 10px; /* Space between subject tag and button */
+            white-space: nowrap;
+            margin-left: 10px;
         }
 
         .download-btn:hover {
-            background-color: var(--primary); /* Lighter blue on hover */
+            background-color: var(--primary);
             transform: translateY(-1px);
         }
 
-        .subject-tag-container { /* Container for subject tag and its download button */
+        .subject-tag-container {
             display: flex;
             align-items: center;
-            white-space: nowrap; /* Prevent items from wrapping in this container */
+            white-space: nowrap;
         }
 
         .subject-tag {
-            background-color: var(--primary); /* Primary color for tag */
+            background-color: var(--primary);
             color: white;
-            padding: 6px 12px; /* More padding */
-            border-radius: 20px; /* More rounded tag */
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 0.85em;
             font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0, 212, 255, 0.2); /* Tag shadow */
-            /* No margin-right here, as button comes immediately after */
+            box-shadow: 0 2px 5px rgba(0, 212, 255, 0.2);
         }
 
         .no-results {
             text-align: center;
-            color: var(--gray); /* Use gray variable */
+            color: var(--gray);
             padding: 30px;
             font-size: 1.1em;
             background-color: #fff;
@@ -570,13 +566,12 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
-        /* Optional: Add a subtle header for a more complete look */
         .header-bar {
             background-color: var(--dark);
             color: white;
             padding: 1rem 2rem;
             text-align: center;
-            margin-bottom: 40px; /* Space between header and container */
+            margin-bottom: 40px;
             font-size: 1.5rem;
             font-weight: 700;
         }
@@ -585,13 +580,12 @@
             color: var(--primary);
         }
 
-        /* Styles for the new subject filter section */
-        .subject-filter-group, .semester-filter-group {
+        .subject-filter-group {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 15px;
-            margin-top: 20px; /* Space above this filter group */
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -603,20 +597,13 @@
         <h1>MCA Exam Papers</h1>
 
         <div class="filter-section">
-            <label for="textFilter">Filter by Filename:</label>
-            <input type="text" id="textFilter" placeholder="e.g., May 2024">
+            <label for="textFilter">Filter by Filename or Subject:</label>
+            <input type="text" id="textFilter" placeholder="e.g., Operating Systems, First Semester">
         </div>
 
         <div class="filter-section subject-filter-group">
-            <label for="subjectSelect">Filter by Subject:</label>
+            <label for="subjectSelect">Filter by Semester:</label>
             <select id="subjectSelect">
-                <option value="">All Subjects</option>
-                </select>
-        </div>
-
-        <div class="filter-section semester-filter-group">
-            <label for="semesterSelect">Filter by Semester:</label>
-            <select id="semesterSelect">
                 <option value="">All Semesters</option>
                 </select>
         </div>
@@ -624,203 +611,107 @@
         <ul id="filesList" class="files-list">
         </ul>
     </div>
-<script src="paperfile.js"></script>
+
     <script>
-        // Placeholder for fileData from your previous setup.
-        // In a real scenario, this would come from a backend or another script.
-        // For demonstration, I'm using a simplified structure based on your last input.
         const fileData = [
-            // Dummy data for testing. Replace with your actual file data.
-            { name: "First Sem Computer Science.pdf", url: "path/to/First_Sem_Computer_Science.pdf", semester: "First Semester" },
-            { name: "Second Sem Data Structure.pdf", url: "path/to/Second_Sem_Data_Structure.pdf", semester: "Second Semester" },
-            { name: "First Sem Discrete Math.pdf", url: "path/to/First_Sem_Discrete_Math.pdf", semester: "First Semester" },
-            { name: "Seventh Sem Cloud Computing.pdf", url: "path/to/Seventh_Sem_Cloud_Computing.pdf", semester: "Seventh Semester" },
-            { name: "Eighth Sem Network Security.pdf", url: "path/to/Eighth_Sem_Network_Security.pdf", semester: "Eighth Semester" },
-             { name: "Ninth Sem Internship Report.pdf", url: "path/to/Ninth_Sem_Internship_Report.pdf", semester: "Ninth Semester" },
-            { name: "Tenth Sem Dissertation.pdf", url: "path/to/Tenth_Sem_Dissertation.pdf", semester: "Tenth Semester" },
-            // Add more dummy data as needed for other semesters
+            { name: "1.pdf", url: "1.pdf", subject: "First Semester", subjects_list: [
+                "Fundamental of Computer Science & IT",
+                "Discrete Mathematics",
+                "Communication Skills in English",
+                "Programming and problem solving in C",
+                "Digital Electronics"
+            ]},
+            { name: "2.pdf", url: "2.pdf", subject: "Second Semester", subjects_list: [
+                "Computer Architecture",
+                "Data Structure using C",
+                "Statistics",
+                "Technical Communication & Personality Development",
+                "Principal of Management",
+                "Language Lab",
+                "Programming Lab in Data Structure using C"
+            ]},
+            { name: "3.pdf", url: "3.pdf", subject: "Third Semester", subjects_list: [
+                "System Software",
+                "Computer oriented numerical methods",
+                "Web designing in HTML",
+                "Aptitude skills and reasoning",
+                "DBMS",
+                "Web page Design Lab",
+                "Programming Lab in DBMS"
+            ]},
+            { name: "4.pdf", url: "4.pdf", subject: "Fourth Semester", subjects_list: [
+                "Operating Systems",
+                "Foundation of Computer Networks",
+                "System Analysis and Design",
+                "Accounting and Financial Management",
+                "Computer Oriented Optimization Techniques",
+                "Lab in Operating Systems",
+                "Lab in VB and MS Access"
+            ]},
+            { name: "5.pdf", url: "5.pdf", subject: "Fifth Semester", subjects_list: [
+                "Object Oriented Programming in C++",
+                "Principles of Programming Language",
+                "Advanced Web Designing",
+                "Computer Graphics",
+                "Software Engineering",
+                "Lab in Web Designing"
+            ]},
+            { name: "6.pdf", url: "6.pdf", subject: "Sixth Semester", subjects_list: [
+                "Analysis Design of Algorithm",
+                "Advanced Computer Networks",
+                "Advanced DBMS",
+                "Theory of Computation",
+                "Artificial Intelligence",
+                "Lab in ADA using C++",
+                "Minor Project -I"
+            ]},
+            { name: "7.pdf", url: "7.pdf", subject: "Seventh Semester", subjects_list: [
+                "Cloud Computing",
+                "Data Sciences in Mining",
+                "File Structures",
+                "Elective -I",
+                "Elective-II",
+                "Lab -I",
+                "Minor Project -II"
+            ]},
+            { name: "8.pdf", url: "8.pdf", subject: "Eighth Semester", subjects_list: [
+                "Soft Computing",
+                "Distributed Systems",
+                "Network Security",
+                "Elective -III",
+                "Elective-IV",
+                "Lab -II",
+                "Minor Project -III"
+            ]},
+            { name: "9.pdf", url: "9.pdf", subject: "Ninth Semester", subjects_list: [
+                "Internship"
+            ]},
+            { name: "10.pdf", url: "10.pdf", subject: "Tenth Semester", subjects_list: [
+                "Dissertation work (DW)/Project/Case Study"
+            ]}
         ];
 
-
-        // Function to extract a simplified subject from the filename
-        function getSubject(filename) {
-            filename = filename.toLowerCase();
-            if (filename.includes("account") || filename.includes("accounting")) return "Accounting & Finance";
-            if (filename.includes("acn") || filename.includes("advance_computer_network") || filename.includes("fcn")) return "Advanced Computer Network";
-            if (filename.includes("ada")) return "Advanced Data Analytics";
-            if (filename.includes("adbms")) return "Advanced DBMS";
-            if (filename.includes("ai")) return "Artificial Intelligence";
-            if (filename.includes("aptit") || filename.includes("aptitude")) return "Aptitude Skills and Reasoning";
-            if (filename.includes("awt") || filename.includes("web designing")) return "Advanced Web Designing";
-            if (filename.includes("c_november") || filename.includes("programming in c")) return "Programming in C"; // Specific to avoid "mcadd-202-data-structure-using-c-jun-2020.pdf" being just "C"
-            if (filename.includes("ca") || filename.includes("computer_architecture")) return "Computer Architecture";
-            if (filename.includes("cg") || filename.includes("cgm") || filename.includes("computer graphics")) return "Computer Graphics";
-            if (filename.includes("cloud_computing")) return "Cloud Computing";
-            if (filename.includes("compiler_design")) return "Compiler Design";
-            if (filename.includes("computer_ethics")) return "Computer Ethics";
-            if (filename.includes("conm") || filename.includes("computer oriented numerical methods")) return "Computer Oriented Numerical Methods"; // Assuming CONM for CNM
-            if (filename.includes("coot") || filename.includes("computer oriented optimization techniques")) return "Computer Oriented Optimization Techniques";
-            if (filename.includes("data_analytics")) return "Data Analytics";
-            if (filename.includes("data_science")) return "Data Science in Mining";
-            if (filename.includes("dbms")) return "DBMS";
-            if (filename.includes("digital_image_p")) return "Digital Image Processing";
-            if (filename.includes("distributed_systems")) return "Distributed Systems";
-            if (filename.includes("ds") || filename.includes("data structure")) return "Data Structures";
-            if (filename.includes("file_structure")) return "File Structure";
-            if (filename.includes("imca")) return "Integrated MCA";
-            if (filename.includes("java") || filename.includes("programming_in_jav")) return "Programming in Java";
-            if (filename.includes("mobile_computing")) return "Mobile Computing";
-            if (filename.includes("multimedia")) return "Multimedia";
-            if (filename.includes("network_security")) return "Network Security";
-            if (filename.includes("oops_c") || filename.includes("object-oriented-progr") || filename.includes("object oriented programming")) return "Object Oriented Programming in C++"; // Assuming OOPS_C implies C++ context
-            if (filename.includes("os") || filename.includes("operating_systems")) return "Operating Systems";
-            if (filename.includes("parallel_computing")) return "Parallel Computing";
-            if (filename.includes("pom") || filename.includes("principal-of-management") || filename.includes("principal of management")) return "Principles of Management";
-            if (filename.includes("ppl") || filename.includes("principles-of-programming") || filename.includes("principles of programming language")) return "Principles of Programming Languages";
-            if (filename.includes("sad") || filename.includes("system-analysis-and-design")) return "System Analysis and Design";
-            if (filename.includes("se") || filename.includes("software engineering")) return "Software Engineering";
-            if (filename.includes("soft_computing")) return "Soft Computing";
-            if (filename.includes("software_architect")) return "Software Architecture";
-            if (filename.includes("ss") || filename.includes("system software")) return "System Software";
-            if (filename.includes("statistics")) return "Statistics";
-            if (filename.includes("tcpd") || filename.includes("technical-communication")) return "Technical Communication & Professional Development";
-            if (filename.includes("toc") || filename.includes("theory of computation")) return "Theory of Computation";
-            if (filename.includes("unix") || filename.includes("shell_pr")) return "Unix and Shell Programming";
-            if (filename.includes("web_technology") || filename.includes("wt-t") || filename.includes("wt_r") || filename.includes("wt_")) return "Web Technology";
-             if (filename.includes("dissertation")) return "Dissertation Work / Project / Case Study";
-             if (filename.includes("internship")) return "Internship";
-
-
-            // Fallback: If no specific subject is found, try to extract the first word
-            const parts = filename.split('_');
-            if (parts.length > 0) {
-                const firstWord = parts[0].replace(/[^a-z0-9]/g, ''); // Remove non-alphanumeric
-                if (firstWord.length > 0) {
-                    return firstWord.charAt(0).toUpperCase() + firstWord.slice(1);
-                }
-            }
-            return "Miscellaneous"; // Default if no clear subject
-        }
-
-        // Hardcoded semester and subject mapping based on your provided data
-        // This 'syllabusData' object will be used to enrich 'fileData' for filtering.
-        const syllabusData = {
-            "First Semester": [
-                { code: "MCADD-101", name: "Fundamental of Computer Science & IT" },
-                { code: "MCADD-102", name: "Discrete Mathematics" },
-                { code: "MCADD-103", name: "Communication Skills in English" },
-                { code: "MCADD-104", name: "Programming and Problem Solving in C" },
-                { code: "MCADD-105", name: "Digital Electronics" },
-                { code: "MCADD-106", name: "PC Software and Office Tools- Lab I" }
-            ],
-            "Second Semester": [
-                { code: "MCADD-201", name: "Computer Architecture" },
-                { code: "MCADD-202", name: "Data Structure using C" },
-                { code: "MCADD-203", name: "Statistics" },
-                { code: "MCADD-204", name: "Technical Communication & Personality Development" },
-                { code: "MCADD-205", name: "Principal of Management" },
-                { code: "MCADD-206", name: "Language Lab" },
-                { code: "MCADD-207", name: "Programming Lab in Data Structure using C" }
-            ],
-            "Third Semester": [
-                { code: "MCADD-301", name: "System Software" },
-                { code: "MCADD-302", name: "Computer Oriented Numerical Methods" },
-                { code: "MCADD-303", name: "Web Designing in HTML" },
-                { code: "MCADD-304", name: "Aptitude Skills and Reasoning" },
-                { code: "MCADD-305", name: "DBMS" },
-                { code: "MCADD-306", name: "Web Page Design Lab" },
-                { code: "MCADD-307", name: "Programming Lab in DBMS" }
-            ],
-            "Fourth Semester": [
-                { code: "MCADD-401", name: "Operating Systems" },
-                { code: "MCADD-402", name: "Foundation of Computer Networks" },
-                { code: "MCADD-403", name: "System Analysis and Design" },
-                { code: "MCADD-404", name: "Accounting and Financial Management" },
-                { code: "MCADD-405", name: "Computer Oriented Optimization Techniques" },
-                { code: "MCADD-406", name: "Lab in Operating Systems" },
-                { code: "MCADD-407", name: "Lab in VB and MS Access" }
-            ],
-            "Fifth Semester": [
-                { code: "MCADD-501", name: "Object Oriented Programming in C++" },
-                { code: "MCADD-502", name: "Principles of Programming Language" },
-                { code: "MCADD-503", name: "Advanced Web Designing" },
-                { code: "MCADD-504", name: "Computer Graphics" },
-                { code: "MCADD-505", name: "Software Engineering" },
-                { code: "MCADD-506", name: "Lab in Web Designing" },
-                 { code: "MCADD-507", name: "Lab in C++" }
-            ],
-            "Sixth Semester": [
-                { code: "MCADD-601", name: "Analysis Design of Algorithm" },
-                { code: "MCADD-602", name: "Advanced Computer Networks" },
-                { code: "MCADD-603", name: "Advanced DBMS" },
-                { code: "MCADD-604", name: "Theory of Computation" },
-                { code: "MCADD-605", name: "Artificial Intelligence" },
-                { code: "MCADD-606", name: "Lab in ADA using C++" },
-                { code: "MCADD-607", name: "Minor Project - I" }
-            ],
-            "Seventh Semester": [
-                { code: "MCADD-701", name: "Cloud Computing" },
-                { code: "MCADD-702", name: "Data Sciences in Mining" },
-                { code: "MCADD-703", name: "File Structures" },
-                { code: "MCADD-704", name: "Elective - I" }, // Needs expansion if you want specific electives
-                { code: "MCADD-705", name: "Elective - II" }, // Needs expansion
-                { code: "MCADD-706", name: "Lab - I" },
-                { code: "MCADD-707", name: "Minor Project - II" }
-            ],
-            "Eighth Semester": [
-                { code: "MCADD-801", name: "Soft Computing" },
-                { code: "MCADD-802", name: "Distributed Systems" },
-                { code: "MCADD-803", name: "Network Security" },
-                { code: "MCADD-804", name: "Elective - III" }, // Needs expansion
-                { code: "MCADD-805", name: "Elective - IV" }, // Needs expansion
-                { code: "MCADD-806", name: "Lab - II" },
-                { code: "MCADD-807", name: "Minor Project - III" }
-            ],
-            "Ninth Semester": [
-                { code: "MCADD-901", name: "Internship" }
-            ],
-            "Tenth Semester": [
-                { code: "MCADD-1001", name: "Dissertation Work / Project / Case Study" }
-            ]
-        };
 
         const filesList = document.getElementById('filesList');
         const textFilterInput = document.getElementById('textFilter');
         const subjectSelect = document.getElementById('subjectSelect');
-        const semesterSelect = document.getElementById('semesterSelect'); // New semester select element
 
-        // Augment fileData with a 'subject' property and also ensure 'semester' is present
-        const processedFileData = fileData.map(file => ({
-            ...file,
-            subject: getSubject(file.name),
-            // Ensure semester is set, either from original fileData or derived
-            semester: file.semester || "Unknown Semester" // Fallback if not in fileData
-        }));
-
-        // Get unique subjects for the dropdown
+        // Get unique subjects (semesters in this case) for the dropdown
         function getUniqueSubjects() {
             const subjects = new Set();
-            processedFileData.forEach(file => {
+            fileData.forEach(file => {
                 subjects.add(file.subject);
             });
-            return Array.from(subjects).sort(); // Convert to array and sort alphabetically
-        }
-
-        // Get unique semesters for the dropdown (from syllabusData keys)
-        function getUniqueSemesters() {
-            return Object.keys(syllabusData).sort((a, b) => {
-                // Custom sort for semesters (e.g., "First Semester" before "Second Semester")
-                const semesterOrder = ["First Semester", "Second Semester", "Third Semester", "Fourth Semester",
-                                       "Fifth Semester", "Sixth Semester", "Seventh Semester", "Eighth Semester",
-                                       "Ninth Semester", "Tenth Semester"];
-                return semesterOrder.indexOf(a) - semesterOrder.indexOf(b);
+            return Array.from(subjects).sort((a, b) => {
+                const aNum = parseInt(a.match(/\d+/)[0]);
+                const bNum = parseInt(b.match(/\d+/)[0]);
+                return aNum - bNum;
             });
         }
 
         // Populate the subject dropdown
         function populateSubjectDropdown() {
             const uniqueSubjects = getUniqueSubjects();
-            subjectSelect.innerHTML = '<option value="">All Subjects</option>'; // Clear and add default
             uniqueSubjects.forEach(subject => {
                 const option = document.createElement('option');
                 option.value = subject;
@@ -829,69 +720,23 @@
             });
         }
 
-        // Populate the semester dropdown
-        function populateSemesterDropdown() {
-            const uniqueSemesters = getUniqueSemesters();
-            semesterSelect.innerHTML = '<option value="">All Semesters</option>'; // Clear and add default
-            uniqueSemesters.forEach(semester => {
-                const option = document.createElement('option');
-                option.value = semester;
-                option.textContent = semester;
-                semesterSelect.appendChild(option);
-            });
-        }
-
         function renderFiles() {
             filesList.innerHTML = ''; // Clear current list
 
             const currentTextFilter = textFilterInput.value.toLowerCase().trim();
             const currentSubjectFilter = subjectSelect.value.toLowerCase();
-            const currentSemesterFilter = semesterSelect.value.toLowerCase(); // Get current semester filter
 
-            // Filter files based on all three criteria
-            const filteredFiles = processedFileData.filter(file => {
-                const matchesText = file.name.toLowerCase().includes(currentTextFilter) ||
-                                    file.subject.toLowerCase().includes(currentTextFilter);
+            const filteredFiles = fileData.filter(file => {
+                const matchesSubjectText = file.subject.toLowerCase().includes(currentTextFilter);
+                const matchesFileName = file.name.toLowerCase().includes(currentTextFilter);
+                const matchesIndividualSubject = file.subjects_list.some(sub => sub.toLowerCase().includes(currentTextFilter));
 
-                const matchesSubject = currentSubjectFilter === "" || file.subject.toLowerCase() === currentSubjectFilter;
+                const matchesText = matchesSubjectText || matchesFileName || matchesIndividualSubject;
 
-                const matchesSemester = currentSemesterFilter === "" || file.semester.toLowerCase() === currentSemesterFilter;
+                const matchesSubjectDropdown = currentSubjectFilter === "" || file.subject.toLowerCase() === currentSubjectFilter;
 
-                return matchesText && matchesSubject && matchesSemester;
+                return matchesText && matchesSubjectDropdown;
             });
-
-            // If a semester is selected, also list the subjects from syllabusData for that semester
-            if (currentSemesterFilter !== "" && filteredFiles.length === 0) {
-                const selectedSemesterSubjects = syllabusData[semesterSelect.value];
-                if (selectedSemesterSubjects && selectedSemesterSubjects.length > 0) {
-                    const semesterHeading = document.createElement('li');
-                    semesterHeading.className = 'no-results'; // Using existing style for visibility
-                    semesterHeading.style.fontWeight = 'bold';
-                    semesterHeading.style.backgroundColor = 'var(--secondary)';
-                    semesterHeading.style.color = 'white';
-                    semesterHeading.textContent = `Subjects for ${semesterSelect.value}:`;
-                    filesList.appendChild(semesterHeading);
-
-                    selectedSemesterSubjects.forEach(subject => {
-                        const listItem = document.createElement('li');
-                        const subjectNameSpan = document.createElement('span');
-                        subjectNameSpan.textContent = `${subject.code}: ${subject.name}`;
-                        subjectNameSpan.style.flexGrow = '1'; // Allow it to take space
-                        subjectNameSpan.style.color = 'var(--dark)'; // Ensure visibility
-
-                        listItem.appendChild(subjectNameSpan);
-                        filesList.appendChild(listItem);
-                    });
-                     // Do not return here, allow actual files to be shown if they exist.
-                } else {
-                    const noResultsItem = document.createElement('li');
-                    noResultsItem.className = 'no-results';
-                    noResultsItem.textContent = 'No files or defined subjects found for this semester matching your criteria.';
-                    filesList.appendChild(noResultsItem);
-                }
-                return; // Return here if only displaying syllabus subjects
-            }
-
 
             if (filteredFiles.length === 0) {
                 const noResultsItem = document.createElement('li');
@@ -901,34 +746,21 @@
                 return;
             }
 
-
             filteredFiles.forEach(file => {
                 const listItem = document.createElement('li');
 
-                // The filename will now be a direct link again, without a button next to it
                 const fileLink = document.createElement('a');
                 fileLink.href = file.url;
                 fileLink.textContent = file.name;
                 fileLink.target = "_blank"; // Open link in a new tab
-                // Apply original filename styles
-                fileLink.style.textDecoration = 'none';
-                fileLink.style.color = 'var(--dark)';
-                fileLink.style.fontWeight = 'bold';
-                fileLink.style.fontSize = '1.1em';
-                fileLink.style.wordBreak = 'break-word';
-                fileLink.style.flexGrow = '1';
-                fileLink.style.marginRight = '15px'; // Space between filename and subject info
 
-
-                // Container for subject tag and its download button
                 const subjectTagContainer = document.createElement('div');
                 subjectTagContainer.className = 'subject-tag-container';
 
                 const subjectTag = document.createElement('span');
                 subjectTag.className = 'subject-tag';
-                subjectTag.textContent = file.subject;
+                subjectTag.textContent = file.subject; // Display the Semester
 
-                // This is the ONLY download button per row now
                 const downloadButton = document.createElement('button');
                 downloadButton.className = 'download-btn';
                 downloadButton.textContent = 'Download';
@@ -937,25 +769,22 @@
                 };
 
                 subjectTagContainer.appendChild(subjectTag);
-                subjectTagContainer.appendChild(downloadButton); // Append the button next to the tag
+                subjectTagContainer.appendChild(downloadButton);
 
-
-                listItem.appendChild(fileLink); // Append the filename link
-                listItem.appendChild(subjectTagContainer); // Append the subject tag and its button
+                listItem.appendChild(fileLink);
+                listItem.appendChild(subjectTagContainer);
 
                 filesList.appendChild(listItem);
             });
         }
 
-        // Initial setup: populate all dropdowns and render all files
+        // Initial setup: populate dropdown and render all files
         populateSubjectDropdown();
-        populateSemesterDropdown(); // Call this for the new semester dropdown
         renderFiles();
 
-        // Add event listeners for all filter inputs
+        // Add event listeners for both filter inputs
         textFilterInput.addEventListener('input', renderFiles);
         subjectSelect.addEventListener('change', renderFiles);
-        semesterSelect.addEventListener('change', renderFiles); // New event listener for semester filter
     </script>
 </body>
 </html>
