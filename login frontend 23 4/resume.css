@@ -647,3 +647,75 @@ nav:first-of-type .nav-links li:nth-child(4) { animation-delay: 0.4s; } /* (If y
 nav:first-of-type .nav-links li:nth-child(5) { animation-delay: 0.5s; } /* Sign Up */
 nav:first-of-type .nav-links li:nth-child(6) { animation-delay: 0.6s; } /* Login */
 /* Adjust :nth-child rules as per your actual HTML structure */
+
+
+
+
+/* Add these rules to your style.css file */
+
+/* --- Email and Phone Number Input Styles --- */
+
+/* Base styling for email and phone inputs */
+input[type="email"],
+input[type="tel"] {
+    /* Inherits general input styles from .resume-builder input,
+       but you can override or enhance here. */
+    padding: 0.7rem 1rem; /* Slightly adjust padding if desired */
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    font-size: 1rem; /* Ensure consistent font size */
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+    width: 100%; /* Ensure they take full width in their containers */
+}
+
+/* Focus state for email and phone inputs */
+input[type="email"]:focus,
+input[type="tel"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25); /* Primary focus shadow */
+    background-color: #f0faff; /* Light blue background on focus */
+}
+
+/* Placeholder styling (optional, but good for consistency) */
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder {
+    color: var(--gray);
+    opacity: 0.7; /* Make placeholders slightly faded */
+}
+
+/* Styling for specific scenarios, e.g., if you have icons next to them */
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between icon and input */
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-with-icon:focus-within { /* When any child element inside gets focus */
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
+    background-color: #f0faff;
+}
+
+.input-with-icon i {
+    color: var(--gray);
+    font-size: 1.1rem;
+}
+
+.input-with-icon input {
+    border: none; /* Remove individual border for input inside this container */
+    padding: 0; /* Remove individual padding */
+    flex-grow: 1; /* Allow input to fill available space */
+    background-color: transparent; /* Transparent background to show parent background */
+}
+
+.input-with-icon input:focus {
+    outline: none; /* Remove focus outline, handled by parent focus-within */
+    box-shadow: none; /* Remove individual box-shadow */
+    background-color: transparent; /* Keep transparent */
+}
