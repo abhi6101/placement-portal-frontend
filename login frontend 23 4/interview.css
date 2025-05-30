@@ -180,7 +180,7 @@ nav:first-of-type {
 .logo {
     font-size: 2rem; /* Slightly larger logo */
     font-weight: 700;
-    text-transform: uppercase; /* Make logo text uppercase */
+    text-transform: lowercase; /* Make logo text uppercase */
     letter-spacing: 1px;
 }
 
