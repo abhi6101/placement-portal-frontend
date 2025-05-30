@@ -30,7 +30,6 @@ nav:first-of-type {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative; /* Added for mobile menu positioning */
 }
 
 .logo {
@@ -43,15 +42,14 @@ nav:first-of-type {
     color: var(--primary);
 }
 
-/* Updated: Navigation links container for desktop & mobile toggle */
-nav:first-of-type .nav-links { /* Added .nav-links class to the ul in HTML */
+nav:first-of-type ul {
     display: flex;
     list-style: none;
     gap: 1.5rem;
     align-items: center;
 }
 
-nav:first-of-type .nav-links a { /* Targeted the new class */
+nav:first-of-type a {
     color: white;
     text-decoration: none;
     font-weight: 500;
@@ -61,7 +59,7 @@ nav:first-of-type .nav-links a { /* Targeted the new class */
     transition: color 0.3s ease;
 }
 
-nav:first-of-type .nav-links a:hover { /* Targeted the new class */
+nav:first-of-type a:hover {
     color: var(--primary);
 }
 
@@ -99,7 +97,7 @@ nav:first-of-type .nav-links a:hover { /* Targeted the new class */
     border-color: white; /* Keep border color white */
 }
 
-/* Main Navigation Bar (Filter Bar) */
+/* Main Navigation Bar */
 nav:last-of-type {
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -113,7 +111,7 @@ nav:last-of-type ul {
     display: flex;
     list-style: none;
     gap: 1.5rem; /* Increased gap slightly for better spacing */
-    overflow-x: auto; /* Enables horizontal scrolling for filters */
+    overflow-x: auto;
     padding-bottom: 0.5rem;
     justify-content: center; /* Center items in main nav */
 }
@@ -145,8 +143,7 @@ nav:last-of-type button:hover {
     background-color: rgba(0, 212, 255, 0.1);
 }
 
-nav:last-of-type a.active,
-.filter-btn.active { /* Added .filter-btn.active for clarity */
+nav:last-of-type a.active {
     background-color: rgba(0, 212, 255, 0.2);
     color: var(--primary);
     font-weight: 600; /* Make active link bolder */
@@ -631,73 +628,18 @@ footer p {
         max-width: 700px;
         height: 400px;
     }
-
-    /* HAMBURGER ICON */
-    .hamburger {
-        display: block; /* Show hamburger icon on smaller screens */
-    }
-
-    /* TOP NAVIGATION LINKS (MOBILE MENU) */
-    nav:first-of-type .nav-links {
-        display: none; /* Hidden by default */
-        flex-direction: column; /* Stack vertically */
-        background-color: var(--dark);
-        position: absolute;
-        top: 100%; /* Position below the main nav bar */
-        left: 0;
-        width: 100%;
-        padding: 1rem 2rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        transform: translateY(-10px); /* Start slightly up for slide effect */
-        opacity: 0;
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    }
-
-    /* Show the mobile menu when 'active' class is present */
-    nav:first-of-type .nav-links.active {
-        display: flex; /* Show the menu */
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    /* Adjust individual list item spacing in mobile menu */
-    nav:first-of-type .nav-links li {
-        margin-bottom: 0.8rem;
-        text-align: center;
-    }
-    nav:first-of-type .nav-links li:last-child {
-        margin-bottom: 0;
-    }
-
-    /* Adjust button styles for mobile menu */
-    nav:first-of-type .nav-links .btn,
-    nav:first-of-type .nav-links .btn-outline {
-        width: 100%; /* Full width buttons */
-        text-align: center;
-        padding: 0.8rem 1.5rem;
-        margin-top: 0.5rem;
-    }
-    nav:first-of-type .nav-links .btn-outline {
-        border-color: var(--primary);
-        color: var(--primary);
-    }
-    nav:first-of-type .nav-links .btn-outline:hover {
-        color: var(--dark);
-        background-color: var(--primary);
-    }
 }
 
 @media (max-width: 768px) {
-    /* Keep main nav as row (logo + hamburger) */
     nav:first-of-type {
-        flex-direction: row;
-        gap: 0;
+        flex-direction: column;
+        gap: 1rem;
         padding: 1rem;
-        align-items: center;
     }
-    /* Ensure other styles for nav:first-of-type ul are handled by .nav-links */
-    /* Remove `flex-wrap: wrap; justify-content: center;` from here if it's explicitly on nav:first-of-type ul */
-
+    nav:first-of-type ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
     .hero {
         padding: 4rem 1.5rem;
         min-height: 450px;
@@ -748,11 +690,9 @@ footer p {
     .logo {
         font-size: 1.5rem;
     }
-    /* nav:first-of-type ul is now .nav-links, so these rules are mostly handled by the 992px media query */
-    nav:first-of-type .nav-links {
-        gap: 0.8rem; /* Can refine mobile menu spacing here */
+    nav:first-of-type ul {
+        gap: 0.8rem;
     }
-
     nav:last-of-type ul {
         justify-content: flex-start; /* Allow scrolling for small screens */
         padding-left: 1rem;
@@ -815,8 +755,7 @@ footer p {
         transform: scale(1);
     }
 }
-
-/* Animations for Navbar Links (Top Nav) */
+/* Animations for Navbar Links */
 @keyframes slideInNav {
     from {
         transform: translateX(-100%);
@@ -828,7 +767,7 @@ footer p {
     }
 }
 
-nav:first-of-type .nav-links li { /* Target the new class for animation */
+nav:first-of-type li {
     /* Ensure list items are positioned relative for the animation */
     position: relative;
     /* Apply the animation to each list item (e.g., Home, Jobs) */
@@ -838,11 +777,29 @@ nav:first-of-type .nav-links li { /* Target the new class for animation */
 }
 
 /* Staggering the animation for each navigation item */
-/* Ensure these match the number and order of your <li> elements in the HTML */
-nav:first-of-type .nav-links li:nth-child(1) { animation-delay: 0.1s; }
-nav:first-of-type .nav-links li:nth-child(2) { animation-delay: 0.2s; }
-nav:first-of-type .nav-links li:nth-child(3) { animation-delay: 0.3s; }
-nav:first-of-type .nav-links li:nth-child(4) { animation-delay: 0.4s; }
-nav:first-of-type .nav-links li:nth-child(5) { animation-delay: 0.5s; }
-nav:first-of-type .nav-links li:nth-child(6) { animation-delay: 0.6s; }
+nav:first-of-type li:nth-child(1) {
+    animation-delay: 0.1s;
+}
+nav:first-of-type li:nth-child(2) {
+    animation-delay: 0.2s;
+}
+nav:first-of-type li:nth-child(3) {
+    animation-delay: 0.3s;
+}
 /* Add more :nth-child rules if you have more navigation items */
+
+/* In your existing CSS for nav:last-of-type ul */
+nav:last-of-type ul {
+    /* ... existing rules ... */
+    overflow-x: auto; /* This enables horizontal scrolling if content overflows */
+    padding-bottom: 0.5rem; /* Provides space for potential scrollbar */
+    justify-content: center; /* Centers items when they fit */
+}
+
+@media (max-width: 480px) {
+    nav:last-of-type ul {
+        justify-content: flex-start; /* Aligns items to the left, enabling scroll */
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
