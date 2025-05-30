@@ -755,3 +755,35 @@ footer p {
         transform: scale(1);
     }
 }
+/* Animations for Navbar Links */
+@keyframes slideInNav {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+nav:first-of-type li {
+    /* Ensure list items are positioned relative for the animation */
+    position: relative;
+    /* Apply the animation to each list item (e.g., Home, Jobs) */
+    animation: slideInNav 0.7s ease-out forwards;
+    /* This will stagger the animation for each item */
+    opacity: 0; /* Start hidden */
+}
+
+/* Staggering the animation for each navigation item */
+nav:first-of-type li:nth-child(1) {
+    animation-delay: 0.1s;
+}
+nav:first-of-type li:nth-child(2) {
+    animation-delay: 0.2s;
+}
+nav:first-of-type li:nth-child(3) {
+    animation-delay: 0.3s;
+}
+/* Add more :nth-child rules if you have more navigation items */
