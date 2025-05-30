@@ -5,38 +5,76 @@
     --dark-bg: #1a1a2e; /* Very dark background */
     --main-bg: #22223b; /* Main quiz section background */
     --card-bg: #2c2c54; /* Card-like elements background */
-    --accent-blue: #00d4ff; /* Primary accent blue */
-    --accent-green: #2ecc71; /* Success green */
-    --accent-red: #e74c3c; /* Error red */
-    --accent-yellow: #f1c40f; /* Warning/Highlight yellow */
-    --text-light: #ecf0f1; /* Light text color */
-    --text-muted: #bdc3c7; /* Muted text color */
-    --border-color: #3f3f6d; /* Subtle border color */
-    --shadow-dark: rgba(0, 0, 0, 0.4); /* Dark shadow */
-    --shadow-light: rgba(0, 0, 0, 0.2); /* Lighter shadow */
+    --accent-blue: #00d4ff; /* Primary accent blue (vibrant) */
+    --accent-blue-dark: #0077b6; /* Darker shade of accent blue */
+    --accent-green: #2ecc71; /* Success green (vibrant) */
+    --accent-green-dark: #27ae60; /* Darker shade of accent green */
+    --accent-red: #e74c3c; /* Error red (vibrant) */
+    --accent-red-dark: #c0392b; /* Darker shade of accent red */
+    --accent-yellow: #f1c40f; /* Warning/Highlight yellow (vibrant) */
+    --text-light: #ecf0f1; /* Light text color for readability */
+    --text-muted: #bdc3c7; /* Muted text color for secondary info */
+    --border-color: #3f3f6d; /* Subtle border color for separation */
+    --shadow-dark: rgba(0, 0, 0, 0.4); /* Stronger shadow for depth */
+    --shadow-light: rgba(0, 0, 0, 0.2); /* Lighter shadow for subtle lift */
 
+    /* Animation and Transition Variables */
     --transition-speed: 0.3s;
-    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1); /* Smooth easing */
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1); /* Smooth easing function */
     --fade-in-duration: 0.8s;
 }
 
-/* --- General Body and Main Container Styling --- */
+/* --- Global Styles & Accessibility Defaults --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* Universal box-sizing */
+}
+
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
 body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Modern font */
-    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--main-bg) 100%); /* Dark gradient background */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Modern, readable font stack */
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--main-bg) 100%); /* Dynamic dark gradient */
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100vh; /* Full viewport height */
     margin: 0;
-    overflow-x: hidden;
-    color: var(--text-light); /* Light text for body */
-    animation: backgroundShift 15s infinite alternate ease-in-out; /* Slow, continuous background animation */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    color: var(--text-light); /* Default light text color */
+    animation: backgroundShift 15s infinite alternate ease-in-out; /* Hypnotic background animation */
+    -webkit-font-smoothing: antialiased; /* Smoother font rendering */
+    -moz-osx-font-smoothing: grayscale;
 }
 
+/* Animation for the background gradient */
 @keyframes backgroundShift {
     0% { background-position: 0% 50%; }
     100% { background-position: 100% 50%; }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion) {
+    body,
+    nav,
+    .quiz-section,
+    #subject-selection,
+    #quiz,
+    #quiz-results,
+    .subject-btn,
+    .start-button,
+    .option label,
+    .btn,
+    .result-card,
+    #progress-bar,
+    #resultProgressBar,
+    .result-header i {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
 /* --- Navigation Bar Styling --- */
@@ -45,13 +83,13 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(26, 26, 46, 0.8); /* Slightly transparent dark nav */
-    backdrop-filter: blur(10px); /* Frosted glass effect */
-    -webkit-backdrop-filter: blur(10px);
-    padding: 15px 30px; /* Increased padding */
-    box-shadow: 0 4px 15px var(--shadow-dark); /* Stronger shadow for depth */
+    background-color: rgba(26, 26, 46, 0.9); /* Slightly more opaque for better legibility */
+    backdrop-filter: blur(12px); /* Enhanced frosted glass effect */
+    -webkit-backdrop-filter: blur(12px);
+    padding: 15px 30px;
+    box-shadow: 0 6px 20px var(--shadow-dark); /* Deeper shadow for elevation */
     z-index: 1000;
-    border-bottom: 1px solid var(--border-color); /* Subtle border */
+    border-bottom: 1px solid var(--border-color);
     opacity: 0;
     transform: translateY(-20px);
     animation: fadeInSlideDown var(--fade-in-duration) forwards var(--ease-in-out);
@@ -63,61 +101,69 @@ nav ul {
     padding: 0;
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Align to the right for navigation */
-    gap: 25px; /* Increased gap */
+    justify-content: flex-end;
+    gap: 25px;
 }
 
 nav ul li a {
-    color: var(--text-light); /* Light text for nav links */
+    color: var(--text-light);
     text-decoration: none;
-    font-size: 1.05em; /* Slightly larger font */
+    font-size: 1.05em;
     font-weight: 500;
-    padding: 10px 18px; /* Increased padding */
-    border-radius: 8px; /* More rounded corners */
-    transition: background-color var(--transition-speed) var(--ease-in-out), color var(--transition-speed) var(--ease-in-out), transform 0.2s ease;
+    padding: 10px 18px;
+    border-radius: 8px;
+    transition: background-color var(--transition-speed) var(--ease-in-out),
+                color var(--transition-speed) var(--ease-in-out),
+                transform 0.2s ease,
+                box-shadow var(--transition-speed) var(--ease-in-out); /* Added box-shadow transition */
     display: flex;
     align-items: center;
-    gap: 10px; /* Space between icon and text */
+    gap: 10px;
+    outline: none; /* Remove default outline */
 }
 
 nav ul li a i {
     font-size: 1.1em;
-    color: var(--text-muted); /* Muted icon color */
+    color: var(--text-muted);
     transition: color var(--transition-speed) var(--ease-in-out);
 }
 
-nav ul li a:hover {
-    background-color: var(--card-bg); /* Lighter on hover */
-    color: var(--accent-blue); /* Accent color on hover */
+nav ul li a:hover,
+nav ul li a:focus { /* Added focus state for accessibility */
+    background-color: var(--card-bg);
+    color: var(--accent-blue);
     transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 4px 10px var(--shadow-dark); /* Subtle shadow on hover/focus */
 }
 
-nav ul li a:hover i {
+nav ul li a:hover i,
+nav ul li a:focus i {
     color: var(--accent-blue);
 }
 
 /* --- Main Quiz Section Container --- */
 .quiz-section {
-    background-color: var(--main-bg); /* Main container dark background */
-    border-radius: 15px; /* More rounded */
-    box-shadow: 0 15px 30px var(--shadow-dark); /* Enhanced shadow for depth */
+    background-color: var(--main-bg);
+    border-radius: 18px; /* Slightly more rounded */
+    box-shadow: 0 20px 40px var(--shadow-dark); /* Even stronger, diffused shadow */
     padding: 40px;
     text-align: center;
-    max-width: 750px; /* Slightly wider */
+    max-width: 750px;
     width: 90%;
-    min-height: 600px; /* Slightly taller */
+    min-height: 600px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    top: 50px; /* Keep consistent with nav */
+    top: 50px;
     margin-bottom: 50px;
     transition: all 0.5s var(--ease-in-out);
     box-sizing: border-box;
-    border: 1px solid var(--border-color); /* Subtle border */
+    border: 1px solid var(--border-color);
     transform: scale(0.95);
     opacity: 0;
     animation: cardPopIn var(--fade-in-duration) var(--ease-in-out) forwards calc(var(--fade-in-duration) * 0.5);
+    overflow: hidden; /* Ensure content doesn't spill on animations */
 }
 
 @keyframes cardPopIn {
@@ -127,7 +173,7 @@ nav ul li a:hover i {
     }
 }
 
-/* Ensure child sections fill the height when visible */
+/* Ensuring child sections fill the height when visible */
 #subject-selection,
 #quiz,
 #quiz-results {
@@ -141,151 +187,174 @@ nav ul li a:hover i {
 
 /* --- Quiz Header (for subject selection and actual quiz) --- */
 .quiz-header {
-    margin-bottom: 35px; /* Increased margin */
+    margin-bottom: 35px;
 }
 
 #quiz-title {
-    color: var(--text-light); /* Light title text */
-    font-size: 2.8em; /* Larger title */
+    color: var(--text-light);
+    font-size: 2.8em;
     margin-bottom: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to right, var(--accent-blue), var(--accent-green)); /* Gradient title */
+    background: linear-gradient(to right, var(--accent-blue), var(--accent-green));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 700;
     letter-spacing: -1px;
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Text shadow for gradient text */
 }
 
 #quiz-title i {
     margin-right: 15px;
-    color: var(--accent-yellow); /* Gold accent for icon */
-    font-size: 1.1em; /* Slightly larger icon */
-    -webkit-text-fill-color: initial; /* Ensure icon is not transparent */
+    color: var(--accent-yellow);
+    font-size: 1.1em;
+    -webkit-text-fill-color: initial;
 }
 
 #quiz-subtitle {
-    color: var(--text-muted); /* Lighter grey for subtitle */
-    font-size: 1.2em; /* Slightly larger */
+    color: var(--text-muted);
+    font-size: 1.2em;
 }
 
 /* --- Subject Selection Section --- */
 #subject-selection h2 {
     color: var(--text-light);
-    margin-bottom: 30px; /* Increased margin */
-    font-size: 2em; /* Larger heading */
+    margin-bottom: 30px;
+    font-size: 2em;
     font-weight: 600;
 }
 
 #subject-menu {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Slightly wider min width */
-    gap: 25px; /* Increased gap */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
     margin-bottom: auto;
     flex-grow: 1;
-    align-content: center; /* Center items vertically within grid */
+    align-content: center;
     justify-content: center;
 }
 
 .subject-btn {
-    background-color: var(--card-bg); /* Darker button background */
+    background-color: var(--card-bg);
     border: 2px solid var(--border-color);
-    border-radius: 10px; /* More rounded */
-    padding: 30px 20px; /* Increased padding */
+    border-radius: 12px; /* Slightly more rounded */
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: all var(--transition-speed) var(--ease-in-out);
-    font-size: 1.15em; /* Slightly larger font */
-    color: var(--text-light); /* Light text for buttons */
+    font-size: 1.15em;
+    color: var(--text-light);
     font-weight: 600;
-    gap: 12px; /* Increased gap */
-    min-height: 140px; /* Taller buttons */
-    box-shadow: 0 6px 12px var(--shadow-light); /* Enhanced shadow */
+    gap: 12px;
+    min-height: 140px;
+    box-shadow: 0 6px 12px var(--shadow-light);
+    text-decoration: none; /* Ensure no underline if it's an anchor */
+    outline: none; /* Remove default outline */
 }
 
 .subject-btn i {
-    font-size: 2.8em; /* Larger icons */
-    color: var(--accent-blue); /* Blue accent for icons */
+    font-size: 2.8em;
+    color: var(--accent-blue);
     transition: transform var(--transition-speed) var(--ease-in-out), color var(--transition-speed) var(--ease-in-out);
 }
 
 .subject-btn small {
-    font-size: 0.95em; /* Slightly larger */
-    color: var(--text-muted); /* Muted text for small descriptions */
+    font-size: 0.95em;
+    color: var(--text-muted);
 }
 
-.subject-btn:hover {
+.subject-btn:hover,
+.subject-btn:focus { /* Added focus state */
     background-color: var(--border-color);
     border-color: var(--accent-blue);
-    transform: translateY(-8px); /* More pronounced lift */
+    transform: translateY(-8px);
     box-shadow: 0 10px 20px var(--shadow-dark);
 }
 
-.subject-btn:hover i {
-    transform: scale(1.15); /* More pronounced icon scale */
+.subject-btn:hover i,
+.subject-btn:focus i {
+    transform: scale(1.15);
     color: var(--accent-blue);
 }
 
 .subject-btn.selected {
-    background: linear-gradient(45deg, var(--accent-blue), #0077b6); /* Gradient for selected */
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-blue-dark));
     color: #fff;
     border-color: var(--accent-blue);
-    box-shadow: 0 8px 15px rgba(0, 212, 255, 0.6); /* Vibrant shadow for selected */
-    transform: scale(1.03); /* Slightly larger scale */
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.6); /* More vibrant shadow for selected */
+    transform: scale(1.03);
+    position: relative; /* For the checkmark */
 }
 
 .subject-btn.selected i {
     color: #fff;
 }
 
+/* Optional: Add a checkmark for selected subject */
+.subject-btn.selected::after {
+    content: '\f00c'; /* FontAwesome checkmark icon */
+    font-family: 'Font Awesome 5 Free'; /* Assuming FontAwesome is used */
+    font-weight: 900;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    font-size: 1.2em;
+    animation: fadeIn 0.4s ease-out;
+}
+
+
 /* --- Start Container --- */
 .start-container {
-    padding: 35px 0; /* More padding */
+    padding: 35px 0;
     text-align: center;
-    margin-top: auto; /* Push to bottom */
+    margin-top: auto;
 }
 
 .start-button {
-    background: linear-gradient(45deg, var(--accent-green), #27ae60); /* Gradient start button */
+    background: linear-gradient(45deg, var(--accent-green), var(--accent-green-dark));
     color: #fff;
     border: none;
-    padding: 18px 35px; /* Larger padding */
-    font-size: 1.5em; /* Larger font */
-    border-radius: 10px; /* More rounded */
+    padding: 18px 35px;
+    font-size: 1.5em;
+    border-radius: 10px;
     cursor: pointer;
     box-shadow: 0 6px 15px rgba(46, 204, 113, 0.6);
     transition: all var(--transition-speed) var(--ease-in-out);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 25px auto; /* Increased margin */
+    margin: 0 auto 25px auto;
     gap: 12px;
+    outline: none; /* Remove default outline */
 }
 
 .start-button i {
     font-size: 1.3em;
 }
 
-.start-button:hover:not(:disabled) {
-    background: linear-gradient(45deg, #27ae60, var(--accent-green)); /* Subtle change on hover */
-    transform: translateY(-5px) scale(1.03); /* More pronounced lift */
+.start-button:hover:not(:disabled),
+.start-button:focus:not(:disabled) { /* Added focus state */
+    background: linear-gradient(45deg, var(--accent-green-dark), var(--accent-green));
+    transform: translateY(-5px) scale(1.03);
     box-shadow: 0 8px 20px rgba(46, 204, 113, 0.8);
 }
 
 .start-button:disabled {
-    background: #5d7a9b; /* Muted disabled color */
+    background: #5d7a9b;
     box-shadow: none;
     cursor: not-allowed;
     opacity: 0.7;
     transform: none;
+    border: none; /* Ensure no border appears */
 }
 
 .quiz-info p {
-    color: var(--text-muted); /* Muted text for info */
+    color: var(--text-muted);
     margin: 10px 0;
     font-size: 1.05em;
     display: flex;
@@ -295,25 +364,26 @@ nav ul li a:hover i {
 }
 
 .quiz-info i {
-    color: var(--accent-yellow); /* Yellow accent */
+    color: var(--accent-yellow);
 }
 
 /* --- Quiz Section (Questions Display) --- */
 #progress-container {
     width: 100%;
-    background-color: var(--border-color); /* Darker background for progress bar */
-    border-radius: 8px; /* More rounded */
-    height: 12px; /* Thicker progress bar */
-    margin-bottom: 25px; /* Increased margin */
+    background-color: var(--border-color);
+    border-radius: 8px;
+    height: 12px;
+    margin-bottom: 25px;
     overflow: hidden;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
     position: relative;
+    z-index: 1; /* Ensure text is above bar */
 }
 
 #progress-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, var(--accent-blue), #00a4d2); /* Gradient progress bar */
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-blue-dark));
     border-radius: 8px;
     transition: width 0.6s var(--ease-in-out);
 }
@@ -326,24 +396,25 @@ nav ul li a:hover i {
     color: var(--text-light);
     font-weight: bold;
     font-size: 0.9em;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5); /* Subtle text shadow */
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .quiz-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px; /* Increased margin */
-    margin-bottom: 30px; /* Increased margin */
-    padding-bottom: 15px; /* Add some padding below meta */
-    border-bottom: 1px solid var(--border-color); /* Separator line */
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 #scoreDisplay, #timer {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 1.2em; /* Larger font */
+    font-size: 1.2em;
     font-weight: 600;
     color: var(--text-light);
 }
@@ -360,23 +431,24 @@ nav ul li a:hover i {
 
 .question-container {
     position: relative;
-    background-color: var(--card-bg); /* Darker background for question */
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px; /* More rounded */
-    padding: 30px; /* More padding */
-    margin-bottom: 30px; /* Increased margin */
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
     text-align: left;
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
-    min-height: 120px; /* Taller */
+    min-height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
+    overflow: hidden; /* Hide any overflow, e.g., during animations */
 }
 
 #question {
-    color: var(--text-light); /* Light question text */
-    font-size: 1.6em; /* Larger font */
+    color: var(--text-light);
+    font-size: 1.6em;
     margin: 0;
     line-height: 1.5;
     text-align: center;
@@ -386,12 +458,12 @@ nav ul li a:hover i {
 
 .question-number {
     position: absolute;
-    top: 15px; /* More padding */
-    right: 20px; /* More padding */
-    background-color: var(--accent-red); /* Red for question number */
+    top: 15px;
+    right: 20px;
+    background-color: var(--accent-red);
     color: #fff;
-    font-size: 0.9em; /* Slightly larger */
-    padding: 6px 12px; /* More padding */
+    font-size: 0.9em;
+    padding: 6px 12px;
     border-radius: 6px;
     font-weight: bold;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
@@ -400,8 +472,8 @@ nav ul li a:hover i {
 .options-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 18px; /* Increased gap */
-    margin-bottom: 35px; /* Increased margin */
+    gap: 18px;
+    margin-bottom: 35px;
     flex-grow: 1;
 }
 
@@ -416,63 +488,70 @@ nav ul li a:hover i {
     cursor: pointer;
     height: 100%;
     width: 100%;
-    z-index: 1;
+    z-index: 1; /* Make it clickable */
+    outline: none; /* Remove default outline */
 }
 
 .option label {
-    background-color: var(--card-bg); /* Darker option background */
+    background-color: var(--card-bg);
     border: 2px solid var(--border-color);
-    border-radius: 10px; /* More rounded */
-    padding: 18px 22px; /* More padding */
+    border-radius: 10px;
+    padding: 18px 22px;
     display: flex;
     align-items: center;
     text-align: left;
-    font-size: 1.15em; /* Larger font */
-    color: var(--text-light); /* Light text for options */
+    font-size: 1.15em;
+    color: var(--text-light);
     cursor: pointer;
     transition: all var(--transition-speed) var(--ease-in-out);
-    box-shadow: 0 4px 10px var(--shadow-light); /* Enhanced shadow */
-    gap: 18px; /* Increased gap */
+    box-shadow: 0 4px 10px var(--shadow-light);
+    gap: 18px;
+    user-select: none; /* Prevent text selection */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .option label .option-letter {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 35px; /* Larger letter circle */
-    height: 35px; /* Larger letter circle */
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    background-color: var(--text-muted); /* Muted background for letter */
-    color: var(--dark-bg); /* Darker text in letter circle */
+    background-color: var(--text-muted);
+    color: var(--dark-bg);
     font-weight: bold;
     flex-shrink: 0;
     transition: background-color var(--transition-speed) var(--ease-in-out), color var(--transition-speed) var(--ease-in-out);
 }
 
-.option input[type="radio"]:hover + label:not(.selected) { /* Prevent hover on already selected for visual consistency */
+/* Hover and Focus for Options */
+.option input[type="radio"]:hover + label:not(.selected),
+.option input[type="radio"]:focus + label:not(.selected) {
     background-color: var(--border-color);
     border-color: var(--accent-blue);
-    transform: translateY(-3px); /* More pronounced lift */
+    transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 .option input[type="radio"]:checked + label {
-    background: linear-gradient(45deg, var(--accent-blue), #0077b6); /* Gradient for selected */
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-blue-dark));
     border-color: var(--accent-blue);
     color: #fff;
     box-shadow: 0 5px 12px rgba(0, 212, 255, 0.5);
 }
 
 .option input[type="radio"]:checked + label .option-letter {
-    background-color: #fff; /* White letter for selected */
-    color: var(--accent-blue); /* Blue text in letter circle */
+    background-color: #fff;
+    color: var(--accent-blue);
 }
 
 /* Correct/Incorrect Answer Visual Feedback */
 .option input[type="radio"].correct + label,
-.option label.correct { /* Added label.correct for review */
-    background-color: var(--accent-green); /* Green for correct */
-    border-color: #27ae60;
+.option label.correct {
+    background-color: var(--accent-green);
+    border-color: var(--accent-green-dark);
     color: #fff;
     animation: pulseGreen 0.6s ease-out forwards;
 }
@@ -484,9 +563,9 @@ nav ul li a:hover i {
 }
 
 .option input[type="radio"].wrong + label,
-.option label.wrong { /* Added label.wrong for review */
-    background-color: var(--accent-red); /* Red for wrong */
-    border-color: #c0392b;
+.option label.wrong {
+    background-color: var(--accent-red);
+    border-color: var(--accent-red-dark);
     color: #fff;
     animation: shake 0.6s ease-out forwards;
 }
@@ -497,19 +576,18 @@ nav ul li a:hover i {
     color: var(--accent-red);
 }
 
-
 .button-group {
     display: flex;
     justify-content: space-between;
     margin-top: auto;
-    padding-top: 25px; /* More padding */
-    border-top: 1px solid var(--border-color); /* Darker separator */
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
 }
 
 .btn {
-    padding: 15px 30px; /* Larger padding */
-    font-size: 1.15em; /* Slightly larger font */
-    border-radius: 10px; /* More rounded */
+    padding: 15px 30px;
+    font-size: 1.15em;
+    border-radius: 10px;
     cursor: pointer;
     transition: all var(--transition-speed) var(--ease-in-out);
     display: flex;
@@ -517,15 +595,19 @@ nav ul li a:hover i {
     gap: 12px;
     box-shadow: 0 4px 10px var(--shadow-light);
     font-weight: 600;
+    text-decoration: none; /* Ensure no underline if it's an anchor */
+    outline: none; /* Remove default outline */
+    justify-content: center; /* Center content in buttons */
 }
 
 .btn-outline {
     background-color: transparent;
-    color: var(--accent-blue); /* Blue outline for contrast */
+    color: var(--accent-blue);
     border: 2px solid var(--accent-blue);
 }
 
-.btn-outline:hover:not(:disabled) {
+.btn-outline:hover:not(:disabled),
+.btn-outline:focus:not(:disabled) { /* Added focus state */
     background-color: var(--accent-blue);
     color: #fff;
     transform: translateY(-3px);
@@ -539,23 +621,25 @@ nav ul li a:hover i {
     color: var(--text-muted);
     box-shadow: none;
     transform: none;
+    background-color: transparent; /* Keep background transparent */
 }
 
-.btn {
-    background: linear-gradient(45deg, var(--accent-blue), #0077b6); /* Gradient for primary button */
+.btn-primary { /* Renamed .btn to .btn-primary for clarity */
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-blue-dark));
     color: #fff;
     border: 2px solid var(--accent-blue);
     box-shadow: 0 6px 15px rgba(0, 212, 255, 0.5);
 }
 
-.btn:hover:not(:disabled) {
-    background: linear-gradient(45deg, #0077b6, var(--accent-blue)); /* Subtle change on hover */
-    border-color: #0077b6;
+.btn-primary:hover:not(:disabled),
+.btn-primary:focus:not(:disabled) { /* Added focus state */
+    background: linear-gradient(45deg, var(--accent-blue-dark), var(--accent-blue));
+    border-color: var(--accent-blue-dark);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 212, 255, 0.6);
 }
 
-.btn:disabled {
+.btn-primary:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     background: var(--card-bg);
@@ -571,9 +655,9 @@ nav ul li a:hover i {
 }
 
 .result-card {
-    background-color: var(--card-bg); /* Darker background for results card */
-    border-radius: 15px; /* More rounded */
-    padding: 40px; /* More padding */
+    background-color: var(--card-bg);
+    border-radius: 18px; /* Consistent rounding */
+    padding: 40px;
     box-shadow: 0 10px 25px var(--shadow-dark);
     margin-bottom: 20px;
     animation: scaleIn 0.6s var(--ease-in-out) forwards;
@@ -589,36 +673,36 @@ nav ul li a:hover i {
 }
 
 .result-header i {
-    font-size: 4.5em; /* Larger trophy */
-    color: var(--accent-yellow); /* Gold trophy color */
+    font-size: 4.5em;
+    color: var(--accent-yellow);
     margin-bottom: 20px;
     animation: bounceIn 1s var(--ease-in-out) forwards;
 }
 
 .result-header h2 {
-    color: var(--text-light); /* Light text for results header */
-    font-size: 2.5em; /* Larger heading */
+    color: var(--text-light);
+    font-size: 2.5em;
     margin: 0;
     font-weight: 700;
 }
 
 .result-score {
-    font-size: 3.5em; /* Larger score */
+    font-size: 3.5em;
     font-weight: bold;
-    color: var(--accent-green); /* Green for score */
+    color: var(--accent-green);
     margin-bottom: 15px;
     animation: fadeIn 1.2s var(--ease-in-out) forwards;
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .result-score span:last-child {
-    color: var(--text-muted); /* Muted total questions color */
+    color: var(--text-muted);
     font-size: 0.7em;
 }
 
 .result-message {
-    font-size: 1.4em; /* Larger message */
-    color: var(--text-light); /* Light message text */
+    font-size: 1.4em;
+    color: var(--text-light);
     margin-bottom: 30px;
     animation: fadeIn 1.4s var(--ease-in-out) forwards;
 }
@@ -626,16 +710,16 @@ nav ul li a:hover i {
 .result-stats {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 35px; /* Increased margin */
+    margin-bottom: 35px;
     flex-wrap: wrap;
-    gap: 20px; /* Increased gap */
+    gap: 20px;
 }
 
 .stat {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 1.2em; /* Larger stats */
+    font-size: 1.2em;
     color: var(--text-muted);
     animation: fadeIn 1.6s var(--ease-in-out) forwards;
 }
@@ -644,16 +728,16 @@ nav ul li a:hover i {
     font-size: 1.5em;
 }
 
-.stat:nth-child(1) i { color: var(--accent-green); }
-.stat:nth-child(2) i { color: var(--accent-red); }
-.stat:nth-child(3) i { color: var(--accent-blue); }
+.stat:nth-child(1) i { color: var(--accent-green); } /* Correct Answers */
+.stat:nth-child(2) i { color: var(--accent-red); } /* Incorrect Answers */
+.stat:nth-child(3) i { color: var(--accent-blue); } /* Time or other metric */
 
 .progress-container {
-    width: 85%; /* Wider progress bar */
+    width: 85%;
     margin: 0 auto 35px auto;
     background-color: var(--border-color);
     border-radius: 8px;
-    height: 25px; /* Thicker */
+    height: 25px;
     overflow: hidden;
     position: relative;
     box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
@@ -661,9 +745,9 @@ nav ul li a:hover i {
 
 .progress-label {
     position: absolute;
-    top: -30px; /* Adjust position */
+    top: -30px;
     left: 0;
-    font-size: 1em; /* Slightly larger */
+    font-size: 1em;
     color: var(--text-muted);
     font-weight: bold;
 }
@@ -671,19 +755,19 @@ nav ul li a:hover i {
 #resultProgressBar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, var(--accent-green), #27ae60); /* Gradient for results progress */
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-green-dark));
     border-radius: 8px;
     transition: width 1.2s var(--ease-in-out);
 }
 
 .progress-percent {
     position: absolute;
-    right: 15px; /* Position inside */
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
     font-weight: bold;
     color: var(--text-light);
-    font-size: 1em; /* Larger */
+    font-size: 1em;
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
@@ -726,18 +810,19 @@ nav ul li a:hover i {
 
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-8px); } /* More pronounced shake */
+    20%, 60% { transform: translateX(-8px); }
     40%, 80% { transform: translateX(8px); }
 }
 
-/* --- Media Queries for Responsiveness (adjusted min-height) --- */
+/* --- Media Queries for Responsiveness (adjusted min-height and layout) --- */
 @media (max-width: 768px) {
     .quiz-section {
         padding: 30px;
         max-width: 95%;
         top: 20px;
         margin-bottom: 20px;
-        min-height: 550px; /* Adjusted min-height for tablets */
+        min-height: 550px;
+        border-radius: 15px; /* Slightly less rounded for smaller screens */
     }
 
     nav {
@@ -776,10 +861,15 @@ nav ul li a:hover i {
         padding: 22px 15px;
         font-size: 1.05em;
         min-height: 110px;
+        border-radius: 10px;
     }
 
     .subject-btn i {
         font-size: 2.2em;
+    }
+
+    .start-container {
+        padding: 25px 0; /* Reduced padding */
     }
 
     .start-button {
@@ -832,13 +922,14 @@ nav ul li a:hover i {
     }
 
     .btn {
-        width: 100%;
+        width: 100%; /* Full width buttons */
         font-size: 1.05em;
         padding: 12px 20px;
     }
 
     .result-card {
         padding: 30px;
+        border-radius: 15px;
     }
 
     .result-header i {
@@ -860,6 +951,7 @@ nav ul li a:hover i {
 
     .result-stats {
         gap: 15px;
+        justify-content: center; /* Center stats on smaller screens */
     }
 
     .stat {
@@ -883,9 +975,10 @@ nav ul li a:hover i {
 @media (max-width: 480px) {
     .quiz-section {
         padding: 20px;
-        min-height: 500px; /* Adjusted min-height for mobiles */
+        min-height: 500px;
         top: 10px;
         margin-bottom: 10px;
+        border-radius: 12px;
     }
 
     nav {
@@ -904,6 +997,10 @@ nav ul li a:hover i {
 
     #quiz-title {
         font-size: 1.8em;
+    }
+
+    #quiz-subtitle {
+        font-size: 1em; /* Smaller subtitle */
     }
 
     #subject-selection h2 {
@@ -934,10 +1031,18 @@ nav ul li a:hover i {
 
     #scoreDisplay, #timer {
         font-size: 0.95em;
+        flex-direction: column; /* Stack score/timer vertically */
+        gap: 5px;
+    }
+
+    .quiz-meta {
+        flex-direction: column; /* Stack quiz meta vertically */
+        gap: 10px;
     }
 
     .question-container {
         padding: 20px;
+        min-height: 80px; /* Reduced min-height for very small screens */
     }
 
     #question {
@@ -996,5 +1101,9 @@ nav ul li a:hover i {
     .progress-percent {
         font-size: 0.8em;
         right: 10px;
+    }
+
+    .result-footer {
+        flex-direction: column; /* Stack result buttons vertically */
     }
 }
