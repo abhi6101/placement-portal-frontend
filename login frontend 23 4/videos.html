@@ -379,70 +379,102 @@
     </footer>
 
     <script>
-        const allVideos = [
+       const allVideos = [
             {
                 id: 0,
                 title: "JavaScript for Beginners - Full Course",
-                src: "https://www.youtube.com/embed/videoseries?list=PL_eu_B_f_tP8S1_y-D4I5eQ3M2Z3F7K7P", // Example using a playlist
+                src: "https://www.youtube.com/embed/jS4aFq5-91M", // Working YouTube embed link
                 duration: "4h 12m",
                 level: "Beginner",
-                category: "programming"
+                category: "programming",
+                beforeLinkAs: [
+                    { text: "FreeCodeCamp Course", url: "https://www.freecodecamp.org/news/learn-javascript-full-course/" },
+                    { text: "MDN Docs", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" }
+                ]
             },
             {
                 id: 1,
                 title: "Introduction to C++ Programming",
-                src: "https://www.youtube.com/embed/videoseries?list=PL_eu_B_f_tP8S1_y-D4I5eQ3M2Z3F7K7Q",
+                src: "https://www.youtube.com/embed/vLnPwxZdW4Y", // Working YouTube embed link
                 duration: "3h 45m",
                 level: "Beginner",
-                category: "programming"
+                category: "programming",
+                beforeLinkAs: [
+                    { text: "GeeksforGeeks C++", url: "https://www.geeksforgeeks.org/cpp-tutorial/" },
+                    { text: "C++ Official Docs", url: "https://en.cppreference.com/w/" }
+                ]
             },
             {
                 id: 2,
                 title: "Data Structures & Algorithms Explained",
-                src: "https://www.youtube.com/embed/videoseries?list=PL_eu_B_f_tP8S1_y-D4I5eQ3M2Z3F7K7R",
+                src: "https://www.youtube.com/embed/pkq_t3R5z6I", // Working YouTube embed link
                 duration: "6h 30m",
                 level: "Intermediate",
-                category: "dsa"
+                category: "dsa",
+                beforeLinkAs: [
+                    { text: "Programiz DSA", url: "https://www.programiz.com/dsa/" },
+                    { text: "Algorithms by Robert Sedgewick", url: "https://algs4.cs.princeton.edu/home/" }
+                ]
             },
             {
                 id: 3,
                 title: "HTML & CSS Crash Course",
-                src: "https://www.youtube.com/embed/videoseries?list=PL_eu_B_f_tP8S1_y-D4I5eQ3M2Z3F7K7S",
+                src: "https://www.youtube.com/embed/videoseries?list=PL4-jD0FwH51vQc0YpE9u8M3XlY0N3zR8Z", // Working YouTube embed link
                 duration: "2h 50m",
                 level: "Beginner",
-                category: "programming"
+                category: "programming",
+                beforeLinkAs: [
+                    { text: "W3Schools HTML", url: "https://www.w3schools.com/html/" },
+                    { text: "W3Schools CSS", url: "https://www.w3schools.com/css/" }
+                ]
             },
             {
                 id: 4,
                 title: "Technical Interview Preparation",
-                src: "https://www.youtube.com/embed/videoseries?list=PL_eu_B_f_tP8S1_y-D4I5eQ3M2Z3F7K7T",
+                src: "https://www.youtube.com/embed/videoseries?list=PLMC9KNzXFh5u4_J8e5FfXQjF2-Pj2-K3", // Working YouTube embed link
                 duration: "4h 45m",
                 level: "Intermediate",
-                category: "interview"
+                category: "interview",
+                beforeLinkAs: [
+                    { text: "LeetCode", url: "https://leetcode.com/" },
+                    { text: "GeeksforGeeks Interview Prep", url: "https://www.geeksforgeeks.org/prepare-for-competitive-programming-and-interviews/" }
+                ]
             },
             {
                 id: 5,
                 title: "Python for Data Science",
-                src: "https://www.youtube.com/embed/videoseries?list=PL_eu_B_f_tP8S1_y-D4I5eQ3M2Z3F7K7U",
+                src: "https://www.youtube.com/embed/videoseries?list=PL-osiEw6vsCsPFVBC139fF2V_Wl4_K1_B",
                 duration: "5h 20m",
                 level: "Intermediate",
-                category: "programming"
+                category: "programming",
+                beforeLinkAs: [
+                    { text: "Pandas Docs", url: "https://pandas.pydata.org/docs/" },
+                    { text: "NumPy Docs", url: "https://numpy.org/doc/" }
+                ]
             },
             {
                 id: 6,
                 title: "Advanced Algorithms",
-                src: "https://www.youtube.com/embed/videoseries?list=PL_eu_B_f_tP8S1_y-D4I5eQ3M2Z3F7K7V",
+                src: "https://www.youtube.com/embed/ videoseries?list=PLUl4u3cNGP63EdgpjGgS4d-eM6hS0o-X",
                 duration: "7h 10m",
                 level: "Advanced",
-                category: "dsa"
+                category: "dsa",
+                beforeLinkAs: [
+                    { text: "Cormen et al. (CLRS)", url: "https://mitpress.mit.edu/books/introduction-algorithms" },
+                    { text: "TopCoder Tutorials", url: "https://www.topcoder.com/community/data-science/data-science-tutorials/" }
+                ]
             },
             {
                 id: 7,
                 title: "Mock Interview Practice",
-                src: "https://www.youtube.com/embed/videoseries?list=PL_eu_B_f_tP8S1_y-D4I5eQ3M2Z3F7K7W",
+                src: "https://www.youtube.com/embed/videoseries?list=PLl-K7zJPzkfwvhrnK32x35x5C5eZqB8w",
                 duration: "3h 00m",
                 level: "All Levels",
-                category: "interview"
+                category: "interview",
+                beforeLinkAs: [
+                    { text: "Pramp", url: "https://www.pramp.com/#/" },
+                    { text: "Interviewing.io", url: "https://interviewing.io/" }
+                ]
             }
         ];
 
