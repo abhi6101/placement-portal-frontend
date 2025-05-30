@@ -1,414 +1,657 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --primary: #00d4ff; /* A vibrant light blue */
+    --secondary: #0077b6; /* A deeper, calming blue */
+    --dark: #03045e; /* A rich, deep navy */
+    --light: #f8f9fa; /* Off-white for backgrounds */
+    --gray: #6c757d; /* Medium gray for text */
+    --accent: #ff7b00; /* A striking orange-red for highlights */
+    --success: #28a745; /* Standard green for success */
+    --warning: #ffc107; /* Bright yellow for warnings */
+    --danger: #dc3545; /* Classic red for errors/danger */
+    --info: #17a2b8; /* Cyan for informational messages */
 
-        :root {
-            --primary: #00d4ff;
-            --secondary: #0077b6;
-            --dark: #03045e;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --accent: #ff7b00;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-        }
+    /* Typography */
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-heading: 'Roboto', sans-serif; /* Added a specific font for headings */
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
 
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-        }
+    /* Border Radius */
+    --border-radius-sm: 5px;
+    --border-radius-md: 10px;
+    --border-radius-lg: 20px;
+    --border-radius-pill: 50px; /* For pill-shaped elements */
 
-        /* Top Navigation Bar */
-        nav:first-of-type {
-            background-color: var(--dark);
-            color: white;
-            padding: 0.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Shadows */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
+/* --- Base Reset & Typography --- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        .logo span {
-            color: var(--primary);
-        }
+html {
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+    font-size: 16px; /* Base font size */
+}
 
-        nav:first-of-type ul {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-            align-items: center;
-        }
+body {
+    background-color: var(--light);
+    color: #333; /* Slightly darker than default for better contrast */
+    line-height: 1.7; /* Increased line height for readability */
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased; /* Improves font rendering on macOS/iOS */
+    -moz-osx-font-smoothing: grayscale; /* Improves font rendering on macOS/iOS */
+}
 
-        nav:first-of-type a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color 0.3s ease;
-        }
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--dark);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.2;
+}
 
-        nav:first-of-type a:hover {
-            color: var(--primary);
-        }
+p {
+    margin-bottom: var(--spacing-sm);
+}
 
-        .btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
+a {
+    text-decoration: none;
+    color: var(--primary);
+    transition: color 0.3s ease;
+}
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.3);
-        }
+a:hover {
+    color: var(--secondary);
+}
 
-        /* Main Navigation Bar */
-        nav:last-of-type {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 0.8rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+ul {
+    list-style: none;
+}
 
-        nav:last-of-type ul {
-            display: flex;
-            list-style: none;
-            gap: 1rem;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-        }
+/* --- Utility Classes --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
 
-        nav:last-of-type li {
-            flex-shrink: 0;
-        }
+.text-center {
+    text-align: center;
+}
 
-        nav:last-of-type a,
-        nav:last-of-type button {
-            color: var(--dark);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
+.my-xl {
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
 
-        nav:last-of-type a:hover,
-        nav:last-of-type button:hover {
-            color: var(--primary);
-            background-color: rgba(0, 212, 255, 0.1);
-        }
+.py-lg {
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+}
 
-        nav:last-of-type a.active {
-            background-color: rgba(0, 212, 255, 0.2);
-            color: var(--primary);
-        }
+/* --- Buttons --- */
+.btn {
+    display: inline-flex; /* Use flex for alignment of text and icons */
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    padding: 0.75rem 1.5rem; /* Slightly more generous padding */
+    border-radius: var(--border-radius-pill); /* Pill shape for modern look */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm); /* Subtle initial shadow */
+}
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+.btn i {
+    margin-right: 0.5rem;
+    font-size: 1.1rem; /* Adjust icon size */
+}
 
-        .section-header h1 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4); /* Enhanced hover shadow */
+}
 
-        .section-header p {
-            color: var(--gray);
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    box-shadow: none; /* No shadow by default for outline */
+}
 
-        .interview-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: var(--shadow-sm); /* Add subtle shadow on hover */
+}
 
-        .interview-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+.btn-dark {
+    background: var(--dark);
+    color: white;
+}
 
-        .interview-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
+.btn-dark:hover {
+    background: var(--secondary);
+    box-shadow: 0 8px 20px rgba(3, 4, 94, 0.3);
+}
 
-        .interview-status {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
+.btn-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--gray); /* Use gray from variables */
+    color: white;
+    box-shadow: none;
+    transform: none; /* Prevent transform on disabled */
+}
 
-        .status-upcoming {
-            background-color: rgba(0, 212, 255, 0.1);
-            color: var(--primary);
-        }
+.btn-disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
 
-        .status-urgent {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: var(--warning);
-        }
+/* --- Top Navigation Bar --- */
+nav:first-of-type {
+    background-color: var(--dark);
+    color: white;
+    padding: var(--spacing-sm) var(--spacing-lg); /* Consistent padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
 
-        .status-completed {
-            background-color: rgba(220, 53, 69, 0.1);
-            color: var(--danger);
-        }
+.logo {
+    font-size: 2rem; /* Slightly larger logo */
+    font-weight: 700;
+    text-transform: uppercase; /* Make logo text uppercase */
+    letter-spacing: 1px;
+}
 
-        .interview-card-content {
-            padding: 1.5rem;
-        }
+.logo span {
+    color: var(--primary);
+}
 
-        .company-logo-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1rem;
-            height: 80px;
-        }
+nav:first-of-type ul {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center; /* Center items on wrap */
+}
 
-        .company-logo {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-        }
+nav:first-of-type a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0; /* Adjust padding for links */
+    transition: color 0.3s ease, transform 0.2s ease; /* Add transform for subtle effect */
+}
 
-        .interview-card h2 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
+nav:first-of-type a:hover {
+    color: var(--primary);
+    transform: translateY(-2px); /* Subtle lift on hover */
+}
 
-        .interview-card p {
-            color: var(--gray);
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-        }
+/* --- Main Navigation Bar --- */
+nav:last-of-type {
+    background-color: white;
+    box-shadow: var(--shadow-md); /* Use shadow variable */
+    padding: var(--spacing-sm) var(--spacing-lg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-        .interview-card p strong {
-            color: var(--dark);
-            min-width: 80px;
-            display: inline-block;
-        }
+nav:last-of-type ul {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-sm); /* Tighter gap */
+    overflow-x: auto; /* Enable horizontal scrolling for many items */
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin; /* Firefox scrollbar styling */
+    scrollbar-color: var(--primary) transparent; /* Firefox scrollbar styling */
+}
 
-        .slot-availability {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px dashed #eee;
-        }
+nav:last-of-type ul::-webkit-scrollbar {
+    height: 8px; /* Height of the scrollbar */
+}
 
-        .slot-available {
-            color: var(--success);
-            font-weight: 600;
-        }
+nav:last-of-type ul::-webkit-scrollbar-track {
+    background: var(--light); /* Track background */
+    border-radius: var(--border-radius-pill);
+}
 
-        .slot-limited {
-            color: var(--warning);
-            font-weight: 600;
-        }
+nav:last-of-type ul::-webkit-scrollbar-thumb {
+    background-color: var(--primary); /* Thumb color */
+    border-radius: var(--border-radius-pill);
+    border: 2px solid var(--light); /* Padding around thumb */
+}
 
-        .slot-full {
-            color: var(--danger);
-            font-weight: 600;
-        }
 
-        .interview-booking {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            max-width: 800px;
-            margin: 0 auto 4rem;
-        }
+nav:last-of-type li {
+    flex-shrink: 0;
+}
 
-        .form-row {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
+nav:last-of-type a,
+nav:last-of-type button {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem; /* Consistent padding with smaller buttons */
+    border-radius: var(--border-radius-sm);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem; /* Slightly smaller font for main nav links */
+}
 
-        .form-row>div {
-            flex: 1;
-        }
+nav:last-of-type a:hover,
+nav:last-of-type button:hover {
+    color: var(--primary);
+    background-color: rgba(0, 212, 255, 0.1);
+    transform: translateY(-2px);
+}
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-weight: 500;
-        }
+nav:last-of-type a.active {
+    background-color: rgba(0, 212, 255, 0.2);
+    color: var(--primary);
+    font-weight: 600; /* Make active link bolder */
+}
 
-        input,
-        select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border 0.3s ease;
-        }
+/* --- Section Header --- */
+.section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl); /* More generous margin */
+    padding-top: var(--spacing-lg); /* Add top padding to sections */
+}
 
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
-        }
+.section-header h1 {
+    font-size: 3rem; /* Larger heading */
+    color: var(--dark);
+    margin-bottom: var(--spacing-md);
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative; /* For the pseudo-element underline */
+    display: inline-block; /* To make pseudo-element size correctly */
+}
 
-        button[type="submit"] {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1.1rem;
-            margin-top: 1rem;
-        }
+.section-header h1::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px; /* Position below text */
+    transform: translateX(-50%);
+    width: 60px; /* Short underline */
+    height: 4px;
+    background: var(--primary);
+    border-radius: 2px;
+}
 
-        button[type="submit"] i {
-            margin-right: 0.5rem;
-        }
+.section-header p {
+    color: var(--gray);
+    font-size: 1.15rem; /* Slightly larger paragraph */
+    max-width: 800px; /* Wider text for better readability */
+    margin: 0 auto;
+}
 
-        .no-interviews {
-            text-align: center;
-            padding: 3rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem; /* Added margin-bottom */
-        }
+/* --- Interview List --- */
+.interview-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Allow smaller cards */
+    gap: var(--spacing-lg); /* Consistent gap */
+    margin-bottom: var(--spacing-xl);
+}
 
-        .no-interviews i {
-            font-size: 3rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
+.interview-card {
+    background: white;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; /* Use flexbox for card content structure */
+    flex-direction: column;
+}
 
-        .no-interviews h3 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
+.interview-card:hover {
+    transform: translateY(-8px); /* More pronounced lift */
+    box-shadow: var(--shadow-lg); /* Stronger shadow on hover */
+}
 
-        .no-interviews p {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-        }
+.interview-card-header {
+    padding: 1.5rem;
+    padding-bottom: 0; /* Adjust padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align status to top-right */
+}
 
-        footer {
-            background-color: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-        }
+.interview-status {
+    display: inline-block;
+    padding: 0.4rem 1rem; /* Slightly larger padding for status */
+    border-radius: var(--border-radius-pill); /* Pill-shaped status */
+    font-size: 0.85rem;
+    font-weight: 700; /* Bolder status text */
+    text-transform: uppercase; /* Uppercase status */
+    letter-spacing: 0.5px;
+}
 
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
+.status-upcoming {
+    background-color: rgba(0, 212, 255, 0.15); /* Slightly darker tint */
+    color: var(--primary);
+}
 
-        footer a:hover {
-            text-decoration: underline;
-        }
+.status-urgent {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: var(--warning);
+}
 
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                padding: 1rem;
-            }
+.status-completed {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: var(--danger);
+}
 
-            nav ul {
-                margin-top: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+.interview-card-content {
+    padding: 1.5rem;
+    flex-grow: 1; /* Allow content to grow and push footer down */
+}
 
-            .section-header h1 {
-                font-size: 2rem;
-            }
+.company-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center logo vertically */
+    margin-bottom: var(--spacing-md);
+    height: 90px; /* Slightly increased height for logos */
+    background-color: var(--light); /* Subtle background for logo area */
+    border-radius: var(--border-radius-sm);
+    padding: 0.5rem; /* Padding around logo */
+}
 
-            .form-row {
-                flex-direction: column;
-                gap: 1rem;
-            }
+.company-logo {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
 
-            .interview-list {
-                grid-template-columns: 1fr;
-            }
-        }
+.interview-card h2 {
+    color: var(--dark);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+    font-size: 1.6rem;
+}
 
-        .btn {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
+.interview-card p {
+    color: var(--gray);
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
-        }
+.interview-card p strong {
+    color: var(--dark);
+    min-width: 100px; /* Increased min-width for labels */
+    display: inline-block;
+    font-weight: 600;
+}
 
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
+/* Icon styling within cards */
+.interview-card p i {
+    margin-right: 0.75rem;
+    color: var(--secondary); /* Icon color */
+    font-size: 1.1rem;
+}
 
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
+.slot-availability {
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px dashed #eee;
+    font-size: 0.95rem;
+    text-align: center; /* Center availability text */
+}
 
-        .btn-disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            background: #cccccc; /* Example gray background for disabled */
-        }
+.slot-available {
+    color: var(--success);
+    font-weight: 700;
+}
 
-        .btn-disabled:hover {
-            transform: none;
-            box-shadow: none;
-        }
+.slot-limited {
+    color: var(--warning);
+    font-weight: 700;
+}
+
+.slot-full {
+    color: var(--danger);
+    font-weight: 700;
+}
+
+/* --- Interview Booking Form --- */
+.interview-booking {
+    background: white;
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-xl); /* More padding for the form */
+    box-shadow: var(--shadow-md);
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl); /* Consistent margin */
+}
+
+.form-row {
+    display: flex;
+    gap: var(--spacing-md); /* Consistent gap */
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap; /* Allow wrapping form fields */
+}
+
+.form-row > div {
+    flex: 1;
+    min-width: 280px; /* Ensure fields don't get too small */
+}
+
+label {
+    display: block;
+    margin-bottom: 0.6rem; /* Slightly more space below label */
+    color: var(--dark);
+    font-weight: 600; /* Bolder labels */
+    font-size: 0.95rem;
+}
+
+input,
+select,
+textarea { /* Added textarea for potential larger text inputs */
+    width: 100%;
+    padding: 0.9rem; /* Slightly more padding for inputs */
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--light); /* Subtle background for inputs */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25); /* More prominent focus ring */
+    background-color: white; /* White background on focus */
+}
+
+button[type="submit"] {
+    width: 100%;
+    margin-top: var(--spacing-md);
+    padding: 1.1rem; /* More generous padding for submit button */
+    font-size: 1.2rem;
+    font-weight: 700; /* Bolder submit button text */
+}
+
+/* --- No Interviews Message --- */
+.no-interviews {
+    text-align: center;
+    padding: var(--spacing-xl);
+    background: white;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--spacing-xl); /* Consistent margin */
+}
+
+.no-interviews i {
+    font-size: 4rem; /* Larger icon */
+    color: var(--gray);
+    margin-bottom: var(--spacing-sm);
+    display: block; /* Ensures proper spacing */
+}
+
+.no-interviews h3 {
+    color: var(--dark);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.8rem;
+}
+
+.no-interviews p {
+    color: var(--gray);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.05rem;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--dark);
+    color: white;
+    text-align: center;
+    padding: var(--spacing-lg) var(--spacing-md); /* Consistent padding */
+    margin-top: var(--spacing-xl);
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: var(--primary); /* Keep color consistent on hover */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) { /* Tablet and smaller */
+    .section-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .interview-list {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--spacing-md);
+    }
+
+    .interview-card h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) { /* Mobile and smaller */
+    nav:first-of-type {
+        flex-direction: column;
+        padding: var(--spacing-md);
+        text-align: center;
+    }
+
+    nav:first-of-type ul {
+        margin-top: var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+
+    nav:first-of-type .btn {
+        margin-top: var(--spacing-sm);
+    }
+
+    nav:last-of-type {
+        padding: var(--spacing-md);
+    }
+
+    .section-header h1 {
+        font-size: 2rem;
+    }
+
+    .section-header p {
+        font-size: 1rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .interview-list {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+
+    .interview-card-content {
+        padding: var(--spacing-md);
+    }
+
+    .interview-booking {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) { /* Smaller mobile devices */
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    nav:first-of-type ul {
+        gap: 0.8rem;
+    }
+
+    nav:last-of-type a,
+    nav:last-of-type button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .section-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .no-interviews {
+        padding: var(--spacing-lg);
+    }
+    .no-interviews i {
+        font-size: 3rem;
+    }
+    .no-interviews h3 {
+        font-size: 1.5rem;
+    }
+}
