@@ -1,18 +1,18 @@
 /* --- Root Variables --- */
 :root {
-    --primary: #00d4ff;
-    --secondary: #0077b6;
-    --dark: #03045e;
-    --light: #f8f9fa;
-    --gray: #6c757d;
-    --accent: #ff7b00;
-    --error: #dc3545;
-    --success: #28a745;
-    --text-dark: #333; /* Added for general text color */
-    --border-light: #e0e0e0; /* Added for general border color */
-    --shadow-light: rgba(0, 0, 0, 0.08); /* Unified light shadow */
-    --shadow-hover: rgba(0, 212, 255, 0.3); /* Unified button hover shadow */
-    --shadow-dark: rgba(0, 0, 0, 0.15); /* For general darker shadows */
+    --primary: #00d4ff; /* A bright, vibrant blue */
+    --secondary: #0077b6; /* A slightly darker, richer blue */
+    --dark: #03045e; /* Deep dark blue for main text/background */
+    --light: #f8f9fa; /* Very light gray for backgrounds */
+    --gray: #6c757d; /* Standard medium gray */
+    --accent: #ff7b00; /* Orange accent color */
+    --error: #dc3545; /* Red for errors */
+    --success: #28a745; /* Green for success */
+    --text-dark: #333; /* General dark text color */
+    --border-light: #e0e0e0; /* Light gray border for inputs/sections */
+    --shadow-light: rgba(0, 0, 0, 0.08); /* Subtle shadow for cards/sections */
+    --shadow-hover: rgba(0, 212, 255, 0.3); /* Stronger blue shadow on hover */
+    --shadow-dark: rgba(0, 0, 0, 0.15); /* For darker, more prominent shadows */
 }
 
 /* --- Global Resets & Base Styles --- */
@@ -58,8 +58,6 @@ body {
     background: transparent;
     border: 2px solid var(--primary);
     color: var(--primary);
-    /* For hero section where it needs to be white initially */
-    /* If used elsewhere on light backgrounds, it remains primary colored */
 }
 
 /* Specific adjustment for .btn-outline used in nav:first-of-type or hero-like sections */
@@ -237,7 +235,12 @@ nav:last-of-type a.active,
     font-size: 0.95em;
 }
 
-.resume-builder input,
+/* General input and textarea styling */
+.resume-builder input[type="text"],
+.resume-builder input[type="email"],
+.resume-builder input[type="tel"],
+.resume-builder input[type="url"],
+.resume-builder input[type="date"],
 .resume-builder textarea {
     padding: 0.6rem 0.9rem;
     border: 1px solid var(--border-light);
@@ -257,7 +260,56 @@ nav:last-of-type a.active,
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
+    background-color: #f0faff; /* Light blue background on focus */
+}
+
+/* Specific styling for email and phone number inputs (inherits from general but allows overrides) */
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder {
+    color: var(--gray);
+    opacity: 0.7; /* Make placeholders slightly faded */
+}
+
+/* Optional: Styling for inputs with icons (if you choose to implement this structure) */
+.input-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between icon and input */
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.input-with-icon:focus-within { /* When any child element inside gets focus */
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
     background-color: #f0faff;
+}
+
+.input-with-icon i {
+    color: var(--gray);
+    font-size: 1.1rem;
+}
+
+.input-with-icon input {
+    border: none; /* Remove individual border for input inside this container */
+    padding: 0; /* Remove individual padding */
+    flex-grow: 1; /* Allow input to fill available space */
+    background-color: transparent; /* Transparent background to show parent background */
+}
+
+.input-with-icon input:focus {
+    outline: none; /* Remove focus outline, handled by parent focus-within */
+    box-shadow: none; /* Remove individual box-shadow */
+    background-color: transparent; /* Keep transparent */
+}
+
+/* Optional: Highlight invalid email/phone (after user interaction) */
+input[type="email"]:invalid:not(:focus):not(:placeholder-shown),
+input[type="tel"]:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
 }
 
 /* --- Template Options --- */
@@ -583,7 +635,6 @@ footer a:hover {
 }
 
 /* --- Animations --- */
-/* Ensure these keyframes are present if they are used elsewhere (e.g., Hero section) */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -640,82 +691,11 @@ nav:first-of-type .nav-links li {
 }
 
 /* Staggering the animation for each navigation item */
-nav:first-of-type .nav-links li:nth-child(1) { animation-delay: 0.1s; } /* Home */
-nav:first-of-type .nav-links li:nth-child(2) { animation-delay: 0.2s; } /* Jobs */
-nav:first-of-type .nav-links li:nth-child(3) { animation-delay: 0.3s; } /* (If you have 'About Us') */
-nav:first-of-type .nav-links li:nth-child(4) { animation-delay: 0.4s; } /* (If you have 'Contact') */
-nav:first-of-type .nav-links li:nth-child(5) { animation-delay: 0.5s; } /* Sign Up */
-nav:first-of-type .nav-links li:nth-child(6) { animation-delay: 0.6s; } /* Login */
-/* Adjust :nth-child rules as per your actual HTML structure */
-
-
-
-
-/* Add these rules to your style.css file */
-
-/* --- Email and Phone Number Input Styles --- */
-
-/* Base styling for email and phone inputs */
-input[type="email"],
-input[type="tel"] {
-    /* Inherits general input styles from .resume-builder input,
-       but you can override or enhance here. */
-    padding: 0.7rem 1rem; /* Slightly adjust padding if desired */
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    font-size: 1rem; /* Ensure consistent font size */
-    color: var(--text-dark);
-    transition: all 0.3s ease;
-    width: 100%; /* Ensure they take full width in their containers */
-}
-
-/* Focus state for email and phone inputs */
-input[type="email"]:focus,
-input[type="tel"]:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25); /* Primary focus shadow */
-    background-color: #f0faff; /* Light blue background on focus */
-}
-
-/* Placeholder styling (optional, but good for consistency) */
-input[type="email"]::placeholder,
-input[type="tel"]::placeholder {
-    color: var(--gray);
-    opacity: 0.7; /* Make placeholders slightly faded */
-}
-
-/* Styling for specific scenarios, e.g., if you have icons next to them */
-.input-with-icon {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem; /* Space between icon and input */
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    padding: 0.7rem 1rem;
-    transition: all 0.3s ease;
-}
-
-.input-with-icon:focus-within { /* When any child element inside gets focus */
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
-    background-color: #f0faff;
-}
-
-.input-with-icon i {
-    color: var(--gray);
-    font-size: 1.1rem;
-}
-
-.input-with-icon input {
-    border: none; /* Remove individual border for input inside this container */
-    padding: 0; /* Remove individual padding */
-    flex-grow: 1; /* Allow input to fill available space */
-    background-color: transparent; /* Transparent background to show parent background */
-}
-
-.input-with-icon input:focus {
-    outline: none; /* Remove focus outline, handled by parent focus-within */
-    box-shadow: none; /* Remove individual box-shadow */
-    background-color: transparent; /* Keep transparent */
-}
+/* These nth-child selectors assume your top navigation has 6 list items.
+   Adjust them if your top nav links change. */
+nav:first-of-type .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+nav:first-of-type .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+nav:first-of-type .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+nav:first-of-type .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+nav:first-of-type .nav-links li:nth-child(5) { animation-delay: 0.5s; }
+nav:first-of-type .nav-links li:nth-child(6) { animation-delay: 0.6s; }
