@@ -86,6 +86,49 @@
     </div>
 
 
+    <div id="applicationFormModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Apply for <span id="jobTitleForApplication"></span></h2>
+            <form id="jobApplicationForm" enctype="multipart/form-data">
+                <input type="hidden" id="appliedJobId" name="jobId">
+
+                <div class="form-group">
+                    <label for="applicantName">Full Name:</label>
+                    <input type="text" id="applicantName" name="applicantName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicantEmail">Email:</label>
+                    <input type="email" id="applicantEmail" name="applicantEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicantPhone">Phone Number:</label>
+                    <input type="tel" id="applicantPhone" name="applicantPhone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicantRollNo">Roll Number (if applicable):</label>
+                    <input type="text" id="applicantRollNo" name="applicantRollNo">
+                </div>
+
+                <div class="form-group">
+                    <label for="resume">Upload Resume (PDF only):</label>
+                    <input type="file" id="resume" name="resume" accept=".pdf" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="coverLetter">Cover Letter (Optional):</label>
+                    <textarea id="coverLetter" name="coverLetter" rows="5"></textarea>
+                </div>
+
+                <button type="submit" class="btn">Submit Application</button>
+            </form>
+        </div>
+    </div>
+
+
     <footer>
         <p>Created by Abhi Jain</p>
         <p>&copy; 2025 College Placement System. All rights reserved. | Contact: <a
@@ -95,7 +138,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs"; // Your existing jobs API
-            // const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job"; // Removed as the form is gone
+            const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job";
 
             const jobList = document.getElementById('jobList');
             const searchForm = document.getElementById('searchForm');
@@ -104,17 +147,16 @@
             const filterButtons = document.querySelectorAll('.filter-btn');
             const sortSelect = document.getElementById('sortSelect');
 
-            // Removed modal related elements and variables
-            // const applicationFormModal = document.getElementById('applicationFormModal');
-            // const closeButton = document.querySelector('.close-button');
-            // const jobApplicationForm = document.getElementById('jobApplicationForm');
-            // const jobTitleForApplication = document.getElementById('jobTitleForApplication');
-            // const appliedJobId = document.getElementById('appliedJobId');
-            // const formApplicantName = document.getElementById('applicantName');
-            // const formApplicantEmail = document.getElementById('applicantEmail');
-            // const formApplicantPhone = document.getElementById('applicantPhone');
-            // const formApplicantRollNo = document.getElementById('applicantRollNo');
-            // const resumeInput = document.getElementById('resume');
+            const applicationFormModal = document.getElementById('applicationFormModal');
+            const closeButton = document.querySelector('.close-button');
+            const jobApplicationForm = document.getElementById('jobApplicationForm');
+            const jobTitleForApplication = document.getElementById('jobTitleForApplication');
+            const appliedJobId = document.getElementById('appliedJobId');
+            const formApplicantName = document.getElementById('applicantName');
+            const formApplicantEmail = document.getElementById('applicantEmail');
+            const formApplicantPhone = document.getElementById('applicantPhone');
+            const formApplicantRollNo = document.getElementById('applicantRollNo');
+            const resumeInput = document.getElementById('resume');
 
             let allJobs = [];
             let currentUserDetails = null; // To store user details from token
@@ -237,9 +279,9 @@
                                 <a href="job-details.html?id=${job.id}" class="btn btn-outline">
                                     <i class="fas fa-eye"></i> View Details
                                 </a>
-                                <a href="apply.html?jobId=${job.id}" class="btn apply-btn">
+                                <button class="btn apply-btn" data-job-id="${job.id}">
                                     <i class="fas fa-paper-plane"></i> Apply Now
-                                </a>
+                                </button>
                             </div>
                         </div>
                     `;
@@ -318,11 +360,110 @@
 
             sortSelect.addEventListener('change', filterAndSortJobs);
 
-            // Removed all event listeners and functions related to the modal pop-up
-            // jobList.addEventListener('click', async function (event) { ... });
-            // closeButton.addEventListener('click', function () { ... });
-            // window.addEventListener('click', function (event) { ... });
-            // jobApplicationForm.addEventListener('submit', async function (event) { ... });
+            // --- Event listener for Job Apply buttons to open modal ---
+            jobList.addEventListener('click', async function (event) {
+                const applyButton = event.target.closest('.apply-btn');
+
+                if (applyButton && !applyButton.disabled) {
+                    const jobId = applyButton.dataset.jobId;
+                    const job = allJobs.find(j => j.id == jobId);
+
+                    if (!job) {
+                        alert('Error: Job details not found. Cannot apply.');
+                        return;
+                    }
+
+                    if (!currentUserDetails) {
+                        alert("Error: User details not available. Please log in again.");
+                        localStorage.clear();
+                        window.location.href = "login.html";
+                        return;
+                    }
+
+                    // Populate the modal form with job details and user's pre-filled info
+                    jobTitleForApplication.textContent = `${job.title} at ${job.company_name}`;
+                    appliedJobId.value = jobId; // Store job ID in a hidden field
+                    formApplicantName.value = currentUserDetails.username || '';
+                    formApplicantEmail.value = currentUserDetails.email || '';
+                    formApplicantPhone.value = currentUserDetails.phone || '';
+                    formApplicantRollNo.value = currentUserDetails.rollNo || '';
+
+                    // Show the modal
+                    applicationFormModal.style.display = 'flex'; // Use flex to center the modal
+                }
+            });
+
+            // Close modal when close button is clicked
+            closeButton.addEventListener('click', function () {
+                applicationFormModal.style.display = 'none';
+                jobApplicationForm.reset(); // Clear form fields on close
+            });
+
+            // Close modal when clicking outside the modal content
+            window.addEventListener('click', function (event) {
+                if (event.target == applicationFormModal) {
+                    applicationFormModal.style.display = 'none';
+                    jobApplicationForm.reset(); // Clear form fields on close
+                }
+            });
+
+            // --- Handle form submission for job application from the modal ---
+            jobApplicationForm.addEventListener('submit', async function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(jobApplicationForm); // Get form data, including file
+                const jobId = formData.get('jobId'); // Retrieve jobId from hidden input
+
+                // Add job-specific details from the `job` object
+                const job = allJobs.find(j => j.id == jobId);
+                if (job) {
+                    formData.append('jobTitle', job.title);
+                    formData.append('companyName', job.company_name);
+                } else {
+                    alert('Error: Could not find job details for application. Please try again.');
+                    return;
+                }
+
+                const submitButton = jobApplicationForm.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Submitting...';
+
+                try {
+                    const token = localStorage.getItem("authToken");
+                    const response = await fetch(APPLY_JOB_API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: formData // Send FormData directly
+                    });
+
+                    if (response.ok) {
+                        alert(`Application for "${job.title}" submitted successfully! HR will be notified.`);
+                        applicationFormModal.style.display = 'none'; // Hide the modal
+                        jobApplicationForm.reset(); // Clear the form
+
+                        // Optionally update the original "Apply Now" button in the job card
+                        const originalApplyButton = document.querySelector(`.apply-btn[data-job-id="${jobId}"]`);
+                        if (originalApplyButton) {
+                            originalApplyButton.innerText = 'Applied';
+                            originalApplyButton.disabled = true;
+                            originalApplyButton.style.backgroundColor = '#6c757d';
+                            originalApplyButton.style.cursor = 'not-allowed';
+                        }
+
+                    } else {
+                        const errorData = await response.json();
+                        alert(`Failed to submit application: ${errorData.message || response.statusText || 'Unknown error'}`);
+                    }
+                } catch (error) {
+                    console.error('Error submitting job application:', error);
+                    alert('An error occurred while submitting your application. Please check your network and try again.');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Application';
+                }
+            });
 
             // Initial load of jobs
             loadJobs();
@@ -332,3 +473,5 @@
 </body>
 
 </html>
+
+
