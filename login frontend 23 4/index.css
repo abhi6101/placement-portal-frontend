@@ -787,3 +787,19 @@ nav:first-of-type li:nth-child(3) {
     animation-delay: 0.3s;
 }
 /* Add more :nth-child rules if you have more navigation items */
+
+/* In your existing CSS for nav:last-of-type ul */
+nav:last-of-type ul {
+    /* ... existing rules ... */
+    overflow-x: auto; /* This enables horizontal scrolling if content overflows */
+    padding-bottom: 0.5rem; /* Provides space for potential scrollbar */
+    justify-content: center; /* Centers items when they fit */
+}
+
+@media (max-width: 480px) {
+    nav:last-of-type ul {
+        justify-content: flex-start; /* Aligns items to the left, enabling scroll */
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
