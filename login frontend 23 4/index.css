@@ -1,11 +1,11 @@
 /* Custom CSS Properties (Variables) */
 :root {
-    --primary: #00d4ff;
-    --secondary: #0077b6;
-    --dark: #03045e;
-    --light: #f8f9fa;
-    --gray: #6c757d;
-    --accent: #ff7b00;
+    --primary: #00d4ff; /* A vibrant light blue */
+    --secondary: #0077b6; /* A deeper blue, complementary to primary */
+    --dark: #03045e; /* A very dark blue, almost black */
+    --light: #f8f9fa; /* Off-white for background */
+    --gray: #6c757d; /* Standard neutral gray */
+    --accent: #ff7b00; /* A bright orange for highlights/secondary CTAs */
     --hero-bg-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
 }
 
@@ -25,7 +25,7 @@ body {
 }
 
 /* Top Navigation Bar (Using Class Selector) */
-.top-nav { /* Changed from nav:first-of-type */
+.top-nav {
     background-color: var(--dark);
     color: white;
     padding: 0.8rem 2rem;
@@ -44,14 +44,14 @@ body {
     color: var(--primary);
 }
 
-.top-nav ul { /* Changed from nav:first-of-type ul */
+.top-nav ul {
     display: flex;
     list-style: none;
     gap: 1.5rem;
     align-items: center;
 }
 
-.top-nav a { /* Changed from nav:first-of-type a */
+.top-nav a {
     color: white;
     text-decoration: none;
     font-weight: 500;
@@ -61,11 +61,11 @@ body {
     transition: color 0.3s ease;
 }
 
-.top-nav a:hover { /* Changed from nav:first-of-type a:hover */
+.top-nav a:hover {
     color: var(--primary);
 }
 
-/* Buttons - Re-applied with consistent styling */
+/* Buttons - Primary style */
 .btn {
     display: inline-block;
     background: linear-gradient(to right, var(--primary), var(--secondary));
@@ -86,6 +86,7 @@ body {
     box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
 }
 
+/* Buttons - Outline style */
 .btn-outline {
     background: transparent;
     border: 2px solid white;
@@ -99,8 +100,30 @@ body {
     border-color: white;
 }
 
+/* Buttons - Secondary style (for new resource cards) */
+.btn-secondary {
+    display: inline-block;
+    background: linear-gradient(to right, var(--accent), #ff983e); /* A different gradient for distinction */
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 3px 8px rgba(255, 123, 0, 0.2);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 123, 0, 0.4);
+}
+
+
 /* Main Navigation Bar (Using Class Selector) */
-.main-nav { /* Changed from nav:last-of-type */
+.main-nav {
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 0.8rem 2rem;
@@ -109,7 +132,7 @@ body {
     z-index: 100;
 }
 
-.main-nav ul { /* Changed from nav:last-of-type ul */
+.main-nav ul {
     display: flex;
     list-style: none;
     gap: 1.5rem;
@@ -118,12 +141,12 @@ body {
     justify-content: center;
 }
 
-.main-nav li { /* Changed from nav:last-of-type li */
+.main-nav li {
     flex-shrink: 0;
 }
 
-.main-nav a, /* Changed from nav:last-of-type a */
-.main-nav button { /* Changed from nav:last-of-type button */
+.main-nav a,
+.main-nav button {
     color: var(--dark);
     text-decoration: none;
     font-weight: 500;
@@ -139,13 +162,13 @@ body {
     font-size: 1rem;
 }
 
-.main-nav a:hover, /* Changed from nav:last-of-type a:hover */
-.main-nav button:hover { /* Changed from nav:last-of-type button:hover */
+.main-nav a:hover,
+.main-nav button:hover {
     color: var(--primary);
     background-color: rgba(0, 212, 255, 0.1);
 }
 
-.main-nav a.active { /* Changed from nav:last-of-type a.active */
+.main-nav a.active {
     background-color: rgba(0, 212, 255, 0.2);
     color: var(--primary);
     font-weight: 600;
@@ -172,7 +195,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--hero-bg-image) center/cover no-repeat; /* Using CSS variable */
+    background: var(--hero-bg-image) center/cover no-repeat;
     opacity: 0.2;
     z-index: 0;
     filter: brightness(0.8);
@@ -274,13 +297,82 @@ body {
     animation: iconPop 0.6s ease-out;
 }
 
-.features-box h2 {
+.features-box h3 { /* Adjusted to h3 to maintain heading hierarchy */
     color: var(--dark);
     margin-bottom: 1.2rem;
     font-size: 1.8rem;
 }
 
 .features-box p {
+    color: var(--gray);
+    margin-bottom: 1.8rem;
+    font-size: 1.05rem;
+}
+
+/* Learning & Resources Section (New) */
+.learning-resources {
+    padding: 5rem 2rem;
+    text-align: center;
+    background-color: var(--light); /* Matches main body background */
+}
+
+.learning-resources h2 {
+    color: var(--dark);
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.learning-resources h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 2px;
+}
+
+.resource-cards {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem;
+}
+
+.resource-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+.resource-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.resource-card i {
+    font-size: 3rem;
+    color: var(--accent); /* Using accent color for these icons */
+    margin-bottom: 1.8rem;
+    animation: iconPop 0.6s ease-out;
+}
+
+.resource-card h3 {
+    color: var(--dark);
+    margin-bottom: 1.2rem;
+    font-size: 1.8rem;
+}
+
+.resource-card p {
     color: var(--gray);
     margin-bottom: 1.8rem;
     font-size: 1.05rem;
@@ -454,7 +546,6 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
     overflow: hidden;
-    /* height: 450px; - Removed fixed height */
     aspect-ratio: 16 / 9; /* Added for fluid responsiveness */
 }
 
@@ -490,13 +581,6 @@ body {
     to { opacity: 1 }
 }
 
-/* Media query for smaller screens - Removed fixed height for slideshow-container */
-@media (max-width: 768px) {
-    /* .slideshow-container height adjustment removed due to aspect-ratio */
-    .mySlides img {
-        height: 100%;
-    }
-}
 
 /* Company Logos Section */
 .companies {
@@ -622,22 +706,21 @@ footer p {
     .hero p {
         font-size: 1.15rem;
     }
-    .features, .stats-container, .testimonial-cards, .company-logos, .footer-content {
+    .features, .stats-container, .testimonial-cards, .company-logos, .footer-content, .resource-cards {
         gap: 2rem;
     }
     .slideshow-container {
         max-width: 700px;
-        /* height: 400px; - Removed fixed height */
     }
 }
 
 @media (max-width: 768px) {
-    .top-nav { /* Changed from nav:first-of-type */
+    .top-nav {
         flex-direction: column;
         gap: 1rem;
         padding: 1rem;
     }
-    .top-nav ul { /* Changed from nav:first-of-type ul */
+    .top-nav ul {
         flex-wrap: wrap;
         justify-content: center;
     }
@@ -660,20 +743,17 @@ footer p {
         width: 100%;
         max-width: 280px;
     }
-    .features, .stats-container, .testimonial-cards {
+    .features, .stats-container, .testimonial-cards, .learning-resources {
         grid-template-columns: 1fr;
         padding: 0 1.5rem;
         margin: 3rem auto;
     }
-    .features-box, .testimonial-card, .stat-item {
+    .features-box, .testimonial-card, .stat-item, .resource-card {
         padding: 2rem;
     }
-    .testimonials h2, .gallery h2, .companies h2 {
+    .testimonials h2, .gallery h2, .companies h2, .learning-resources h2 {
         font-size: 2rem;
         margin-bottom: 2rem;
-    }
-    .slideshow-container {
-        /* height: 280px; - Removed fixed height */
     }
     .footer-content {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -691,15 +771,15 @@ footer p {
     .logo {
         font-size: 1.5rem;
     }
-    .top-nav ul { /* Changed from nav:first-of-type ul */
+    .top-nav ul {
         gap: 0.8rem;
     }
-    .main-nav ul { /* Changed from nav:last-of-type ul */
+    .main-nav ul {
         justify-content: flex-start;
         padding-left: 1rem;
         padding-right: 1rem;
     }
-    .main-nav a, .main-nav button { /* Changed from nav:last-of-type a, nav:last-of-type button */
+    .main-nav a, .main-nav button {
         padding: 0.5rem 0.8rem;
         font-size: 0.9rem;
     }
@@ -708,9 +788,6 @@ footer p {
     }
     .hero p {
         font-size: 0.95rem;
-    }
-    .slideshow-container {
-        /* height: 220px; - Removed fixed height */
     }
     .company-logo-item img {
         max-width: 100px;
@@ -769,33 +846,30 @@ footer p {
     }
 }
 
-.top-nav li { /* Changed from nav:first-of-type li */
+.top-nav li {
     position: relative;
     animation: slideInNav 0.7s ease-out forwards;
     opacity: 0;
 }
 
 /* Staggering the animation for each navigation item */
-.top-nav li:nth-child(1) { /* Changed from nav:first-of-type li */
+.top-nav li:nth-child(1) {
     animation-delay: 0.1s;
 }
-.top-nav li:nth-child(2) { /* Changed from nav:first-of-type li */
+.top-nav li:nth-child(2) {
     animation-delay: 0.2s;
 }
-.top-nav li:nth-child(3) { /* Changed from nav:first-of-type li */
-    animation-delay: 0.3s;
-}
-/* Add more :nth-child rules if you have more navigation items */
+/* Add more :nth-child rules if you have more top navigation items */
 
 /* In your existing CSS for nav:last-of-type ul */
-.main-nav ul { /* Changed from nav:last-of-type ul */
+.main-nav ul {
     overflow-x: auto;
     padding-bottom: 0.5rem;
     justify-content: center;
 }
 
 @media (max-width: 480px) {
-    .main-nav ul { /* Changed from nav:last-of-type ul */
+    .main-nav ul {
         justify-content: flex-start;
         padding-left: 1rem;
         padding-right: 1rem;
@@ -809,11 +883,14 @@ footer p {
     .hero p,
     .cta-btns,
     .features-box i,
-    .top-nav li, /* Changed from nav:first-of-type li */
+    .resource-card i, /* Added for new section */
+    .top-nav li,
     .btn,
     .btn-outline,
+    .btn-secondary, /* Added for new section */
     .features-box,
     .testimonial-card,
+    .resource-card, /* Added for new section */
     .company-logo-item img,
     .social-links a {
         animation: none !important;
