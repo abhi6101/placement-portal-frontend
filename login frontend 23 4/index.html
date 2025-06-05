@@ -5,255 +5,212 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>College Placement Portal - Launch Your Career</title>
-    <link rel="icon" href="images/favicon.png" type="image/png">
-
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
 </head>
 
 <body>
-    <header>
-        <nav class="top-nav" aria-label="Contact Information">
-            <div class="logo">Placement<span>Portal</span></div>
-            <ul>
-                <li>
-                    <a href="mailto:abhijain6101@gmail.com" aria-label="Email us at abhijain6101@gmail.com">
-                        <i class="fas fa-envelope"></i> abhijain6101@gmail.com
-                    </a>
-                </li>
-                <li>
-                    <a href="tel:+91-6266017070" aria-label="Call us at +91-6266017070">
-                        <i class="fas fa-phone"></i> +91-6266017070
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <nav>
+        <div class="logo">Placement<span>Portal</span></div>
+        <ul>
+            <li><a href="mailto:abhijain6101@gmail.com" aria-label="Email us"><i class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
+            <li><a href="tel:+91-6266017070" aria-label="Call us"><i class="fas fa-phone"></i> +91-6266017070</a></li>
+        </ul>
+    </nav>
 
-        <nav class="main-nav" aria-label="Main Site Navigation">
-            <ul role="menubar"> <li role="none"><a role="menuitem" href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                <li role="none"><a role="menuitem" href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
-                <li role="none"><a role="menuitem" href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
-                <li role="none"><a role="menuitem" href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
-                <li role="none"><a role="menuitem" href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
-                <li role="none"><a role="menuitem" href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li id="adminPanelLink" style="display: none;" role="none">
-                    <a role="menuitem" href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a>
-                </li>
-                <li role="none"><a role="menuitem" href="login.html" id="loginBtn" class="btn">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </a></li>
-                <li role="none"><button role="menuitem" id="logoutBtn" class="btn" style="display: none;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button></li>
-            </ul>
-        </nav>
-    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+          
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li id="adminPanelLink" style="display: none;">
+                <a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a>
+            </li>
+            <li><a href="login.html" id="loginBtn" class="btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li><button id="logoutBtn" class="btn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
+        </ul>
+    </nav>
 
-    <main>
-        <section class="hero" aria-labelledby="heroHeading">
-            <div class="hero-content">
-                <h1 id="heroHeading">Launch Your Career with Ease!</h1>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 id="heroHeading">Launch Your Career with Ease!</h1>
 
-                <div id="userWelcome" style="display: none;">
-                    <h2>Welcome, <span id="displayUsername"></span>!</h2>
-                    <p>Account type: <span id="displayRole"></span></p>
-                    <p>Ready to find your next opportunity?</p>
-                </div>
-
-                <p id="heroSubtitle">Your comprehensive platform for job placements, resume building, interview preparation, and career growth.</p>
-                <div class="cta-btns">
-                    <a href="jobs.html" class="btn">Explore Jobs</a>
-                    <a href="register.html" id="registerBtn" class="btn btn-outline">Register Now</a>
-                </div>
+            <div id="userWelcome" style="display: none;">
+                <h2>Welcome, <span id="displayUsername"></span>!</h2>
+                <p>Account type: <span id="displayRole"></span></p>
+                <p>Ready to find your next opportunity?</p>
             </div>
-        </section>
 
-        <section id="features" class="features" aria-labelledby="features-heading">
-            <h2 id="features-heading" class="sr-only">Key Features</h2> <div class="features-box">
-                <i class="fas fa-briefcase" aria-hidden="true"></i> <h3>Job Listings</h3> <p>Access hundreds of curated job opportunities from top companies matching your skills and aspirations.</p>
+            <p id="heroSubtitle">Your comprehensive platform for job placements, resume building, interview preparation, and career growth.</p>
+            <div class="cta-btns">
                 <a href="jobs.html" class="btn">Explore Jobs</a>
+                <a href="register.html" id="registerBtn" class="btn btn-outline">Register Now</a>
             </div>
-            <div class="features-box">
-                <i class="fas fa-file-alt" aria-hidden="true"></i>
-                <h3>Resume Builder</h3>
-                <p>Create professional, ATS-friendly resumes with our easy-to-use builder and templates.</p>
-                <a href="resume.html" class="btn">Design Your CV</a>
-            </div>
-            <div class="features-box">
-                <i class="fas fa-comments" aria-hidden="true"></i>
-                <h3>Interview Prep</h3>
-                <p>Practice with mock interviews, common questions, and get feedback from industry experts.</p>
-                <a href="interview.html" class="btn">Start Preparing</a>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="learning-resources" class="learning-resources" aria-labelledby="learning-resources-heading">
-            <h2 id="learning-resources-heading">Enhance Your Preparation</h2>
-            <div class="resource-cards">
-                <div class="resource-card">
-                    <i class="fas fa-scroll" aria-hidden="true"></i>
-                    <h3>Previous Papers</h3>
-                    <p>Access a vast collection of previous year's placement papers to hone your problem-solving skills.</p>
-                    <a href="papers.html" class="btn btn-secondary">Practice Now</a>
-                </div>
-                <div class="resource-card">
-                    <i class="fas fa-brain" aria-hidden="true"></i>
-                    <h3>Quizzes & Assessments</h3>
-                    <p>Test your knowledge with interactive quizzes designed to cover various aptitude and technical topics.</p>
-                    <a href="quiz.html" class="btn btn-secondary">Take a Quiz</a>
-                </div>
-                <div class="resource-card">
-                    <i class="fas fa-video" aria-hidden="true"></i>
-                    <h3>Study Videos</h3>
-                    <p>Learn from expert-led video tutorials covering essential concepts for your placement success.</p>
-                    <a href="videos.html" class="btn btn-secondary">Watch & Learn</a>
-                </div>
-                <div class="resource-card">
-                    <i class="fas fa-book" aria-hidden="true"></i>
-                    <h3>Recommended Courses</h3>
-                    <p>Explore curated online courses to deepen your understanding and acquire new industry-relevant skills.</p>
-                    <a href="courses.html" class="btn btn-secondary">Find Courses</a>
-                </div>
-            </div>
-        </section>
+    <section class="features">
+        <div class="features-box">
+            <i class="fas fa-briefcase"></i>
+            <h2>Job Listings</h2>
+            <p>Access hundreds of curated job opportunities from top companies matching your skills and aspirations.</p>
+            <a href="jobs.html" class="btn">Explore Jobs</a>
+        </div>
+        <div class="features-box">
+            <i class="fas fa-file-alt"></i>
+            <h2>Resume Builder</h2>
+            <p>Create professional, ATS-friendly resumes with our easy-to-use builder and templates.</p>
+            <a href="resume.html" class="btn">Design Your CV</a>
+        </div>
+        <div class="features-box">
+            <i class="fas fa-comments"></i>
+            <h2>Interview Prep</h2>
+            <p>Practice with mock interviews, common questions, and get feedback from industry experts.</p>
+            <a href="interview.html" class="btn">Start Preparing</a>
+        </div>
+    </section>
 
-        <section id="stats" class="stats" aria-labelledby="stats-heading">
-            <h2 id="stats-heading" class="sr-only">Our Achievements and Statistics</h2>
-            <div class="stats-container">
-                <div class="stat-item">
-                    <h3>500+</h3>
-                    <p>Companies Hiring</p>
-                </div>
-                <div class="stat-item">
-                    <h3>10,000+</h3>
-                    <p>Successful Placements</p>
-                </div>
-                <div class="stat-item">
-                    <h3>95%</h3>
-                    <p>Placement Rate</p>
-                </div>
-                <div class="stat-item">
-                    <h3>50+</h3>
-                    <p>Career Resources</p>
-                </div>
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Companies Hiring</p>
             </div>
-        </section>
+            <div class="stat-item">
+                <h3>10,000+</h3>
+                <p>Successful Placements</p>
+            </div>
+            <div class="stat-item">
+                <h3>95%</h3>
+                <p>Placement Rate</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Career Resources</p>
+            </div>
+        </div>
+    </section>
 
-        <section id="testimonials" class="testimonials" aria-labelledby="testimonials-heading">
-            <h2 id="testimonials-heading">Success Stories</h2>
-            <div class="testimonial-cards">
-                <div class="testimonial-card">
-                    <p>"The placement portal helped me land my dream job at a top tech company. The resume builder and mock interviews were game-changers!"</p>
-                    <div class="testimonial-author">
-                        <img src="images/i-priya.jpg" alt="Priya Sharma, Software Engineer at Google">
-                        <div class="author-info">
-                            <h4>Priya Sharma</h4>
-                            <p>Software Engineer at Google</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p>"I went from no calls to 5 job offers in 2 months after using the interview preparation resources on this platform."</p>
-                    <div class="testimonial-author">
-                        <img src="images/i-rahul.jpg" alt="Rahul Verma, Data Analyst at Amazon">
-                        <div class="author-info">
-                            <h4>Rahul Verma</h4>
-                            <p>Data Analyst at Amazon</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <p>"The personalized career guidance and job matching helped me transition into a higher-paying role in my field."</p>
-                    <div class="testimonial-author">
-                        <img src="images/i-neha.jpg" alt="Neha Patel, Product Manager at Microsoft">
-                        <div class="author-info">
-                            <h4>Neha Patel</h4>
-                            <p>Product Manager at Microsoft</p>
-                        </div>
+    <section class="testimonials">
+        <h2>Success Stories</h2>
+        <div class="testimonial-cards">
+            <div class="testimonial-card">
+                <p>"The placement portal helped me land my dream job at a top tech company. The resume builder and mock interviews were game-changers!"</p>
+                <div class="testimonial-author">
+                    <img src="images/i-priya.jpg" alt="Priya Sharma">
+                    <div class="author-info">
+                        <h4>Priya Sharma</h4>
+                        <p>Software Engineer at Google</p>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section id="gallery" class="gallery" aria-labelledby="gallery-heading">
-            <h2 id="gallery-heading">Our Campus Glimpses</h2>
-            <div class="slideshow-container" role="region" aria-label="Campus Photo Slideshow">
-                <div class="mySlides fade">
-                    <img src="images/4E9A7129-copy.jpg" alt="Students actively engaged in a computer lab, demonstrating hands-on learning.">
-                </div>
-                <div class="mySlides fade">
-                    <img src="images/20240123_145917-copy.jpg" alt="The welcoming entrance of IPS Academy School of Computers building.">
-                </div>
-                <div class="mySlides fade">
-                    <img src="images/DSCF2122-copy.jpg" alt="Students focused on their work in a modern computer lab environment.">
-                </div>
-                <div class="mySlides fade">
-                    <img src="images/Group-photo-1-copy-4.jpg" alt="A group photo of enthusiastic students and faculty outside IPS Academy.">
-                </div>
-                <div class="mySlides fade">
-                    <img src="images/STUDENT5-1.jpg" alt="Students collaborating in a unique circular computer lab setup.">
-                </div>
-                <div class="mySlides fade">
-                    <img src="images/student-group-photo.jpg" alt="Large group photo capturing students and faculty proudly together.">
-                </div>
-                </div>
-            <a href="gallery.html" class="btn" style="margin-top: 1.5rem;">View All Photos in Gallery</a>
-        </section>
-
-        <section id="companies" class="companies" aria-labelledby="companies-heading">
-            <h2 id="companies-heading">Our Valued Placement Partners</h2>
-            <div class="company-logos">
-                <div class="company-logo-item">
-                    <a href="https://www.accenture.com" target="_blank" rel="noopener noreferrer" aria-label="Accenture website">
-                        <img src="images/accenture-logo.jpg" alt="Accenture logo">
-                    </a>
-                </div>
-                <div class="company-logo-item">
-                    <a href="https://www.wipro.com" target="_blank" rel="noopener noreferrer" aria-label="Wipro website">
-                        <img src="images/wipro-logo.jpg" alt="Wipro logo">
-                    </a>
-                </div>
-                <div class="company-logo-item">
-                    <a href="https://www.infosys.com" target="_blank" rel="noopener noreferrer" aria-label="Infosys website">
-                        <img src="images/infosys-logo.jpg" alt="Infosys logo">
-                    </a>
-                </div>
-                <div class="company-logo-item">
-                    <a href="https://www.tcs.com" target="_blank" rel="noopener noreferrer" aria-label="TCS website">
-                        <img src="images/tcs-logo.jpg" alt="TCS logo">
-                    </a>
-                </div>
-                <div class="company-logo-item">
-                    <a href="https://www.capgemini.com" target="_blank" rel="noopener noreferrer" aria-label="Capgemini website">
-                        <img src="images/capgemini-logo.jpg" alt="Capgemini logo">
-                    </a>
-                </div>
-                <div class="company-logo-item">
-                    <a href="https://www.persistent.com" target="_blank" rel="noopener noreferrer" aria-label="Persistent Systems website">
-                        <img src="images/persistent-logo.jpg" alt="Persistent Systems logo">
-                    </a>
-                </div>
-                <div class="company-logo-item">
-                    <a href="https://hexaware.com" target="_blank" rel="noopener noreferrer" aria-label="Hexaware website">
-                        <img src="images/hexaware-logo.jpg" alt="Hexaware logo">
-                    </a>
-                </div>
-                <div class="company-logo-item">
-                    <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" aria-label="Google website">
-                        <img src="images/google.png" alt="Google logo">
-                    </a>
-                </div>
-                <div class="company-logo-item">
-                    <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer" aria-label="Microsoft website">
-                        <img src="images/microsoft.png" alt="Microsoft logo">
-                    </a>
+            <div class="testimonial-card">
+                <p>"I went from no calls to 5 job offers in 2 months after using the interview preparation resources on this platform."</p>
+                <div class="testimonial-author">
+                    <img src="images/i-rahul.jpg" alt="Rahul Verma">
+                    <div class="author-info">
+                        <h4>Rahul Verma</h4>
+                        <p>Data Analyst at Amazon</p>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+            <div class="testimonial-card">
+                <p>"The personalized career guidance and job matching helped me transition into a higher-paying role in my field."</p>
+                <div class="testimonial-author">
+                    <img src="images/i-neha.jpg" alt="Neha Patel">
+                    <div class="author-info">
+                        <h4>Neha Patel</h4>
+                        <p>Product Manager at Microsoft</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <h2>Our Campus Glimpses</h2>
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img src="images/4E9A7129-copy.jpg" alt="Students in a computer lab">
+            </div>
+            <div class="mySlides fade">
+                <img src="images/20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
+            </div>
+            <div class="mySlides fade">
+                <img src="images/DSCF2122-copy.jpg" alt="Students working on computers in a lab">
+            </div>
+            <div class="mySlides fade">
+                <img src="images/Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
+            </div>
+            <div class="mySlides fade">
+                <img src="images/STUDENT5-1.jpg" alt="Students in a circular computer lab">
+            </div>
+            <div class="mySlides fade">
+                <img src="images/student-group-photo.jpg" alt="Large group photo of students and faculty">
+            </div>
+        </div>
+        <a href="gallery.html" class="btn" style="margin-top: 1.5rem;">View All Photos in Gallery</a>
+    </section>
+
+    <section class="companies">
+        <h2>Our Valued Placement Partners</h2>
+        <div class="company-logos">
+            <div class="company-logo-item">
+                <a href="https://www.accenture.com" target="_blank" aria-label="Accenture website">
+                    <img src="images/accenture-logo.jpg" alt="Accenture logo">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.wipro.com" target="_blank" aria-label="Wipro website">
+                    <img src="images/wipro-logo.jpg" alt="Wipro logo">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.infosys.com" target="_blank" aria-label="Infosys website">
+                    <img src="images/infosys-logo.jpg" alt="Infosys logo">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.tcs.com" target="_blank" aria-label="TCS website">
+                    <img src="images/tcs-logo.jpg" alt="TCS logo">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.capgemini.com" target="_blank" aria-label="Capgemini website">
+                    <img src="images/capgemini-logo.jpg" alt="Capgemini logo">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.persistent.com" target="_blank" aria-label="Persistent Systems website">
+                    <img src="images/persistent-logo.jpg" alt="Persistent Systems logo">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://hexaware.com" target="_blank" aria-label="Hexaware website">
+                    <img src="images/hexaware-logo.jpg" alt="Hexaware logo">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.google.com" target="_blank" aria-label="Google website">
+                    <img src="images/google.png" alt="Google logo">
+                </a>
+            </div>
+            <div class="company-logo-item">
+                <a href="https://www.microsoft.com" target="_blank" aria-label="Microsoft website">
+                    <img src="images/microsoft.png" alt="Microsoft logo">
+                </a>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-content">
@@ -288,31 +245,51 @@
             <div class="footer-column">
                 <h3>Connect With Us</h3>
                 <div class="social-links">
-                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram profile"><i class="fab fa-instagram"></i></a>
                 </div>
                 <p style="margin-top: 1.5rem; color: #ccc;">abhijain6101@gmail.com</p>
             </div>
         </div>
-        <p>Created by Abhi Jain</p>
-        <p>&copy; 2025 College Placement System. All rights reserved.</p>
+        <P> Created by Abhi jain</P>
+        <p> 2025 College Placement System. All rights reserved.</p>
     </footer>
 
     <script src="index.js"></script>
+    <script>
+        // Slideshow functionality for the HOME PAGE (ONLY automatic advancement)
+        let slideIndex = 0;
+        let autoSlideInterval;
 
-    <style>
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlides();
+            startAutoSlide();
+        });
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
+
+            slides[slideIndex - 1].style.display = "block";
         }
-    </style>
+
+        function startAutoSlide() {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(() => {
+                showSlides();
+            }, 4000); // Change image every 4 seconds
+        }
+    </script>
+
 </body>
 
 </html>
