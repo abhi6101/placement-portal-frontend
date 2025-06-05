@@ -7,28 +7,26 @@
     <title>Job Listings | Placement Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="jobs.css">
-
 </head>
 
 <body>
-     <nav>
+    <nav>
         <div class="logo">Placement<span>Portal</span></div>
-       
     </nav>
 
     <nav class="main-nav">
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-          <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
-          <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
-          <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
-           <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
+            <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
             <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
-             <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-          <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
-          <li><a href="courses.html"  ><i class="fas fa-book"></i> Courses</a></li>
-          <li><a href="blog.html" ><i class="fas fa-blog"></i> Blog</a></li>
-          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
     </nav>
 
@@ -74,11 +72,10 @@
         </div>
 
         <div class="pagination">
-            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+            <button class="page-btn prev-page"><i class="fas fa-chevron-left"></i></button>
+            <div id="paginationNumbers" class="pagination-numbers">
+                </div>
+            <button class="page-btn next-page"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 
@@ -120,6 +117,8 @@
                     <textarea id="coverLetter" name="coverLetter" rows="5"></textarea>
                 </div>
 
+                <div id="applicationMessage" class="form-message"></div>
+
                 <button type="submit" class="btn">Submit Application</button>
             </form>
         </div>
@@ -132,343 +131,510 @@
                 href="mailto:abhijain6101@gmail.com">abhijain6101@gmail.com</a></p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs"; // Your existing jobs API
-            const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job";
+    <script src="jobs.js"></script> <script src="index.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // --- API Endpoints ---
+    const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs"; // Your existing jobs API
+    const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job";
 
-            const jobList = document.getElementById('jobList');
-            const searchForm = document.getElementById('searchForm');
-            const searchInput = document.getElementById('searchInput');
-            const locationInput = document.getElementById('locationInput');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const sortSelect = document.getElementById('sortSelect');
+    // --- DOM Elements ---
+    const jobList = document.getElementById('jobList');
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const locationInput = document.getElementById('locationInput');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const sortSelect = document.getElementById('sortSelect');
 
-            const applicationFormModal = document.getElementById('applicationFormModal');
-            const closeButton = document.querySelector('.close-button');
-            const jobApplicationForm = document.getElementById('jobApplicationForm');
-            const jobTitleForApplication = document.getElementById('jobTitleForApplication');
-            const appliedJobId = document.getElementById('appliedJobId');
-            const formApplicantName = document.getElementById('applicantName');
-            const formApplicantEmail = document.getElementById('applicantEmail');
-            const formApplicantPhone = document.getElementById('applicantPhone');
-            const formApplicantRollNo = document.getElementById('applicantRollNo');
-            const resumeInput = document.getElementById('resume');
+    const applicationFormModal = document.getElementById('applicationFormModal');
+    const closeButton = document.querySelector('.close-button');
+    const jobApplicationForm = document.getElementById('jobApplicationForm');
+    const jobTitleForApplication = document.getElementById('jobTitleForApplication');
+    const appliedJobId = document.getElementById('appliedJobId');
+    const formApplicantName = document.getElementById('applicantName');
+    const formApplicantEmail = document.getElementById('applicantEmail');
+    const formApplicantPhone = document.getElementById('applicantPhone');
+    const formApplicantRollNo = document.getElementById('applicantRollNo');
+    const resumeInput = document.getElementById('resume');
+    const applicationMessage = document.getElementById('applicationMessage'); // New: for modal messages
 
-            let allJobs = [];
-            let currentUserDetails = null; // To store user details from token
+    const paginationNumbers = document.getElementById('paginationNumbers');
+    const prevPageBtn = document.querySelector('.prev-page');
+    const nextPageBtn = document.querySelector('.next-page');
 
-            // Function to extract user details from JWT token
-            function getUserDetailsFromToken(token) {
-                try {
-                    const payload = JSON.parse(atob(token.split('.')[1]));
-                    return {
-                        username: payload.sub,
-                        email: payload.email || `${payload.sub}@example.com`,
-                        rollNo: payload.rollNo || 'N/A',
-                        phone: payload.phone || 'N/A',
-                        exp: payload.exp
-                    };
-                } catch (e) {
-                    console.error("Error parsing token or missing claims:", e);
-                    return null;
+    // --- Global State Variables ---
+    let allJobs = []; // Stores all fetched jobs
+    let displayedJobs = []; // Stores jobs after filtering/sorting
+    let currentPage = 1;
+    const jobsPerPage = 5; // Number of jobs to display per page
+    let currentUserDetails = null;
+
+    // --- Utility Functions ---
+
+    /**
+     * Decodes a JWT token and extracts relevant user details.
+     * @param {string} token - The JWT token string.
+     * @returns {object|null} An object with user details (username, email, phone, rollNo, exp) or null if invalid.
+     */
+    function getUserDetailsFromToken(token) {
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            return {
+                username: payload.sub, // Assuming 'sub' is the username
+                email: payload.email || '', // Add 'email' to JWT payload if available
+                rollNo: payload.rollNo || '', // Add 'rollNo' to JWT payload if available
+                phone: payload.phone || '', // Add 'phone' to JWT payload if available
+                exp: payload.exp // Expiration time
+            };
+        } catch (e) {
+            console.error("Error parsing token or missing claims:", e);
+            return null;
+        }
+    }
+
+    /**
+     * Formats a date string into 'DD Mon YYYY' format (e.g., '05 Jun 2025').
+     * @param {string} dateString - The date string to format.
+     * @returns {string} The formatted date.
+     */
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-IN', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+        });
+    }
+
+    /**
+     * Displays a message within the job list area.
+     * @param {string} message - The message to display.
+     * @param {string} type - 'error' or 'loading'.
+     */
+    function showJobListMessage(message, type = 'loading') {
+        const icon = type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-spinner fa-spin';
+        const className = type === 'error' ? 'error-message' : 'loading';
+        jobList.innerHTML = `<div class="${className}"><i class="${icon}"></i> ${message}</div>`;
+    }
+
+    /**
+     * Displays a message within the application modal form.
+     * @param {string} message - The message to display.
+     * @param {string} type - 'success' or 'error'.
+     */
+    function showApplicationMessage(message, type) {
+        applicationMessage.textContent = message;
+        applicationMessage.className = `form-message ${type}`;
+        applicationMessage.style.display = 'block';
+    }
+
+    /**
+     * Hides the application message.
+     */
+    function hideApplicationMessage() {
+        applicationMessage.textContent = '';
+        applicationMessage.className = 'form-message';
+        applicationMessage.style.display = 'none';
+    }
+
+    // --- Data Fetching ---
+
+    /**
+     * Fetches job data from the API.
+     * @returns {Promise<Array>} A promise that resolves to an array of job objects.
+     */
+    async function fetchJobs() {
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching jobs:', error);
+            showJobListMessage('Failed to load jobs. Please try again later.', 'error');
+            return [];
+        }
+    }
+
+    /**
+     * Loads all jobs, stores them, and then filters/sorts/displays them.
+     */
+    async function loadJobs() {
+        showJobListMessage('Loading jobs...');
+        const jobs = await fetchJobs();
+        allJobs = jobs; // Store raw fetched jobs
+        filterAndSortJobs(); // Process and display
+    }
+
+    // --- Job Display & Interaction ---
+
+    /**
+     * Renders a list of jobs to the DOM.
+     * @param {Array} jobsToDisplay - The array of job objects to render.
+     */
+    function displayJobs(jobsToDisplay) {
+        if (jobsToDisplay.length === 0) {
+            showJobListMessage('No jobs found matching your criteria.', 'error');
+            return;
+        }
+
+        jobList.innerHTML = ''; // Clear previous jobs
+
+        jobsToDisplay.forEach(job => {
+            const jobCard = document.createElement('div');
+            jobCard.className = 'job-card';
+
+            // Determine job type for styling and text
+            let jobTypeClass = 'full-time';
+            let jobTypeText = 'Full Time';
+
+            if (job.title.toLowerCase().includes('intern') || job.description.toLowerCase().includes('intern')) {
+                jobTypeClass = 'internship';
+                jobTypeText = 'Internship';
+            } else if (job.title.toLowerCase().includes('remote') || job.description.toLowerCase().includes('remote')) {
+                jobTypeClass = 'remote';
+                jobTypeText = 'Remote';
+            }
+
+            jobCard.innerHTML = `
+                <div class="job-header">
+                    <h3 class="job-title">${job.title}</h3>
+                    <div class="job-company">
+                        <i class="fas fa-building"></i> ${job.company_name}
+                    </div>
+                    <span class="job-type ${jobTypeClass}">${jobTypeText}</span>
+                </div>
+                <div class="job-content">
+                    <p class="job-description">${job.description}</p>
+                    <div class="job-meta">
+                        <span class="job-meta-item">
+                            <i class="fas fa-rupee-sign"></i> ₹${job.salary.toLocaleString('en-IN')} per annum
+                        </span>
+                        <span class="job-meta-item">
+                            <i class="fas fa-calendar-alt"></i> Apply before ${formatDate(job.last_date)}
+                        </span>
+                    </div>
+                    <div class="job-actions">
+                        <a href="job-details.html?id=${job.id}" class="btn btn-outline">
+                            <i class="fas fa-eye"></i> View Details
+                        </a>
+                        <button class="btn apply-btn" data-job-id="${job.id}">
+                            <i class="fas fa-paper-plane"></i> Apply Now
+                        </button>
+                    </div>
+                </div>
+            `;
+            jobList.appendChild(jobCard);
+        });
+    }
+
+    // --- Filtering and Sorting Logic ---
+
+    /**
+     * Filters and sorts the `allJobs` array based on current search, filter, and sort criteria,
+     * then updates `displayedJobs` and triggers pagination/display.
+     */
+    function filterAndSortJobs() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const locationTerm = locationInput.value.toLowerCase(); // Currently unused in filter logic
+        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+
+        let filtered = allJobs.filter(job => {
+            const matchesSearch = job.title.toLowerCase().includes(searchTerm) ||
+                                  job.company_name.toLowerCase().includes(searchTerm) ||
+                                  job.description.toLowerCase().includes(searchTerm);
+
+            // You'll need to add a 'location' property to your job objects from the API
+            // For now, this is a placeholder. If your API doesn't return location,
+            // you might need to infer it or add it to your job data.
+            const matchesLocation = locationTerm === '' || (job.location && job.location.toLowerCase().includes(locationTerm));
+            
+            let matchesCategoryFilter = true;
+            if (activeFilter !== 'all') {
+                switch (activeFilter) {
+                    case 'it':
+                        matchesCategoryFilter = job.category && job.category.toLowerCase().includes('it') ||
+                                                job.title.toLowerCase().includes('software') ||
+                                                job.description.toLowerCase().includes('developer') ||
+                                                job.description.toLowerCase().includes('programming');
+                        break;
+                    case 'engineering':
+                        matchesCategoryFilter = job.category && job.category.toLowerCase().includes('engineering') ||
+                                                job.title.toLowerCase().includes('engineer');
+                        break;
+                    case 'finance':
+                        matchesCategoryFilter = job.category && job.category.toLowerCase().includes('finance') ||
+                                                job.title.toLowerCase().includes('finance') ||
+                                                job.description.toLowerCase().includes('accountant');
+                        break;
+                    case 'internship':
+                        matchesCategoryFilter = job.type && job.type.toLowerCase() === 'internship' || // Assuming job.type field
+                                                job.title.toLowerCase().includes('intern') ||
+                                                job.description.toLowerCase().includes('internship');
+                        break;
                 }
             }
 
-            // Authentication check and user details extraction
+            return matchesSearch && matchesLocation && matchesCategoryFilter;
+        });
+
+        const sortValue = sortSelect.value;
+        filtered.sort((a, b) => {
+            switch (sortValue) {
+                case 'salary-high':
+                    return (b.salary || 0) - (a.salary || 0); // Handle potential missing salary
+                case 'salary-low':
+                    return (a.salary || 0) - (b.salary || 0);
+                case 'deadline':
+                    // Sort by earliest deadline first (ascending)
+                    return new Date(a.last_date) - new Date(b.last_date);
+                case 'newest': // Default
+                default:
+                    // Use 'created_at' if available, otherwise 'last_date' as fallback for "newest"
+                    return new Date(b.created_at || b.last_date) - new Date(a.created_at || a.last_date);
+            }
+        });
+
+        displayedJobs = filtered; // Update the array of jobs to be paginated
+        currentPage = 1; // Reset to first page on new filter/sort
+        updatePagination();
+        renderCurrentPageJobs();
+    }
+
+    // --- Pagination Logic ---
+
+    /**
+     * Renders jobs for the current page.
+     */
+    function renderCurrentPageJobs() {
+        const startIndex = (currentPage - 1) * jobsPerPage;
+        const endIndex = startIndex + jobsPerPage;
+        const jobsOnPage = displayedJobs.slice(startIndex, endIndex);
+        displayJobs(jobsOnPage);
+    }
+
+    /**
+     * Updates the pagination controls (page numbers, prev/next buttons).
+     */
+    function updatePagination() {
+        const totalPages = Math.ceil(displayedJobs.length / jobsPerPage);
+        paginationNumbers.innerHTML = ''; // Clear existing page numbers
+
+        // Add page number buttons
+        for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.classList.add('page-btn');
+            if (i === currentPage) {
+                pageBtn.classList.add('active');
+            }
+            pageBtn.textContent = i;
+            pageBtn.addEventListener('click', () => {
+                currentPage = i;
+                updatePagination(); // Re-render pagination to update active state
+                renderCurrentPageJobs(); // Render jobs for the new page
+            });
+            paginationNumbers.appendChild(pageBtn);
+        }
+
+        // Enable/disable prev/next buttons
+        prevPageBtn.disabled = currentPage === 1;
+        nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+
+        // Hide pagination entirely if only one page or no jobs
+        const paginationContainer = document.querySelector('.pagination');
+        if (totalPages <= 1) {
+            paginationContainer.style.display = 'none';
+        } else {
+            paginationContainer.style.display = 'flex'; // Or 'block', depending on CSS
+        }
+    }
+
+    // --- Modal and Application Form Handling ---
+
+    /**
+     * Populates the application form with user details and opens the modal.
+     * @param {object} job - The job object being applied for.
+     */
+    function openApplicationModal(job) {
+        // Clear any previous messages
+        hideApplicationMessage();
+        jobApplicationForm.reset(); // Reset form fields
+
+        jobTitleForApplication.textContent = `${job.title} at ${job.company_name}`;
+        appliedJobId.value = job.id; // Store job ID in a hidden field
+
+        // Pre-fill user details from currentUserDetails
+        formApplicantName.value = currentUserDetails.username || '';
+        formApplicantEmail.value = currentUserDetails.email || '';
+        formApplicantPhone.value = currentUserDetails.phone || '';
+        formApplicantRollNo.value = currentUserDetails.rollNo || '';
+
+        applicationFormModal.style.display = 'flex'; // Use flex to center the modal
+    }
+
+    /**
+     * Handles the submission of the job application form.
+     * @param {Event} event - The form submission event.
+     */
+    async function handleApplicationSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData(jobApplicationForm);
+        const jobId = formData.get('jobId');
+
+        const job = allJobs.find(j => j.id == jobId);
+        if (!job) {
+            showApplicationMessage('Error: Job details not found for application. Please try again.', 'error');
+            return;
+        }
+
+        // Append job-specific details to FormData
+        formData.append('jobTitle', job.title);
+        formData.append('companyName', job.company_name);
+
+        const submitButton = jobApplicationForm.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+        hideApplicationMessage(); // Hide previous messages
+
+        try {
             const token = localStorage.getItem("authToken");
             if (!token) {
-                alert("You must be logged in to access this page.");
-                window.location.href = "login.html";
-                return;
-            } else {
-                currentUserDetails = getUserDetailsFromToken(token);
-                if (!currentUserDetails || currentUserDetails.exp < Date.now() / 1000) {
-                    alert("Session expired or invalid token. Please log in again.");
-                    localStorage.clear();
-                    window.location.href = "login.html";
-                    return;
-                }
+                throw new Error("Authentication token missing. Please log in.");
             }
 
-
-            // Fetch jobs from API
-            async function fetchJobs() {
-                try {
-                    const response = await fetch(API_URL);
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch jobs');
-                    }
-                    return await response.json();
-                } catch (error) {
-                    console.error('Error fetching jobs:', error);
-                    showError('Failed to load jobs. Please try again later.');
-                    return [];
-                }
-            }
-
-            // Load jobs from API then render
-            async function loadJobs() {
-                jobList.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading jobs...</div>';
-                const jobs = await fetchJobs();
-                allJobs = jobs;
-                filterAndSortJobs(); // This will call displayJobs
-            }
-
-            // Format date
-            function formatDate(dateString) {
-                const date = new Date(dateString);
-                return date.toLocaleDateString('en-IN', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric'
-                });
-            }
-
-            // Show error
-            function showError(message) {
-                jobList.innerHTML = `<div class="error-message">${message}</div>`;
-            }
-
-            // Display jobs
-            function displayJobs(jobs) {
-                if (jobs.length === 0) {
-                    jobList.innerHTML = '<div class="error-message">No jobs found matching your criteria</div>';
-                    return;
-                }
-
-                jobList.innerHTML = '';
-
-                jobs.forEach(job => {
-                    const jobCard = document.createElement('div');
-                    jobCard.className = 'job-card';
-
-                    let jobTypeClass = 'full-time';
-                    let jobTypeText = 'Full Time';
-
-                    if (job.title.toLowerCase().includes('intern') || job.description.toLowerCase().includes('intern')) {
-                        jobTypeClass = 'internship';
-                        jobTypeText = 'Internship';
-                    } else if (job.title.toLowerCase().includes('remote') || job.description.toLowerCase().includes('remote')) {
-                        jobTypeClass = 'remote';
-                        jobTypeText = 'Remote';
-                    }
-
-                    jobCard.innerHTML = `
-                        <div class="job-header">
-                            <h3 class="job-title">${job.title}</h3>
-                            <div class="job-company">
-                                <i class="fas fa-building"></i> ${job.company_name}
-                            </div>
-                            <span class="job-type ${jobTypeClass}">${jobTypeText}</span>
-                        </div>
-                        <div class="job-content">
-                            <p class="job-description">${job.description}</p>
-                            <div class="job-meta">
-                                <span class="job-meta-item">
-                                    <i class="fas fa-rupee-sign"></i> ₹${job.salary.toLocaleString('en-IN')} per annum
-                                </span>
-                                <span class="job-meta-item">
-                                    <i class="fas fa-calendar-alt"></i> Apply before ${formatDate(job.last_date)}
-                                </span>
-                            </div>
-                            <div class="job-actions">
-                                <a href="job-details.html?id=${job.id}" class="btn btn-outline">
-                                    <i class="fas fa-eye"></i> View Details
-                                </a>
-                                <button class="btn apply-btn" data-job-id="${job.id}">
-                                    <i class="fas fa-paper-plane"></i> Apply Now
-                                </button>
-                            </div>
-                        </div>
-                    `;
-
-                    jobList.appendChild(jobCard);
-                });
-            }
-
-            // Filter + Sort jobs
-            function filterAndSortJobs() {
-                const searchTerm = searchInput.value.toLowerCase();
-                const locationTerm = locationInput.value.toLowerCase();
-                const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-
-                let filteredJobs = allJobs.filter(job => {
-                    const matchesSearch = job.title.toLowerCase().includes(searchTerm) ||
-                        job.company_name.toLowerCase().includes(searchTerm) ||
-                        job.description.toLowerCase().includes(searchTerm);
-
-                    const matchesLocation = true; // Placeholder for location filter
-                    let matchesFilter = true;
-
-                    if (activeFilter !== 'all') {
-                        switch (activeFilter) {
-                            case 'it':
-                                matchesFilter = job.title.toLowerCase().includes('software') ||
-                                    job.description.toLowerCase().includes('developer');
-                                break;
-                            case 'engineering':
-                                matchesFilter = job.title.toLowerCase().includes('engineer');
-                                break;
-                            case 'finance':
-                                matchesFilter = job.title.toLowerCase().includes('finance') ||
-                                    job.description.toLowerCase().includes('accountant');
-                                break;
-                            case 'internship':
-                                matchesFilter = job.title.toLowerCase().includes('intern') ||
-                                    job.description.toLowerCase().includes('internship');
-                                break;
-                        }
-                    }
-
-                    return matchesSearch && matchesLocation && matchesFilter;
-                });
-
-                const sortValue = sortSelect.value;
-                filteredJobs.sort((a, b) => {
-                    switch (sortValue) {
-                        case 'salary-high':
-                            return b.salary - a.salary;
-                        case 'salary-low':
-                            return a.salary - b.salary;
-                        case 'deadline':
-                            return new Date(a.last_date) - new Date(b.last_date);
-                        default:
-                            return new Date(b.created_at || b.last_date) - new Date(a.created_at || a.last_date);
-                    }
-                });
-
-                displayJobs(filteredJobs);
-            }
-
-            // Event listeners
-            searchForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-                filterAndSortJobs();
+            const response = await fetch(APPLY_JOB_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
             });
 
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    filterAndSortJobs();
-                });
-            });
-
-            sortSelect.addEventListener('change', filterAndSortJobs);
-
-            // --- Event listener for Job Apply buttons to open modal ---
-            jobList.addEventListener('click', async function (event) {
-                const applyButton = event.target.closest('.apply-btn');
-
-                if (applyButton && !applyButton.disabled) {
-                    const jobId = applyButton.dataset.jobId;
-                    const job = allJobs.find(j => j.id == jobId);
-
-                    if (!job) {
-                        alert('Error: Job details not found. Cannot apply.');
-                        return;
-                    }
-
-                    if (!currentUserDetails) {
-                        alert("Error: User details not available. Please log in again.");
-                        localStorage.clear();
-                        window.location.href = "login.html";
-                        return;
-                    }
-
-                    // Populate the modal form with job details and user's pre-filled info
-                    jobTitleForApplication.textContent = `${job.title} at ${job.company_name}`;
-                    appliedJobId.value = jobId; // Store job ID in a hidden field
-                    formApplicantName.value = currentUserDetails.username || '';
-                    formApplicantEmail.value = currentUserDetails.email || '';
-                    formApplicantPhone.value = currentUserDetails.phone || '';
-                    formApplicantRollNo.value = currentUserDetails.rollNo || '';
-
-                    // Show the modal
-                    applicationFormModal.style.display = 'flex'; // Use flex to center the modal
-                }
-            });
-
-            // Close modal when close button is clicked
-            closeButton.addEventListener('click', function () {
-                applicationFormModal.style.display = 'none';
-                jobApplicationForm.reset(); // Clear form fields on close
-            });
-
-            // Close modal when clicking outside the modal content
-            window.addEventListener('click', function (event) {
-                if (event.target == applicationFormModal) {
+            if (response.ok) {
+                showApplicationMessage(`Application for "${job.title}" submitted successfully! HR will be notified.`, 'success');
+                // Optional: Automatically close modal after a delay, or let user close
+                setTimeout(() => {
                     applicationFormModal.style.display = 'none';
-                    jobApplicationForm.reset(); // Clear form fields on close
+                    jobApplicationForm.reset();
+                }, 2000);
+
+                // Update the original "Apply Now" button in the job card
+                const originalApplyButton = document.querySelector(`.apply-btn[data-job-id="${jobId}"]`);
+                if (originalApplyButton) {
+                    originalApplyButton.textContent = 'Applied';
+                    originalApplyButton.disabled = true;
+                    originalApplyButton.style.backgroundColor = '#6c757d'; // Grey out button
+                    originalApplyButton.style.cursor = 'not-allowed';
                 }
-            });
+            } else {
+                const errorData = await response.json();
+                showApplicationMessage(`Failed to submit application: ${errorData.message || 'Unknown error'}`, 'error');
+            }
+        } catch (error) {
+            console.error('Error submitting job application:', error);
+            showApplicationMessage(`An error occurred: ${error.message || 'Please check your network and try again.'}`, 'error');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Submit Application';
+        }
+    }
 
-            // --- Handle form submission for job application from the modal ---
-            jobApplicationForm.addEventListener('submit', async function (event) {
-                event.preventDefault(); // Prevent default form submission
+    // --- Event Listeners ---
 
-                const formData = new FormData(jobApplicationForm); // Get form data, including file
-                const jobId = formData.get('jobId'); // Retrieve jobId from hidden input
+    searchForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        filterAndSortJobs();
+    });
 
-                // Add job-specific details from the `job` object
-                const job = allJobs.find(j => j.id == jobId);
-                if (job) {
-                    formData.append('jobTitle', job.title);
-                    formData.append('companyName', job.company_name);
-                } else {
-                    alert('Error: Could not find job details for application. Please try again.');
-                    return;
-                }
-
-                const submitButton = jobApplicationForm.querySelector('button[type="submit"]');
-                submitButton.disabled = true;
-                submitButton.textContent = 'Submitting...';
-
-                try {
-                    const token = localStorage.getItem("authToken");
-                    const response = await fetch(APPLY_JOB_API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: formData // Send FormData directly
-                    });
-
-                    if (response.ok) {
-                        alert(`Application for "${job.title}" submitted successfully! HR will be notified.`);
-                        applicationFormModal.style.display = 'none'; // Hide the modal
-                        jobApplicationForm.reset(); // Clear the form
-
-                        // Optionally update the original "Apply Now" button in the job card
-                        const originalApplyButton = document.querySelector(`.apply-btn[data-job-id="${jobId}"]`);
-                        if (originalApplyButton) {
-                            originalApplyButton.innerText = 'Applied';
-                            originalApplyButton.disabled = true;
-                            originalApplyButton.style.backgroundColor = '#6c757d';
-                            originalApplyButton.style.cursor = 'not-allowed';
-                        }
-
-                    } else {
-                        const errorData = await response.json();
-                        alert(`Failed to submit application: ${errorData.message || response.statusText || 'Unknown error'}`);
-                    }
-                } catch (error) {
-                    console.error('Error submitting job application:', error);
-                    alert('An error occurred while submitting your application. Please check your network and try again.');
-                } finally {
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Submit Application';
-                }
-            });
-
-            // Initial load of jobs
-            loadJobs();
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            filterAndSortJobs();
         });
-    </script>
+    });
 
+    sortSelect.addEventListener('change', filterAndSortJobs);
+
+    // Event listener for "Apply Now" buttons on job cards (event delegation)
+    jobList.addEventListener('click', function (event) {
+        const applyButton = event.target.closest('.apply-btn');
+        if (applyButton && !applyButton.disabled) {
+            const jobId = applyButton.dataset.jobId;
+            const job = allJobs.find(j => j.id == jobId);
+            if (job && currentUserDetails) {
+                openApplicationModal(job);
+            } else if (!currentUserDetails) {
+                alert("Please log in to apply for jobs.");
+                window.location.href = "login.html"; // Redirect to login
+            } else {
+                alert("Error: Job details not found. Cannot apply.");
+            }
+        }
+    });
+
+    // Modal close button
+    closeButton.addEventListener('click', function () {
+        applicationFormModal.style.display = 'none';
+        jobApplicationForm.reset();
+        hideApplicationMessage(); // Clear messages on close
+    });
+
+    // Close modal when clicking outside content
+    window.addEventListener('click', function (event) {
+        if (event.target == applicationFormModal) {
+            applicationFormModal.style.display = 'none';
+            jobApplicationForm.reset();
+            hideApplicationMessage(); // Clear messages on close
+        }
+    });
+
+    // Handle form submission for job application
+    jobApplicationForm.addEventListener('submit', handleApplicationSubmit);
+
+    // Pagination navigation
+    prevPageBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePagination();
+            renderCurrentPageJobs();
+        }
+    });
+
+    nextPageBtn.addEventListener('click', () => {
+        const totalPages = Math.ceil(displayedJobs.length / jobsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePagination();
+            renderCurrentPageJobs();
+        }
+    });
+
+    // --- Initialization ---
+
+    // Authentication check and user details extraction on page load
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+        alert("You must be logged in to access this page.");
+        window.location.href = "login.html";
+        return; // Stop execution if not logged in
+    } else {
+        currentUserDetails = getUserDetailsFromToken(token);
+        // Check for expired token
+        if (!currentUserDetails || currentUserDetails.exp * 1000 < Date.now()) {
+            alert("Session expired or invalid token. Please log in again.");
+            localStorage.clear(); // Clear storage on expiry
+            window.location.href = "login.html";
+            return; // Stop execution if token is expired/invalid
+        }
+    }
+
+    // Load jobs after authentication check
+    loadJobs();
+});
+</script>
 </body>
 
 </html>
-
-
