@@ -19,58 +19,51 @@
     box-sizing: border-box;
 }
 
-html {
-    /* Base font size for better consistency with rem units */
-    font-size: 16px;
-}
-
 body {
     background-color: #f5f7fa; /* Slightly lighter background */
     color: #333;
     line-height: 1.6;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Global font-family */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Moved font-family here for global application */
     -webkit-font-smoothing: antialiased; /* Smoother font rendering */
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Top Navigation Bar - Enhanced for responsiveness */
+/* Top Navigation Bar - Enhanced */
 nav:first-of-type {
     background-color: var(--dark);
     color: white;
-    padding: 1rem 2.5rem; /* Increased padding */
+    padding: 1rem 2.5rem; /* Increased padding for more breathing room */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Allows items to wrap */
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
     min-height: 65px; /* Ensures a minimum height */
-    position: relative; /* Needed for potential mobile menu toggle */
 }
 
 .logo {
     font-size: 2rem; /* Slightly larger logo */
     font-weight: 700;
-    margin-right: 1.5rem;
-    flex-shrink: 0;
+    margin-right: 1.5rem; /* Consistent spacing */
+    flex-shrink: 0; /* Prevent logo from shrinking */
 }
 
 .logo span {
     color: var(--primary);
 }
 
-/* Navigation items initially hidden for mobile, controlled by JavaScript toggle */
 nav:first-of-type ul {
     display: flex;
     list-style: none;
-    gap: 2rem; /* Increased gap */
+    gap: 2rem; /* Increased gap for better spacing */
     align-items: center;
-    padding: 0;
-    margin: 0;
-    flex-wrap: wrap;
+    padding: 0; /* Ensure no default padding */
+    margin: 0; /* Ensure no default margin */
+    flex-wrap: wrap; /* Allows nav items to wrap */
     justify-content: flex-end; /* Align items to the right on larger screens */
 }
 
 nav:first-of-type ul li {
-    flex-shrink: 0;
+    flex-shrink: 0; /* Prevent nav items from shrinking */
 }
 
 nav:first-of-type a {
@@ -79,71 +72,57 @@ nav:first-of-type a {
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    transition: color 0.3s ease, transform 0.2s ease;
+    gap: 0.6rem; /* Slightly more space between text and icon */
+    transition: color 0.3s ease, transform 0.2s ease; /* Added transform for subtle hover */
 }
 
 nav:first-of-type a i {
     color: var(--primary);
-    font-size: 1.1em;
+    font-size: 1.1em; /* Make icons slightly larger */
 }
 
 nav:first-of-type a:hover {
     color: var(--primary);
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Lift effect on hover */
 }
 
-/* Mobile Menu Toggle Button (hidden on desktop) */
-.menu-toggle {
-    display: none; /* Hidden by default */
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    order: 2; /* Ensures it appears after the logo */
-}
-
-/* Base button styles */
 .btn {
     background: linear-gradient(to right, var(--primary), var(--secondary));
     color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 6px;
+    padding: 0.6rem 1.2rem; /* Slightly more padding for buttons */
+    border-radius: 6px; /* Slightly more rounded corners */
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 600; /* Bolder text for buttons */
     transition: all 0.3s ease;
-    border: none;
+    border: none; /* Ensure no default border */
     cursor: pointer;
-    display: inline-flex;
+    display: inline-flex; /* Use flex for icon alignment if needed */
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    text-align: center; /* Ensures text is centered */
 }
 
 .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 212, 255, 0.4);
-    filter: brightness(1.1);
+    transform: translateY(-3px); /* More pronounced lift */
+    box-shadow: 0 6px 12px rgba(0, 212, 255, 0.4); /* Stronger shadow */
+    filter: brightness(1.1); /* Slightly brighter on hover */
 }
 
 /* Main Navigation Bar - Enhanced */
 nav:last-of-type {
     background-color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    padding: 0.8rem 2.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    padding: 0.8rem 2.5rem; /* Consistent padding with top nav */
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee; /* Subtle bottom border */
 }
 
 nav:last-of-type ul {
     display: flex;
     list-style: none;
-    gap: 1.2rem;
+    gap: 1.2rem; /* Adjusted gap */
     overflow-x: auto; /* Enable horizontal scrolling on small screens */
     padding-bottom: 0.5rem; /* Space for scrollbar */
     justify-content: center; /* Center items on wide screens */
@@ -166,7 +145,7 @@ nav:last-of-type button {
     color: var(--dark);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.7rem 1.2rem;
+    padding: 0.7rem 1.2rem; /* Adjusted padding for better touch targets */
     border-radius: 6px;
     transition: all 0.3s ease;
     display: flex;
@@ -175,32 +154,32 @@ nav:last-of-type button {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.05rem;
+    font-size: 1.05rem; /* Slightly larger font */
     white-space: nowrap; /* Prevent text wrapping */
 }
 
 nav:last-of-type a:hover,
 nav:last-of-type button:hover {
     color: var(--primary);
-    background-color: rgba(0, 212, 255, 0.08);
+    background-color: rgba(0, 212, 255, 0.08); /* Lighter hover background */
 }
 
 nav:last-of-type a.active {
-    background-color: rgba(0, 212, 255, 0.15);
+    background-color: rgba(0, 212, 255, 0.15); /* Slightly darker light blue for active */
     color: var(--primary);
-    font-weight: 600;
+    font-weight: 600; /* Bolder for active state */
 }
 
 /* Main Content */
 .container {
     max-width: 1200px;
-    margin: 2.5rem auto;
-    padding: 0 2.5rem;
+    margin: 2.5rem auto; /* More vertical margin */
+    padding: 0 2.5rem; /* Consistent horizontal padding */
 }
 
 .page-header {
     text-align: center;
-    margin-bottom: 3.5rem;
+    margin-bottom: 3.5rem; /* Increased margin */
 }
 
 .page-header h1 {
@@ -210,7 +189,7 @@ nav:last-of-type a.active {
     background: linear-gradient(to right, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    line-height: 1.2;
+    line-height: 1.2; /* Better line height */
 }
 
 .page-header p {
@@ -223,40 +202,40 @@ nav:last-of-type a.active {
 /* Search Section */
 .search-container {
     background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    border-radius: 12px; /* More rounded */
+    padding: 2rem; /* Increased padding */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); /* Stronger, softer shadow */
     margin-bottom: 2.5rem;
 }
 
 .search-form {
     display: flex;
-    gap: 1.2rem;
+    gap: 1.2rem; /* Consistent gap */
     flex-wrap: wrap;
-    align-items: center;
+    align-items: center; /* Align items vertically */
 }
 
 .search-input {
     flex: 1;
-    min-width: 280px;
-    padding: 1rem 1.2rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 1.05rem;
+    min-width: 280px; /* Increased min-width for larger inputs */
+    padding: 1rem 1.2rem; /* More padding */
+    border: 1px solid #e0e0e0; /* Lighter border */
+    border-radius: 8px; /* More rounded */
+    font-size: 1.05rem; /* Slightly larger font */
     transition: all 0.3s ease;
-    flex-grow: 2;
+    flex-grow: 2; /* Allow input to grow more */
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25); /* More prominent focus ring */
 }
 
 .search-btn {
-    padding: 1rem 2.5rem;
-    font-size: 1.1rem;
-    flex-shrink: 0;
+    padding: 1rem 2.5rem; /* Larger search button */
+    font-size: 1.1rem; /* Larger font for search button */
+    flex-shrink: 0; /* Prevent button from shrinking */
 }
 
 /* Filter Section - Enhanced */
@@ -266,33 +245,33 @@ nav:last-of-type a.active {
     align-items: center;
     margin-bottom: 2.5rem;
     flex-wrap: wrap;
-    gap: 1.5rem;
+    gap: 1.5rem; /* More space between filter elements */
 }
 
 .filter-buttons {
     display: flex;
     gap: 0.8rem;
     flex-wrap: wrap;
-    justify-content: center;
-    flex: 1;
-    min-width: 280px;
+    justify-content: center; /* Center buttons when wrapped */
+    flex: 1; /* Allow filter buttons to take available space */
+    min-width: 280px; /* Ensure filter buttons don't get too small */
 }
 
 .filter-btn {
-    padding: 0.7rem 1.4rem;
+    padding: 0.7rem 1.4rem; /* More padding */
     background: white;
     border: 1px solid #ddd;
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 500;
-    color: #555;
+    color: #555; /* Default color for filter buttons */
 }
 
 .filter-btn:hover {
-    background: rgba(0, 212, 255, 0.05);
+    background: rgba(0, 212, 255, 0.05); /* Light background on hover */
     color: var(--primary);
-    border-color: var(--primary);
+    border-color: var(--primary); /* Primary border on hover */
 }
 
 .filter-btn.active {
@@ -307,7 +286,7 @@ nav:last-of-type a.active {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Prevent sorting options from shrinking */
 }
 
 .sort-options label {
@@ -316,13 +295,14 @@ nav:last-of-type a.active {
 }
 
 .sort-options select {
-    padding: 0.7rem 1rem;
+    padding: 0.7rem 1rem; /* More padding */
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 8px; /* More rounded */
     font-size: 1rem;
     cursor: pointer;
     background-color: white;
     transition: border-color 0.3s ease;
+    /* Custom arrow for select */
     appearance: none;
     -webkit-appearance: none;
     background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230077b6%22%20d%3D%22M287%2C197.96l-14.73-14.73l-123.6-123.6l-123.6%2C123.6l-14.73%2C14.73L146.46%2C292.4L287%2C197.96z%22%2F%3E%3C%2Fsvg%3E');
@@ -340,8 +320,8 @@ nav:last-of-type a.active {
 /* Job Listings - Enhanced */
 .job-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Adjusted minmax for more flexible card sizing */
+    gap: 2.5rem; /* Increased gap between cards */
     margin-bottom: 3.5rem;
 }
 
@@ -351,22 +331,22 @@ nav:last-of-type a.active {
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
+    display: flex; /* Use flexbox for internal layout */
     flex-direction: column;
 }
 
 .job-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px); /* More pronounced lift */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); /* Stronger shadow */
 }
 
 .job-header {
-    padding: 1.8rem;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 1.8rem; /* More padding */
+    border-bottom: 1px solid #f0f0f0; /* Lighter border */
 }
 
 .job-title {
-    font-size: 1.45rem;
+    font-size: 1.45rem; /* Slightly larger title */
     color: var(--dark);
     margin-bottom: 0.6rem;
     line-height: 1.3;
@@ -384,16 +364,16 @@ nav:last-of-type a.active {
 
 .job-type {
     display: inline-block;
-    padding: 0.4rem 1rem;
-    border-radius: 25px;
-    font-size: 0.85rem;
+    padding: 0.4rem 1rem; /* More padding */
+    border-radius: 25px; /* More rounded pill shape */
+    font-size: 0.85rem; /* Slightly larger font */
     font-weight: 600;
-    margin-bottom: 1.2rem;
-    white-space: nowrap;
+    margin-bottom: 1.2rem; /* More space below job type */
+    white-space: nowrap; /* Prevent wrapping */
 }
 
 .job-type.full-time {
-    background-color: rgba(0, 212, 255, 0.12);
+    background-color: rgba(0, 212, 255, 0.12); /* Slightly more opaque background */
     color: var(--primary);
 }
 
@@ -408,20 +388,20 @@ nav:last-of-type a.active {
 }
 
 .job-content {
-    padding: 1.8rem;
-    flex-grow: 1;
+    padding: 1.8rem; /* Consistent padding */
+    flex-grow: 1; /* Allows content to push footer down */
     display: flex;
     flex-direction: column;
 }
 
 .job-description {
     color: var(--gray);
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.8rem; /* More space below description */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    line-height: 1.7;
+    line-height: 1.7; /* Improved readability */
 }
 
 .job-meta {
@@ -429,7 +409,7 @@ nav:last-of-type a.active {
     justify-content: space-between;
     margin-bottom: 1.8rem;
     flex-wrap: wrap;
-    gap: 1.2rem;
+    gap: 1.2rem; /* More space between meta items */
 }
 
 .job-meta-item {
@@ -437,25 +417,25 @@ nav:last-of-type a.active {
     align-items: center;
     gap: 0.6rem;
     color: var(--gray);
-    font-size: 0.95rem;
+    font-size: 0.95rem; /* Slightly larger font */
     flex-shrink: 0;
 }
 
 .job-meta-item i {
     color: var(--primary);
-    font-size: 1em;
+    font-size: 1em; /* Ensure icon size is consistent */
 }
 
 .job-actions {
     display: flex;
     gap: 1rem;
-    margin-top: auto;
+    margin-top: auto; /* Pushes actions to the bottom of the card */
 }
 
 .job-actions .btn {
     flex: 1;
     text-align: center;
-    padding: 0.8rem 1.5rem;
+    padding: 0.8rem 1.5rem; /* Adjusted padding for action buttons */
     font-size: 1rem;
 }
 
@@ -463,28 +443,28 @@ nav:last-of-type a.active {
     background: transparent;
     border: 2px solid var(--primary);
     color: var(--primary);
-    box-shadow: none;
+    box-shadow: none; /* Remove shadow for outline button */
 }
 
 .btn-outline:hover {
     background: var(--primary);
     color: white;
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 6px 12px rgba(0, 212, 255, 0.3); /* Add shadow on hover */
 }
 
 /* Pagination - Enhanced */
 .pagination {
     display: flex;
     justify-content: center;
-    gap: 0.8rem;
-    margin-bottom: 4rem;
-    flex-wrap: wrap;
+    gap: 0.8rem; /* More space between page buttons */
+    margin-bottom: 4rem; /* More margin below pagination */
+    flex-wrap: wrap; /* Allow pagination to wrap */
 }
 
 .page-btn {
-    width: 44px;
-    height: 44px;
+    width: 44px; /* Larger touch target */
+    height: 44px; /* Larger touch target */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -512,8 +492,8 @@ footer {
     background-color: var(--dark);
     color: white;
     text-align: center;
-    padding: 2.5rem;
-    font-size: 0.95rem;
+    padding: 2.5rem; /* More padding */
+    font-size: 0.95rem; /* Slightly larger font */
 }
 
 footer p {
@@ -527,7 +507,7 @@ footer a {
 }
 
 footer a:hover {
-    color: var(--light);
+    color: var(--light); /* Lighter on hover */
     text-decoration: underline;
 }
 
@@ -542,8 +522,8 @@ footer a:hover {
 
 .loading i {
     animation: spin 1s linear infinite;
-    font-size: 2em;
-    display: block;
+    font-size: 2em; /* Larger spinner */
+    display: block; /* Ensures spinner is on its own line */
     margin-bottom: 0.5rem;
 }
 
@@ -574,27 +554,27 @@ footer a:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.7);
+    overflow: hidden; /* Prevent body scroll when modal is open */
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 1rem; /* Add some padding to prevent modal touching edges on small screens */
 }
 
 .modal-content {
     background-color: #fefefe;
     margin: auto;
-    padding: 35px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    width: 95%;
-    max-width: 650px;
+    padding: 35px; /* More padding */
+    border-radius: 12px; /* More rounded */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+    width: 95%; /* Wider on small screens */
+    max-width: 650px; /* Slightly wider max-width */
     position: relative;
-    animation: fadeIn 0.4s ease-out;
+    animation: fadeIn 0.4s ease-out; /* Slightly longer animation */
     max-height: 90vh;
-    overflow-y: auto;
-    display: flex;
+    overflow-y: auto; /* Enable scrolling within the modal content */
+    display: flex; /* Use flex for internal layout */
     flex-direction: column;
 }
 
@@ -611,8 +591,8 @@ footer a:hover {
 }
 
 .close-button {
-    color: #888;
-    font-size: 32px;
+    color: #888; /* Softer color */
+    font-size: 32px; /* Larger close button for better tap target */
     font-weight: bold;
     position: absolute;
     top: 15px;
@@ -623,27 +603,27 @@ footer a:hover {
 
 .close-button:hover,
 .close-button:focus {
-    color: var(--danger);
+    color: var(--danger); /* Red on hover/focus */
     text-decoration: none;
-    transform: scale(1.1);
+    transform: scale(1.1); /* Slight enlarge on hover */
 }
 
 .modal-content h2 {
     color: var(--dark);
-    margin-bottom: 25px;
+    margin-bottom: 25px; /* More margin */
     text-align: center;
-    font-size: 2rem;
+    font-size: 2rem; /* Larger modal title */
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* More space between form groups */
 }
 
 .form-group label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #444;
+    color: #444; /* Darker label color */
     font-size: 1.05rem;
 }
 
@@ -651,17 +631,17 @@ footer a:hover {
 .form-group input[type="email"],
 .form-group input[type="tel"],
 .form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1.05rem;
+    width: 100%; /* Full width */
+    padding: 12px 15px; /* More padding */
+    border: 1px solid #ccc; /* Lighter border */
+    border-radius: 8px; /* More rounded */
+    font-size: 1.05rem; /* Larger font */
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-group input[type="file"] {
     width: 100%;
-    padding: 12px 0;
+    padding: 12px 0; /* Adjust padding for file input */
     font-size: 1.05rem;
 }
 
@@ -676,20 +656,18 @@ footer a:hover {
 }
 
 .form-group textarea {
-    min-height: 100px;
-    resize: vertical;
+    min-height: 100px; /* Minimum height for text area */
+    resize: vertical; /* Allow vertical resizing */
 }
 
 .modal-content .btn {
     width: 100%;
-    padding: 14px;
+    padding: 14px; /* Larger submit button */
     font-size: 1.2rem;
-    margin-top: 25px;
+    margin-top: 25px; /* More margin */
 }
 
-/* --- Responsive Design Media Queries --- */
-
-/* Tablet and Smaller Desktops (992px to 769px) */
+/* Responsive Design */
 @media (max-width: 992px) {
     nav:first-of-type {
         padding: 0.8rem 1.5rem;
@@ -705,11 +683,10 @@ footer a:hover {
 
     .container {
         padding: 0 1.5rem;
-        margin: 2rem auto; /* Adjusted vertical margin */
     }
 
     .job-list {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjust for smaller screens */
         gap: 2rem;
     }
 
@@ -733,159 +710,109 @@ footer a:hover {
     .job-meta-item {
         font-size: 0.9rem;
     }
-
-    /* Adjust search and filter forms for tablet */
-    .search-input {
-        min-width: unset; /* Allow inputs to shrink */
-        flex-basis: 60%; /* Give input more room to grow */
-    }
-
-    .search-btn {
-        flex-basis: auto;
-    }
-
-    .filter-buttons {
-        flex: none; /* Reset flex for better wrapping control */
-        width: 100%; /* Take full width on tablet */
-        justify-content: center;
-    }
-
-    .sort-options {
-        flex: none; /* Reset flex */
-        width: 100%; /* Take full width on tablet */
-        justify-content: center;
-    }
 }
 
-/* Mobile Devices (768px and smaller) */
 @media (max-width: 768px) {
-    /* Top Navigation Bar for Mobile */
     nav:first-of-type {
-        flex-direction: row; /* Keep logo and toggle on one row */
-        justify-content: space-between; /* Space them out */
-        align-items: center;
-        padding: 1rem 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
     }
 
-    .logo {
-        margin-right: 0; /* Remove margin */
-    }
-
-    .menu-toggle {
-        display: block; /* Show the hamburger icon */
+    nav:first-of-type .logo {
+        margin-bottom: 0.5rem; /* Space below logo when stacked */
+        margin-right: 0;
     }
 
     nav:first-of-type ul {
-        display: none; /* Hide navigation links by default */
-        flex-direction: column; /* Stack vertically */
         width: 100%;
-        gap: 0.8rem; /* Smaller gap */
-        text-align: center;
-        background-color: var(--dark); /* Keep background for dropdown */
-        position: absolute;
-        top: 65px; /* Position below the header */
-        left: 0;
-        padding: 1rem 0;
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-        max-height: 0; /* Initially collapsed */
-        overflow: hidden; /* Hide overflow */
-        transition: max-height 0.3s ease-out; /* Smooth transition */
-    }
-
-    nav:first-of-type ul.active {
-        display: flex; /* Show when active (toggled by JS) */
-        max-height: 300px; /* Adjust based on content height */
+        justify-content: center; /* Center items when wrapped */
+        margin-top: 0.5rem;
+        gap: 1rem;
     }
 
     nav:first-of-type ul li {
-        width: 100%;
-        padding: 0.5rem 0;
+        margin: 0.2rem 0; /* Add some vertical margin */
     }
 
     nav:first-of-type a {
-        padding: 0.8rem 1rem; /* Increase touch target */
-        font-size: 1rem;
-        justify-content: center; /* Center links in mobile menu */
-        width: 100%;
+        padding: 0.5rem 0.8rem; /* Adjust padding for smaller items */
+        font-size: 0.95rem;
     }
 
-    .btn {
-        width: 100%; /* Full width buttons by default */
-        font-size: 1rem;
-        padding: 0.8rem 1.2rem;
-    }
-
-    /* Main Navigation Bar for Mobile */
     nav:last-of-type {
-        padding: 0.8rem 0.5rem; /* Less padding */
+        padding: 0.8rem 1rem;
     }
 
     nav:last-of-type ul {
         justify-content: flex-start; /* Align to start for better scrollability */
-        gap: 0.6rem; /* Smaller gap */
+        gap: 0.8rem;
+        padding-bottom: 0.5rem; /* Keep scrollbar space */
     }
 
     nav:last-of-type a,
     nav:last-of-type button {
-        padding: 0.6rem 0.8rem;
+        padding: 0.6rem 1rem;
         font-size: 0.9rem;
     }
 
     .container {
         padding: 0 1rem;
-        margin: 1.5rem auto; /* Less vertical margin */
+        margin: 2rem auto;
     }
 
     .page-header {
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
 
     .page-header h1 {
-        font-size: clamp(1.8rem, 7vw, 2.6rem); /* Slightly smaller max on mobile */
+        font-size: clamp(1.8rem, 7vw, 2.8rem);
     }
 
     .page-header p {
-        font-size: clamp(0.95rem, 3vw, 1rem);
+        font-size: clamp(0.95rem, 3vw, 1.1rem);
     }
 
     .search-container {
-        padding: 1rem;
-        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .search-form {
         flex-direction: column;
-        gap: 0.8rem;
+        gap: 1rem;
     }
 
     .search-input {
-        width: 100%;
-        padding: 0.7rem 0.9rem;
-        font-size: 0.95rem;
+        width: 100%; /* Full width on mobile */
+        min-width: unset; /* Remove min-width override */
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
     }
 
     .search-btn {
         width: 100%;
-        padding: 0.7rem 1.2rem;
+        padding: 0.8rem 1.5rem;
         font-size: 1rem;
     }
 
     .filter-section {
         flex-direction: column;
-        align-items: stretch;
+        align-items: stretch; /* Stretch items to full width */
         gap: 1rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .filter-buttons {
-        width: 100%;
+        width: 100%; /* Full width for filter buttons */
         justify-content: center;
-        gap: 0.6rem;
+        min-width: unset;
     }
 
     .filter-btn {
         padding: 0.6rem 1rem;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
     }
 
     .sort-options {
@@ -894,109 +821,109 @@ footer a:hover {
     }
 
     .sort-options select {
-        padding: 0.6rem 0.9rem;
+        padding: 0.6rem 1rem;
         font-size: 0.9rem;
     }
 
     .job-list {
         grid-template-columns: 1fr; /* Single column layout for mobile */
-        gap: 1.2rem;
+        gap: 1.5rem;
     }
 
     .job-card {
-        padding: 0.8rem;
+        padding: 1rem;
     }
 
     .job-header {
-        padding: 1rem;
+        padding: 1.2rem;
     }
 
     .job-title {
-        font-size: 1.15rem;
+        font-size: 1.2rem;
     }
 
     .job-company {
-        font-size: 0.9rem;
-    }
-
-    .job-type {
-        font-size: 0.7rem;
-        padding: 0.25rem 0.6rem;
-    }
-
-    .job-content {
-        padding: 1rem;
-    }
-
-    .job-description {
-        font-size: 0.85rem;
-        margin-bottom: 1rem;
-    }
-
-    .job-meta {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.6rem;
-        margin-bottom: 1rem;
-    }
-
-    .job-meta-item {
-        font-size: 0.8rem;
-    }
-
-    .job-actions {
-        flex-direction: column;
-        gap: 0.6rem;
-    }
-
-    .job-actions .btn {
-        width: 100%;
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-    }
-
-    .pagination {
-        gap: 0.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .page-btn {
-        width: 36px;
-        height: 36px;
         font-size: 0.95rem;
     }
 
-    footer {
+    .job-type {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.7rem;
+    }
+
+    .job-content {
         padding: 1.2rem;
-        font-size: 0.8rem;
+    }
+
+    .job-description {
+        font-size: 0.9rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .job-meta {
+        flex-direction: column; /* Stack meta items vertically */
+        align-items: flex-start;
+        gap: 0.8rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .job-meta-item {
+        font-size: 0.85rem;
+    }
+
+    .job-actions {
+        flex-direction: column; /* Stack action buttons vertically */
+        gap: 0.8rem;
+    }
+
+    .job-actions .btn {
+        width: 100%; /* Full width buttons */
+        padding: 0.7rem 1.2rem;
+        font-size: 0.95rem;
+    }
+
+    .pagination {
+        gap: 0.6rem;
+        margin-bottom: 2rem;
+    }
+
+    .page-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+
+    footer {
+        padding: 1.5rem;
+        font-size: 0.85rem;
     }
 
     /* Modal adjustments for smaller screens */
     .modal-content {
-        padding: 20px;
-        width: 98%; /* Maximize space */
-        max-width: none; /* Remove max-width */
-        border-radius: 6px;
+        padding: 25px;
+        width: 95%; /* Even wider to maximize space */
+        max-width: unset; /* Remove max-width on smaller screens */
+        border-radius: 8px; /* Less rounded for tighter space */
     }
 
     .close-button {
-        font-size: 24px;
+        font-size: 26px;
         top: 10px;
-        right: 12px;
+        right: 15px;
     }
 
     .modal-content h2 {
-        font-size: 1.5rem;
-        margin-bottom: 12px;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
     }
 
     .form-group {
-        margin-bottom: 12px;
+        margin-bottom: 15px;
     }
 
     .form-group label {
-        font-size: 0.95rem;
-        margin-bottom: 5px;
+        font-size: 1rem;
+        margin-bottom: 6px;
     }
 
     .form-group input[type="text"],
@@ -1004,13 +931,85 @@ footer a:hover {
     .form-group input[type="tel"],
     .form-group input[type="file"],
     .form-group textarea {
-        padding: 9px 10px;
-        font-size: 0.9rem;
+        padding: 10px 12px;
+        font-size: 0.95rem;
     }
 
     .modal-content .btn {
-        padding: 9px;
+        padding: 10px;
         font-size: 1rem;
-        margin-top: 12px;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 480px) { /* Extra small screens */
+    nav:first-of-type ul {
+        flex-direction: column; /* Stack top nav items vertically */
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    nav:first-of-type ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav:last-of-type ul {
+        gap: 0.6rem;
+    }
+
+    nav:last-of-type a,
+    nav:last-of-type button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .search-input {
+        font-size: 0.95rem;
+        padding: 0.7rem 0.9rem;
+    }
+
+    .search-btn {
+        font-size: 0.95rem;
+        padding: 0.7rem 1.2rem;
+    }
+
+    .filter-buttons {
+        gap: 0.6rem;
+    }
+
+    .filter-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .job-title {
+        font-size: 1.1rem;
+    }
+
+    .job-company {
+        font-size: 0.9rem;
+    }
+
+    .job-description {
+        font-size: 0.85rem;
+    }
+
+    .job-meta-item {
+        font-size: 0.8rem;
+    }
+
+    .pagination {
+        gap: 0.4rem;
+    }
+
+    .page-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 0.9rem;
+    }
+
+    .modal-content h2 {
+        font-size: 1.6rem;
     }
 }
