@@ -89,12 +89,15 @@ nav:first-of-type {
     align-items: center;
     box-shadow: 0 2px 10px var(--shadow-dark);
     position: relative; /* Crucial for positioning the mobile menu */
+    z-index: 101; /* Ensure nav is above other content when mobile menu is active */
 }
 
 .logo {
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: 0.5px;
+    text-decoration: none; /* Ensure logo is not underlined if it's a link */
+    color: inherit; /* Inherit color from parent nav */
 }
 
 .logo span {
@@ -127,9 +130,18 @@ nav:first-of-type .nav-links a:hover {
 /* Hamburger Icon (initially hidden) */
 .hamburger {
     display: none; /* Hidden by default on larger screens */
-    font-size: 2rem; /* Adjusted for better visibility */
+    font-size: 2rem;
     cursor: pointer;
-    z-index: 101; /* Ensure it's above the menu */
+    background: none; /* Ensure it's a clickable button without default button styles */
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    line-height: 1; /* Better alignment for icon */
+    transition: color 0.3s ease;
+}
+
+.hamburger:hover {
+    color: var(--primary);
 }
 
 /* --- Main Navigation Bar (Second Nav - Filter Bar) --- */
@@ -139,7 +151,7 @@ nav:last-of-type {
     padding: 0.9rem 2.5rem;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 100; /* Ensure filter bar is below top nav but above content */
 }
 
 nav:last-of-type ul {
@@ -193,13 +205,13 @@ nav:last-of-type a.active,
 
 /* --- Resume Builder Section --- */
 .resume-builder {
-    max-width: 800px; /* Consistent with your provided reduction */
+    max-width: 800px;
     margin: 2rem auto;
     padding: 1.5rem 2rem;
     background: white;
     border-radius: 12px;
     box-shadow: 0 8px 25px var(--shadow-light);
-    font-size: 0.875em; /* Base font for this section */
+    font-size: 0.875em;
     line-height: 1.4;
 }
 
@@ -370,7 +382,7 @@ input[type="tel"]:invalid:not(:focus):not(:placeholder-shown) {
 /* --- Form Sections --- */
 .form-section {
     background-color: #f8f9fa;
-    padding: 2rem; /* Remains 2rem for desktop */
+    padding: 2rem;
     border-radius: 10px;
     margin-bottom: 1.5rem;
     border: 1px solid var(--border-light);
@@ -421,6 +433,7 @@ button[type="submit"] {
     align-items: center;
     justify-content: center;
     gap: 0.8rem;
+    width: 100%; /* Make button full width for better mobile experience */
 }
 
 button[type="submit"]:hover {
@@ -458,33 +471,38 @@ footer a:hover {
     .hamburger {
         display: block; /* Show hamburger icon */
     }
+
     nav:first-of-type .nav-links {
-        display: none; /* Hide default nav links on smaller screens */
-        flex-direction: column; /* Stack vertically */
-        background-color: var(--dark);
+        /* Initially hide with transform and opacity for transition */
         position: absolute;
         top: 100%; /* Position below the main nav bar */
         left: 0;
         width: 100%;
+        flex-direction: column; /* Stack vertically */
+        background-color: var(--dark);
         padding: 1rem 1.5rem; /* Match main nav padding */
         box-shadow: 0 5px 15px var(--shadow-dark);
         transform: translateY(-10px); /* Start slightly up for slide effect */
         opacity: 0;
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        z-index: 99; /* Below hamburger, above content */
+        visibility: hidden; /* Hide from screen readers when collapsed */
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0s linear 0.3s; /* Delay visibility change */
+        z-index: 99;
     }
 
     /* Show the mobile menu when 'active' class is present (toggled by JS) */
     nav:first-of-type .nav-links.active {
-        display: flex;
+        display: flex; /* Keep flex for layout */
         transform: translateY(0);
         opacity: 1;
+        visibility: visible;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0s linear 0s; /* No delay on show */
     }
 
     nav:first-of-type .nav-links li {
         margin-bottom: 0.8rem;
         text-align: center;
         width: 100%; /* Full width for mobile list items */
+        animation: none; /* Disable desktop staggered animation on mobile */
     }
     nav:first-of-type .nav-links li:last-child {
         margin-bottom: 0;
@@ -684,7 +702,8 @@ footer a:hover {
 }
 
 /* Applied to individual list items in the top nav for the slide-in effect */
-nav:first-of-type .nav-links li {
+/* These animations should *only* apply when the .nav-links is *not* active (i.e., on desktop) */
+nav:first-of-type .nav-links:not(.active) li {
     position: relative;
     animation: slideInNav 0.7s ease-out forwards;
     opacity: 0; /* Start hidden */
@@ -692,10 +711,10 @@ nav:first-of-type .nav-links li {
 
 /* Staggering the animation for each navigation item */
 /* These nth-child selectors assume your top navigation has 6 list items.
-   Adjust them if your top nav links change. */
-nav:first-of-type .nav-links li:nth-child(1) { animation-delay: 0.1s; }
-nav:first-of-type .nav-links li:nth-child(2) { animation-delay: 0.2s; }
-nav:first-of-type .nav-links li:nth-child(3) { animation-delay: 0.3s; }
-nav:first-of-type .nav-links li:nth-child(4) { animation-delay: 0.4s; }
-nav:first-of-type .nav-links li:nth-child(5) { animation-delay: 0.5s; }
-nav:first-of-type .nav-links li:nth-child(6) { animation-delay: 0.6s; }
+    Adjust them if your top nav links change. */
+nav:first-of-type .nav-links:not(.active) li:nth-child(1) { animation-delay: 0.1s; }
+nav:first-of-type .nav-links:not(.active) li:nth-child(2) { animation-delay: 0.2s; }
+nav:first-of-type .nav-links:not(.active) li:nth-child(3) { animation-delay: 0.3s; }
+nav:first-of-type .nav-links:not(.active) li:nth-child(4) { animation-delay: 0.4s; }
+nav:first-of-type .nav-links:not(.active) li:nth-child(5) { animation-delay: 0.5s; }
+nav:first-of-type .nav-links:not(.active) li:nth-child(6) { animation-delay: 0.6s; }
