@@ -1,4 +1,4 @@
-/* Your existing CSS rules go here */
+/* Custom CSS Properties (Variables) */
 :root {
     --primary: #00d4ff;
     --secondary: #0077b6;
@@ -6,13 +6,14 @@
     --light: #f8f9fa;
     --gray: #6c757d;
     --accent: #ff7b00;
+    --hero-bg-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
 }
 
+/* Universal Box-Sizing and Base Font */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -20,10 +21,11 @@ body {
     color: #333;
     line-height: 1.6;
     overflow-x: hidden; /* Prevent horizontal scroll on some effects */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Moved from universal selector */
 }
 
-/* Top Navigation Bar */
-nav:first-of-type {
+/* Top Navigation Bar (Using Class Selector) */
+.top-nav { /* Changed from nav:first-of-type */
     background-color: var(--dark);
     color: white;
     padding: 0.8rem 2rem;
@@ -42,14 +44,14 @@ nav:first-of-type {
     color: var(--primary);
 }
 
-nav:first-of-type ul {
+.top-nav ul { /* Changed from nav:first-of-type ul */
     display: flex;
     list-style: none;
     gap: 1.5rem;
     align-items: center;
 }
 
-nav:first-of-type a {
+.top-nav a { /* Changed from nav:first-of-type a */
     color: white;
     text-decoration: none;
     font-weight: 500;
@@ -59,7 +61,7 @@ nav:first-of-type a {
     transition: color 0.3s ease;
 }
 
-nav:first-of-type a:hover {
+.top-nav a:hover { /* Changed from nav:first-of-type a:hover */
     color: var(--primary);
 }
 
@@ -68,37 +70,37 @@ nav:first-of-type a:hover {
     display: inline-block;
     background: linear-gradient(to right, var(--primary), var(--secondary));
     color: white;
-    padding: 0.6rem 1.5rem; /* Slightly increased padding */
-    border-radius: 30px; /* More rounded */
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    box-shadow: 0 3px 8px rgba(0, 119, 182, 0.2); /* Initial subtle shadow */
+    box-shadow: 0 3px 8px rgba(0, 119, 182, 0.2);
 }
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4); /* Enhanced shadow on hover */
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
 }
 
 .btn-outline {
     background: transparent;
-    border: 2px solid white; /* Changed to white for hero section contrast */
-    color: white; /* Changed to white for hero section contrast */
-    padding: 0.6rem 1.5rem; /* Match primary button padding */
+    border: 2px solid white;
+    color: white;
+    padding: 0.6rem 1.5rem;
 }
 
 .btn-outline:hover {
     background: white;
-    color: var(--dark); /* Changed to dark for better contrast on white background */
-    border-color: white; /* Keep border color white */
+    color: var(--dark);
+    border-color: white;
 }
 
-/* Main Navigation Bar */
-nav:last-of-type {
+/* Main Navigation Bar (Using Class Selector) */
+.main-nav { /* Changed from nav:last-of-type */
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 0.8rem 2rem;
@@ -107,26 +109,26 @@ nav:last-of-type {
     z-index: 100;
 }
 
-nav:last-of-type ul {
+.main-nav ul { /* Changed from nav:last-of-type ul */
     display: flex;
     list-style: none;
-    gap: 1.5rem; /* Increased gap slightly for better spacing */
+    gap: 1.5rem;
     overflow-x: auto;
     padding-bottom: 0.5rem;
-    justify-content: center; /* Center items in main nav */
+    justify-content: center;
 }
 
-nav:last-of-type li {
+.main-nav li { /* Changed from nav:last-of-type li */
     flex-shrink: 0;
 }
 
-nav:last-of-type a,
-nav:last-of-type button {
+.main-nav a, /* Changed from nav:last-of-type a */
+.main-nav button { /* Changed from nav:last-of-type button */
     color: var(--dark);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.6rem 1.1rem; /* Adjusted padding */
-    border-radius: 6px; /* Slightly more rounded */
+    padding: 0.6rem 1.1rem;
+    border-radius: 6px;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -137,16 +139,16 @@ nav:last-of-type button {
     font-size: 1rem;
 }
 
-nav:last-of-type a:hover,
-nav:last-of-type button:hover {
+.main-nav a:hover, /* Changed from nav:last-of-type a:hover */
+.main-nav button:hover { /* Changed from nav:last-of-type button:hover */
     color: var(--primary);
     background-color: rgba(0, 212, 255, 0.1);
 }
 
-nav:last-of-type a.active {
+.main-nav a.active { /* Changed from nav:last-of-type a.active */
     background-color: rgba(0, 212, 255, 0.2);
     color: var(--primary);
-    font-weight: 600; /* Make active link bolder */
+    font-weight: 600;
 }
 
 /* Hero Section */
@@ -157,10 +159,10 @@ nav:last-of-type a.active {
     padding: 6rem 2rem;
     position: relative;
     overflow: hidden;
-    min-height: 550px; /* Ensure a good height */
-    display: flex; /* For vertical centering of content */
-    align-items: center; /* Vertical centering */
-    justify-content: center; /* Horizontal centering */
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero::before {
@@ -170,55 +172,55 @@ nav:last-of-type a.active {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
-    opacity: 0.2; /* Slightly increased opacity */
+    background: var(--hero-bg-image) center/cover no-repeat; /* Using CSS variable */
+    opacity: 0.2;
     z-index: 0;
-    filter: brightness(0.8); /* Slightly dim the background image */
+    filter: brightness(0.8);
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 900px; /* Increased max-width */
+    max-width: 900px;
     margin: 0 auto;
-    animation: fadeIn 1.5s ease-out; /* Added fade-in animation */
+    animation: fadeIn 1.5s ease-out;
 }
 
 .hero h1 {
-    font-size: 3.5rem; /* Slightly larger heading */
+    font-size: 3.5rem;
     margin-bottom: 1.5rem;
     background: linear-gradient(to right, var(--primary), white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
     letter-spacing: 1px;
-    animation: slideInFromTop 1s ease-out; /* Added animation */
+    animation: slideInFromTop 1s ease-out;
 }
 
 .hero p {
-    font-size: 1.3rem; /* Slightly larger paragraph */
-    margin-bottom: 2.5rem; /* Increased margin */
-    opacity: 0.95; /* Slightly increased opacity */
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
     line-height: 1.8;
-    animation: fadeIn 1.8s ease-out; /* Added fade-in animation */
+    animation: fadeIn 1.8s ease-out;
 }
 
 .cta-btns {
     display: flex;
-    gap: 1.5rem; /* Increased gap */
+    gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
-    animation: fadeIn 2.1s ease-out; /* Added fade-in animation */
+    animation: fadeIn 2.1s ease-out;
 }
 
 /* User Welcome Section */
 #userWelcome {
-    background: rgba(255, 255, 255, 0.25); /* Slightly less transparent */
-    padding: 1.8rem; /* Increased padding */
-    border-radius: 12px; /* Slightly more rounded */
-    margin-bottom: 2.5rem; /* Increased margin */
-    backdrop-filter: blur(8px); /* Increased blur */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+    background: rgba(255, 255, 255, 0.25);
+    padding: 1.8rem;
+    border-radius: 12px;
+    margin-bottom: 2.5rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -235,52 +237,52 @@ nav:last-of-type a.active {
 }
 
 #userWelcome span {
-    font-weight: 700; /* Bolder for emphasis */
+    font-weight: 700;
     color: var(--primary);
-    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Subtle text shadow */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
 }
 
 /* Features Section */
 .features {
     max-width: 1200px;
-    margin: 5rem auto; /* Increased margin */
+    margin: 5rem auto;
     padding: 0 2rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for better responsiveness */
-    gap: 2.5rem; /* Increased gap */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
 }
 
 .features-box {
     background: white;
-    border-radius: 12px; /* Slightly more rounded */
-    padding: 2.5rem; /* Increased padding */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Enhanced shadow */
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
-    border: 1px solid #eee; /* Subtle border */
+    border: 1px solid #eee;
 }
 
 .features-box:hover {
-    transform: translateY(-12px); /* Slightly more pronounced lift */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .features-box i {
-    font-size: 3rem; /* Larger icon size */
+    font-size: 3rem;
     color: var(--primary);
-    margin-bottom: 1.8rem; /* Increased margin */
-    animation: iconPop 0.6s ease-out; /* Added subtle icon animation */
+    margin-bottom: 1.8rem;
+    animation: iconPop 0.6s ease-out;
 }
 
 .features-box h2 {
     color: var(--dark);
     margin-bottom: 1.2rem;
-    font-size: 1.8rem; /* Slightly larger heading */
+    font-size: 1.8rem;
 }
 
 .features-box p {
     color: var(--gray);
-    margin-bottom: 1.8rem; /* Increased margin */
+    margin-bottom: 1.8rem;
     font-size: 1.05rem;
 }
 
@@ -288,9 +290,9 @@ nav:last-of-type a.active {
 .stats {
     background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
     color: white;
-    padding: 5rem 2rem; /* Increased padding */
+    padding: 5rem 2rem;
     text-align: center;
-    position: relative; /* For potential background patterns */
+    position: relative;
     overflow: hidden;
 }
 
@@ -298,15 +300,15 @@ nav:last-of-type a.active {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted minmax */
-    gap: 2.5rem; /* Increased gap */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
 }
 
 .stat-item {
     padding: 1.5rem;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1); /* Subtle background for each stat */
-    backdrop-filter: blur(3px); /* Subtle blur */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(3px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
 }
@@ -316,7 +318,7 @@ nav:last-of-type a.active {
 }
 
 .stat-item h3 {
-    font-size: 3.5rem; /* Larger stat numbers */
+    font-size: 3.5rem;
     margin-bottom: 0.8rem;
     background: linear-gradient(to right, var(--primary), white);
     -webkit-background-clip: text;
@@ -326,22 +328,22 @@ nav:last-of-type a.active {
 }
 
 .stat-item p {
-    font-size: 1.2rem; /* Larger stat labels */
+    font-size: 1.2rem;
     opacity: 0.95;
     font-weight: 500;
 }
 
 /* Testimonials Section */
 .testimonials {
-    padding: 5rem 2rem; /* Increased padding */
+    padding: 5rem 2rem;
     text-align: center;
     background-color: #f1f3f4;
 }
 
 .testimonials h2 {
     color: var(--dark);
-    margin-bottom: 3rem; /* Increased margin */
-    font-size: 2.5rem; /* Larger heading */
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
     position: relative;
     display: inline-block;
 }
@@ -360,8 +362,8 @@ nav:last-of-type a.active {
 
 .testimonial-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax */
-    gap: 2.5rem; /* Increased gap */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -397,11 +399,11 @@ nav:last-of-type a.active {
 }
 
 .testimonial-author img {
-    width: 60px; /* Slightly larger image */
-    height: 60px; /* Slightly larger image */
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--primary); /* Accent border around image */
+    border: 3px solid var(--primary);
 }
 
 .author-info h4 {
@@ -414,7 +416,7 @@ nav:last-of-type a.active {
     font-style: normal;
     font-size: 0.95rem;
     color: var(--gray);
-    margin-bottom: 0; /* Reset margin for paragraphs inside author-info */
+    margin-bottom: 0;
 }
 
 /* Gallery Section CSS */
@@ -446,13 +448,14 @@ nav:last-of-type a.active {
 
 /* Slideshow Container */
 .slideshow-container {
-    max-width: 900px; /* Increased max-width for larger display */
+    max-width: 900px;
     position: relative;
-    margin: 0 auto 2.5rem auto; /* Increased margin */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+    margin: 0 auto 2.5rem auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
     overflow: hidden;
-    height: 450px; /* Slightly increased fixed height */
+    /* height: 450px; - Removed fixed height */
+    aspect-ratio: 16 / 9; /* Added for fluid responsiveness */
 }
 
 /* Individual Slides */
@@ -466,7 +469,7 @@ nav:last-of-type a.active {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 12px; /* Match container border-radius */
+    border-radius: 12px;
 }
 
 /* Fading animation */
@@ -487,19 +490,17 @@ nav:last-of-type a.active {
     to { opacity: 1 }
 }
 
-/* Media query for smaller screens */
+/* Media query for smaller screens - Removed fixed height for slideshow-container */
 @media (max-width: 768px) {
-    .slideshow-container {
-        height: 300px; /* Adjusted height for smaller screens */
-    }
+    /* .slideshow-container height adjustment removed due to aspect-ratio */
     .mySlides img {
-        height: 100%; /* Keep 100% of container height */
+        height: 100%;
     }
 }
 
 /* Company Logos Section */
 .companies {
-    padding: 5rem 2rem; /* Increased padding */
+    padding: 5rem 2rem;
     text-align: center;
     background-color: var(--dark);
     color: white;
@@ -507,7 +508,7 @@ nav:last-of-type a.active {
 
 .companies h2 {
     color: var(--primary);
-    margin-bottom: 3rem; /* Increased margin */
+    margin-bottom: 3rem;
     font-size: 2.5rem;
     letter-spacing: 0.8px;
 }
@@ -517,22 +518,22 @@ nav:last-of-type a.active {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 3rem; /* Increased gap for better separation */
+    gap: 3rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .company-logo-item img {
-    max-width: 140px; /* Slightly larger logos */
+    max-width: 140px;
     height: auto;
-    filter: grayscale(80%) brightness(1.2); /* Make logos appear more uniform/subtle */
+    filter: grayscale(80%) brightness(1.2);
     transition: transform 0.3s ease, filter 0.3s ease;
     opacity: 0.8;
 }
 
 .company-logo-item img:hover {
-    transform: scale(1.15); /* More pronounced scale */
-    filter: grayscale(0%) brightness(1); /* Full color on hover */
+    transform: scale(1.15);
+    filter: grayscale(0%) brightness(1);
     opacity: 1;
 }
 
@@ -541,7 +542,7 @@ footer {
     background-color: var(--dark);
     color: white;
     text-align: center;
-    padding: 3rem 2rem; /* Increased padding */
+    padding: 3rem 2rem;
     font-size: 0.95rem;
 }
 
@@ -550,17 +551,17 @@ footer {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2.5rem; /* Increased gap */
+    gap: 2.5rem;
     text-align: left;
-    margin-bottom: 2.5rem; /* Increased margin */
-    padding-bottom: 2.5rem; /* Add padding to bottom before copyright */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-column h3 {
     color: var(--primary);
-    margin-bottom: 1.8rem; /* Increased margin */
-    font-size: 1.3rem; /* Slightly larger heading */
+    margin-bottom: 1.8rem;
+    font-size: 1.3rem;
     letter-spacing: 0.5px;
 }
 
@@ -569,7 +570,7 @@ footer {
 }
 
 .footer-column li {
-    margin-bottom: 1rem; /* Increased margin */
+    margin-bottom: 1rem;
 }
 
 .footer-column a {
@@ -580,31 +581,31 @@ footer {
 
 .footer-column a:hover {
     color: var(--primary);
-    text-decoration: underline; /* Add underline on hover for clarity */
+    text-decoration: underline;
 }
 
 .social-links {
     display: flex;
-    gap: 1.2rem; /* Increased gap */
+    gap: 1.2rem;
     margin-top: 1.5rem;
 }
 
 .social-links a {
     color: white;
-    background: rgba(255, 255, 255, 0.15); /* Slightly less transparent */
-    width: 45px; /* Slightly larger icons */
-    height: 45px; /* Slightly larger icons */
+    background: rgba(255, 255, 255, 0.15);
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    font-size: 1.2rem; /* Larger icon size */
+    font-size: 1.2rem;
 }
 
 .social-links a:hover {
     background: var(--primary);
-    transform: translateY(-4px) rotate(5deg); /* More dynamic hover */
+    transform: translateY(-4px) rotate(5deg);
     box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
 }
 
@@ -626,17 +627,17 @@ footer p {
     }
     .slideshow-container {
         max-width: 700px;
-        height: 400px;
+        /* height: 400px; - Removed fixed height */
     }
 }
 
 @media (max-width: 768px) {
-    nav:first-of-type {
+    .top-nav { /* Changed from nav:first-of-type */
         flex-direction: column;
         gap: 1rem;
         padding: 1rem;
     }
-    nav:first-of-type ul {
+    .top-nav ul { /* Changed from nav:first-of-type ul */
         flex-wrap: wrap;
         justify-content: center;
     }
@@ -660,7 +661,7 @@ footer p {
         max-width: 280px;
     }
     .features, .stats-container, .testimonial-cards {
-        grid-template-columns: 1fr; /* Stack columns on small screens */
+        grid-template-columns: 1fr;
         padding: 0 1.5rem;
         margin: 3rem auto;
     }
@@ -672,7 +673,7 @@ footer p {
         margin-bottom: 2rem;
     }
     .slideshow-container {
-        height: 280px;
+        /* height: 280px; - Removed fixed height */
     }
     .footer-content {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -690,15 +691,15 @@ footer p {
     .logo {
         font-size: 1.5rem;
     }
-    nav:first-of-type ul {
+    .top-nav ul { /* Changed from nav:first-of-type ul */
         gap: 0.8rem;
     }
-    nav:last-of-type ul {
-        justify-content: flex-start; /* Allow scrolling for small screens */
+    .main-nav ul { /* Changed from nav:last-of-type ul */
+        justify-content: flex-start;
         padding-left: 1rem;
         padding-right: 1rem;
     }
-    nav:last-of-type a, nav:last-of-type button {
+    .main-nav a, .main-nav button { /* Changed from nav:last-of-type a, nav:last-of-type button */
         padding: 0.5rem 0.8rem;
         font-size: 0.9rem;
     }
@@ -709,7 +710,7 @@ footer p {
         font-size: 0.95rem;
     }
     .slideshow-container {
-        height: 220px;
+        /* height: 220px; - Removed fixed height */
     }
     .company-logo-item img {
         max-width: 100px;
@@ -755,6 +756,7 @@ footer p {
         transform: scale(1);
     }
 }
+
 /* Animations for Navbar Links */
 @keyframes slideInNav {
     from {
@@ -767,39 +769,56 @@ footer p {
     }
 }
 
-nav:first-of-type li {
-    /* Ensure list items are positioned relative for the animation */
+.top-nav li { /* Changed from nav:first-of-type li */
     position: relative;
-    /* Apply the animation to each list item (e.g., Home, Jobs) */
     animation: slideInNav 0.7s ease-out forwards;
-    /* This will stagger the animation for each item */
-    opacity: 0; /* Start hidden */
+    opacity: 0;
 }
 
 /* Staggering the animation for each navigation item */
-nav:first-of-type li:nth-child(1) {
+.top-nav li:nth-child(1) { /* Changed from nav:first-of-type li */
     animation-delay: 0.1s;
 }
-nav:first-of-type li:nth-child(2) {
+.top-nav li:nth-child(2) { /* Changed from nav:first-of-type li */
     animation-delay: 0.2s;
 }
-nav:first-of-type li:nth-child(3) {
+.top-nav li:nth-child(3) { /* Changed from nav:first-of-type li */
     animation-delay: 0.3s;
 }
 /* Add more :nth-child rules if you have more navigation items */
 
 /* In your existing CSS for nav:last-of-type ul */
-nav:last-of-type ul {
-    /* ... existing rules ... */
-    overflow-x: auto; /* This enables horizontal scrolling if content overflows */
-    padding-bottom: 0.5rem; /* Provides space for potential scrollbar */
-    justify-content: center; /* Centers items when they fit */
+.main-nav ul { /* Changed from nav:last-of-type ul */
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    justify-content: center;
 }
 
 @media (max-width: 480px) {
-    nav:last-of-type ul {
-        justify-content: flex-start; /* Aligns items to the left, enabling scroll */
+    .main-nav ul { /* Changed from nav:last-of-type ul */
+        justify-content: flex-start;
         padding-left: 1rem;
         padding-right: 1rem;
+    }
+}
+
+/* Accessibility: Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+    .hero-content,
+    .hero h1,
+    .hero p,
+    .cta-btns,
+    .features-box i,
+    .top-nav li, /* Changed from nav:first-of-type li */
+    .btn,
+    .btn-outline,
+    .features-box,
+    .testimonial-card,
+    .company-logo-item img,
+    .social-links a {
+        animation: none !important;
+        transform: none !important;
+        transition: none !important; /* Also reset transitions */
+        opacity: 1 !important;
     }
 }
