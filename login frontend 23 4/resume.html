@@ -6,6 +6,1010 @@
     <title>Resume Builder - Placement Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="resume.css">
+    <style>
+        /* --- Root Variables --- */
+:root {
+    --primary: #00d4ff; /* A bright, vibrant blue */
+    --secondary: #0077b6; /* A slightly darker, richer blue */
+    --dark: #03045e; /* Deep dark blue for main text/background */
+    --light: #f8f9fa; /* Very light gray for backgrounds */
+    --gray: #6c757d; /* Standard medium gray */
+    --accent: #ff7b00; /* Orange accent color */
+    --error: #dc3545; /* Red for errors */
+    --success: #28a745; /* Green for success */
+    --text-dark: #333; /* General dark text color */
+    --border-light: #e0e0e0; /* Light gray border for inputs/sections */
+    --shadow-light: rgba(0, 0, 0, 0.08); /* Subtle shadow for cards/sections */
+    --shadow-hover: rgba(0, 212, 255, 0.3); /* Stronger blue shadow on hover */
+    --shadow-dark: rgba(0, 0, 0, 0.15); /* For darker, more prominent shadows */
+}
+
+/* --- Global Resets & Base Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevents horizontal scroll on effects */
+}
+
+/* Visually hidden but accessible content for screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* --- Global Button Styles --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    gap: 0.5rem;
+    font-size: 1rem;
+    box-shadow: 0 3px 8px rgba(0, 119, 182, 0.2); /* Initial subtle shadow */
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px var(--shadow-hover);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+/* Specific adjustment for .btn-outline in the top nav */
+.top-nav .btn-outline { /* Changed selector from nav:first-of-type */
+    border-color: white;
+    color: white;
+}
+
+.top-nav .btn-outline:hover { /* Changed selector from nav:first-of-type */
+    background: white;
+    color: var(--dark);
+    border-color: white; /* Keep border color white */
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.3); /* White shadow for white button */
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 6px 18px var(--shadow-hover);
+}
+
+/* --- Header / Top Navigation Bar --- */
+.top-nav { /* Changed from nav:first-of-type */
+    background-color: var(--dark);
+    color: white;
+    padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px var(--shadow-dark);
+    position: relative; /* Crucial for positioning the mobile menu */
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+/* Desktop navigation links container */
+.primary-nav-links ul { /* New selector based on updated HTML */
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.primary-nav-links a { /* New selector based on updated HTML */
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.primary-nav-links a:hover { /* New selector based on updated HTML */
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Hamburger Menu Toggle Button */
+.menu-toggle { /* Changed from .hamburger */
+    display: none; /* Hidden by default on larger screens */
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 101; /* Ensure it's above the menu */
+    padding: 0.5rem; /* Make it easier to tap */
+}
+
+/* --- Main Navigation Bar (Secondary Nav - Filter Bar) --- */
+.main-nav { /* Changed from nav:last-of-type */
+    background-color: white;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    padding: 0.9rem 2.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.main-nav ul { /* Changed from nav:last-of-type */
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    justify-content: center; /* Center items in main nav */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.main-nav ul::-webkit-scrollbar { /* Changed from nav:last-of-type */
+    display: none;
+}
+
+.main-nav li { /* Changed from nav:last-of-type */
+    flex-shrink: 0;
+}
+
+.main-nav a,
+.main-nav button { /* Changed from nav:last-of-type */
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.main-nav a:hover,
+.main-nav button:hover { /* Changed from nav:last-of-type */
+    color: var(--primary);
+    background-color: rgba(0, 212, 255, 0.15);
+}
+
+.main-nav a.active,
+.filter-btn.active { /* Ensure .filter-btn.active also has correct styling */
+    background-color: rgba(0, 212, 255, 0.25);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* --- Common Container and Page Header for Job Listings Page --- */
+.container {
+    max-width: 1200px; /* Standardize max-width */
+    margin: 2rem auto;
+    padding: 0 1.5rem; /* Add horizontal padding for smaller screens */
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 1rem 0;
+}
+
+.page-header h1 {
+    font-size: 2.8rem;
+    color: var(--dark);
+    margin-bottom: 0.8rem;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    color: var(--gray);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* --- Search Section --- */
+.search-container {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px var(--shadow-light);
+    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: center; /* Center the form within the container */
+}
+
+.search-form {
+    display: flex;
+    flex-wrap: wrap; /* Allow inputs to wrap on smaller screens */
+    gap: 1rem;
+    width: 100%; /* Take full width of its container */
+    max-width: 900px; /* Limit the overall width of the search form */
+}
+
+.search-input {
+    flex: 1; /* Allow inputs to grow and shrink */
+    min-width: 220px; /* Minimum width before wrapping */
+    padding: 0.8rem 1.2rem;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+}
+
+.search-btn {
+    padding: 0.8rem 2rem;
+    min-width: 150px; /* Ensure button doesn't get too small */
+}
+
+/* --- Filter and Sort Section --- */
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px var(--shadow-light);
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+}
+
+.filter-btn {
+    background-color: #f0f0f0;
+    color: var(--text-dark);
+    border: 1px solid var(--border-light);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.filter-btn:hover:not(.active) {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.filter-btn.active {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 119, 182, 0.2);
+}
+
+.sort-options {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sort-options label {
+    color: var(--dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.sort-options select {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background-color: white;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none; /* Remove default dropdown arrow */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236c757d%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2013l118.8%20118.7c3.7%203.7%208%205.4%2013%205.4s9.3-1.8%2013-5.4L287%2095.2c3.7-3.7%205.4-8%205.4-13S290.7%2073.1%20287%2069.4z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.7rem top 50%;
+    background-size: 0.65em auto;
+}
+
+.sort-options select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+}
+
+
+/* --- Job List Section --- */
+.job-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.loading, .error-message {
+    grid-column: 1 / -1; /* Span across all columns */
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: var(--gray);
+}
+
+.loading i {
+    margin-right: 0.5rem;
+    animation: fa-spin 1s infinite linear; /* Font Awesome spin animation */
+}
+
+/* Base Job Card Styles */
+.job-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px var(--shadow-light);
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-light);
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px var(--shadow-hover);
+}
+
+.job-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 0.8rem;
+}
+
+.job-title {
+    font-size: 1.6rem;
+    color: var(--dark);
+    margin: 0;
+    flex-grow: 1; /* Allow title to take available space */
+}
+
+.job-company {
+    font-size: 0.95rem;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.job-type {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.job-type.full-time {
+    background-color: rgba(40, 167, 69, 0.15); /* success color with transparency */
+    color: var(--success);
+}
+
+.job-type.internship {
+    background-color: rgba(255, 123, 0, 0.15); /* accent color with transparency */
+    color: var(--accent);
+}
+
+.job-type.remote {
+    background-color: rgba(0, 119, 182, 0.15); /* secondary color with transparency */
+    color: var(--secondary);
+}
+
+.job-description {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit description to 3 lines */
+    -webkit-box-orient: vertical;
+}
+
+.job-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.job-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.job-meta-item i {
+    color: var(--primary);
+}
+
+.job-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto; /* Push actions to the bottom of the card */
+    flex-wrap: wrap;
+}
+
+.job-actions .btn {
+    flex-grow: 1; /* Allow buttons to expand */
+    min-width: 120px; /* Minimum width for buttons */
+}
+
+/* --- Pagination --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.page-btn {
+    background-color: white;
+    border: 1px solid var(--border-light);
+    color: var(--text-dark);
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.page-btn:hover:not(.active) {
+    background-color: rgba(0, 212, 255, 0.1);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.page-btn.active {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0, 119, 182, 0.2);
+}
+
+/* --- Modal Styles (Application Form) --- */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    animation: fadeIn 0.3s ease-out; /* Smooth fade-in */
+}
+
+.modal-content {
+    background-color: var(--light);
+    margin: auto;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px var(--shadow-dark);
+    max-width: 600px;
+    width: 90%; /* Responsive width */
+    position: relative;
+    animation: slideInFromTop 0.4s ease-out; /* Smooth slide-in from top */
+}
+
+.modal-content h2 {
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.close-button {
+    color: var(--gray);
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--error);
+    text-decoration: none;
+}
+
+/* Form group styles within the modal */
+.modal .form-group {
+    margin-bottom: 1rem;
+}
+
+.modal .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.modal .form-group input[type="text"],
+.modal .form-group input[type="email"],
+.modal .form-group input[type="tel"],
+.modal .form-group input[type="file"],
+.modal .form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.modal .form-group input[type="file"] {
+    padding: 0.6rem 1rem; /* Slightly less padding for file input */
+}
+
+.modal .form-group input:focus,
+.modal .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+    background-color: #f0faff;
+}
+
+.modal .btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Prevent background scrolling when modal is open */
+body.modal-open {
+    overflow: hidden;
+    padding-right: 15px; /* Compensate for scrollbar to prevent layout shift */
+}
+
+
+/* --- Footer --- */
+footer {
+    background-color: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 2.5rem;
+    margin-top: 4rem;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+footer a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--light);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    /* Header / Top Navigation (Hamburger Menu Activation) */
+    .top-nav { /* Changed from nav:first-of-type */
+        padding: 1rem 1.5rem; /* Adjust padding for smaller screens */
+    }
+    .menu-toggle { /* Changed from .hamburger */
+        display: block; /* Show hamburger icon */
+    }
+    .primary-nav-links ul { /* New selector based on updated HTML */
+        display: none; /* Hide default nav links on smaller screens */
+        flex-direction: column; /* Stack vertically */
+        background-color: var(--dark);
+        position: absolute;
+        top: 100%; /* Position below the main nav bar */
+        left: 0;
+        width: 100%;
+        padding: 1rem 1.5rem; /* Match main nav padding */
+        box-shadow: 0 5px 15px var(--shadow-dark);
+        transform: translateY(-10px); /* Start slightly up for slide effect */
+        opacity: 0;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        z-index: 99; /* Below menu-toggle, above content */
+    }
+
+    /* Show the mobile menu when 'active' class is present (toggled by JS) */
+    .primary-nav-links ul.active { /* New selector based on updated HTML */
+        display: flex;
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .primary-nav-links ul li { /* New selector based on updated HTML */
+        margin-bottom: 0.8rem;
+        text-align: center;
+        width: 100%; /* Full width for mobile list items */
+    }
+    .primary-nav-links ul li:last-child { /* New selector based on updated HTML */
+        margin-bottom: 0;
+    }
+
+    /* Adjust buttons inside mobile nav menu */
+    .primary-nav-links .btn,
+    .primary-nav-links .btn-outline { /* New selector based on updated HTML */
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+    .primary-nav-links .btn-outline { /* New selector based on updated HTML */
+        border-color: var(--primary); /* For mobile menu, outline should be primary */
+        color: var(--primary);
+    }
+    .primary-nav-links .btn-outline:hover { /* New selector based on updated HTML */
+        background: var(--primary);
+        color: var(--dark); /* Text dark on primary background for hover */
+        border-color: var(--primary);
+    }
+
+    /* Main Navigation Bar (Filter Bar) */
+    .main-nav { /* Changed from nav:last-of-type */
+        padding: 0.8rem 1.5rem;
+    }
+
+    .container {
+        margin: 2rem 1rem; /* Adjust horizontal margin for medium screens */
+        padding: 0 1rem;
+    }
+
+    .page-header h1 {
+        font-size: 2.5rem;
+    }
+    .page-header p {
+        font-size: 1rem;
+    }
+
+    .search-input {
+        min-width: 180px; /* Allow smaller min-width before wrap */
+    }
+
+    .filter-section {
+        flex-direction: column; /* Stack filter buttons and sort options */
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .filter-buttons {
+        width: 100%;
+        justify-content: center; /* Center filter buttons */
+    }
+    .sort-options {
+        width: 100%;
+        justify-content: flex-end; /* Align sort options to the right */
+    }
+
+    .job-list {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly smaller min-width */
+    }
+
+    .job-title {
+        font-size: 1.4rem;
+    }
+
+    .job-meta {
+        gap: 0.8rem; /* Reduce gap in meta items */
+    }
+
+    /* Modal Adjustments */
+    .modal-content {
+        padding: 2rem;
+    }
+    .modal-content h2 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Top Navigation (Adjust for small screens) */
+    .top-nav { /* Changed from nav:first-of-type */
+        flex-direction: row; /* Keep logo and menu-toggle side-by-side */
+        align-items: center;
+        padding: 1rem;
+    }
+    .logo {
+        font-size: 1.8rem; /* Slightly smaller logo */
+    }
+
+    /* Main Navigation Bar (Filter Bar) */
+    .main-nav ul { /* Changed from nav:last-of-type */
+        gap: 0.8rem;
+        justify-content: flex-start;
+        flex-wrap: wrap; /* Allow tabs to wrap */
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .main-nav a, .main-nav button { /* Changed from nav:last-of-type */
+        padding: 0.6rem 0.8rem;
+        font-size: 0.95rem;
+        flex-grow: 1; /* Make buttons fill available space when wrapping */
+        text-align: center;
+        justify-content: center; /* Center icon and text */
+    }
+
+    .container {
+        margin: 1.5rem 0.8rem;
+        padding: 0 0.8rem;
+    }
+
+    .page-header h1 {
+        font-size: 2.2rem;
+    }
+    .page-header p {
+        font-size: 0.95rem;
+    }
+
+    .search-form {
+        flex-direction: column; /* Stack search inputs vertically */
+        align-items: stretch;
+    }
+    .search-input, .search-btn {
+        width: 100%; /* Full width for stacked elements */
+        min-width: unset; /* Remove min-width constraint */
+    }
+
+    .filter-buttons {
+        flex-direction: column; /* Stack filter buttons on very small screens */
+        align-items: stretch; /* Stretch to full width */
+    }
+    .filter-btn {
+        width: 100%; /* Full width for individual buttons */
+        text-align: center;
+    }
+
+    .job-list {
+        grid-template-columns: 1fr; /* Single column on small mobile */
+    }
+
+    .job-card {
+        padding: 1.5rem;
+    }
+    .job-title {
+        font-size: 1.3rem;
+    }
+    .job-company {
+        font-size: 0.9rem;
+    }
+    .job-type {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.6rem;
+    }
+    .job-description {
+        font-size: 0.9rem;
+    }
+
+    .job-actions {
+        flex-direction: column; /* Stack action buttons */
+    }
+    .job-actions .btn {
+        width: 100%;
+    }
+
+    .pagination .page-btn {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    /* Modal Adjustments */
+    .modal-content {
+        padding: 1.5rem;
+    }
+    .modal-content h2 {
+        font-size: 1.4rem;
+    }
+    .close-button {
+        font-size: 30px;
+        top: 10px;
+        right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.6rem;
+    }
+    /* Mobile nav links already handled by .primary-nav-links ul li */
+
+    .main-nav ul {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        gap: 0.6rem; /* Even smaller gap */
+    }
+    .main-nav a, .main-nav button {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.85rem;
+        gap: 0.4rem;
+    }
+
+    .container {
+        margin: 1rem 0.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    .page-header p {
+        font-size: 0.85rem;
+    }
+
+    .search-container {
+        padding: 1rem;
+    }
+
+    .filter-section {
+        padding: 0.8rem;
+        gap: 0.8rem;
+    }
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    .sort-options {
+        flex-direction: column; /* Stack label and select */
+        align-items: flex-start;
+    }
+
+    .job-card {
+        padding: 1.2rem;
+    }
+    .job-title {
+        font-size: 1.2rem;
+    }
+    .job-company {
+        font-size: 0.85rem;
+    }
+    .job-description {
+        font-size: 0.85rem;
+    }
+    .job-meta {
+        font-size: 0.8rem;
+        gap: 0.6rem;
+    }
+
+    .pagination {
+        gap: 0.3rem;
+    }
+    .pagination .page-btn {
+        padding: 0.5rem 0.7rem;
+        font-size: 0.85rem;
+    }
+
+    /* Modal Adjustments */
+    .modal-content {
+        padding: 1rem;
+    }
+    .modal-content h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    .modal .form-group label {
+        font-size: 0.9rem;
+    }
+    .modal .form-group input,
+    .modal .form-group textarea {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.9rem;
+    }
+    .modal .btn {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-50px); /* Slightly higher initial position for more noticeable slide */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes iconPop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Animations for Navbar Links (Top Nav) - only visible on desktop by default */
+/* Removed specific slideInNav for individual li to match mobile toggle.
+   The .primary-nav-links ul.active transition handles the slide effect. */
+    </style>
   
 </head>
 <body>
