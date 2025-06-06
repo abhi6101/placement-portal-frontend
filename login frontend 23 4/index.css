@@ -1,13 +1,14 @@
-/* Your existing CSS rules go here */
+/*=============== VARIABLES CSS ===============*/
 :root {
-    --primary: #00d4ff;
-    --secondary: #0077b6;
-    --dark: #03045e;
-    --light: #f8f9fa;
-    --gray: #6c757d;
-    --accent: #ff7b00;
+    --primary: #00d4ff; /* Light Blue */
+    --secondary: #0077b6; /* Medium Blue */
+    --dark: #03045e; /* Dark Blue */
+    --light: #f8f9fa; /* Off-white/Light Gray */
+    --gray: #6c757d; /* Medium Gray */
+    --accent: #ff7b00; /* Orange Accent */
 }
 
+/*=============== BASE ===============*/
 * {
     margin: 0;
     padding: 0;
@@ -20,9 +21,10 @@ body {
     color: #333;
     line-height: 1.6;
     overflow-x: hidden; /* Prevent horizontal scroll on some effects */
+    transition: background-color 0.4s ease, color 0.4s ease; /* For potential theme toggle */
 }
 
-/* Top Navigation Bar */
+/*=============== TOP NAVIGATION BAR ===============*/
 nav:first-of-type {
     background-color: var(--dark);
     color: white;
@@ -30,12 +32,18 @@ nav:first-of-type {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative; /* For z-index and animations */
+    z-index: 101; /* Higher than main nav */
 }
 
 .logo {
     font-size: 1.8rem;
     font-weight: 700;
     letter-spacing: 0.5px;
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(-20px); /* Initial state for animation */
+    animation: slideInFromTop 0.8s ease-out forwards;
+    animation-delay: 0.1s;
 }
 
 .logo span {
@@ -49,6 +57,22 @@ nav:first-of-type ul {
     align-items: center;
 }
 
+nav:first-of-type li {
+    position: relative;
+    opacity: 0; /* Initial state for staggered animation */
+    transform: translateX(20px); /* Start off-screen */
+    animation: slideInNav 0.7s ease-out forwards;
+    /* Staggering applied below */
+}
+
+/* Staggering the animation for each top navigation item */
+nav:first-of-type li:nth-child(1) { animation-delay: 0.2s; }
+nav:first-of-type li:nth-child(2) { animation-delay: 0.3s; }
+nav:first-of-type li:nth-child(3) { animation-delay: 0.4s; }
+nav:first-of-type li:nth-child(4) { animation-delay: 0.5s; }
+/* Add more :nth-child rules if you have more navigation items */
+
+
 nav:first-of-type a {
     color: white;
     text-decoration: none;
@@ -56,64 +80,68 @@ nav:first-of-type a {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 nav:first-of-type a:hover {
     color: var(--primary);
+    transform: translateY(-2px);
 }
 
-/* Buttons - Re-applied with consistent styling */
+/*=============== BUTTONS ===============*/
 .btn {
     display: inline-block;
     background: linear-gradient(to right, var(--primary), var(--secondary));
     color: white;
-    padding: 0.6rem 1.5rem; /* Slightly increased padding */
-    border-radius: 30px; /* More rounded */
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    box-shadow: 0 3px 8px rgba(0, 119, 182, 0.2); /* Initial subtle shadow */
+    box-shadow: 0 3px 8px rgba(0, 119, 182, 0.2);
 }
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4); /* Enhanced shadow on hover */
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
 }
 
 .btn-outline {
     background: transparent;
-    border: 2px solid white; /* Changed to white for hero section contrast */
-    color: white; /* Changed to white for hero section contrast */
-    padding: 0.6rem 1.5rem; /* Match primary button padding */
+    border: 2px solid white;
+    color: white;
+    padding: 0.6rem 1.5rem;
 }
 
 .btn-outline:hover {
     background: white;
-    color: var(--dark); /* Changed to dark for better contrast on white background */
-    border-color: white; /* Keep border color white */
+    color: var(--dark);
+    border-color: white;
 }
 
-/* Main Navigation Bar */
+/*=============== MAIN NAVIGATION BAR (Sticky) ===============*/
 nav:last-of-type {
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 0.8rem 2rem;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 100; /* Lower than top nav, but still sticky */
+    animation: fadeInDown 0.8s ease-out forwards; /* Animation for main nav */
+    animation-delay: 0.6s; /* Appear after top nav */
+    opacity: 0; /* Start hidden */
 }
 
 nav:last-of-type ul {
     display: flex;
     list-style: none;
-    gap: 1.5rem; /* Increased gap slightly for better spacing */
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    justify-content: center; /* Center items in main nav */
+    gap: 1.5rem;
+    overflow-x: auto; /* Enables horizontal scrolling if content overflows */
+    padding-bottom: 0.5rem; /* Provides space for potential scrollbar */
+    justify-content: center; /* Center items when they fit */
 }
 
 nav:last-of-type li {
@@ -125,8 +153,8 @@ nav:last-of-type button {
     color: var(--dark);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.6rem 1.1rem; /* Adjusted padding */
-    border-radius: 6px; /* Slightly more rounded */
+    padding: 0.6rem 1.1rem;
+    border-radius: 6px;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -146,10 +174,25 @@ nav:last-of-type button:hover {
 nav:last-of-type a.active {
     background-color: rgba(0, 212, 255, 0.2);
     color: var(--primary);
-    font-weight: 600; /* Make active link bolder */
+    font-weight: 600;
+    /* Adding a subtle active indicator animation */
+    position: relative;
 }
 
-/* Hero Section */
+nav:last-of-type a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; /* Adjust position */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 2px;
+    animation: activeUnderline 0.4s forwards;
+}
+
+/*=============== HERO SECTION ===============*/
 .hero {
     background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
     color: white;
@@ -157,10 +200,10 @@ nav:last-of-type a.active {
     padding: 6rem 2rem;
     position: relative;
     overflow: hidden;
-    min-height: 550px; /* Ensure a good height */
-    display: flex; /* For vertical centering of content */
-    align-items: center; /* Vertical centering */
-    justify-content: center; /* Horizontal centering */
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero::before {
@@ -171,55 +214,68 @@ nav:last-of-type a.active {
     width: 100%;
     height: 100%;
     background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
-    opacity: 0.2; /* Slightly increased opacity */
+    opacity: 0.2;
     z-index: 0;
-    filter: brightness(0.8); /* Slightly dim the background image */
+    filter: brightness(0.8);
+    animation: backgroundZoomIn 10s ease-out forwards; /* Subtle background zoom */
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 900px; /* Increased max-width */
+    max-width: 900px;
     margin: 0 auto;
-    animation: fadeIn 1.5s ease-out; /* Added fade-in animation */
+    /* FadeIn will be applied to individual elements for staggered effect */
 }
 
 .hero h1 {
-    font-size: 3.5rem; /* Slightly larger heading */
+    font-size: 3.5rem;
     margin-bottom: 1.5rem;
     background: linear-gradient(to right, var(--primary), white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
     letter-spacing: 1px;
-    animation: slideInFromTop 1s ease-out; /* Added animation */
+    opacity: 0;
+    transform: translateY(-30px);
+    animation: slideInFromTop 1s ease-out forwards;
+    animation-delay: 0.8s; /* Appears after navs */
 }
 
 .hero p {
-    font-size: 1.3rem; /* Slightly larger paragraph */
-    margin-bottom: 2.5rem; /* Increased margin */
-    opacity: 0.95; /* Slightly increased opacity */
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1.2s ease-out forwards;
+    animation-delay: 1.2s; /* Appears after H1 */
     line-height: 1.8;
-    animation: fadeIn 1.8s ease-out; /* Added fade-in animation */
 }
 
 .cta-btns {
     display: flex;
-    gap: 1.5rem; /* Increased gap */
+    gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
-    animation: fadeIn 2.1s ease-out; /* Added fade-in animation */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1.2s ease-out forwards;
+    animation-delay: 1.6s; /* Appears after paragraph */
 }
 
-/* User Welcome Section */
+/*=============== USER WELCOME SECTION (Inside Hero) ===============*/
 #userWelcome {
-    background: rgba(255, 255, 255, 0.25); /* Slightly less transparent */
-    padding: 1.8rem; /* Increased padding */
-    border-radius: 12px; /* Slightly more rounded */
-    margin-bottom: 2.5rem; /* Increased margin */
-    backdrop-filter: blur(8px); /* Increased blur */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+    background: rgba(255, 255, 255, 0.25);
+    padding: 1.8rem;
+    border-radius: 12px;
+    margin-bottom: 2.5rem;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(20px); /* Initial state for animation */
+    animation: fadeIn 1.2s ease-out forwards;
+    animation-delay: 2s; /* Appears after cta-btns */
 }
 
 #userWelcome h2 {
@@ -235,62 +291,89 @@ nav:last-of-type a.active {
 }
 
 #userWelcome span {
-    font-weight: 700; /* Bolder for emphasis */
+    font-weight: 700;
     color: var(--primary);
-    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Subtle text shadow */
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
 }
 
-/* Features Section */
+/*=============== REUSABLE SECTION HIDDEN/VISIBLE STATES (for scroll reveal) ===============*/
+.section-hidden {
+    opacity: 0;
+    transform: translateY(50px); /* Start slightly below its final position */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Smooth transition */
+}
+
+.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*=============== FEATURES SECTION ===============*/
 .features {
     max-width: 1200px;
-    margin: 5rem auto; /* Increased margin */
+    margin: 5rem auto;
     padding: 0 2rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for better responsiveness */
-    gap: 2.5rem; /* Increased gap */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
 }
 
 .features-box {
     background: white;
-    border-radius: 12px; /* Slightly more rounded */
-    padding: 2.5rem; /* Increased padding */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Enhanced shadow */
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
-    border: 1px solid #eee; /* Subtle border */
+    border: 1px solid #eee;
+
+    /* Initial state for staggered animation (hidden by default) */
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .features-box:hover {
-    transform: translateY(-12px); /* Slightly more pronounced lift */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
+/* Staggered animation for features boxes (triggered by .section-visible) */
+.section-visible .features-box {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.section-visible .features-box:nth-child(1) { animation-delay: 0.1s; }
+.section-visible .features-box:nth-child(2) { animation-delay: 0.2s; }
+.section-visible .features-box:nth-child(3) { animation-delay: 0.3s; }
+.section-visible .features-box:nth-child(4) { animation-delay: 0.4s; }
+/* Add more :nth-child rules if you have more feature boxes */
+
 .features-box i {
-    font-size: 3rem; /* Larger icon size */
+    font-size: 3rem;
     color: var(--primary);
-    margin-bottom: 1.8rem; /* Increased margin */
-    animation: iconPop 0.6s ease-out; /* Added subtle icon animation */
+    margin-bottom: 1.8rem;
+    /* iconPop is a hover animation, keep it separate from entry */
 }
 
 .features-box h2 {
     color: var(--dark);
     margin-bottom: 1.2rem;
-    font-size: 1.8rem; /* Slightly larger heading */
+    font-size: 1.8rem;
 }
 
 .features-box p {
     color: var(--gray);
-    margin-bottom: 1.8rem; /* Increased margin */
+    margin-bottom: 1.8rem;
     font-size: 1.05rem;
 }
 
-/* Stats Section */
+/*=============== STATS SECTION ===============*/
 .stats {
     background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
     color: white;
-    padding: 5rem 2rem; /* Increased padding */
+    padding: 5rem 2rem;
     text-align: center;
-    position: relative; /* For potential background patterns */
+    position: relative;
     overflow: hidden;
 }
 
@@ -298,25 +381,40 @@ nav:last-of-type a.active {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted minmax */
-    gap: 2.5rem; /* Increased gap */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
 }
 
 .stat-item {
     padding: 1.5rem;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1); /* Subtle background for each stat */
-    backdrop-filter: blur(3px); /* Subtle blur */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(3px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
+
+    /* Initial state for staggered animation */
+    opacity: 0;
+    transform: scale(0.9);
 }
 
 .stat-item:hover {
     background: rgba(255, 255, 255, 0.15);
 }
 
+/* Staggered animation for stats items */
+.section-visible .stat-item {
+    animation: fadeInScale 0.8s ease-out forwards;
+}
+
+.section-visible .stat-item:nth-child(1) { animation-delay: 0.1s; }
+.section-visible .stat-item:nth-child(2) { animation-delay: 0.2s; }
+.section-visible .stat-item:nth-child(3) { animation-delay: 0.3s; }
+.section-visible .stat-item:nth-child(4) { animation-delay: 0.4s; }
+/* Add more as needed */
+
 .stat-item h3 {
-    font-size: 3.5rem; /* Larger stat numbers */
+    font-size: 3.5rem;
     margin-bottom: 0.8rem;
     background: linear-gradient(to right, var(--primary), white);
     -webkit-background-clip: text;
@@ -326,24 +424,28 @@ nav:last-of-type a.active {
 }
 
 .stat-item p {
-    font-size: 1.2rem; /* Larger stat labels */
+    font-size: 1.2rem;
     opacity: 0.95;
     font-weight: 500;
 }
 
-/* Testimonials Section */
+/*=============== TESTIMONIALS SECTION ===============*/
 .testimonials {
-    padding: 5rem 2rem; /* Increased padding */
+    padding: 5rem 2rem;
     text-align: center;
     background-color: #f1f3f4;
 }
 
 .testimonials h2 {
     color: var(--dark);
-    margin-bottom: 3rem; /* Increased margin */
-    font-size: 2.5rem; /* Larger heading */
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
     position: relative;
     display: inline-block;
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(20px);
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.1s; /* Quick reveal after section visible */
 }
 
 .testimonials h2::after {
@@ -356,12 +458,16 @@ nav:last-of-type a.active {
     height: 4px;
     background-color: var(--primary);
     border-radius: 2px;
+    animation: expandUnderline 0.6s ease-out forwards; /* Animation for underline */
+    animation-delay: 0.5s; /* Appear after text */
+    transform-origin: center;
+    transform: scaleX(0) translateX(-50%); /* Start hidden */
 }
 
 .testimonial-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax */
-    gap: 2.5rem; /* Increased gap */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -374,12 +480,28 @@ nav:last-of-type a.active {
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid #eee;
+
+    /* Initial state for staggered animation */
+    opacity: 0;
+    transform: rotateX(-15deg) translateY(20px);
+    transform-origin: top center;
 }
 
 .testimonial-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
+
+/* Staggered animation for testimonial cards */
+.section-visible .testimonial-card {
+    animation: flipIn 1s ease-out forwards;
+}
+
+.section-visible .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+.section-visible .testimonial-card:nth-child(2) { animation-delay: 0.3s; }
+.section-visible .testimonial-card:nth-child(3) { animation-delay: 0.5s; }
+/* Add more as needed */
+
 
 .testimonial-card p {
     font-style: italic;
@@ -397,11 +519,12 @@ nav:last-of-type a.active {
 }
 
 .testimonial-author img {
-    width: 60px; /* Slightly larger image */
-    height: 60px; /* Slightly larger image */
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--primary); /* Accent border around image */
+    border: 3px solid var(--primary);
+    animation: pulsateBorder 2s infinite ease-in-out; /* Subtle continuous animation */
 }
 
 .author-info h4 {
@@ -414,10 +537,10 @@ nav:last-of-type a.active {
     font-style: normal;
     font-size: 0.95rem;
     color: var(--gray);
-    margin-bottom: 0; /* Reset margin for paragraphs inside author-info */
+    margin-bottom: 0;
 }
 
-/* Gallery Section CSS */
+/*=============== GALLERY SECTION ===============*/
 .gallery {
     padding: 5rem 2rem;
     text-align: center;
@@ -430,6 +553,10 @@ nav:last-of-type a.active {
     font-size: 2.5rem;
     position: relative;
     display: inline-block;
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(20px);
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.1s;
 }
 
 .gallery h2::after {
@@ -442,17 +569,25 @@ nav:last-of-type a.active {
     height: 4px;
     background-color: var(--primary);
     border-radius: 2px;
+    animation: expandUnderline 0.6s ease-out forwards;
+    animation-delay: 0.5s;
+    transform-origin: center;
+    transform: scaleX(0) translateX(-50%); /* Start hidden */
 }
 
 /* Slideshow Container */
 .slideshow-container {
-    max-width: 900px; /* Increased max-width for larger display */
+    max-width: 900px;
     position: relative;
-    margin: 0 auto 2.5rem auto; /* Increased margin */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+    margin: 0 auto 2.5rem auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
     overflow: hidden;
-    height: 450px; /* Slightly increased fixed height */
+    height: 450px;
+    opacity: 0; /* Initial state for animation */
+    transform: scale(0.95);
+    animation: fadeInScale 1s ease-out forwards;
+    animation-delay: 0.3s;
 }
 
 /* Individual Slides */
@@ -466,10 +601,10 @@ nav:last-of-type a.active {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 12px; /* Match container border-radius */
+    border-radius: 12px;
 }
 
-/* Fading animation */
+/* Fading animation for slides (already provided, adding -webkit) */
 .fade {
     animation-name: fade;
     animation-duration: 1.5s;
@@ -487,19 +622,9 @@ nav:last-of-type a.active {
     to { opacity: 1 }
 }
 
-/* Media query for smaller screens */
-@media (max-width: 768px) {
-    .slideshow-container {
-        height: 300px; /* Adjusted height for smaller screens */
-    }
-    .mySlides img {
-        height: 100%; /* Keep 100% of container height */
-    }
-}
-
-/* Company Logos Section */
+/*=============== COMPANY LOGOS SECTION ===============*/
 .companies {
-    padding: 5rem 2rem; /* Increased padding */
+    padding: 5rem 2rem;
     text-align: center;
     background-color: var(--dark);
     color: white;
@@ -507,9 +632,13 @@ nav:last-of-type a.active {
 
 .companies h2 {
     color: var(--primary);
-    margin-bottom: 3rem; /* Increased margin */
+    margin-bottom: 3rem;
     font-size: 2.5rem;
     letter-spacing: 0.8px;
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(20px);
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.1s;
 }
 
 .company-logos {
@@ -517,31 +646,50 @@ nav:last-of-type a.active {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 3rem; /* Increased gap for better separation */
+    gap: 3rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+.company-logo-item {
+    /* Initial state for staggered animation */
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+}
+
+/* Staggered animation for company logos */
+.section-visible .company-logo-item {
+    animation: fadeInScaleUp 0.8s ease-out forwards;
+}
+
+.section-visible .company-logo-item:nth-child(1) { animation-delay: 0.1s; }
+.section-visible .company-logo-item:nth-child(2) { animation-delay: 0.15s; }
+.section-visible .company-logo-item:nth-child(3) { animation-delay: 0.2s; }
+.section-visible .company-logo-item:nth-child(4) { animation-delay: 0.25s; }
+.section-visible .company-logo-item:nth-child(5) { animation-delay: 0.3s; }
+.section-visible .company-logo-item:nth-child(6) { animation-delay: 0.35s; }
+/* Add more :nth-child rules as needed for all logos */
+
 .company-logo-item img {
-    max-width: 140px; /* Slightly larger logos */
+    max-width: 140px;
     height: auto;
-    filter: grayscale(80%) brightness(1.2); /* Make logos appear more uniform/subtle */
-    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: grayscale(80%) brightness(1.2);
+    transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
     opacity: 0.8;
 }
 
 .company-logo-item img:hover {
-    transform: scale(1.15); /* More pronounced scale */
-    filter: grayscale(0%) brightness(1); /* Full color on hover */
+    transform: scale(1.15);
+    filter: grayscale(0%) brightness(1);
     opacity: 1;
 }
 
-/* Footer */
+/*=============== FOOTER ===============*/
 footer {
     background-color: var(--dark);
     color: white;
     text-align: center;
-    padding: 3rem 2rem; /* Increased padding */
+    padding: 3rem 2rem;
     font-size: 0.95rem;
 }
 
@@ -550,17 +698,22 @@ footer {
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2.5rem; /* Increased gap */
+    gap: 2.5rem;
     text-align: left;
-    margin-bottom: 2.5rem; /* Increased margin */
-    padding-bottom: 2.5rem; /* Add padding to bottom before copyright */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(30px);
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.1s;
 }
 
 .footer-column h3 {
     color: var(--primary);
-    margin-bottom: 1.8rem; /* Increased margin */
-    font-size: 1.3rem; /* Slightly larger heading */
+    margin-bottom: 1.8rem;
+    font-size: 1.3rem;
     letter-spacing: 0.5px;
 }
 
@@ -569,51 +722,56 @@ footer {
 }
 
 .footer-column li {
-    margin-bottom: 1rem; /* Increased margin */
+    margin-bottom: 1rem;
 }
 
 .footer-column a {
     color: #ccc;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .footer-column a:hover {
     color: var(--primary);
-    text-decoration: underline; /* Add underline on hover for clarity */
+    text-decoration: underline;
+    transform: translateX(5px); /* Subtle slide on hover */
 }
 
 .social-links {
     display: flex;
-    gap: 1.2rem; /* Increased gap */
+    gap: 1.2rem;
     margin-top: 1.5rem;
 }
 
 .social-links a {
     color: white;
-    background: rgba(255, 255, 255, 0.15); /* Slightly less transparent */
-    width: 45px; /* Slightly larger icons */
-    height: 45px; /* Slightly larger icons */
+    background: rgba(255, 255, 255, 0.15);
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    font-size: 1.2rem; /* Larger icon size */
+    font-size: 1.2rem;
 }
 
 .social-links a:hover {
     background: var(--primary);
-    transform: translateY(-4px) rotate(5deg); /* More dynamic hover */
+    transform: translateY(-4px) rotate(5deg);
     box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
 }
 
 footer p {
     color: #bbb;
     margin-top: 1.5rem;
+    opacity: 0; /* Initial state for animation */
+    transform: translateY(20px);
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 0.3s;
 }
 
-/* Media Queries for Responsiveness */
+/*=============== MEDIA QUERIES (RESPONSIVENESS) ===============*/
 @media (max-width: 992px) {
     .hero h1 {
         font-size: 3rem;
@@ -639,6 +797,20 @@ footer p {
     nav:first-of-type ul {
         flex-wrap: wrap;
         justify-content: center;
+    }
+    .logo {
+        transform: translateY(0); /* Adjust initial position for smaller screens */
+        animation: none; /* Disable complex initial animation for brevity */
+        opacity: 1;
+    }
+    nav:first-of-type li {
+        transform: translateX(0); /* Adjust initial position */
+        animation: none; /* Disable complex initial animation for brevity */
+        opacity: 1;
+    }
+    nav:last-of-type {
+        animation: none; /* Disable animation on smaller screens to avoid issues */
+        opacity: 1;
     }
     .hero {
         padding: 4rem 1.5rem;
@@ -684,6 +856,19 @@ footer p {
     .social-links {
         justify-content: center;
     }
+
+    /* Disable some animations on smaller screens for performance/simplicity */
+    .hero h1, .hero p, .cta-btns, #userWelcome,
+    .features-box, .stat-item, .testimonial-card, .company-logo-item,
+    .footer-content, footer p, .slideshow-container,
+    .testimonials h2, .testimonials h2::after, .gallery h2, .gallery h2::after, .companies h2 {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .testimonial-author img {
+        animation: none !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -694,7 +879,7 @@ footer p {
         gap: 0.8rem;
     }
     nav:last-of-type ul {
-        justify-content: flex-start; /* Allow scrolling for small screens */
+        justify-content: flex-start;
         padding-left: 1rem;
         padding-right: 1rem;
     }
@@ -719,7 +904,10 @@ footer p {
     }
 }
 
-/* Animations */
+
+/*=============== KEYFRAME ANIMATIONS ===============*/
+
+/* General Fade In and Slide Up */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -731,6 +919,7 @@ footer p {
     }
 }
 
+/* Slide in from Top (for headings) */
 @keyframes slideInFromTop {
     from {
         opacity: 0;
@@ -742,6 +931,7 @@ footer p {
     }
 }
 
+/* Icon Pop (for features on hover) */
 @keyframes iconPop {
     0% {
         transform: scale(0.8);
@@ -755,7 +945,8 @@ footer p {
         transform: scale(1);
     }
 }
-/* Animations for Navbar Links */
+
+/* Navigation Links Slide In (staggered) */
 @keyframes slideInNav {
     from {
         transform: translateX(-100%);
@@ -767,39 +958,96 @@ footer p {
     }
 }
 
-nav:first-of-type li {
-    /* Ensure list items are positioned relative for the animation */
-    position: relative;
-    /* Apply the animation to each list item (e.g., Home, Jobs) */
-    animation: slideInNav 0.7s ease-out forwards;
-    /* This will stagger the animation for each item */
-    opacity: 0; /* Start hidden */
+/* Main Nav Fade In from Top */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Staggering the animation for each navigation item */
-nav:first-of-type li:nth-child(1) {
-    animation-delay: 0.1s;
-}
-nav:first-of-type li:nth-child(2) {
-    animation-delay: 0.2s;
-}
-nav:first-of-type li:nth-child(3) {
-    animation-delay: 0.3s;
-}
-/* Add more :nth-child rules if you have more navigation items */
-
-/* In your existing CSS for nav:last-of-type ul */
-nav:last-of-type ul {
-    /* ... existing rules ... */
-    overflow-x: auto; /* This enables horizontal scrolling if content overflows */
-    padding-bottom: 0.5rem; /* Provides space for potential scrollbar */
-    justify-content: center; /* Centers items when they fit */
+/* Active Nav Underline Animation */
+@keyframes activeUnderline {
+    from {
+        width: 0;
+    }
+    to {
+        width: 60px; /* Or a dynamic width */
+    }
 }
 
-@media (max-width: 480px) {
-    nav:last-of-type ul {
-        justify-content: flex-start; /* Aligns items to the left, enabling scroll */
-        padding-left: 1rem;
-        padding-right: 1rem;
+/* Hero Background Zoom In */
+@keyframes backgroundZoomIn {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.08); /* Subtle zoom */
+    }
+}
+
+/* Stat Item/Slideshow Fade In with Scale */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Testimonial Card Flip In */
+@keyframes flipIn {
+    from {
+        opacity: 0;
+        transform: rotateX(-15deg) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: rotateX(0deg) translateY(0);
+    }
+}
+
+/* Section Title Underline Expansion */
+@keyframes expandUnderline {
+    from {
+        transform: scaleX(0) translateX(-50%);
+    }
+    to {
+        transform: scaleX(1) translateX(-50%);
+    }
+}
+
+/* Testimonial Image Border Pulsate */
+@keyframes pulsateBorder {
+    0% {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+    }
+    50% {
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
+    }
+    100% {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+    }
+}
+
+/* Company Logo Fade In with Scale Up */
+@keyframes fadeInScaleUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
