@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career-Boosting Courses | Placements Adda</title>
+    <title>Career-Boosting Courses | Hack-2-Hired</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -52,7 +52,8 @@
             color: var(--primary);
         }
 
-        nav:first-of-type ul {
+        /* Removed top nav ul, as per original comment, but keeping the structure for future if needed */
+        /* nav:first-of-type ul {
             display: flex;
             list-style: none;
             gap: 1.5rem;
@@ -74,7 +75,7 @@
 
         nav:first-of-type a:hover {
             color: var(--primary);
-        }
+        } */
 
         /* Main Navigation Bar */
         nav:last-of-type {
@@ -84,6 +85,9 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         nav:last-of-type ul {
@@ -94,6 +98,8 @@
             padding-bottom: 0.5rem;
             -ms-overflow-style: none;
             scrollbar-width: none;
+            flex-grow: 1; /* Allow the ul to take available space */
+            justify-content: flex-start; /* Align items to the start on larger screens */
         }
 
         nav:last-of-type ul::-webkit-scrollbar {
@@ -132,6 +138,15 @@
             background-color: rgba(0, 212, 255, 0.2);
             color: var(--primary);
             font-weight: 600;
+        }
+
+        /* Hamburger Menu Icon */
+        .hamburger-menu {
+            display: none; /* Hidden by default on larger screens */
+            font-size: 1.8rem;
+            color: var(--dark);
+            cursor: pointer;
+            margin-left: 1rem; /* Space between logo and hamburger if logo exists in same nav */
         }
 
         /* Hero Section */
@@ -226,10 +241,12 @@
             font-weight: 500;
             color: var(--dark);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            appearance: none; /* Remove default select arrow */
+            appearance: none;
+            /* Remove default select arrow */
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230077b6%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-6.4H18.4c-4.8%200-9.3%201.8-12.9%205.5-3.6%203.7-5.5%208.7-5.5%2014.2%200%2010.3%208.6%2018.8%2018.7%2018.8h250.2c10.3%200%2018.7-8.5%2018.7-18.8s-8.4-18.8-18.7-18.8z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230077b6%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-6.4H18.4c-4.8%200-9.3%201.8-12.9%205.5-3.6%203.7-5.5%208.7-5.5%2014.2%200%2010.3%208.6%2018.8%2018.7%2018.8h250.2c10.3%200%2018.7-8.5%2018.7-18.8s-8.4-18.8-18.7-18.8z%22%2F%3E%3C%2Fsvg%3E');
+            /* Custom arrow */
             background-repeat: no-repeat;
             background-position: right 1rem center;
             background-size: 0.8em;
@@ -291,7 +308,8 @@
 
         .course-content {
             padding: 1.5rem;
-            flex-grow: 1; /* Allow content to take available space */
+            flex-grow: 1;
+            /* Allow content to take available space */
             display: flex;
             flex-direction: column;
         }
@@ -300,14 +318,16 @@
             color: var(--dark);
             margin-bottom: 0.8rem;
             font-size: 1.5rem;
-            min-height: 50px; /* Ensure consistent height for titles */
+            min-height: 50px;
+            /* Ensure consistent height for titles */
         }
 
         .course-content p {
             color: var(--gray);
             margin-bottom: 1rem;
             font-size: 0.95rem;
-            flex-grow: 1; /* Allow description to take available space */
+            flex-grow: 1;
+            /* Allow description to take available space */
         }
 
         .course-meta {
@@ -510,13 +530,43 @@
                 gap: 0.8rem;
             }
 
+            /* Main Navigation Responsive */
             nav:last-of-type {
+                flex-wrap: wrap; /* Allow items to wrap */
                 padding: 0.8rem 1rem;
             }
 
             nav:last-of-type ul {
-                justify-content: flex-start;
-                padding-bottom: 0.8rem;
+                display: none; /* Hide by default on small screens */
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background-color: white;
+                position: absolute;
+                top: 100%; /* Position below the nav */
+                left: 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                gap: 0.5rem;
+            }
+
+            nav:last-of-type ul.active {
+                display: flex; /* Show when active */
+            }
+
+            nav:last-of-type li {
+                width: 100%;
+                padding: 0 1rem;
+            }
+
+            nav:last-of-type a,
+            nav:last-of-type button {
+                justify-content: center; /* Center links in responsive menu */
+                padding: 0.7rem 1rem;
+            }
+
+            .hamburger-menu {
+                display: block; /* Show hamburger icon */
             }
 
             .hero {
@@ -544,7 +594,8 @@
                 max-width: 100%;
             }
 
-            .filter-btn, .sort-select {
+            .filter-btn,
+            .sort-select {
                 width: 100%;
                 padding: 0.7rem 1rem;
                 font-size: 0.95rem;
@@ -584,6 +635,15 @@
             .social-links {
                 justify-content: center;
             }
+
+            /* Responsive adjustments for Blog Page (Conceptual) */
+            .blog-posts-container { /* Assuming a container for blog posts */
+                padding: 0 1rem;
+            }
+            .blog-post-card { /* Assuming individual blog post cards */
+                margin-bottom: 1.5rem;
+                /* Stack blog posts vertically */
+            }
         }
 
         @media (max-width: 480px) {
@@ -595,9 +655,9 @@
                 font-size: 1.5rem;
             }
 
-            nav:first-of-type a {
+            /* nav:first-of-type a {
                 font-size: 0.9rem;
-            }
+            } */
 
             nav:last-of-type a,
             nav:last-of-type button {
@@ -623,14 +683,10 @@
 <body>
     <nav>
         <div class="logo">Placement<span>Portal</span></div>
-        <!-- <ul>
-            <li><a href="mailto:abhijain6101@gmail.com"><i class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
-            <li><a href="tel:+91-6266017070"><i class="fas fa-phone"></i> +91-6266017070</a></li>
-        </ul> -->
-    </nav>
+        </nav>
 
     <nav>
-        <ul>
+        <ul id="mainNav">
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
             <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
@@ -643,11 +699,15 @@
             <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <i class="fas fa-bars"></i>
+        </div>
     </nav>
 
     <header class="hero">
         <h1>Career-Boosting Courses</h1>
-        <p>Master in-demand skills with our industry-relevant courses and get placement-ready with hands-on training from industry experts.</p>
+        <p>Master in-demand skills with our industry-relevant courses and get placement-ready with hands-on training from
+            industry experts.</p>
     </header>
 
     <div class="courses-container">
@@ -674,23 +734,25 @@
             </select>
         </div>
 
-        <div class="course-list" id="courseList">
-            </div>
+        <div class="course-list" id="courseList"></div>
     </div>
 
     <section class="testimonials">
         <h2>What Our Students Say</h2>
         <div class="testimonial-cards">
             <div class="testimonial-card">
-                <p>"The C++ course helped me land my first software developer job. The hands-on projects were exactly what employers were looking for."</p>
+                <p>"The C++ course helped me land my first software developer job. The hands-on projects were exactly
+                    what employers were looking for."</p>
                 <p class="testimonial-author">- Rahul Sharma</p>
             </div>
             <div class="testimonial-card">
-                <p>"After completing the Android course, I published my first app on Play Store within 2 months. The instructors were incredibly supportive."</p>
+                <p>"After completing the Android course, I published my first app on Play Store within 2 months. The
+                    instructors were incredibly supportive."</p>
                 <p class="testimonial-author">- Priya Patel</p>
             </div>
             <div class="testimonial-card">
-                <p>"The placement assistance after the Java course was phenomenal. I received 3 job offers within a month of completing the program."</p>
+                <p>"The placement assistance after the Java course was phenomenal. I received 3 job offers within a
+                    month of completing the program."</p>
                 <p class="testimonial-author">- Amit Kumar</p>
             </div>
         </div>
@@ -742,8 +804,8 @@
 
     <script>
         const allCourses = [
-           
-           
+
+
             {
                 id: 3,
                 title: "Python Programming",
@@ -794,7 +856,10 @@
         const searchInput = document.getElementById('courseSearch');
         const filterButtons = document.querySelectorAll('.filter-btn');
         const courseSort = document.getElementById('courseSort');
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mainNavUl = document.getElementById('mainNav');
 
+        // Function to display courses (unchanged)
         function displayCourses(courses) {
             courseListContainer.innerHTML = ''; // Clear current courses
             if (courses.length === 0) {
@@ -821,6 +886,7 @@
             });
         }
 
+        // Function to filter and sort courses (unchanged)
         function filterAndSortCourses() {
             const searchTerm = searchInput.value.toLowerCase();
             const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
@@ -828,7 +894,7 @@
 
             let filteredCourses = allCourses.filter(course => {
                 const matchesSearch = course.title.toLowerCase().includes(searchTerm) ||
-                                      course.description.toLowerCase().includes(searchTerm);
+                    course.description.toLowerCase().includes(searchTerm);
                 const matchesCategory = activeCategory === 'all' || course.category === activeCategory;
                 return matchesSearch && matchesCategory;
             });
@@ -858,7 +924,7 @@
         // Initial display of all courses
         displayCourses(allCourses);
 
-        // Event Listeners for filters, search, and sort
+        // Event Listeners for filters, search, and sort (unchanged)
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelector('.filter-btn.active').classList.remove('active');
@@ -869,6 +935,20 @@
 
         searchInput.addEventListener('input', filterAndSortCourses);
         courseSort.addEventListener('change', filterAndSortCourses);
+
+        // Hamburger menu toggle
+        hamburgerMenu.addEventListener('click', () => {
+            mainNavUl.classList.toggle('active');
+        });
+
+        // Close hamburger menu when a link is clicked (optional, but good for UX)
+        mainNavUl.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNavUl.classList.contains('active')) {
+                    mainNavUl.classList.remove('active');
+                }
+            });
+        });
     </script>
 </body>
 
