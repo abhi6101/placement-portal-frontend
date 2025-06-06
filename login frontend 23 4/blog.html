@@ -139,9 +139,12 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            display: flex; /* Added flex for alignment of toggle and menu */
+            justify-content: space-between; /* Space between toggle and menu */
+            align-items: center; /* Vertically align toggle and menu */
         }
 
-        .main-nav ul {
+        .main-nav .nav-links {
             display: flex;
             list-style: none;
             gap: 1rem;
@@ -155,7 +158,7 @@
             /* Firefox */
         }
 
-        .main-nav ul::-webkit-scrollbar {
+        .main-nav .nav-links::-webkit-scrollbar {
             /* Chrome, Safari, Opera */
             display: none;
         }
@@ -192,6 +195,23 @@
         .main-nav a.active {
             background-color: rgba(0, 212, 255, 0.2);
             color: var(--primary);
+        }
+
+        /* Hamburger Menu Icon */
+        .menu-toggle {
+            display: none; /* Hidden by default, shown in media query */
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--dark);
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 101; /* Ensure it's above other elements if needed */
+        }
+
+        .menu-toggle:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
         }
 
         /* Hero Section */
@@ -589,8 +609,7 @@
 
         @media (max-width: 768px) {
 
-            .top-nav,
-            .main-nav {
+            .top-nav {
                 flex-direction: column;
                 padding: 1rem;
                 align-items: center; /* Center items when stacked */
@@ -600,21 +619,60 @@
                 margin-bottom: 1rem; /* Add space below logo */
             }
 
-            .top-nav ul,
-            .main-nav ul {
+            .top-nav ul {
                 margin-top: 1rem;
                 flex-wrap: wrap;
                 justify-content: center;
                 width: 100%; /* Ensure lists take full width */
             }
 
-            .main-nav ul {
-                padding-left: 0; /* Remove default padding for ul */
+            /* Main navigation for mobile */
+            .main-nav {
+                flex-direction: column;
+                align-items: flex-start; /* Align logo/toggle to the left */
+                padding: 0.8rem 1rem;
+                position: relative; /* Needed for absolute positioning of nav-links if used */
             }
 
-            .main-nav li {
-                width: auto; /* Allow list items to size naturally */
+            .main-nav .menu-toggle {
+                display: block; /* Show hamburger icon on mobile */
+                align-self: flex-end; /* Push toggle to the right */
             }
+
+            .main-nav .nav-links {
+                display: none; /* Hide navigation links by default on mobile */
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--card-bg);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                padding: 1rem 0;
+                margin-top: 1rem;
+                /* Position below the toggle, or use absolute positioning if desired */
+                text-align: center;
+                gap: 0; /* Remove gap for vertical stacking */
+            }
+
+            .main-nav .nav-links.active {
+                display: flex; /* Show navigation links when active */
+            }
+
+            .main-nav .nav-links li {
+                width: 100%;
+                margin-bottom: 0.5rem; /* Space between menu items */
+            }
+
+            .main-nav .nav-links li:last-child {
+                margin-bottom: 0;
+            }
+
+            .main-nav .nav-links a,
+            .main-nav .nav-links .dropbtn {
+                width: 100%;
+                justify-content: center; /* Center text/icon in menu items */
+                padding: 0.8rem 1rem;
+            }
+
 
             .hero {
                 padding: 4rem 1rem;
@@ -653,7 +711,7 @@
                 /* Center social links */
             }
 
-            /* Adjust dropdown for mobile */
+            /* Adjust dropdown for mobile when menu is active */
             .dropdown {
                 width: 100%; /* Make dropdown button full width */
                 text-align: center;
@@ -666,12 +724,17 @@
 
             .dropdown-content {
                 position: static; /* Remove absolute positioning */
-                display: block; /* Always show dropdown content on small screens */
+                display: none; /* Hide content by default on mobile, revealed by JS */
                 width: 100%;
                 box-shadow: none; /* Remove shadow */
                 border-top: 1px solid rgba(0, 0, 0, 0.1); /* Add a separator */
                 border-radius: 0;
             }
+            /* Show dropdown content when dropdown button is clicked (handled by JS) */
+            .dropdown-content.active {
+                display: block;
+            }
+
             .dropdown-content a {
                 padding-left: 2rem; /* Indent dropdown items */
             }
@@ -733,7 +796,11 @@
     </nav>
 
     <nav class="main-nav">
-        <ul>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <ul class="nav-links">
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
             <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
@@ -970,12 +1037,15 @@
         document.addEventListener('DOMContentLoaded', () => {
             const categoryTags = document.querySelectorAll('.category-tag');
             const blogPosts = document.querySelectorAll('.post');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const dropdownBtn = document.querySelector('.dropbtn');
+            const dropdownContent = document.querySelector('.dropdown-content');
 
+            // Category Filtering
             categoryTags.forEach(tag => {
                 tag.addEventListener('click', () => {
-                    // Remove active class from all tags
                     categoryTags.forEach(t => t.classList.remove('active'));
-                    // Add active class to clicked tag
                     tag.classList.add('active');
 
                     const selectedCategory = tag.dataset.category;
@@ -989,6 +1059,62 @@
                         }
                     });
                 });
+            });
+
+            // Mobile Menu Toggle
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                // Close dropdown if it's open when menu is toggled
+                if (!navLinks.classList.contains('active') && dropdownContent.classList.contains('active')) {
+                    dropdownContent.classList.remove('active');
+                }
+            });
+
+            // Dropdown Toggle for Mobile (if menu is active)
+            dropdownBtn.addEventListener('click', (event) => {
+                // Only toggle dropdown if main nav links are active (on mobile)
+                if (window.innerWidth <= 768) { // Adjust breakpoint as per your CSS
+                    dropdownContent.classList.toggle('active');
+                    event.stopPropagation(); // Prevent click from bubbling up and closing menu immediately
+                }
+            });
+
+            // Close menu and dropdown when a link is clicked (optional, but good for UX)
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                        dropdownContent.classList.remove('active'); // Close dropdown too
+                    }
+                });
+            });
+
+            // Close dropdown if clicking outside (for desktop and mobile after menu is open)
+            document.addEventListener('click', (event) => {
+                if (!dropdownBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
+                    if (dropdownContent.classList.contains('active')) {
+                        dropdownContent.classList.remove('active');
+                    }
+                }
+            });
+
+            // Handle window resize to reset menu state
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    navLinks.classList.remove('active'); // Ensure menu is visible on desktop
+                    navLinks.style.display = ''; // Reset display to default flex for desktop
+                    dropdownContent.classList.remove('active'); // Hide dropdown on desktop
+                    dropdownContent.style.display = ''; // Reset display to default for desktop
+                } else {
+                    // On mobile, ensure menu is hidden unless explicitly activated
+                    if (!navLinks.classList.contains('active')) {
+                        navLinks.style.display = 'none';
+                    }
+                    // Hide dropdown by default on mobile unless activated
+                    if (!dropdownContent.classList.contains('active')) {
+                        dropdownContent.style.display = 'none';
+                    }
+                }
             });
         });
     </script>
