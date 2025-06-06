@@ -1,714 +1,805 @@
-/* Universal Styles */
+/* Your existing CSS rules go here */
 :root {
-    --primary-color: #007bff; /* Blue */
-    --secondary-color: #28a745; /* Green */
-    --accent-color: #ffc107; /* Yellow */
-    --dark-color: #343a40; /* Dark Gray */
-    --light-color: #f8f9fa; /* Light Gray */
-    --text-color: #495057; /* Medium Gray */
-    --white-color: #ffffff;
-    --border-color: #dee2e6;
-
-    --font-family-primary: 'Poppins', sans-serif;
-    --heading-font-weight: 700;
-    --body-font-weight: 400;
-    --link-hover-color: #0056b3;
+    --primary: #00d4ff;
+    --secondary: #0077b6;
+    --dark: #03045e;
+    --light: #f8f9fa;
+    --gray: #6c757d;
+    --accent: #ff7b00;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    font-family: var(--font-family-primary);
+    background-color: var(--light);
+    color: #333;
     line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--white-color);
+    overflow-x: hidden; /* Prevent horizontal scroll on some effects */
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
-
-a {
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-a:hover {
-    color: var(--link-hover-color);
-}
-
-ul {
-    list-style: none;
-}
-
-h1, h2, h3, h4 {
-    color: var(--dark-color);
-    font-weight: var(--heading-font-weight);
-    margin-bottom: 1rem;
-}
-
-p {
-    margin-bottom: 1rem;
-}
-
-/* Buttons */
-.btn {
-    display: inline-block;
-    background: var(--primary-color);
-    color: var(--white-color);
-    padding: 0.8rem 1.5rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    text-align: center;
-    white-space: nowrap; /* Prevents text from wrapping on smaller buttons */
-}
-
-.btn:hover {
-    background: var(--link-hover-color);
-    color: var(--white-color); /* Ensure text stays white on hover */
-}
-
-.primary-btn {
-    background: var(--primary-color);
-}
-
-.primary-btn:hover {
-    background: var(--link-hover-color);
-}
-
-.secondary-btn {
-    background: var(--secondary-color);
-}
-
-.secondary-btn:hover {
-    background: #218838; /* Darker green */
-}
-
-.outline-btn {
-    background: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
-}
-
-.outline-btn:hover {
-    background: var(--primary-color);
-    color: var(--white-color);
-}
-
-.nav-btn {
-    padding: 0.5rem 1rem; /* Smaller padding for nav buttons */
-    font-size: 0.9rem;
-}
-
-/* Section Padding & Backgrounds */
-.section-padding {
-    padding: 4rem 0;
-}
-
-.bg-light-gray {
-    background-color: var(--light-color);
-}
-
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background-color: var(--primary-color);
-    border-radius: 2px;
-}
-
-/* Header & Navigation */
-.top-contact-nav {
+/* Top Navigation Bar */
+nav:first-of-type {
+    background-color: var(--dark);
+    color: white;
+    padding: 0.8rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--dark-color);
-    color: var(--white-color);
-    padding: 0.8rem 1.5rem;
-    font-size: 0.9rem;
 }
 
-.top-contact-nav .logo {
-    font-size: 1.5rem;
-    font-weight: var(--heading-font-weight);
-    color: var(--white-color);
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
-.top-contact-nav .logo span {
-    color: var(--primary-color);
+.logo span {
+    color: var(--primary);
 }
 
-.top-contact-nav .contact-info {
+nav:first-of-type ul {
     display: flex;
+    list-style: none;
     gap: 1.5rem;
+    align-items: center;
 }
 
-.top-contact-nav .contact-info li a {
-    color: var(--white-color);
+nav:first-of-type a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     transition: color 0.3s ease;
 }
 
-.top-contact-nav .contact-info li a:hover {
-    color: var(--primary-color);
+nav:first-of-type a:hover {
+    color: var(--primary);
 }
 
-.top-contact-nav .contact-info i {
-    margin-right: 0.5rem;
-}
-
-.main-nav {
-    background-color: var(--white-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 1rem 1.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.main-nav .nav-links {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
-}
-
-.main-nav .nav-links li a {
-    color: var(--dark-color);
+/* Buttons - Re-applied with consistent styling */
+.btn {
+    display: inline-block;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    padding: 0.6rem 1.5rem; /* Slightly increased padding */
+    border-radius: 30px; /* More rounded */
+    text-decoration: none;
     font-weight: 600;
-    padding: 0.5rem 0.8rem;
-    transition: color 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
-    border-bottom: 2px solid transparent;
-}
-
-.main-nav .nav-links li a.active,
-.main-nav .nav-links li a:hover {
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--primary-color);
-    /* background-color: var(--light-color); */ /* Optional hover background */
-    /* border-radius: 5px; */
-}
-
-.main-nav .nav-links li a i {
-    margin-right: 0.5rem;
-}
-
-.main-nav .nav-links .btn {
-    margin-left: 1rem; /* Space before login/logout buttons */
-}
-
-.hamburger-menu {
-    display: none; /* Hidden by default on larger screens */
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 25px;
-    background: transparent;
+    transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    padding: 0;
-    z-index: 1001; /* Ensure it's above other content when active */
+    font-size: 1rem;
+    box-shadow: 0 3px 8px rgba(0, 119, 182, 0.2); /* Initial subtle shadow */
 }
 
-.hamburger-menu .bar {
-    width: 100%;
-    height: 3px;
-    background-color: var(--dark-color);
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4); /* Enhanced shadow on hover */
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid white; /* Changed to white for hero section contrast */
+    color: white; /* Changed to white for hero section contrast */
+    padding: 0.6rem 1.5rem; /* Match primary button padding */
+}
+
+.btn-outline:hover {
+    background: white;
+    color: var(--dark); /* Changed to dark for better contrast on white background */
+    border-color: white; /* Keep border color white */
+}
+
+/* Main Navigation Bar */
+nav:last-of-type {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.8rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav:last-of-type ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem; /* Increased gap slightly for better spacing */
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    justify-content: center; /* Center items in main nav */
+}
+
+nav:last-of-type li {
+    flex-shrink: 0;
+}
+
+nav:last-of-type a,
+nav:last-of-type button {
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.6rem 1.1rem; /* Adjusted padding */
+    border-radius: 6px; /* Slightly more rounded */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+nav:last-of-type a:hover,
+nav:last-of-type button:hover {
+    color: var(--primary);
+    background-color: rgba(0, 212, 255, 0.1);
+}
+
+nav:last-of-type a.active {
+    background-color: rgba(0, 212, 255, 0.2);
+    color: var(--primary);
+    font-weight: 600; /* Make active link bolder */
 }
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/hero-bg.jpg') no-repeat center center/cover;
-    color: var(--white-color);
+    background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+    color: white;
     text-align: center;
-    padding: 6rem 1.5rem;
-    min-height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 550px; /* Ensure a good height */
+    display: flex; /* For vertical centering of content */
+    align-items: center; /* Vertical centering */
+    justify-content: center; /* Horizontal centering */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+    opacity: 0.2; /* Slightly increased opacity */
+    z-index: 0;
+    filter: brightness(0.8); /* Slightly dim the background image */
 }
 
 .hero-content {
-    max-width: 900px;
-    animation: fadeIn 1s ease-out;
+    position: relative;
+    z-index: 1;
+    max-width: 900px; /* Increased max-width */
+    margin: 0 auto;
+    animation: fadeIn 1.5s ease-out; /* Added fade-in animation */
 }
 
-.hero-content h1 {
-    font-size: 3.5rem;
+.hero h1 {
+    font-size: 3.5rem; /* Slightly larger heading */
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, var(--primary), white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    letter-spacing: 1px;
+    animation: slideInFromTop 1s ease-out; /* Added animation */
+}
+
+.hero p {
+    font-size: 1.3rem; /* Slightly larger paragraph */
+    margin-bottom: 2.5rem; /* Increased margin */
+    opacity: 0.95; /* Slightly increased opacity */
+    line-height: 1.8;
+    animation: fadeIn 1.8s ease-out; /* Added fade-in animation */
+}
+
+.cta-btns {
+    display: flex;
+    gap: 1.5rem; /* Increased gap */
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeIn 2.1s ease-out; /* Added fade-in animation */
+}
+
+/* User Welcome Section */
+#userWelcome {
+    background: rgba(255, 255, 255, 0.25); /* Slightly less transparent */
+    padding: 1.8rem; /* Increased padding */
+    border-radius: 12px; /* Slightly more rounded */
+    margin-bottom: 2.5rem; /* Increased margin */
+    backdrop-filter: blur(8px); /* Increased blur */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#userWelcome h2 {
+    color: white;
     margin-bottom: 1rem;
-    color: var(--white-color);
-    line-height: 1.2;
+    font-size: 2.2rem;
 }
 
-.hero-content h2 { /* For userWelcome */
-    font-size: 2.8rem;
-    margin-bottom: 0.5rem;
-    color: var(--white-color);
-}
-
-.hero-content p {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-}
-
-.hero .cta-btns .btn {
-    margin: 0 0.5rem;
+#userWelcome p {
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 0.6rem;
     font-size: 1.1rem;
-    padding: 1rem 2rem;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+#userWelcome span {
+    font-weight: 700; /* Bolder for emphasis */
+    color: var(--primary);
+    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* Subtle text shadow */
 }
 
-/* Features Sections (Core Services & Additional Resources) */
-.features-grid {
+/* Features Section */
+.features {
+    max-width: 1200px;
+    margin: 5rem auto; /* Increased margin */
+    padding: 0 2rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for better responsiveness */
+    gap: 2.5rem; /* Increased gap */
 }
 
 .features-box {
-    background-color: var(--white-color);
-    padding: 2.5rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    text-align: center;
+    background: white;
+    border-radius: 12px; /* Slightly more rounded */
+    padding: 2.5rem; /* Increased padding */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Enhanced shadow */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Pushes button to bottom */
+    text-align: center;
+    border: 1px solid #eee; /* Subtle border */
 }
 
 .features-box:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-12px); /* Slightly more pronounced lift */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
 }
 
-.features-box .feature-icon {
-    font-size: 3rem;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
+.features-box i {
+    font-size: 3rem; /* Larger icon size */
+    color: var(--primary);
+    margin-bottom: 1.8rem; /* Increased margin */
+    animation: iconPop 0.6s ease-out; /* Added subtle icon animation */
 }
 
-.features-box h3 {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
+.features-box h2 {
+    color: var(--dark);
+    margin-bottom: 1.2rem;
+    font-size: 1.8rem; /* Slightly larger heading */
 }
 
 .features-box p {
-    font-size: 0.95rem;
-    color: var(--text-color);
-    flex-grow: 1; /* Allows paragraph to take up available space */
-}
-
-.features-box .btn {
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    padding: 0.7rem 1.2rem;
-    width: fit-content; /* Ensure button fits content */
-    align-self: center; /* Center the button within the flex item */
+    color: var(--gray);
+    margin-bottom: 1.8rem; /* Increased margin */
+    font-size: 1.05rem;
 }
 
 /* Stats Section */
 .stats {
-    background-color: var(--primary-color);
-    color: var(--white-color);
+    background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 5rem 2rem; /* Increased padding */
     text-align: center;
-    padding: 3rem 0;
+    position: relative; /* For potential background patterns */
+    overflow: hidden;
 }
 
 .stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted minmax */
+    gap: 2.5rem; /* Increased gap */
+}
+
+.stat-item {
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1); /* Subtle background for each stat */
+    backdrop-filter: blur(3px); /* Subtle blur */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .stat-item h3 {
-    font-size: 3rem;
-    color: var(--white-color);
-    margin-bottom: 0.5rem;
+    font-size: 3.5rem; /* Larger stat numbers */
+    margin-bottom: 0.8rem;
+    background: linear-gradient(to right, var(--primary), white);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    letter-spacing: 0.5px;
 }
 
 .stat-item p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    margin-bottom: 0;
+    font-size: 1.2rem; /* Larger stat labels */
+    opacity: 0.95;
+    font-weight: 500;
 }
 
 /* Testimonials Section */
+.testimonials {
+    padding: 5rem 2rem; /* Increased padding */
+    text-align: center;
+    background-color: #f1f3f4;
+}
+
+.testimonials h2 {
+    color: var(--dark);
+    margin-bottom: 3rem; /* Increased margin */
+    font-size: 2.5rem; /* Larger heading */
+    position: relative;
+    display: inline-block;
+}
+
+.testimonials h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 2px;
+}
+
 .testimonial-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax */
+    gap: 2.5rem; /* Increased gap */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .testimonial-card {
-    background-color: var(--white-color);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
 .testimonial-card p {
     font-style: italic;
-    margin-bottom: 1.5rem;
-    color: var(--dark-color);
-    font-size: 1rem;
+    margin-bottom: 1.8rem;
+    color: var(--dark);
+    line-height: 1.7;
+    font-size: 1.05rem;
 }
 
 .testimonial-author {
     display: flex;
     align-items: center;
-    margin-top: 1rem;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 .testimonial-author img {
-    width: 60px;
-    height: 60px;
+    width: 60px; /* Slightly larger image */
+    height: 60px; /* Slightly larger image */
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 1rem;
-    border: 3px solid var(--primary-color);
+    border: 3px solid var(--primary); /* Accent border around image */
 }
 
 .author-info h4 {
-    font-size: 1.1rem;
+    color: var(--secondary);
+    font-size: 1.15rem;
     margin-bottom: 0.2rem;
-    color: var(--dark-color);
 }
 
 .author-info p {
-    font-size: 0.85rem;
-    color: #6c757d;
-    margin-bottom: 0;
+    font-style: normal;
+    font-size: 0.95rem;
+    color: var(--gray);
+    margin-bottom: 0; /* Reset margin for paragraphs inside author-info */
 }
 
-/* Gallery Section (Slideshow) */
+/* Gallery Section CSS */
 .gallery {
+    padding: 5rem 2rem;
     text-align: center;
+    background-color: var(--light);
 }
 
-.slideshow-container {
-    max-width: 800px;
+.gallery h2 {
+    color: var(--dark);
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
     position: relative;
-    margin: auto;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: inline-block;
 }
 
+.gallery h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 2px;
+}
+
+/* Slideshow Container */
+.slideshow-container {
+    max-width: 900px; /* Increased max-width for larger display */
+    position: relative;
+    margin: 0 auto 2.5rem auto; /* Increased margin */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+    border-radius: 12px;
+    overflow: hidden;
+    height: 450px; /* Slightly increased fixed height */
+}
+
+/* Individual Slides */
 .mySlides {
     display: none;
-    animation: fadeEffect 1.5s;
+    width: 100%;
+    height: 100%;
 }
 
 .mySlides img {
     width: 100%;
-    height: auto;
-    display: block; /* Remove extra space below image */
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px; /* Match container border-radius */
 }
 
 /* Fading animation */
-@keyframes fadeEffect {
-    from { opacity: 0.4; }
-    to { opacity: 1; }
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
 }
 
-.gallery .view-all-btn {
-    margin-top: 2.5rem;
-    font-size: 1rem;
+@-webkit-keyframes fade {
+    from { opacity: .4 }
+    to { opacity: 1 }
 }
 
-/* Companies Section */
+@keyframes fade {
+    from { opacity: .4 }
+    to { opacity: 1 }
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .slideshow-container {
+        height: 300px; /* Adjusted height for smaller screens */
+    }
+    .mySlides img {
+        height: 100%; /* Keep 100% of container height */
+    }
+}
+
+/* Company Logos Section */
 .companies {
+    padding: 5rem 2rem; /* Increased padding */
     text-align: center;
+    background-color: var(--dark);
+    color: white;
+}
+
+.companies h2 {
+    color: var(--primary);
+    margin-bottom: 3rem; /* Increased margin */
+    font-size: 2.5rem;
+    letter-spacing: 0.8px;
 }
 
 .company-logos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-}
-
-.company-logo-item {
-    padding: 1rem;
-    background-color: var(--white-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.company-logo-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    gap: 3rem; /* Increased gap for better separation */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .company-logo-item img {
-    max-width: 100%;
-    height: 60px; /* Consistent height for logos */
-    object-fit: contain; /* Ensures logos fit without distortion */
-    filter: grayscale(80%); /* Make logos grayscale */
-    opacity: 0.7;
-    transition: filter 0.3s ease, opacity 0.3s ease;
+    max-width: 140px; /* Slightly larger logos */
+    height: auto;
+    filter: grayscale(80%) brightness(1.2); /* Make logos appear more uniform/subtle */
+    transition: transform 0.3s ease, filter 0.3s ease;
+    opacity: 0.8;
 }
 
 .company-logo-item img:hover {
-    filter: grayscale(0%); /* Color on hover */
+    transform: scale(1.15); /* More pronounced scale */
+    filter: grayscale(0%) brightness(1); /* Full color on hover */
     opacity: 1;
 }
 
 /* Footer */
 footer {
-    background-color: var(--dark-color);
-    color: var(--white-color);
-    padding: 3rem 0 1rem;
-    font-size: 0.9rem;
+    background-color: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 3rem 2rem; /* Increased padding */
+    font-size: 0.95rem;
 }
 
 .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 2.5rem; /* Increased gap */
+    text-align: left;
+    margin-bottom: 2.5rem; /* Increased margin */
+    padding-bottom: 2.5rem; /* Add padding to bottom before copyright */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
 }
 
 .footer-column h3 {
-    color: var(--white-color);
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
+    color: var(--primary);
+    margin-bottom: 1.8rem; /* Increased margin */
+    font-size: 1.3rem; /* Slightly larger heading */
+    letter-spacing: 0.5px;
 }
 
-.footer-column ul li {
-    margin-bottom: 0.6rem;
+.footer-column ul {
+    list-style: none;
 }
 
-.footer-column ul li a {
+.footer-column li {
+    margin-bottom: 1rem; /* Increased margin */
+}
+
+.footer-column a {
     color: #ccc;
+    text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.footer-column ul li a:hover {
-    color: var(--primary-color);
+.footer-column a:hover {
+    color: var(--primary);
+    text-decoration: underline; /* Add underline on hover for clarity */
 }
 
 .social-links {
     display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 1.2rem; /* Increased gap */
+    margin-top: 1.5rem;
 }
 
 .social-links a {
-    color: var(--white-color);
-    font-size: 1.5rem;
-    transition: color 0.3s ease;
+    color: white;
+    background: rgba(255, 255, 255, 0.15); /* Slightly less transparent */
+    width: 45px; /* Slightly larger icons */
+    height: 45px; /* Slightly larger icons */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.2rem; /* Larger icon size */
 }
 
 .social-links a:hover {
-    color: var(--primary-color);
+    background: var(--primary);
+    transform: translateY(-4px) rotate(5deg); /* More dynamic hover */
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
 }
 
-.footer-email {
-    color: #ccc;
+footer p {
+    color: #bbb;
     margin-top: 1.5rem;
 }
 
-.footer-bottom {
-    text-align: center;
-    margin-top: 1.5rem;
-    color: #aaa;
-}
-
-.footer-bottom p {
-    margin: 0.5rem 0;
-}
-
-
-/* Responsive Design */
+/* Media Queries for Responsiveness */
 @media (max-width: 992px) {
-    .main-nav .nav-links {
-        gap: 1.5rem;
+    .hero h1 {
+        font-size: 3rem;
+    }
+    .hero p {
+        font-size: 1.15rem;
+    }
+    .features, .stats-container, .testimonial-cards, .company-logos, .footer-content {
+        gap: 2rem;
+    }
+    .slideshow-container {
+        max-width: 700px;
+        height: 400px;
     }
 }
 
 @media (max-width: 768px) {
-    .top-contact-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-        padding: 0.8rem 1rem;
-    }
-
-    .top-contact-nav .contact-info {
-        flex-direction: column;
-        gap: 0.5rem;
-        font-size: 0.85rem;
-    }
-
-    .main-nav {
-        padding: 1rem 1rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-    }
-
-    .hamburger-menu {
-        display: flex;
-    }
-
-    .main-nav .nav-links {
-        flex-direction: column;
-        background-color: var(--white-color);
-        position: absolute;
-        top: 100%; /* Position below the main nav bar */
-        left: 0;
-        width: 100%;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        padding: 1rem 0;
-        border-top: 1px solid var(--border-color);
-        display: none; /* Hidden by default */
-        text-align: center;
-        gap: 0; /* Remove gap for vertical stacking */
-    }
-
-    .main-nav .nav-links.active {
-        display: flex; /* Show when active */
-    }
-
-    .main-nav .nav-links li {
-        width: 100%;
-    }
-
-    .main-nav .nav-links li a,
-    .main-nav .nav-links li button {
-        display: block;
-        padding: 0.8rem 1rem;
-        border-bottom: none; /* Remove bottom border for individual items */
-    }
-
-    .main-nav .nav-links li a.active,
-    .main-nav .nav-links li a:hover {
-        background-color: var(--light-color);
-        border-radius: 0;
-    }
-
-    .hero {
-        padding: 4rem 1rem;
-    }
-
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero-content h2 {
-        font-size: 2rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    .hero .cta-btns {
+    nav:first-of-type {
         flex-direction: column;
         gap: 1rem;
+        padding: 1rem;
     }
-
-    .hero .cta-btns .btn {
-        width: 80%; /* Make buttons wider on small screens */
-        max-width: 300px;
+    nav:first-of-type ul {
+        flex-wrap: wrap;
+        justify-content: center;
     }
-
-    .section-padding {
-        padding: 3rem 0;
+    .hero {
+        padding: 4rem 1.5rem;
+        min-height: 450px;
     }
-
-    .section-title {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .cta-btns {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .cta-btns .btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    .features, .stats-container, .testimonial-cards {
+        grid-template-columns: 1fr; /* Stack columns on small screens */
+        padding: 0 1.5rem;
+        margin: 3rem auto;
+    }
+    .features-box, .testimonial-card, .stat-item {
+        padding: 2rem;
+    }
+    .testimonials h2, .gallery h2, .companies h2 {
         font-size: 2rem;
         margin-bottom: 2rem;
     }
-
-    .features-grid,
-    .testimonial-cards,
-    .company-logos,
-    .stats-container,
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    .slideshow-container {
+        height: 280px;
     }
-
-    .company-logo-item img {
-        height: 50px;
+    .footer-content {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        text-align: center;
+    }
+    .footer-column ul {
+        padding-left: 0;
+    }
+    .social-links {
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 2rem;
+    .logo {
+        font-size: 1.5rem;
     }
-
-    .hero-content h2 {
-        font-size: 1.8rem;
+    nav:first-of-type ul {
+        gap: 0.8rem;
     }
-
-    .hero-content p {
+    nav:last-of-type ul {
+        justify-content: flex-start; /* Allow scrolling for small screens */
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    nav:last-of-type a, nav:last-of-type button {
+        padding: 0.5rem 0.8rem;
         font-size: 0.9rem;
     }
-
-    .features-box {
-        padding: 1.5rem;
+    .hero h1 {
+        font-size: 2rem;
     }
-
-    .features-box .feature-icon {
-        font-size: 2.5rem;
+    .hero p {
+        font-size: 0.95rem;
     }
-
-    .testimonial-card {
-        padding: 1.5rem;
+    .slideshow-container {
+        height: 220px;
     }
-
-    .testimonial-author img {
-        width: 50px;
-        height: 50px;
+    .company-logo-item img {
+        max-width: 100px;
     }
-    .main-nav .nav-links .btn {
-        margin-left: 0; /* Remove margin for buttons in mobile menu */
+    .footer-column {
+        padding-bottom: 1.5rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes iconPop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+/* Animations for Navbar Links */
+@keyframes slideInNav {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+nav:first-of-type li {
+    /* Ensure list items are positioned relative for the animation */
+    position: relative;
+    /* Apply the animation to each list item (e.g., Home, Jobs) */
+    animation: slideInNav 0.7s ease-out forwards;
+    /* This will stagger the animation for each item */
+    opacity: 0; /* Start hidden */
+}
+
+/* Staggering the animation for each navigation item */
+nav:first-of-type li:nth-child(1) {
+    animation-delay: 0.1s;
+}
+nav:first-of-type li:nth-child(2) {
+    animation-delay: 0.2s;
+}
+nav:first-of-type li:nth-child(3) {
+    animation-delay: 0.3s;
+}
+/* Add more :nth-child rules if you have more navigation items */
+
+/* In your existing CSS for nav:last-of-type ul */
+nav:last-of-type ul {
+    /* ... existing rules ... */
+    overflow-x: auto; /* This enables horizontal scrolling if content overflows */
+    padding-bottom: 0.5rem; /* Provides space for potential scrollbar */
+    justify-content: center; /* Centers items when they fit */
+}
+
+@media (max-width: 480px) {
+    nav:last-of-type ul {
+        justify-content: flex-start; /* Aligns items to the left, enabling scroll */
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 }
