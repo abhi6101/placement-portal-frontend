@@ -1,54 +1,18 @@
 /* --- Root Variables --- */
 :root {
-    /* Primary Color Palette (Blue/Teal) */
-    --primary: #00d4ff; /* A bright, vibrant blue/teal */
+    --primary: #00d4ff; /* A bright, vibrant blue */
     --secondary: #0077b6; /* A slightly darker, richer blue */
-    --dark: #03045e; /* Deep dark blue for main text/background elements */
-    --light: #f8f9fa; /* Very light gray for section backgrounds */
-    --white: #ffffff; /* Pure white for elements */
-
-    /* Accent & Utility Colors */
-    --accent: #ff7b00; /* Vibrant orange accent color */
-    --gray: #6c757d; /* Standard medium gray for secondary text */
+    --dark: #03045e; /* Deep dark blue for main text/background */
+    --light: #f8f9fa; /* Very light gray for backgrounds */
+    --gray: #6c757d; /* Standard medium gray */
+    --accent: #ff7b00; /* Orange accent color */
+    --error: #dc3545; /* Red for errors */
+    --success: #28a745; /* Green for success */
     --text-dark: #333; /* General dark text color */
-    --error: #dc3545; /* Red for error messages/states */
-    --success: #28a745; /* Green for success messages/states */
-    --info: #17a2b8; /* Blue for informational alerts */
-    --warning: #ffc107; /* Yellow for warning alerts */
-
-    /* Borders & Shadows */
     --border-light: #e0e0e0; /* Light gray border for inputs/sections */
-    --border-dark: #ced4da; /* Slightly darker border for general use */
-    --shadow-subtle: rgba(0, 0, 0, 0.08); /* Subtle shadow for cards/sections */
-    --shadow-medium: rgba(0, 0, 0, 0.15); /* For darker, more prominent shadows */
-    --shadow-primary-hover: rgba(0, 212, 255, 0.3); /* Stronger blue shadow on hover */
-    --shadow-white-hover: rgba(255, 255, 255, 0.3); /* White shadow for white elements on hover */
-
-    /* Gradients */
-    --gradient-button: linear-gradient(to right, var(--primary), var(--secondary));
-
-    /* Typography */
-    --font-family-base: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --font-size-base: 1rem;
-    --line-height-base: 1.6;
-
-    /* Transitions & Spacing */
-    --transition-speed: 0.3s ease;
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 0.8rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
-
-    /* Border Radius */
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 30px; /* For pill-shaped buttons */
-
-    /* Breakpoints */
-    --breakpoint-sm: 480px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 992px;
+    --shadow-light: rgba(0, 0, 0, 0.08); /* Subtle shadow for cards/sections */
+    --shadow-hover: rgba(0, 212, 255, 0.3); /* Stronger blue shadow on hover */
+    --shadow-dark: rgba(0, 0, 0, 0.15); /* For darker, more prominent shadows */
 }
 
 /* --- Global Resets & Base Styles --- */
@@ -56,13 +20,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--font-family-base);
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 body {
     background-color: var(--light);
     color: var(--text-dark);
-    line-height: var(--line-height-base);
+    line-height: 1.6;
     overflow-x: hidden; /* Prevents horizontal scroll on effects */
 }
 
@@ -71,23 +35,23 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-button);
-    color: var(--white);
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-radius: var(--radius-lg);
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
     text-decoration: none;
     font-weight: 600;
-    transition: all var(--transition-speed);
+    transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    gap: var(--spacing-xs);
-    font-size: var(--font-size-base);
+    gap: 0.5rem;
+    font-size: 1rem;
     box-shadow: 0 3px 8px rgba(0, 119, 182, 0.2); /* Initial subtle shadow */
 }
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 18px var(--shadow-primary-hover);
+    box-shadow: 0 6px 18px var(--shadow-hover);
 }
 
 .btn-outline {
@@ -96,30 +60,41 @@ body {
     color: var(--primary);
 }
 
+/* Specific adjustment for .btn-outline used in nav:first-of-type or hero-like sections */
+nav:first-of-type .btn-outline {
+    border-color: white;
+    color: white;
+}
+
+nav:first-of-type .btn-outline:hover {
+    background: white;
+    color: var(--dark);
+    border-color: white; /* Keep border color white */
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.3); /* White shadow for white button */
+}
+
 .btn-outline:hover {
     background: var(--primary);
-    color: var(--white);
-    box-shadow: 0 6px 18px var(--shadow-primary-hover);
+    color: white;
+    box-shadow: 0 6px 18px var(--shadow-hover);
 }
 
 /* --- Top Navigation Bar (First Nav) --- */
-.main-nav { /* Renamed for clarity and consistency */
+nav:first-of-type {
     background-color: var(--dark);
-    color: var(--white);
-    padding: 1rem var(--spacing-lg);
+    color: white;
+    padding: 1rem 2.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px var(--shadow-medium);
+    box-shadow: 0 2px 10px var(--shadow-dark);
     position: relative; /* Crucial for positioning the mobile menu */
-    z-index: 100; /* Ensure it's above other content */
 }
 
 .logo {
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: 0.5px;
-    color: var(--white); /* Ensure logo itself is white */
 }
 
 .logo span {
@@ -127,106 +102,90 @@ body {
 }
 
 /* Desktop navigation links container */
-.main-nav .nav-links {
+nav:first-of-type .nav-links {
     display: flex;
     list-style: none;
-    gap: var(--spacing-lg);
+    gap: 2rem;
     align-items: center;
 }
 
-.main-nav .nav-links a {
-    color: var(--white);
+nav:first-of-type .nav-links a {
+    color: white;
     text-decoration: none;
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    padding: 0.5rem 0; /* Add padding for click area */
-    transition: color var(--transition-speed), transform var(--transition-speed);
+    gap: 0.6rem;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.main-nav .nav-links a:hover {
+nav:first-of-type .nav-links a:hover {
     color: var(--primary);
     transform: translateY(-2px);
-}
-
-/* Specific adjustment for .btn-outline used in nav */
-.main-nav .btn-outline {
-    border-color: var(--white);
-    color: var(--white);
-}
-
-.main-nav .btn-outline:hover {
-    background: var(--white);
-    color: var(--dark);
-    border-color: var(--white);
-    box-shadow: 0 6px 18px var(--shadow-white-hover);
 }
 
 /* Hamburger Icon (initially hidden) */
 .hamburger {
     display: none; /* Hidden by default on larger screens */
-    font-size: 2rem;
+    font-size: 2rem; /* Adjusted for better visibility */
     cursor: pointer;
-    color: var(--white);
     z-index: 101; /* Ensure it's above the menu */
-    transition: transform var(--transition-speed);
 }
 
 /* --- Main Navigation Bar (Second Nav - Filter Bar) --- */
-.filter-nav { /* Renamed for clarity and consistency */
-    background-color: var(--white);
-    box-shadow: 0 4px 15px var(--shadow-subtle);
-    padding: var(--spacing-sm) var(--spacing-lg);
+nav:last-of-type {
+    background-color: white;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    padding: 0.9rem 2.5rem;
     position: sticky;
     top: 0;
-    z-index: 99; /* Below main-nav */
+    z-index: 100;
 }
 
-.filter-nav ul {
+nav:last-of-type ul {
     display: flex;
     list-style: none;
-    gap: var(--spacing-md);
+    gap: 1.5rem;
     overflow-x: auto;
-    padding-bottom: var(--spacing-xs); /* Space for scrollbar if present */
-    justify-content: center;
-    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    padding-bottom: 0.5rem;
+    justify-content: center; /* Center items in main nav */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-.filter-nav ul::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome/Safari */
+nav:last-of-type ul::-webkit-scrollbar {
+    display: none;
 }
 
-.filter-nav li {
-    flex-shrink: 0; /* Prevent items from shrinking */
+nav:last-of-type li {
+    flex-shrink: 0;
 }
 
-.filter-nav a,
-.filter-nav button {
+nav:last-of-type a,
+nav:last-of-type button {
     color: var(--dark);
     text-decoration: none;
     font-weight: 500;
     padding: 0.7rem 1.2rem;
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-speed);
+    border-radius: 6px;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: 0.6rem;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: var(--font-size-base);
+    font-size: 1rem;
 }
 
-.filter-nav a:hover,
-.filter-nav button:hover {
+nav:last-of-type a:hover,
+nav:last-of-type button:hover {
     color: var(--primary);
     background-color: rgba(0, 212, 255, 0.15);
 }
 
-.filter-nav a.active,
-.filter-btn.active {
+nav:last-of-type a.active,
+.filter-btn.active { /* Ensure .filter-btn.active also has correct styling */
     background-color: rgba(0, 212, 255, 0.25);
     color: var(--primary);
     font-weight: 600;
@@ -234,30 +193,30 @@ body {
 
 /* --- Resume Builder Section --- */
 .resume-builder {
-    max-width: 800px;
-    margin: var(--spacing-lg) auto;
-    padding: var(--spacing-md) var(--spacing-lg);
-    background: var(--white);
-    border-radius: var(--radius-md);
-    box-shadow: 0 8px 25px var(--shadow-subtle);
-    font-size: 0.9em; /* Adjusted slightly for better readability */
-    line-height: var(--line-height-base);
+    max-width: 800px; /* Consistent with your provided reduction */
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px var(--shadow-light);
+    font-size: 0.875em; /* Base font for this section */
+    line-height: 1.4;
 }
 
 .resume-builder h1 {
     text-align: center;
-    margin-bottom: var(--spacing-sm);
-    font-size: 2.5em; /* Slightly larger for impact */
-    background: var(--gradient-button);
+    margin-bottom: 1rem;
+    font-size: 2em;
+    color: var(--dark); /* Fallback */
+    background: linear-gradient(to right, var(--primary), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 700;
-    animation: slideInFromTop 0.8s ease-out; /* Apply animation */
 }
 
 .resume-builder p {
     text-align: center;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 1.5rem;
     color: var(--gray);
     font-size: 1em;
 }
@@ -265,7 +224,7 @@ body {
 .resume-builder form {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 1.2rem; /* Gap between sections */
 }
 
 .resume-builder label {
@@ -285,9 +244,9 @@ body {
 .resume-builder textarea {
     padding: 0.6rem 0.9rem;
     border: 1px solid var(--border-light);
-    border-radius: var(--radius-sm);
+    border-radius: 6px;
     font-size: 0.95em;
-    transition: all var(--transition-speed);
+    transition: all 0.3s ease;
     width: 100%;
 }
 
@@ -304,18 +263,25 @@ body {
     background-color: #f0faff; /* Light blue background on focus */
 }
 
-/* Optional: Styling for inputs with icons */
+/* Specific styling for email and phone number inputs (inherits from general but allows overrides) */
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder {
+    color: var(--gray);
+    opacity: 0.7; /* Make placeholders slightly faded */
+}
+
+/* Optional: Styling for inputs with icons (if you choose to implement this structure) */
 .input-with-icon {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: 0.5rem; /* Space between icon and input */
     border: 1px solid var(--border-light);
-    border-radius: var(--radius-sm);
+    border-radius: 6px;
     padding: 0.7rem 1rem;
-    transition: all var(--transition-speed);
+    transition: all 0.3s ease;
 }
 
-.input-with-icon:focus-within {
+.input-with-icon:focus-within { /* When any child element inside gets focus */
     border-color: var(--primary);
     box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
     background-color: #f0faff;
@@ -327,20 +293,21 @@ body {
 }
 
 .input-with-icon input {
-    border: none;
-    padding: 0;
-    flex-grow: 1;
-    background-color: transparent;
+    border: none; /* Remove individual border for input inside this container */
+    padding: 0; /* Remove individual padding */
+    flex-grow: 1; /* Allow input to fill available space */
+    background-color: transparent; /* Transparent background to show parent background */
 }
 
 .input-with-icon input:focus {
-    outline: none;
-    box-shadow: none;
-    background-color: transparent;
+    outline: none; /* Remove focus outline, handled by parent focus-within */
+    box-shadow: none; /* Remove individual box-shadow */
+    background-color: transparent; /* Keep transparent */
 }
 
-/* Optional: Highlight invalid input */
-input:invalid:not(:focus):not(:placeholder-shown) {
+/* Optional: Highlight invalid email/phone (after user interaction) */
+input[type="email"]:invalid:not(:focus):not(:placeholder-shown),
+input[type="tel"]:invalid:not(:focus):not(:placeholder-shown) {
     border-color: var(--error);
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
 }
@@ -348,8 +315,8 @@ input:invalid:not(:focus):not(:placeholder-shown) {
 /* --- Template Options --- */
 .template-options {
     display: flex;
-    gap: var(--spacing-md);
-    margin: var(--spacing-md) 0;
+    gap: 1rem; /* Gap between templates */
+    margin: 1.2rem 0;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -361,10 +328,10 @@ input:invalid:not(:focus):not(:placeholder-shown) {
     text-align: center;
     cursor: pointer;
     border: 2px solid var(--border-light);
-    border-radius: var(--radius-md);
-    padding: var(--spacing-sm);
-    transition: all var(--transition-speed);
-    background-color: var(--white);
+    border-radius: 10px;
+    padding: 0.8rem;
+    transition: all 0.3s ease;
+    background-color: #fff;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
@@ -386,10 +353,10 @@ input:invalid:not(:focus):not(:placeholder-shown) {
 .template-option img {
     width: 100%;
     height: auto;
-    border-radius: var(--radius-sm);
-    margin-bottom: var(--spacing-xs);
-    border: 3px solid transparent; /* To match checked state border */
-    transition: all var(--transition-speed);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
     object-fit: cover;
 }
 
@@ -398,41 +365,35 @@ input:invalid:not(:focus):not(:placeholder-shown) {
     color: var(--dark);
     margin: 0;
     font-size: 0.9em;
-    transition: color var(--transition-speed); /* Animate text color */
-}
-
-.template-option input[type="radio"]:checked ~ p {
-    color: var(--primary);
 }
 
 /* --- Form Sections --- */
 .form-section {
-    background-color: var(--light); /* Using light variable for consistent background */
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--spacing-md);
+    background-color: #f8f9fa;
+    padding: 2rem; /* Remains 2rem for desktop */
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
     border: 1px solid var(--border-light);
-    box-shadow: 0 4px 10px var(--shadow-subtle); /* Slightly more prominent shadow */
 }
 
 .form-section h2 {
     color: var(--secondary);
-    margin-bottom: var(--spacing-sm);
-    font-size: 1.5em; /* Slightly larger heading */
+    margin-bottom: 0.8rem;
+    font-size: 1.3em;
     border-bottom: 1px solid rgba(0, 119, 182, 0.1);
-    padding-bottom: var(--spacing-xs);
+    padding-bottom: 0.5rem;
 }
 
 .form-row {
     display: flex;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-sm);
+    gap: 1.5rem; /* Gap between items in a row */
+    margin-bottom: 0.8rem;
     flex-wrap: wrap;
 }
 
 .form-group {
     flex: 1;
-    min-width: 280px;
+    min-width: 280px; /* Ensure fields don't get too small */
 }
 
 /* --- Character Counter --- */
@@ -446,16 +407,16 @@ input:invalid:not(:focus):not(:placeholder-shown) {
 
 /* --- Submit Button --- */
 button[type="submit"] {
-    background: var(--gradient-button);
-    color: var(--white);
-    padding: 0.9rem var(--spacing-md);
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    color: white;
+    padding: 0.9rem 1.5rem;
     border: none;
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
+    border-radius: 8px;
+    font-size: 1em;
     font-weight: 600;
     cursor: pointer;
-    transition: all var(--transition-speed);
-    margin-top: var(--spacing-md);
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -464,102 +425,95 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 20px var(--shadow-primary-hover);
-}
-
-button[type="submit"]:disabled {
-    background-color: var(--gray);
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+    box-shadow: 0 8px 20px var(--shadow-hover);
 }
 
 /* --- Footer --- */
 footer {
     background-color: var(--dark);
-    color: var(--white);
+    color: white;
     text-align: center;
-    padding: var(--spacing-lg) var(--spacing-md);
-    margin-top: var(--spacing-xl);
+    padding: 2.5rem;
+    margin-top: 4rem;
     font-size: 0.95rem;
-    line-height: var(--line-height-base);
-    box-shadow: 0 -2px 8px var(--shadow-medium);
+    line-height: 1.8;
 }
 
 footer a {
     color: var(--primary);
     text-decoration: none;
-    transition: color var(--transition-speed);
+    transition: color 0.3s ease;
 }
 
 footer a:hover {
     color: var(--light);
-    text-decoration: underline;
 }
 
 /* --- Responsive Design --- */
-@media (max-width: 992px) { /* Medium desktops, tablets */
-    .main-nav {
-        padding: 1rem var(--spacing-md);
+@media (max-width: 992px) {
+    /* Top Navigation (Hamburger Menu Activation) */
+    nav:first-of-type {
+        padding: 1rem 1.5rem; /* Adjust padding for smaller screens */
     }
-
     .hamburger {
         display: block; /* Show hamburger icon */
     }
-
-    .main-nav .nav-links {
-        display: none; /* Hide default nav links */
-        flex-direction: column;
+    nav:first-of-type .nav-links {
+        display: none; /* Hide default nav links on smaller screens */
+        flex-direction: column; /* Stack vertically */
         background-color: var(--dark);
         position: absolute;
-        top: 100%;
+        top: 100%; /* Position below the main nav bar */
         left: 0;
         width: 100%;
-        padding: 1rem var(--spacing-md);
-        box-shadow: 0 5px 15px var(--shadow-medium);
+        padding: 1rem 1.5rem; /* Match main nav padding */
+        box-shadow: 0 5px 15px var(--shadow-dark);
         transform: translateY(-10px); /* Start slightly up for slide effect */
         opacity: 0;
-        transition: transform var(--transition-speed), opacity var(--transition-speed);
-        z-index: 99;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        z-index: 99; /* Below hamburger, above content */
     }
 
-    .main-nav .nav-links.active {
+    /* Show the mobile menu when 'active' class is present (toggled by JS) */
+    nav:first-of-type .nav-links.active {
         display: flex;
         transform: translateY(0);
         opacity: 1;
     }
 
-    .main-nav .nav-links li {
-        margin-bottom: var(--spacing-sm);
+    nav:first-of-type .nav-links li {
+        margin-bottom: 0.8rem;
         text-align: center;
-        width: 100%;
+        width: 100%; /* Full width for mobile list items */
     }
-    .main-nav .nav-links li:last-child {
+    nav:first-of-type .nav-links li:last-child {
         margin-bottom: 0;
     }
 
-    .main-nav .nav-links .btn,
-    .main-nav .nav-links .btn-outline {
+    /* Adjust buttons inside mobile nav menu */
+    nav:first-of-type .nav-links .btn,
+    nav:first-of-type .nav-links .btn-outline {
         width: 100%;
-        margin-top: var(--spacing-xs);
+        margin-top: 0.5rem;
     }
-    .main-nav .nav-links .btn-outline {
-        border-color: var(--primary);
+    nav:first-of-type .nav-links .btn-outline {
+        border-color: var(--primary); /* For mobile menu, outline should be primary */
         color: var(--primary);
     }
-    .main-nav .nav-links .btn-outline:hover {
+    nav:first-of-type .nav-links .btn-outline:hover {
         background: var(--primary);
-        color: var(--white); /* Text dark on primary background for hover */
+        color: var(--dark); /* Text dark on primary background for hover */
         border-color: var(--primary);
     }
 
-    .filter-nav {
-        padding: var(--spacing-sm) var(--spacing-md);
+    /* Main Navigation Bar (Filter Bar) */
+    nav:last-of-type {
+        padding: 0.8rem 1.5rem;
     }
 
     .resume-builder {
-        margin: var(--spacing-lg) var(--spacing-md);
-        padding: var(--spacing-lg);
+        margin: 2.5rem 1.5rem;
+        padding: 2rem;
     }
 
     .resume-builder h1 {
@@ -571,35 +525,37 @@ footer a:hover {
     }
 
     .form-section {
-        padding: var(--spacing-md);
+        padding: 1.5rem;
     }
 }
 
-@media (max-width: 768px) { /* Tablets and larger phones */
-    .main-nav {
-        flex-direction: row;
+@media (max-width: 768px) {
+    /* Top Navigation (Adjust for small screens) */
+    nav:first-of-type {
+        flex-direction: row; /* Keep logo and hamburger side-by-side */
         align-items: center;
         padding: 1rem;
     }
 
-    .filter-nav ul {
-        gap: var(--spacing-sm);
+    /* Main Navigation Bar (Filter Bar) */
+    nav:last-of-type ul {
+        gap: 0.8rem;
         justify-content: flex-start;
-        flex-wrap: wrap;
+        flex-wrap: wrap; /* Allow tabs to wrap */
         padding-left: 1rem;
         padding-right: 1rem;
     }
-    .filter-nav a, .filter-nav button {
+    nav:last-of-type a, nav:last-of-type button {
         padding: 0.6rem 0.8rem;
         font-size: 0.95rem;
-        flex-grow: 1;
+        flex-grow: 1; /* Make buttons fill available space when wrapping */
         text-align: center;
-        justify-content: center;
+        justify-content: center; /* Center icon and text */
     }
 
     .resume-builder {
-        margin: var(--spacing-md) var(--spacing-sm);
-        padding: var(--spacing-md);
+        margin: 1.5rem 0.8rem;
+        padding: 1.5rem;
     }
 
     .resume-builder h1 {
@@ -608,7 +564,7 @@ footer a:hover {
 
     .form-row {
         flex-direction: column;
-        gap: var(--spacing-sm);
+        gap: 1.2rem;
     }
 
     .form-group {
@@ -618,10 +574,10 @@ footer a:hover {
 
     .template-options {
         flex-direction: column;
-        gap: var(--spacing-md);
+        gap: 1.2rem;
     }
     .template-option {
-        max-width: 100%;
+        max-width: 100%; /* Full width for templates */
         padding: 1rem;
     }
 
@@ -631,34 +587,34 @@ footer a:hover {
     }
 
     footer {
-        padding: var(--spacing-lg) var(--spacing-md);
+        padding: 2rem 1.5rem;
     }
 }
 
-@media (max-width: 480px) { /* Smaller phones */
+@media (max-width: 480px) {
     .logo {
         font-size: 1.6rem;
     }
-    .main-nav .nav-links li {
+    nav:first-of-type .nav-links li { /* Adjust margin for very small screens if needed */
         margin-bottom: 0.6rem;
     }
-    .main-nav .nav-links a {
+    nav:first-of-type .nav-links a {
         font-size: 0.9rem;
         gap: 0.4rem;
     }
 
-    .filter-nav ul {
-        padding-left: var(--spacing-xs);
-        padding-right: var(--spacing-xs);
+    nav:last-of-type ul {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
     }
-    .filter-nav a, .filter-nav button {
+    nav:last-of-type a, nav:last-of-type button {
         padding: 0.5rem 0.6rem;
         font-size: 0.85rem;
     }
 
     .resume-builder {
         padding: 1rem;
-        margin: var(--spacing-md) var(--spacing-xs);
+        margin: 1.5rem 0.5rem;
     }
 
     .resume-builder h1 {
@@ -670,7 +626,7 @@ footer a:hover {
     }
 
     .form-section h2 {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
 
     footer {
@@ -728,16 +684,363 @@ footer a:hover {
 }
 
 /* Applied to individual list items in the top nav for the slide-in effect */
-.main-nav .nav-links li { /* Changed selector to use .main-nav */
+nav:first-of-type .nav-links li {
     position: relative;
     animation: slideInNav 0.7s ease-out forwards;
     opacity: 0; /* Start hidden */
 }
 
 /* Staggering the animation for each navigation item */
-.main-nav .nav-links li:nth-child(1) { animation-delay: 0.1s; }
-.main-nav .nav-links li:nth-child(2) { animation-delay: 0.2s; }
-.main-nav .nav-links li:nth-child(3) { animation-delay: 0.3s; }
-.main-nav .nav-links li:nth-child(4) { animation-delay: 0.4s; }
-.main-nav .nav-links li:nth-child(5) { animation-delay: 0.5s; }
-.main-nav .nav-links li:nth-child(6) { animation-delay: 0.6s; }
+/* These nth-child selectors assume your top navigation has 6 list items.
+   Adjust them if your top nav links change. */
+nav:first-of-type .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+nav:first-of-type .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+nav:first-of-type .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+nav:first-of-type .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+nav:first-of-type .nav-links li:nth-child(5) { animation-delay: 0.5s; }
+nav:first-of-type .nav-links li:nth-child(6) { animation-delay: 0.6s; }
+
+
+
+/* Variables for consistent styling (if not already defined) */
+:root {
+    --primary-color: #007bff; /* Example blue */
+    --secondary-color: #6c757d; /* Example gray */
+    --dark: #343a40; /* Dark text/background */
+    --light: #f8f9fa; /* Light background */
+    --white: #ffffff;
+    --border-color: #dee2e6;
+    --success: #28a745;
+    --error: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+    --gradient-start: #0056b3;
+    --gradient-end: #007bff;
+    --link-hover: #0056b3; /* Darker blue for link hover */
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --transition-speed: 0.3s ease;
+    --breakpoint-md: 768px; /* Medium devices, tablets */
+    --breakpoint-lg: 992px; /* Large devices, desktops */
+}
+
+/* Base styles for the main navigation */
+.main-nav {
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--box-shadow);
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    position: relative; /* Needed for absolute positioning of hamburger menu */
+}
+
+.main-nav .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--white);
+}
+
+.main-nav .logo span {
+    color: var(--primary-color);
+}
+
+/* Styles for the regular navigation links (desktop) */
+.main-nav .nav-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Display links in a row */
+    gap: 1.5rem; /* Space between links */
+}
+
+.main-nav .nav-links ul li a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    transition: color var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between icon and text */
+}
+
+.main-nav .nav-links ul li a:hover,
+.main-nav .nav-links ul li a.active {
+    color: var(--primary-color);
+}
+
+/* Hamburger menu icon (hidden by default on desktop) */
+.hamburger {
+    display: none; /* Hide on large screens */
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--white);
+    transition: transform var(--transition-speed);
+    z-index: 1001; /* Ensure it's above other content */
+}
+
+.hamburger:hover {
+    color: var(--primary-color);
+}
+
+/* Rotate hamburger icon when active (optional) */
+.hamburger.active i {
+    transform: rotate(90deg);
+}
+
+/* Mobile styles for navigation */
+@media (max-width: 768px) {
+    .main-nav {
+        padding: 1rem; /* Adjust padding for smaller screens */
+        justify-content: space-between; /* Keep logo and hamburger on opposite ends */
+    }
+
+    .main-nav .nav-links {
+        display: none; /* Hide nav links by default on small screens */
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--dark); /* Background for mobile menu */
+        position: absolute;
+        top: 100%; /* Position below the main nav bar */
+        left: 0;
+        box-shadow: var(--box-shadow);
+        z-index: 1000; /* Ensure menu is above content */
+        padding: 1rem 0;
+        overflow-y: auto; /* Enable scrolling for many links */
+        max-height: calc(100vh - 60px); /* Adjust based on header height */
+    }
+
+    .main-nav .nav-links.active {
+        display: flex; /* Show when active */
+    }
+
+    .main-nav .nav-links ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        gap: 0; /* Remove gap for vertical list */
+    }
+
+    .main-nav .nav-links ul li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator */
+    }
+
+    .main-nav .nav-links ul li:last-child {
+        border-bottom: none;
+    }
+
+    .main-nav .nav-links ul li a {
+        padding: 1rem;
+        display: block; /* Make links full width */
+        width: 100%;
+    }
+
+    /* Display hamburger icon on small screens */
+    .hamburger {
+        display: block;
+    }
+}
+
+/* General form styling for better mobile display */
+.resume-builder .form-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--white);
+    box-shadow: var(--box-shadow);
+}
+
+.resume-builder h1 {
+    text-align: center;
+    color: var(--dark);
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.resume-builder p {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="url"],
+.form-group input[type="date"],
+textarea {
+    width: calc(100% - 20px); /* Adjust for padding */
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+textarea {
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 80px;
+}
+
+.char-counter {
+    font-size: 0.85rem;
+    color: var(--gray);
+    text-align: right;
+    margin-top: 0.25rem;
+}
+
+.template-options {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.template-option {
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    transition: all var(--transition-speed);
+    flex-basis: calc(33% - 1.5rem); /* For 3 columns on larger screens */
+    max-width: 200px; /* Limit template image size */
+}
+
+.template-option input[type="radio"] {
+    display: none; /* Hide actual radio button */
+}
+
+.template-option img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.template-option p {
+    margin: 0;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.template-option:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--box-shadow);
+}
+
+.template-option input[type="radio"]:checked + img + p {
+    color: var(--primary-color);
+}
+
+.template-option input[type="radio"]:checked ~ p {
+    color: var(--primary-color);
+}
+
+.template-option input[type="radio"]:checked {
+    border-color: var(--primary-color); /* Highlight selected template */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Blue glow */
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform var(--transition-speed);
+    margin-top: 2rem;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--link-hover);
+    transform: translateY(-2px);
+}
+
+button[type="submit"]:disabled {
+    background-color: var(--secondary-color);
+    cursor: not-allowed;
+    transform: none;
+}
+
+button[type="submit"] i {
+    margin-left: 0.5rem;
+}
+
+/* Responsive adjustments for forms */
+@media (max-width: 768px) {
+    .resume-builder h1 {
+        font-size: 2rem;
+    }
+
+    .form-row {
+        flex-direction: column; /* Stack form groups vertically */
+    }
+
+    .form-group {
+        width: 100%; /* Full width for stacked groups */
+        margin-right: 0;
+    }
+
+    .template-option {
+        flex-basis: calc(50% - 1.5rem); /* Two columns on smaller tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .template-option {
+        flex-basis: 100%; /* Single column on very small screens */
+        max-width: none;
+    }
+}
+
+/* Footer Styles (assuming you want it consistent) */
+footer {
+    background-color: var(--dark);
+    color: var(--white);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    margin: 0.5rem 0;
+}
+
+footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+footer a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
