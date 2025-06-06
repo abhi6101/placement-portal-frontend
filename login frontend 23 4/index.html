@@ -8,18 +8,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="index.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
+    <meta name="description" content="Your comprehensive platform for college job placements, resume building, interview preparation, and career growth. Find your dream job today!">
 </head>
 
 <body>
-    <nav>
+    <nav class="top-contact-nav">
         <div class="logo">Placement<span>Portal</span></div>
-        <ul>
+        <ul class="contact-info">
             <li><a href="mailto:abhijain6101@gmail.com" aria-label="Email us"><i class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
             <li><a href="tel:+91-6266017070" aria-label="Call us"><i class="fas fa-phone"></i> +91-6266017070</a></li>
         </ul>
     </nav>
 
-    <nav>
+    <nav class="main-nav">
         <ul>
             <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
@@ -27,11 +28,6 @@
             <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
             <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
             <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
-          
-            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
-            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
-            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
-            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
             <li id="adminPanelLink" style="display: none;">
                 <a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a>
             </li>
@@ -79,6 +75,33 @@
         </div>
     </section>
 
+    <section class="additional-resources features">
+        <h2>More Career Resources</h2>
+        <div class="features-box">
+            <i class="fas fa-video"></i>
+            <h2>Study Videos</h2>
+            <p>Enhance your knowledge with expert-led video tutorials on various technical and soft skills.</p>
+            <a href="videos.html" class="btn">Watch Videos</a>
+        </div>
+        <div class="features-box">
+            <i class="fas fa-book"></i>
+            <h2>Courses</h2>
+            <p>Enroll in specialized courses to develop in-demand skills and boost your employability.</p>
+            <a href="courses.html" class="btn">Browse Courses</a>
+        </div>
+        <div class="features-box">
+            <i class="fas fa-blog"></i>
+            <h2>Career Blog</h2>
+            <p>Stay updated with the latest industry trends, career advice, and placement success tips.</p>
+            <a href="blog.html" class="btn">Read Blog</a>
+        </div>
+        <div class="features-box">
+            <i class="fas fa-envelope"></i>
+            <h2>Contact Us</h2>
+            <p>Have questions or need support? Reach out to our team for assistance and guidance.</p>
+            <a href="contact.html" class="btn">Get in Touch</a>
+        </div>
+    </section>
     <section class="stats">
         <div class="stats-container">
             <div class="stat-item">
@@ -219,9 +242,8 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="jobs.html">Job Openings</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="blog.html">Blog</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -229,15 +251,17 @@
                 <ul>
                     <li><a href="resume.html">Resume Builder</a></li>
                     <li><a href="interview.html">Interview Prep</a></li>
-                    <li><a href="videos.html">Study Materials</a></li>
-                    <li><a href="index.html">Career Guides</a></li>
+                    <li><a href="videos.html">Study Videos</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                    <li><a href="papers.html">Previous Papers</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Company</h3>
                 <ul>
                     <li><a href="contact.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
                     <li><a href="contact.html">Privacy Policy</a></li>
                     <li><a href="contact.html">Terms of Service</a></li>
                 </ul>
@@ -252,7 +276,7 @@
             </div>
         </div>
         <P> Created by Abhi jain</P>
-        <p> 2025 College Placement System. All rights reserved.</p>
+        <p>&copy; 2025 College Placement System. All rights reserved.</p>
     </footer>
 
     <script src="index.js"></script>
@@ -283,7 +307,7 @@
         }
 
         function startAutoSlide() {
-            clearInterval(autoSlideInterval);
+            clearInterval(autoSlideInterval); // Clear any existing interval
             autoSlideInterval = setInterval(() => {
                 showSlides();
             }, 4000); // Change image every 4 seconds
