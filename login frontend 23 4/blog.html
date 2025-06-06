@@ -140,7 +140,7 @@
             top: 0;
             z-index: 100;
             display: flex; /* Added flex for alignment of toggle and menu */
-            justify-content: space-between; /* Space between toggle and menu */
+            justify-content: flex-end; /* Push menu to the right by default */
             align-items: center; /* Vertically align toggle and menu */
         }
 
@@ -200,13 +200,21 @@
         /* Hamburger Menu Icon */
         .menu-toggle {
             display: none; /* Hidden by default, shown in media query */
-            background: none;
+            background-color: var(--primary); /* Button background */
+            color: white; /* Button text color */
             border: none;
-            font-size: 1.8rem;
-            color: var(--dark);
+            border-radius: 5px;
+            padding: 0.6rem 1rem;
+            font-size: 1rem;
             cursor: pointer;
-            padding: 0.5rem;
-            z-index: 101; /* Ensure it's above other elements if needed */
+            display: none; /* Hidden by default, shown in media query */
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--secondary);
         }
 
         .menu-toggle:focus {
@@ -629,14 +637,15 @@
             /* Main navigation for mobile */
             .main-nav {
                 flex-direction: column;
-                align-items: flex-start; /* Align logo/toggle to the left */
+                align-items: flex-start; /* Align menu-toggle to the left */
                 padding: 0.8rem 1rem;
-                position: relative; /* Needed for absolute positioning of nav-links if used */
+                position: relative;
             }
 
             .main-nav .menu-toggle {
-                display: block; /* Show hamburger icon on mobile */
-                align-self: flex-end; /* Push toggle to the right */
+                display: flex; /* Show menu button on mobile */
+                width: 100%; /* Make button full width */
+                justify-content: center; /* Center content of the button */
             }
 
             .main-nav .nav-links {
@@ -647,8 +656,7 @@
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 border-radius: 8px;
                 padding: 1rem 0;
-                margin-top: 1rem;
-                /* Position below the toggle, or use absolute positioning if desired */
+                margin-top: 1rem; /* Space below the toggle button */
                 text-align: center;
                 gap: 0; /* Remove gap for vertical stacking */
             }
@@ -797,7 +805,7 @@
 
     <nav class="main-nav">
         <button class="menu-toggle" aria-label="Toggle navigation menu">
-            <i class="fas fa-bars"></i>
+            <i class="fas fa-bars"></i> Menu
         </button>
 
         <ul class="nav-links">
@@ -1064,16 +1072,17 @@
             // Mobile Menu Toggle
             menuToggle.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
-                // Close dropdown if it's open when menu is toggled
+                // Close dropdown if it's open when menu is toggled off
                 if (!navLinks.classList.contains('active') && dropdownContent.classList.contains('active')) {
                     dropdownContent.classList.remove('active');
                 }
             });
 
-            // Dropdown Toggle for Mobile (if menu is active)
+            // Dropdown Toggle for Mobile (if main menu is active)
             dropdownBtn.addEventListener('click', (event) => {
                 // Only toggle dropdown if main nav links are active (on mobile)
-                if (window.innerWidth <= 768) { // Adjust breakpoint as per your CSS
+                // or if it's a desktop view (where navLinks is always visible)
+                if (window.innerWidth <= 768 || navLinks.classList.contains('active')) {
                     dropdownContent.classList.toggle('active');
                     event.stopPropagation(); // Prevent click from bubbling up and closing menu immediately
                 }
