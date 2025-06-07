@@ -39,7 +39,7 @@
         RGPV Integrated MCA <span>Exam Papers</span> Explorer
     </div>
     <div class="container">
-        <h1>Integrated MCA Exams Papers</h1>
+        <h1>Integrated MCA Exam Papers</h1>
 
         <div class="filter-section">
             <label for="textFilter">Filter by Filename:</label>
@@ -119,271 +119,271 @@
 
 
         // Map to store subject to semester mapping for quick lookup
-//      const subjectToSemesterMap = {
-//          "Fundamental of Computer Science & IT": 1,
-//          "Discrete Mathematics": 1,
-//          "Communication Skills in English": 1,
-//          "Programming and Problem Solving in C": 1,
-//          "Digital Electronics": 1,
-//          "PC Software and Office Tools- Lab I": 1,
-//          "Computer Architecture": 2,
-//          "Data Structure using C": 2,
-//          "Statistics": 2,
-//          "Technical Communication & Personality Development": 2,
-//          "Principal of Management": 2,
-//          "Language Lab": 2,
-//          "Programming Lab in Data Structure using C": 2,
-//          "System Software": 3,
-//          "Computer Oriented Numerical Methods": 3,
-//          "Web Designing in HTML": 3,
-//          "Aptitude Skills and Reasoning": 3,
-//          "DBMS": 3,
-//          "Web Page Design Lab": 3,
-//          "Programming Lab in DBMS": 3,
-//          "Operating Systems": 4,
-//          "Foundation of Computer Networks": 4,
-//          "System Analysis and Design": 4,
-//          "Accounting and Financial Management": 4,
-//          "Computer Oriented Optimization Techniques": 4,
-//          "Lab in Operating Systems": 4,
-//          "Lab in VB and MS Access": 4,
-//          "Object Oriented Programming in C++": 5,
-//          "Principles of Programming Language": 5,
-//          "Advanced Web Designing": 5,
-//          "Computer Graphics": 5,
-//          "Software Engineering": 5,
-//          "Lab in Web Designing": 5,
-//          "Analysis Design of Algorithm": 6,
-//          "Advanced Computer Networks": 6,
-//          "Advanced DBMS": 6,
-//          "Theory of Computation": 6,
-//          "Artificial Intelligence": 6,
-//          "Lab in ADA using C++": 6,
-//          "Minor Project - I": 6,
-//          "Cloud Computing": 7,
-//          "Data Sciences in Mining": 7,
-//          "File Structures": 7,
-//          "Minor Project - II": 7,
-//          "Soft Computing": 8,
-//          "Distributed Systems": 8,
-//          "Network Security": 8,
-//          "Minor Project - III": 8,
-//          "Internship": 9,
-//          "Dissertation Work / Project / Case Study": 10
-//      };
-//
-//      // Function to extract a simplified subject and semester from the filename
-//      function getSubjectAndSemester(filename) {
-//          let subject = "Miscellaneous";
-//          let semester = "N/A"; // Not Applicable or Unknown
-//
-//          const lowerFilename = filename.toLowerCase();
-//
-//          // First, try to extract from MCADD-xxx pattern for semester
-//          const mcaddMatch = lowerFilename.match(/mcadd-(\d+)([a-z]?)*/);
-//          if (mcaddMatch && mcaddMatch[1]) {
-//              const codeNum = parseInt(mcaddMatch[1], 10);
-//              if (codeNum === 1001) {
-//                  semester = 10;
-//              } else if (codeNum >= 101 && codeNum <= 106) {
-//                  semester = 1;
-//              } else if (codeNum >= 201 && codeNum <= 207) {
-//                  semester = 2;
-//              } else if (codeNum >= 301 && codeNum <= 307) {
-//                  semester = 3;
-//              } else if (codeNum >= 401 && codeNum <= 407) {
-//                  semester = 4;
-//              } else if (codeNum >= 501 && codeNum <= 506) {
-//                  semester = 5;
-//              } else if (codeNum >= 601 && codeNum <= 607) {
-//                  semester = 6;
-//              } else if (codeNum >= 701 && codeNum <= 707) {
-//                  semester = 7;
-//              } else if (codeNum >= 801 && codeNum <= 807) {
-//                  semester = 8;
-//              } else if (codeNum === 901) {
-//                  semester = 9;
-//              }
-//          }
-//
-//          // Specific subject mapping based on syllabus and common file name patterns
-//          if (lowerFilename.includes("fundamental_of_computer_science_it") || lowerFilename.includes("fcsit")) {
-//              subject = "Fundamental of Computer Science & IT";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("discrete_mathematics") || lowerFilename.includes("dm")) {
-//              subject = "Discrete Mathematics";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("communication_skills_in_english") || lowerFilename.includes("cse")) {
-//              subject = "Communication Skills in English";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("programming_and_problem_solving_in_c") || lowerFilename.includes("c_november") || //werFilename.includes("c_may") && !lowerFilename.includes("data_structure")) {
-//              subject = "Programming and Problem Solving in C";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("digital_electronics") || lowerFilename.includes("de")) {
-//              subject = "Digital Electronics";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("pc_software_and_office_tools") || lowerFilename.includes("pc_software")) {
-//              subject = "PC Software and Office Tools- Lab I";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          }
-//          // Semester 2
-//          else if (lowerFilename.includes("ca") || lowerFilename.includes("computer_architecture")) {
-//              subject = "Computer Architecture";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("ds") || lowerFilename.includes("data_structure_using_c") || lowerFilename.includes("data_structure")) {
-//              subject = "Data Structure using C";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("statistics") || lowerFilename.includes("stat")) {
-//              subject = "Statistics";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("technical_communication") || lowerFilename.includes("tcpd")) {
-//              subject = "Technical Communication & Personality Development";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("pom") || lowerFilename.includes("principal_of_management")) {
-//              subject = "Principal of Management";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("language_lab") || lowerFilename.includes("llab")) {
-//              subject = "Language Lab";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          }
-//          // Semester 3
-//          else if (lowerFilename.includes("ss") || lowerFilename.includes("system_software")) {
-//              subject = "System Software";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("computer_oriented_numerical_methods") || lowerFilename.includes("conm")) { // CONM used here for //merical Methods (COOM) as per syllabus
-//              subject = "Computer Oriented Numerical Methods";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("web_designing_in_html") || lowerFilename.includes("web_designing") || lowerFilename.includes("wdhtml")) //
-//              subject = "Web Designing in HTML";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("aptitude")) {
-//              subject = "Aptitude Skills and Reasoning";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("dbms") && !lowerFilename.includes("advanced_dbms") && !lowerFilename.includes("adbms")) {
-//              subject = "DBMS";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          }
-//          // Semester 4
-//          else if (lowerFilename.includes("os") || lowerFilename.includes("operating_systems")) {
-//              subject = "Operating Systems";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("foundation_of_computer_networks") || lowerFilename.includes("fcn") || (lowerFilename.includes("acn") && //owerFilename.includes("advance"))) {
-//              subject = "Foundation of Computer Networks";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("sad") || lowerFilename.includes("system_analysis_and_design")) {
-//              subject = "System Analysis and Design";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("accounting") || lowerFilename.includes("financial_management")) {
-//              subject = "Accounting and Financial Management";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("coot") || lowerFilename.includes("computer_oriented_optimization_techniques")) {
-//               // COOT is listed here in syllabus, handled explicitly.
-//              subject = "Computer Oriented Optimization Techniques";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          }
-//          // Semester 5
-//          else if (lowerFilename.includes("oops") || lowerFilename.includes("object_oriented_programming_in_c++") || //werFilename.includes("oops_c")) {
-//              subject = "Object Oriented Programming in C++";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("ppl") || lowerFilename.includes("principles_of_programming_language")) {
-//              subject = "Principles of Programming Language";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("awt") || lowerFilename.includes("advanced_web_designing")) {
-//              subject = "Advanced Web Designing";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("cg") || lowerFilename.includes("computer_graphics") || lowerFilename.includes("cgm")) {
-//              subject = "Computer Graphics";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("se") || lowerFilename.includes("software_engineering")) {
-//              subject = "Software Engineering";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          }
-//          // Semester 6
-//          else if (lowerFilename.includes("ada") || lowerFilename.includes("analysis_design_of_algorithm")) {
-//              subject = "Analysis Design of Algorithm";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("advanced_computer_networks") || (lowerFilename.includes("acn") && lowerFilename.includes("advance"))) {
-//              subject = "Advanced Computer Networks";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("adbms") || lowerFilename.includes("advanced_dbms")) {
-//              subject = "Advanced DBMS";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("theory_of_computation") || lowerFilename.includes("toc")) {
-//              subject = "Theory of Computation";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("ai") || lowerFilename.includes("artificial_intelligence")) {
-//              subject = "Artificial Intelligence";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          }
-//          // Semester 7
-//          else if (lowerFilename.includes("cloud_computing")) {
-//              subject = "Cloud Computing";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("data_science") || lowerFilename.includes("data_sciences_in_mining")) {
-//              subject = "Data Sciences in Mining";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("file_structure")) {
-//              subject = "File Structures";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          }
-//          // Semester 8
-//          else if (lowerFilename.includes("soft_computing")) {
-//              subject = "Soft Computing";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("distributed_systems")) {
-//              subject = "Distributed Systems";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("network_security")) {
-//              subject = "Network Security";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          }
-//          // Semester 9 & 10
-//          else if (lowerFilename.includes("internship")) {
-//              subject = "Internship";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          } else if (lowerFilename.includes("dissertation") || lowerFilename.includes("project") || lowerFilename.includes("case_study")) {
-//              subject = "Dissertation Work / Project / Case Study";
-//              if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
-//          }
-//           // General fallbacks if not caught by specific MCADD or syllabus names
-//          else if (lowerFilename.includes("account")) {
-//              subject = "Account";
-//          }
-//          else if (lowerFilename.includes("digital_image_p")) {
-//              subject = "Digital Image Processing";
-//          }
-//          else if (lowerFilename.includes("imca")) {
-//              subject = "Integrated MCA";
-//          }
-//          else if (lowerFilename.includes("java") || lowerFilename.includes("programming_in_jav")) {
-//              subject = "Programming in Java";
-//          }
-//          else if (lowerFilename.includes("mobile_computing")) {
-//              subject = "Mobile Computing";
-//          }
-//          else if (lowerFilename.includes("multimedia")) {
-//              subject = "Multimedia";
-//          }
-//          else if (lowerFilename.includes("software_architect")) {
-//              subject = "Software Architecture";
-//          }
-//          else if (lowerFilename.includes("unix") || lowerFilename.includes("shell_pr")) {
-//              subject = "Unix and Shell Programming";
-//          }
-//          else if (lowerFilename.includes("web_technology") || lowerFilename.includes("wt-t") || lowerFilename.includes("wt_r") || //werFilename.includes("wt_")) {
-//              subject = "Web Technology";
-//          }
-//
-//
-//          // Final attempt to assign semester if subject was identified but semester is still N/A
-//          if (semester === "N/A" && subject !== "Miscellaneous" && subjectToSemesterMap[subject]) {
-//              semester = subjectToSemesterMap[subject];
-//          }
-//
-//
-//          return { subject, semester };
-//      }
-//
+        const subjectToSemesterMap = {
+            "Fundamental of Computer Science & IT": 1,
+            "Discrete Mathematics": 1,
+            "Communication Skills in English": 1,
+            "Programming and Problem Solving in C": 1,
+            "Digital Electronics": 1,
+            "PC Software and Office Tools- Lab I": 1,
+            "Computer Architecture": 2,
+            "Data Structure using C": 2,
+            "Statistics": 2,
+            "Technical Communication & Personality Development": 2,
+            "Principal of Management": 2,
+            "Language Lab": 2,
+            "Programming Lab in Data Structure using C": 2,
+            "System Software": 3,
+            "Computer Oriented Numerical Methods": 3,
+            "Web Designing in HTML": 3,
+            "Aptitude Skills and Reasoning": 3,
+            "DBMS": 3,
+            "Web Page Design Lab": 3,
+            "Programming Lab in DBMS": 3,
+            "Operating Systems": 4,
+            "Foundation of Computer Networks": 4,
+            "System Analysis and Design": 4,
+            "Accounting and Financial Management": 4,
+            "Computer Oriented Optimization Techniques": 4,
+            "Lab in Operating Systems": 4,
+            "Lab in VB and MS Access": 4,
+            "Object Oriented Programming in C++": 5,
+            "Principles of Programming Language": 5,
+            "Advanced Web Designing": 5,
+            "Computer Graphics": 5,
+            "Software Engineering": 5,
+            "Lab in Web Designing": 5,
+            "Analysis Design of Algorithm": 6,
+            "Advanced Computer Networks": 6,
+            "Advanced DBMS": 6,
+            "Theory of Computation": 6,
+            "Artificial Intelligence": 6,
+            "Lab in ADA using C++": 6,
+            "Minor Project - I": 6,
+            "Cloud Computing": 7,
+            "Data Sciences in Mining": 7,
+            "File Structures": 7,
+            "Minor Project - II": 7,
+            "Soft Computing": 8,
+            "Distributed Systems": 8,
+            "Network Security": 8,
+            "Minor Project - III": 8,
+            "Internship": 9,
+            "Dissertation Work / Project / Case Study": 10
+        };
+
+        // Function to extract a simplified subject and semester from the filename
+        function getSubjectAndSemester(filename) {
+            let subject = "Miscellaneous";
+            let semester = "N/A"; // Not Applicable or Unknown
+
+            const lowerFilename = filename.toLowerCase();
+
+            // First, try to extract from MCADD-xxx pattern for semester
+            const mcaddMatch = lowerFilename.match(/mcadd-(\d+)([a-z]?)*/);
+            if (mcaddMatch && mcaddMatch[1]) {
+                const codeNum = parseInt(mcaddMatch[1], 10);
+                if (codeNum === 1001) {
+                    semester = 10;
+                } else if (codeNum >= 101 && codeNum <= 106) {
+                    semester = 1;
+                } else if (codeNum >= 201 && codeNum <= 207) {
+                    semester = 2;
+                } else if (codeNum >= 301 && codeNum <= 307) {
+                    semester = 3;
+                } else if (codeNum >= 401 && codeNum <= 407) {
+                    semester = 4;
+                } else if (codeNum >= 501 && codeNum <= 506) {
+                    semester = 5;
+                } else if (codeNum >= 601 && codeNum <= 607) {
+                    semester = 6;
+                } else if (codeNum >= 701 && codeNum <= 707) {
+                    semester = 7;
+                } else if (codeNum >= 801 && codeNum <= 807) {
+                    semester = 8;
+                } else if (codeNum === 901) {
+                    semester = 9;
+                }
+            }
+
+            // Specific subject mapping based on syllabus and common file name patterns
+            if (lowerFilename.includes("fundamental_of_computer_science_it") || lowerFilename.includes("fcsit")) {
+                subject = "Fundamental of Computer Science & IT";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("discrete_mathematics") || lowerFilename.includes("dm")) {
+                subject = "Discrete Mathematics";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("communication_skills_in_english") || lowerFilename.includes("cse")) {
+                subject = "Communication Skills in English";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("programming_and_problem_solving_in_c") || lowerFilename.includes("c_november") || lowerFilename.includes("c_may") && !lowerFilename.includes("data_structure")) {
+                subject = "Programming and Problem Solving in C";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("digital_electronics") || lowerFilename.includes("de")) {
+                subject = "Digital Electronics";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("pc_software_and_office_tools") || lowerFilename.includes("pc_software")) {
+                subject = "PC Software and Office Tools- Lab I";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 2
+            else if (lowerFilename.includes("ca") || lowerFilename.includes("computer_architecture")) {
+                subject = "Computer Architecture";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("ds") || lowerFilename.includes("data_structure_using_c") || lowerFilename.includes("data_structure")) {
+                subject = "Data Structure using C";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("statistics") || lowerFilename.includes("stat")) {
+                subject = "Statistics";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("technical_communication") || lowerFilename.includes("tcpd")) {
+                subject = "Technical Communication & Personality Development";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("pom") || lowerFilename.includes("principal_of_management")) {
+                subject = "Principal of Management";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("language_lab") || lowerFilename.includes("llab")) {
+                subject = "Language Lab";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 3
+            else if (lowerFilename.includes("ss") || lowerFilename.includes("system_software")) {
+                subject = "System Software";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("computer_oriented_numerical_methods") || lowerFilename.includes("conm")) { // CONM used here for Numerical Methods (COOM) as per syllabus
+                subject = "Computer Oriented Numerical Methods";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("web_designing_in_html") || lowerFilename.includes("web_designing") || lowerFilename.includes("wdhtml")) {
+                subject = "Web Designing in HTML";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("aptitude")) {
+                subject = "Aptitude Skills and Reasoning";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("dbms") && !lowerFilename.includes("advanced_dbms") && !lowerFilename.includes("adbms")) {
+                subject = "DBMS";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 4
+            else if (lowerFilename.includes("os") || lowerFilename.includes("operating_systems")) {
+                subject = "Operating Systems";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("foundation_of_computer_networks") || lowerFilename.includes("fcn") || (lowerFilename.includes("acn") && !lowerFilename.includes("advance"))) {
+                subject = "Foundation of Computer Networks";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("sad") || lowerFilename.includes("system_analysis_and_design")) {
+                subject = "System Analysis and Design";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("accounting") || lowerFilename.includes("financial_management")) {
+                subject = "Accounting and Financial Management";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("coot") || lowerFilename.includes("computer_oriented_optimization_techniques")) {
+                 // COOT is listed here in syllabus, handled explicitly.
+                subject = "Computer Oriented Optimization Techniques";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 5
+            else if (lowerFilename.includes("oops") || lowerFilename.includes("object_oriented_programming_in_c++") || lowerFilename.includes("oops_c")) {
+                subject = "Object Oriented Programming in C++";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("ppl") || lowerFilename.includes("principles_of_programming_language")) {
+                subject = "Principles of Programming Language";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("awt") || lowerFilename.includes("advanced_web_designing")) {
+                subject = "Advanced Web Designing";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("cg") || lowerFilename.includes("computer_graphics") || lowerFilename.includes("cgm")) {
+                subject = "Computer Graphics";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("se") || lowerFilename.includes("software_engineering")) {
+                subject = "Software Engineering";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 6
+            else if (lowerFilename.includes("ada") || lowerFilename.includes("analysis_design_of_algorithm")) {
+                subject = "Analysis Design of Algorithm";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("advanced_computer_networks") || (lowerFilename.includes("acn") && lowerFilename.includes("advance"))) {
+                subject = "Advanced Computer Networks";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("adbms") || lowerFilename.includes("advanced_dbms")) {
+                subject = "Advanced DBMS";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("theory_of_computation") || lowerFilename.includes("toc")) {
+                subject = "Theory of Computation";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("ai") || lowerFilename.includes("artificial_intelligence")) {
+                subject = "Artificial Intelligence";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 7
+            else if (lowerFilename.includes("cloud_computing")) {
+                subject = "Cloud Computing";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("data_science") || lowerFilename.includes("data_sciences_in_mining")) {
+                subject = "Data Sciences in Mining";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("file_structure")) {
+                subject = "File Structures";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 8
+            else if (lowerFilename.includes("soft_computing")) {
+                subject = "Soft Computing";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("distributed_systems")) {
+                subject = "Distributed Systems";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("network_security")) {
+                subject = "Network Security";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+            // Semester 9 & 10
+            else if (lowerFilename.includes("internship")) {
+                subject = "Internship";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            } else if (lowerFilename.includes("dissertation") || lowerFilename.includes("project") || lowerFilename.includes("case_study")) {
+                subject = "Dissertation Work / Project / Case Study";
+                if (semester === "N/A" && subjectToSemesterMap[subject]) semester = subjectToSemesterMap[subject];
+            }
+             // General fallbacks if not caught by specific MCADD or syllabus names
+            else if (lowerFilename.includes("account")) {
+                subject = "Account";
+            }
+            else if (lowerFilename.includes("digital_image_p")) {
+                subject = "Digital Image Processing";
+            }
+            else if (lowerFilename.includes("imca")) {
+                subject = "Integrated MCA";
+            }
+            else if (lowerFilename.includes("java") || lowerFilename.includes("programming_in_jav")) {
+                subject = "Programming in Java";
+            }
+            else if (lowerFilename.includes("mobile_computing")) {
+                subject = "Mobile Computing";
+            }
+            else if (lowerFilename.includes("multimedia")) {
+                subject = "Multimedia";
+            }
+            else if (lowerFilename.includes("software_architect")) {
+                subject = "Software Architecture";
+            }
+            else if (lowerFilename.includes("unix") || lowerFilename.includes("shell_pr")) {
+                subject = "Unix and Shell Programming";
+            }
+            else if (lowerFilename.includes("web_technology") || lowerFilename.includes("wt-t") || lowerFilename.includes("wt_r") || lowerFilename.includes("wt_")) {
+                subject = "Web Technology";
+            }
+
+
+            // Final attempt to assign semester if subject was identified but semester is still N/A
+            if (semester === "N/A" && subject !== "Miscellaneous" && subjectToSemesterMap[subject]) {
+                semester = subjectToSemesterMap[subject];
+            }
+
+
+            return { subject, semester };
+        }
+
         const filesList = document.getElementById('filesList');
         const textFilterInput = document.getElementById('textFilter');
         const subjectSelect = document.getElementById('subjectSelect');
