@@ -1107,3 +1107,46 @@ nav ul li a:focus i {
         flex-direction: column; /* Stack result buttons vertically */
     }
 }
+
+
+
+/* Top Navigation Bar */
+nav:first-of-type {
+    background-color: var(--dark);
+    color: white;
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+nav:first-of-type ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+nav:first-of-type a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+nav:first-of-type a:hover {
+    color: var(--primary);
+}
