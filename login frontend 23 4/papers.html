@@ -9,6 +9,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="papers.css">
+
+    <style>
+        /* In your CSS file (e.g., style.css) */
+
+#textFilter {
+    font-size: 1.2em; /* Makes the font 20% larger than its parent's font size */
+    padding: 10px;    /* Adds more space inside the input field */
+    width: 300px;     /* Adjust the width as needed to fit the longer text */
+    /* You can use 'px', 'em', 'rem', or '%' for font-size */
+}
+
+/* Optional: If you want to specifically target the placeholder,
+   though its size will still be relative to the input's font-size. */
+#textFilter::placeholder {
+    /* This rule only changes the color or style, not directly the size
+       beyond what the parent input's font-size dictates. */
+    color: #999; /* Example: make placeholder text a bit darker */
+    font-style: italic; /* Example: make it italic */
+}
+    </style>
 </head>
 <body>
     <nav>
