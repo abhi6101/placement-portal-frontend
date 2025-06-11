@@ -132,17 +132,18 @@
         }
 
         /* Main Navigation Bar */
-        .main-nav {
-            background-color: var(--card-bg);
-            box-shadow: 0 2px 10px var(--shadow-medium);
-            padding: 0.8rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex; /* Added flex for alignment of toggle and menu */
-            justify-content: flex-end; /* Push menu to the right by default */
-            align-items: center; /* Vertically align toggle and menu */
-        }
+       /* Main Navigation Bar */
+.main-nav {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 10px var(--shadow-medium);
+    padding: 0.8rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex; /* Added flex for alignment of toggle and menu */
+    justify-content: flex-start; /* Changed from flex-end to flex-start */
+    align-items: center; /* Vertically align toggle and menu */
+}
 
         .main-nav .nav-links {
             display: flex;
