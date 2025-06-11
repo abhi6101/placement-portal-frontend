@@ -7,28 +7,26 @@
     <title>Job Listings | Placement Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="jobs.css">
-
 </head>
 
 <body>
-     <nav>
+    <nav>
         <div class="logo">Placement<span>Portal</span></div>
-       
     </nav>
 
     <nav class="main-nav">
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-          <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
-          <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
-          <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
-           <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
+            <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
             <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
-             <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-          <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
-          <li><a href="courses.html"  ><i class="fas fa-book"></i> Courses</a></li>
-          <li><a href="blog.html" ><i class="fas fa-blog"></i> Blog</a></li>
-          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
     </nav>
 
@@ -69,7 +67,7 @@
 
         <div class="job-list" id="jobList">
             <div class="loading">
-                <i class="fas fa-spinner"></i> Loading jobs...
+                <i class="fas fa-spinner fa-spin"></i> Loading jobs...
             </div>
         </div>
 
@@ -81,7 +79,6 @@
             <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
-
 
     <div id="applicationFormModal" class="modal">
         <div class="modal-content">
@@ -111,7 +108,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="resume">Upload Resume (PDF only):</label>
+                    <label for="resume">Upload Resume (PDF only, Max 2MB):</label>
                     <input type="file" id="resume" name="resume" accept=".pdf" required>
                 </div>
 
@@ -125,7 +122,6 @@
         </div>
     </div>
 
-
     <footer>
         <p>Created by Abhi Jain</p>
         <p>&copy; 2025 College Placement System. All rights reserved. | Contact: <a
@@ -134,9 +130,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs"; // Your existing jobs API
-            const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job";
+            // API Endpoints
+            const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs"; // Endpoint to fetch job listings
+            const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job"; // Endpoint to submit job applications
 
+            // DOM Elements
             const jobList = document.getElementById('jobList');
             const searchForm = document.getElementById('searchForm');
             const searchInput = document.getElementById('searchInput');
@@ -155,19 +153,20 @@
             const formApplicantRollNo = document.getElementById('applicantRollNo');
             const resumeInput = document.getElementById('resume');
 
-            let allJobs = [];
-            let currentUserDetails = null; // To store user details from token
+            let allJobs = []; // Stores all fetched job data
+            let currentUserDetails = null; // Stores user details from JWT token
 
-            // Function to extract user details from JWT token
+            // --- Authentication and User Details Extraction ---
             function getUserDetailsFromToken(token) {
                 try {
                     const payload = JSON.parse(atob(token.split('.')[1]));
+                    // You might need to adjust these payload property names based on your JWT structure
                     return {
-                        username: payload.sub,
-                        email: payload.email || `${payload.sub}@example.com`,
-                        rollNo: payload.rollNo || 'N/A',
-                        phone: payload.phone || 'N/A',
-                        exp: payload.exp
+                        username: payload.name || payload.sub, // 'name' or 'sub' (subject) are common
+                        email: payload.email || payload.mail || `${payload.sub}@example.com`, // 'email' or 'mail'
+                        rollNo: payload.rollNo || 'N/A', // Custom claim, might not exist
+                        phone: payload.phone || 'N/A', // Custom claim, might not exist
+                        exp: payload.exp // Expiration time
                     };
                 } catch (e) {
                     console.error("Error parsing token or missing claims:", e);
@@ -175,48 +174,57 @@
                 }
             }
 
-            // Authentication check and user details extraction
             const token = localStorage.getItem("authToken");
             if (!token) {
                 alert("You must be logged in to access this page.");
-                window.location.href = "login.html";
-                return;
+                window.location.href = "login.html"; // Redirect to login page
+                return; // Stop execution if not authenticated
             } else {
                 currentUserDetails = getUserDetailsFromToken(token);
-                if (!currentUserDetails || currentUserDetails.exp < Date.now() / 1000) {
+                if (!currentUserDetails || (currentUserDetails.exp && currentUserDetails.exp < Date.now() / 1000)) {
+                    // Check if token is invalid or expired
                     alert("Session expired or invalid token. Please log in again.");
-                    localStorage.clear();
-                    window.location.href = "login.html";
-                    return;
+                    localStorage.clear(); // Clear invalid token
+                    window.location.href = "login.html"; // Redirect to login
+                    return; // Stop execution
                 }
             }
 
-
-            // Fetch jobs from API
+            // --- Job Fetching and Display ---
             async function fetchJobs() {
                 try {
-                    const response = await fetch(API_URL);
+                    const response = await fetch(API_URL, {
+                        headers: {
+                            'Authorization': `Bearer ${token}` // Include token for authenticated access
+                        }
+                    });
                     if (!response.ok) {
-                        throw new Error('Failed to fetch jobs');
+                        // Handle specific HTTP errors
+                        if (response.status === 401 || response.status === 403) {
+                            alert("Access denied. Please log in again.");
+                            localStorage.clear();
+                            window.location.href = "login.html";
+                            return [];
+                        }
+                        throw new Error(`Failed to fetch jobs: ${response.status} ${response.statusText}`);
                     }
                     return await response.json();
                 } catch (error) {
                     console.error('Error fetching jobs:', error);
-                    showError('Failed to load jobs. Please try again later.');
+                    showError('Failed to load jobs. Please check your internet connection or try again later.');
                     return [];
                 }
             }
 
-            // Load jobs from API then render
             async function loadJobs() {
                 jobList.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading jobs...</div>';
                 const jobs = await fetchJobs();
-                allJobs = jobs;
-                filterAndSortJobs(); // This will call displayJobs
+                allJobs = jobs; // Store all fetched jobs
+                filterAndSortJobs(); // Apply initial filters and sort, then display
             }
 
-            // Format date
             function formatDate(dateString) {
+                if (!dateString) return 'N/A';
                 const date = new Date(dateString);
                 return date.toLocaleDateString('en-IN', {
                     day: '2-digit',
@@ -225,48 +233,55 @@
                 });
             }
 
-            // Show error
             function showError(message) {
                 jobList.innerHTML = `<div class="error-message">${message}</div>`;
             }
 
-            // Display jobs
             function displayJobs(jobs) {
                 if (jobs.length === 0) {
-                    jobList.innerHTML = '<div class="error-message">No jobs found matching your criteria</div>';
+                    jobList.innerHTML = '<div class="error-message">No jobs found matching your criteria.</div>';
                     return;
                 }
 
-                jobList.innerHTML = '';
+                jobList.innerHTML = ''; // Clear previous listings
 
                 jobs.forEach(job => {
                     const jobCard = document.createElement('div');
                     jobCard.className = 'job-card';
 
+                    // Determine job type for styling (e.g., based on title/description)
                     let jobTypeClass = 'full-time';
                     let jobTypeText = 'Full Time';
 
                     if (job.title.toLowerCase().includes('intern') || job.description.toLowerCase().includes('intern')) {
                         jobTypeClass = 'internship';
                         jobTypeText = 'Internship';
-                    } else if (job.title.toLowerCase().includes('remote') || job.description.toLowerCase().includes('remote')) {
+                    } else if (job.location && job.location.toLowerCase().includes('remote')) {
                         jobTypeClass = 'remote';
                         jobTypeText = 'Remote';
                     }
 
+                    // Ensure salary is a number for toLocaleString
+                    const formattedSalary = typeof job.salary === 'number' ?
+                        `₹${job.salary.toLocaleString('en-IN')}` :
+                        (job.salary ? job.salary : 'Not specified'); // Handle non-numeric or missing salary
+
                     jobCard.innerHTML = `
                         <div class="job-header">
-                            <h3 class="job-title">${job.title}</h3>
+                            <h3 class="job-title">${job.title || 'Job Title Not Available'}</h3>
                             <div class="job-company">
-                                <i class="fas fa-building"></i> ${job.company_name}
+                                <i class="fas fa-building"></i> ${job.company_name || 'Company Not Available'}
                             </div>
                             <span class="job-type ${jobTypeClass}">${jobTypeText}</span>
                         </div>
                         <div class="job-content">
-                            <p class="job-description">${job.description}</p>
+                            <p class="job-description">${job.description || 'No description provided.'}</p>
                             <div class="job-meta">
                                 <span class="job-meta-item">
-                                    <i class="fas fa-rupee-sign"></i> ₹${job.salary.toLocaleString('en-IN')} per annum
+                                    <i class="fas fa-rupee-sign"></i> ${formattedSalary} per annum
+                                </span>
+                                <span class="job-meta-item">
+                                    <i class="fas fa-map-marker-alt"></i> ${job.location || 'Location Not Specified'}
                                 </span>
                                 <span class="job-meta-item">
                                     <i class="fas fa-calendar-alt"></i> Apply before ${formatDate(job.last_date)}
@@ -282,68 +297,78 @@
                             </div>
                         </div>
                     `;
-
                     jobList.appendChild(jobCard);
                 });
             }
 
-            // Filter + Sort jobs
+            // --- Filtering and Sorting Logic ---
             function filterAndSortJobs() {
                 const searchTerm = searchInput.value.toLowerCase();
                 const locationTerm = locationInput.value.toLowerCase();
                 const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
 
                 let filteredJobs = allJobs.filter(job => {
-                    const matchesSearch = job.title.toLowerCase().includes(searchTerm) ||
-                        job.company_name.toLowerCase().includes(searchTerm) ||
-                        job.description.toLowerCase().includes(searchTerm);
+                    const matchesSearch = (job.title && job.title.toLowerCase().includes(searchTerm)) ||
+                                          (job.company_name && job.company_name.toLowerCase().includes(searchTerm)) ||
+                                          (job.description && job.description.toLowerCase().includes(searchTerm));
 
-                    const matchesLocation = true; // Placeholder for location filter
-                    let matchesFilter = true;
+                    const matchesLocation = (job.location && job.location.toLowerCase().includes(locationTerm)) || !locationTerm;
 
+                    let matchesCategoryFilter = true;
                     if (activeFilter !== 'all') {
                         switch (activeFilter) {
                             case 'it':
-                                matchesFilter = job.title.toLowerCase().includes('software') ||
-                                    job.description.toLowerCase().includes('developer');
+                                matchesCategoryFilter = (job.category && job.category.toLowerCase().includes('it')) ||
+                                                        (job.title && (job.title.toLowerCase().includes('software') || job.title.toLowerCase().includes('developer') || job.title.toLowerCase().includes('it')));
                                 break;
                             case 'engineering':
-                                matchesFilter = job.title.toLowerCase().includes('engineer');
+                                matchesCategoryFilter = (job.category && job.category.toLowerCase().includes('engineering')) ||
+                                                        (job.title && job.title.toLowerCase().includes('engineer'));
                                 break;
                             case 'finance':
-                                matchesFilter = job.title.toLowerCase().includes('finance') ||
-                                    job.description.toLowerCase().includes('accountant');
+                                matchesCategoryFilter = (job.category && job.category.toLowerCase().includes('finance')) ||
+                                                        (job.title && (job.title.toLowerCase().includes('finance') || job.title.toLowerCase().includes('accountant')));
                                 break;
                             case 'internship':
-                                matchesFilter = job.title.toLowerCase().includes('intern') ||
-                                    job.description.toLowerCase().includes('internship');
+                                matchesCategoryFilter = (job.type && job.type.toLowerCase() === 'internship') || // Assuming a 'type' field in backend
+                                                        (job.title && job.title.toLowerCase().includes('intern')) ||
+                                                        (job.description && job.description.toLowerCase().includes('internship'));
                                 break;
                         }
                     }
 
-                    return matchesSearch && matchesLocation && matchesFilter;
+                    return matchesSearch && matchesLocation && matchesCategoryFilter;
                 });
 
                 const sortValue = sortSelect.value;
                 filteredJobs.sort((a, b) => {
                     switch (sortValue) {
                         case 'salary-high':
-                            return b.salary - a.salary;
+                            return (b.salary || 0) - (a.salary || 0); // Handle potentially missing salaries
                         case 'salary-low':
-                            return a.salary - b.salary;
+                            return (a.salary || 0) - (b.salary || 0);
                         case 'deadline':
-                            return new Date(a.last_date) - new Date(b.last_date);
+                            const dateA = new Date(a.last_date);
+                            const dateB = new Date(b.last_date);
+                            // Sort by closest deadline first (ascending date)
+                            return dateA - dateB;
+                        case 'newest': // Default
                         default:
-                            return new Date(b.created_at || b.last_date) - new Date(a.created_at || a.last_date);
+                            // Assuming 'created_at' or 'posted_date' field for newest, fallback to 'last_date'
+                            const dateCreatedA = new Date(a.created_at || a.last_date);
+                            const dateCreatedB = new Date(b.created_at || b.last_date);
+                            return dateCreatedB - dateCreatedA; // Newest first (descending date)
                     }
                 });
 
                 displayJobs(filteredJobs);
             }
 
-            // Event listeners
+            // --- Event Listeners for Search, Filter, Sort ---
+            searchInput.addEventListener('input', filterAndSortJobs); // Live search
+            locationInput.addEventListener('input', filterAndSortJobs); // Live location filter
             searchForm.addEventListener('submit', function (e) {
-                e.preventDefault();
+                e.preventDefault(); // Prevent page reload on form submit
                 filterAndSortJobs();
             });
 
@@ -357,13 +382,16 @@
 
             sortSelect.addEventListener('change', filterAndSortJobs);
 
-            // --- Event listener for Job Apply buttons to open modal ---
+
+            // --- Job Application Modal and Form Submission ---
+
+            // Event listener for "Apply Now" buttons (delegated to jobList parent)
             jobList.addEventListener('click', async function (event) {
                 const applyButton = event.target.closest('.apply-btn');
 
                 if (applyButton && !applyButton.disabled) {
                     const jobId = applyButton.dataset.jobId;
-                    const job = allJobs.find(j => j.id == jobId);
+                    const job = allJobs.find(j => j.id == jobId); // Find the job object from our allJobs array
 
                     if (!job) {
                         alert('Error: Job details not found. Cannot apply.');
@@ -378,8 +406,10 @@
                     }
 
                     // Populate the modal form with job details and user's pre-filled info
-                    jobTitleForApplication.textContent = `${job.title} at ${job.company_name}`;
+                    jobTitleForApplication.textContent = `${job.title || 'N/A'} at ${job.company_name || 'N/A'}`;
                     appliedJobId.value = jobId; // Store job ID in a hidden field
+
+                    // Pre-fill user details from the JWT token
                     formApplicantName.value = currentUserDetails.username || '';
                     formApplicantEmail.value = currentUserDetails.email || '';
                     formApplicantPhone.value = currentUserDetails.phone || '';
@@ -394,6 +424,7 @@
             closeButton.addEventListener('click', function () {
                 applicationFormModal.style.display = 'none';
                 jobApplicationForm.reset(); // Clear form fields on close
+                resumeInput.value = ''; // Ensure file input is also cleared
             });
 
             // Close modal when clicking outside the modal content
@@ -401,17 +432,36 @@
                 if (event.target == applicationFormModal) {
                     applicationFormModal.style.display = 'none';
                     jobApplicationForm.reset(); // Clear form fields on close
+                    resumeInput.value = ''; // Ensure file input is also cleared
                 }
             });
 
-            // --- Handle form submission for job application from the modal ---
+            // Handle form submission for job application from the modal
             jobApplicationForm.addEventListener('submit', async function (event) {
                 event.preventDefault(); // Prevent default form submission
 
-                const formData = new FormData(jobApplicationForm); // Get form data, including file
+                const formData = new FormData(jobApplicationForm); // Get all form data, including the resume file
                 const jobId = formData.get('jobId'); // Retrieve jobId from hidden input
 
-                // Add job-specific details from the `job` object
+                // Basic resume size/type validation (client-side)
+                const resumeFile = resumeInput.files[0];
+                if (resumeFile) {
+                    const maxSizeMB = 2; // 2 MB
+                    if (resumeFile.size > maxSizeMB * 1024 * 1024) {
+                        alert(`Resume file size exceeds the maximum limit of ${maxSizeMB}MB.`);
+                        return;
+                    }
+                    if (resumeFile.type !== 'application/pdf') {
+                        alert('Only PDF files are allowed for resumes.');
+                        return;
+                    }
+                } else {
+                    alert('Please upload your resume.');
+                    return;
+                }
+
+
+                // Add job-specific details from the `job` object (found previously)
                 const job = allJobs.find(j => j.id == jobId);
                 if (job) {
                     formData.append('jobTitle', job.title);
@@ -426,10 +476,11 @@
                 submitButton.textContent = 'Submitting...';
 
                 try {
-                    const token = localStorage.getItem("authToken");
                     const response = await fetch(APPLY_JOB_API_URL, {
                         method: 'POST',
                         headers: {
+                            // Do NOT set 'Content-Type': 'multipart/form-data' explicitly for FormData.
+                            // The browser sets it automatically with the correct boundary.
                             'Authorization': `Bearer ${token}`
                         },
                         body: formData // Send FormData directly
@@ -439,22 +490,23 @@
                         alert(`Application for "${job.title}" submitted successfully! HR will be notified.`);
                         applicationFormModal.style.display = 'none'; // Hide the modal
                         jobApplicationForm.reset(); // Clear the form
+                        resumeInput.value = ''; // Clear file input manually
 
                         // Optionally update the original "Apply Now" button in the job card
                         const originalApplyButton = document.querySelector(`.apply-btn[data-job-id="${jobId}"]`);
                         if (originalApplyButton) {
                             originalApplyButton.innerText = 'Applied';
                             originalApplyButton.disabled = true;
-                            originalApplyButton.style.backgroundColor = '#6c757d';
+                            originalApplyButton.style.backgroundColor = '#6c757d'; // Gray out
                             originalApplyButton.style.cursor = 'not-allowed';
                         }
-
                     } else {
-                        const errorData = await response.json();
-                        alert(`Failed to submit application: ${errorData.message || response.statusText || 'Unknown error'}`);
+                        const errorData = await response.json().catch(() => ({ message: response.statusText || 'Unknown error' }));
+                        alert(`Failed to submit application: ${errorData.message}`);
+                        console.error('Backend application error:', errorData);
                     }
                 } catch (error) {
-                    console.error('Error submitting job application:', error);
+                    console.error('Network or client-side error submitting job application:', error);
                     alert('An error occurred while submitting your application. Please check your network and try again.');
                 } finally {
                     submitButton.disabled = false;
@@ -462,13 +514,10 @@
                 }
             });
 
-            // Initial load of jobs
+            // Initial load of jobs when the page loads
             loadJobs();
         });
     </script>
-
 </body>
 
 </html>
-
-
