@@ -1,3 +1,4 @@
+/* Your existing CSS rules (copied from index.html head) */
 :root {
     --primary: #00d4ff;
     --secondary: #0077b6;
@@ -5,14 +6,14 @@
     --light: #f8f9fa;
     --gray: #6c757d;
     --accent: #ff7b00;
-    --success: #28a745;
-    --warning: #ffc107;
-    --danger: #dc3545;
-    --info: #17a2b8;
+    --success: #28a745; /* Added this from previous enhancements */
+    --warning: #ffc107; /* Added this from previous enhancements */
+    --danger: #dc3545; /* Added this from previous enhancements */
+    --info: #17a2b8; /* Added this from previous enhancements */
 
     /* Typography variables for easier management */
     --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-heading: 'Roboto', sans-serif;
+    --font-heading: 'Roboto', sans-serif; /* Consider importing a font like Roboto from Google Fonts */
 
     /* Spacing variables */
     --spacing-xs: 0.5rem;
@@ -20,7 +21,7 @@
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
-    --spacing-xxl: 4rem;
+    --spacing-xxl: 4rem; /* Added for larger section padding */
 
     /* Border Radius variables */
     --border-radius-sm: 5px;
@@ -142,17 +143,17 @@ ul {
     box-shadow: var(--shadow-sm);
 }
 
-.btn-dark {
+.btn-dark { /* Added from previous enhancement */
     background: var(--dark);
     color: white;
 }
 
-.btn-dark:hover {
+.btn-dark:hover { /* Added from previous enhancement */
     background: var(--secondary);
     box-shadow: 0 8px 20px rgba(3, 4, 94, 0.3);
 }
 
-.btn-disabled {
+.btn-disabled { /* Added from previous enhancement */
     opacity: 0.6;
     cursor: not-allowed;
     background: #cccccc;
@@ -161,7 +162,7 @@ ul {
     transform: none;
 }
 
-.btn-disabled:hover {
+.btn-disabled:hover { /* Added from previous enhancement */
     transform: none;
     box-shadow: none;
 }
@@ -222,9 +223,6 @@ nav:last-of-type {
     position: sticky;
     top: 0;
     z-index: 100;
-    display: flex; /* Ensure it's a flex container */
-    justify-content: center; /* Center the navigation items horizontally */
-    align-items: center; /* Vertically align items if height allows */
 }
 
 nav:last-of-type ul {
@@ -682,8 +680,6 @@ footer {
     /* Main Nav */
     nav:last-of-type {
         padding: var(--spacing-sm) var(--spacing-md); /* Reduced horizontal padding */
-        flex-direction: column; /* Stack items vertically on mobile */
-        align-items: center; /* Center items when stacked */
     }
     nav:last-of-type a,
     nav:last-of-type button {
