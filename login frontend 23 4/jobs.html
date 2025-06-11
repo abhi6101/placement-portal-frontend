@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Listings | Hack-2-Hired</title>
+    <title>Job Listings | Placement Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="jobs.css">
 
@@ -12,18 +12,18 @@
 
 <body>
      <nav>
-        <div class="logo">Hack-2-<span>Hired</span></div>
+        <div class="logo">Placement<span>Portal</span></div>
        
     </nav>
 
     <nav class="main-nav">
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-          <!-- <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li> -->
-          <!-- <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li> -->
-          <!-- <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li> -->
-           <!-- <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li> -->
-            <!-- <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li> -->
+          <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
+          <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+          <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+           <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
              <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
           <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
           <li><a href="courses.html"  ><i class="fas fa-book"></i> Courses</a></li>
@@ -132,11 +132,10 @@
                 href="mailto:abhijain6101@gmail.com">abhijain6101@gmail.com</a></p>
     </footer>
 
-   
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const API_URL = "http://localhost:8080/jobs"; // Your existing jobs API
-            const APPLY_JOB_API_URL = "http://localhost:8080/api/apply-job";
+            const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs"; // Your existing jobs API
+            const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job";
 
             const jobList = document.getElementById('jobList');
             const searchForm = document.getElementById('searchForm');
