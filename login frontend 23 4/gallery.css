@@ -182,7 +182,7 @@ nav:first-of-type {
 .logo {
     font-size: 2rem; /* Slightly larger logo */
     font-weight: 700;
-    text-transform: uppercase;
+    text-transform: lowercase;
     letter-spacing: 1px;
 }
 
