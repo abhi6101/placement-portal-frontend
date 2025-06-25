@@ -84,7 +84,6 @@ const App = {
 
         async handleLogin(event) {
             event.preventDefault();
-            // This logic would be on the login.html page, but we include it for completeness
             const username = event.target.username.value;
             const password = event.target.password.value;
             
@@ -122,8 +121,8 @@ const App = {
                 console.warn('Logout notification to backend failed:', e);
             } finally {
                 localStorage.removeItem('authToken');
-                App.ui.update(); // Update UI immediately
-                window.location.href = 'index.html'; // Or a dedicated logout confirmation page
+                App.ui.update();
+                window.location.href = 'index.html';
             }
         }
     },
@@ -133,7 +132,6 @@ const App = {
             const userData = App.auth.getUserData();
             const { elements } = App;
 
-            // Update welcome message / subtitle
             if (userData.isLoggedIn) {
                 if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'none';
                 if (elements.userWelcome) {
@@ -146,7 +144,6 @@ const App = {
                 if (elements.userWelcome) elements.userWelcome.style.display = 'none';
             }
 
-            // Update button visibility
             if (elements.loginBtn) elements.loginBtn.style.display = userData.isLoggedIn ? 'none' : 'inline-flex';
             if (elements.logoutBtn) elements.logoutBtn.style.display = userData.isLoggedIn ? 'inline-flex' : 'none';
             if (elements.registerBtn) elements.registerBtn.style.display = userData.isLoggedIn ? 'none' : 'inline-flex';
@@ -204,5 +201,4 @@ const App = {
     }
 };
 
-// --- App Entry Point ---
 document.addEventListener('DOMContentLoaded', () => App.init());
