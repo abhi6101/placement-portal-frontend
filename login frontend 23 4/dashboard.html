@@ -16,12 +16,13 @@
             </div>
             <div class="profile-card">
                 <div class="profile-avatar">
+                    <!-- Placeholder, can be replaced with a real img tag -->
                     <span id="user-initial">A</span>
                 </div>
-                <h2 id="user-fullname">Loading...</h2>
-                <p id="user-handle">@loading...</p>
+                <h2 id="user-fullname">Abhi Jain</h2>
+                <p id="user-handle">@username</p>
                 <div class="profile-bio">
-                    <p>Your professional bio will appear here.</p>
+                    <p>Add a bio to tell others about yourself.</p>
                 </div>
                 <ul class="profile-details">
                     <li><i class="fas fa-building"></i> <span>Add company</span></li>
@@ -37,23 +38,27 @@
 
         <!-- ===== Main Content Area ===== -->
         <main class="main-content">
+            <!-- Top Navigation Bar within the main content -->
             <header class="main-header">
                 <div class="header-title">Dashboard</div>
                 <nav class="header-nav">
-                    <a href="dashboard.html" class="nav-link active">Dashboard</a>
-                    <a href="jobs.html" class="nav-link">Jobs</a>
-                    <a href="profile.html" class="nav-link">Profile</a>
+                    <a href="#" class="nav-link active">Dashboard</a>
+                    <a href="#" class="nav-link">Practice</a>
+                    <a href="#" class="nav-link">Jobs</a>
+                    <a href="#" class="nav-link">Profile</a>
                 </nav>
             </header>
 
+            <!-- Welcome Banner -->
             <section class="welcome-banner">
                 <div>
-                    <h1 id="welcome-message">Welcome back!</h1>
+                    <h1 id="welcome-message">Welcome back, Abhi!</h1>
                     <p>Track your progress, find jobs, and improve your skills.</p>
                 </div>
-                <a href="jobs.html" class="btn btn-primary"><i class="fas fa-search"></i> Find a Job</a>
+                <a href="#" class="btn btn-primary"><i class="fas fa-search"></i> Find a Job</a>
             </section>
 
+            <!-- Stats Grid -->
             <section class="stats-grid">
                 <div class="stat-card">
                     <i class="fas fa-file-signature"></i>
@@ -78,6 +83,7 @@
                 </div>
             </section>
 
+            <!-- Main Content Grid (History & Jobs) -->
             <section class="content-grid">
                 <div class="card" id="application-history">
                     <div class="card-header">
@@ -88,7 +94,7 @@
                         <i class="fas fa-folder-open"></i>
                         <h4>No Applications Yet</h4>
                         <p>Start your first application to see your history here.</p>
-                        <a href="jobs.html" class="btn btn-secondary">Apply to Jobs</a>
+                        <a href="#" class="btn btn-secondary">Apply to Jobs</a>
                     </div>
                 </div>
 
@@ -121,12 +127,14 @@
                         </li>
                     </ul>
                     <div class="card-footer">
-                        <a href="jobs.html">View all jobs →</a>
+                        <a href="#">View all jobs →</a>
                     </div>
                 </div>
             </section>
         </main>
     </div>
+
+    <!-- We no longer need the separate auth.js; logic is now in dashboard.js -->
     <script src="dashboard.js"></script>
 </body>
 </html>

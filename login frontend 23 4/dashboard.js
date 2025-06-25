@@ -1,24 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. AUTHENTICATION CHECK ---
+    // --- Authentication Check ---
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
-        // If no token is found, redirect the user to the login page immediately.
+        // If no token, redirect to login page immediately
         window.location.href = '/login.html';
-        return; // Stop the script from running further.
+        return; // Stop script execution
     }
 
-    // --- 2. ELEMENT REFERENCES ---
+    // --- Element References ---
     const logoutButton = document.getElementById('logout-button-sidebar');
     const welcomeMessage = document.getElementById('welcome-message');
     const userFullName = document.getElementById('user-fullname');
     const userHandle = document.getElementById('user-handle');
     const userInitial = document.getElementById('user-initial');
 
-    // --- 3. LOGOUT FUNCTIONALITY ---
+    // --- Logout Functionality ---
     const handleLogout = () => {
         localStorage.removeItem('authToken');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('username');
         window.location.href = '/login.html';
     };
 
@@ -26,21 +24,28 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutButton.addEventListener('click', handleLogout);
     }
     
-    // --- 4. DISPLAY USER DATA ---
-    // This function populates the dashboard with the user's information.
-    const displayUserData = () => {
-        // Retrieve data saved during login.
-        const username = localStorage.getItem('username');
-        
-        if (username) {
-            // In a real app, you might have a full name. Here we use the username.
-            userFullName.textContent = username;
-            userHandle.textContent = `@${username.toLowerCase()}`;
-            welcomeMessage.textContent = `Welcome back, ${username}!`;
-            userInitial.textContent = username.charAt(0).toUpperCase();
+    // --- Fetch User Data (Placeholder) ---
+    // In the future, you will fetch user data from your backend here.
+    // For now, we'll use mock data.
+    const fetchAndDisplayUserData = () => {
+        // MOCK USER DATA (Replace with a real API call)
+        const mockUser = {
+            fullName: "Abhi Jain",
+            username: "@abhi21",
+            // You would get other details like company, location etc. here
+        };
+
+        // Populate the UI with user data
+        if (mockUser) {
+            welcomeMessage.textContent = `Welcome back, ${mockUser.fullName.split(' ')[0]}!`;
+            userFullName.textContent = mockUser.fullName;
+            userHandle.textContent = mockUser.username;
+            if (mockUser.fullName) {
+                userInitial.textContent = mockUser.fullName.charAt(0).toUpperCase();
+            }
         }
     };
     
-    // Run the function to display user data as soon as the page loads.
-    displayUserData();
+    // Call the function to display user data
+    fetchAndDisplayUserData();
 });
