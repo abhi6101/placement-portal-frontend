@@ -49,6 +49,7 @@ body {
     text-decoration: none; font-weight: 600; transition: all 0.3s ease;
     border: 1px solid transparent; cursor: pointer; font-size: 0.95rem;
 }
+.btn.hidden { display: none; } /* Utility class to hide buttons */
 .btn-primary {
     background-color: var(--primary-accent);
     color: var(--text-primary);
@@ -63,6 +64,8 @@ body {
     border: 1px solid var(--border-color);
 }
 .btn-secondary:hover { background-color: var(--card-bg); color: var(--text-primary); }
+.btn-admin { background-color: #ff7b00; color: #fff; }
+
 
 /* --- HERO SECTION --- */
 .hero { padding: 6rem 2rem; }
@@ -71,13 +74,7 @@ body {
     gap: 4rem; align-items: center;
     max-width: 1300px; margin: 0 auto;
 }
-.ai-tag {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background-color: rgba(106, 109, 255, 0.1);
-    color: var(--primary-accent);
-    padding: 0.4rem 0.8rem; border-radius: 20px;
-    font-size: 0.9rem; font-weight: 500; margin-bottom: 1.5rem;
-}
+
 .hero-text h1 {
     font-size: 3.5rem; font-weight: 800;
     line-height: 1.2; margin-bottom: 1.5rem;
