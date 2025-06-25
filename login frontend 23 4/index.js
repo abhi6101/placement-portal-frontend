@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Get all relevant elements
+
+    // --- AUTHENTICATION & UI LOGIC --- //
+
+    // 1. Get all relevant elements from the page
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
     const adminPanelLink = document.getElementById('adminPanelLink');
@@ -9,9 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayRole = document.getElementById('displayRole');
     const heroHeading = document.getElementById('heroHeading');
     const heroSubtitle = document.getElementById('heroSubtitle');
-    const loginForm = document.getElementById('loginForm'); // Assuming this element exists on login.html
+    const loginForm = document.getElementById('loginForm'); // This will only be found on login.html
 
-    // Helper function to decode JWT token
+    // 2. Helper function to decode JWT token
     const parseJwt = (token) => {
         try {
             return JSON.parse(atob(token.split('.')[1]));
@@ -21,53 +24,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Function to update UI based on auth state
-    const updateUI = () => {
+    // 3. Function to update the entire UI based on auth state
+    const updateAuthUI = () => {
         const token = localStorage.getItem('authToken');
         const isLoggedIn = !!token;
         let isAdmin = false;
-        let username = '';
-        let userRole = 'Student'; // Default role
 
         if (isLoggedIn) {
             const payload = parseJwt(token);
             if (payload) {
-                username = payload.sub || payload.username || 'User';
-                const roles = payload.roles || payload.authorities || [];
-                isAdmin = roles.includes("ROLE_ADMIN");
-                userRole = isAdmin ? 'Admin' : 'Student';
-            }
+                const username = payload.sub || 'User';
+                isAdmin = (payload.roles || []).includes("ROLE_ADMIN");
+                const userRole = isAdmin ? 'Admin' : 'Student';
 
-            // Show welcome section
-            if (userWelcome) {
-                userWelcome.style.display = 'block';
+                // Show the personalized welcome message
+                userWelcome.classList.remove('hidden');
+                heroHeading.classList.add('hidden');
+                heroSubtitle.classList.add('hidden');
                 displayUsername.textContent = username;
                 displayRole.textContent = userRole;
             }
-
-            // Update hero text
-            //  if (heroHeading) heroHeading.style.display = 'none';
-            if (heroSubtitle) heroSubtitle.textContent = 'Ready to launch your career? Explore new opportunities or continue your learning journey!';
-
         } else {
-            // Hide welcome section if not logged in
-           
-            // Reset hero text to default
-            if (heroHeading) heroHeading.textContent = 'Launch Your Career with Ease!';
-            if (heroSubtitle) heroSubtitle.textContent = 'Your comprehensive platform for job placements, resume building, interview preparation, and career growth.';
+            // Show the default hero content for logged-out users
+            userWelcome.classList.add('hidden');
+            heroHeading.classList.remove('hidden');
+            heroSubtitle.classList.remove('hidden');
         }
 
-        // Update button visibility
-        if (loginBtn) loginBtn.style.display = isLoggedIn ? 'none' : 'inline-block';
-        if (logoutBtn) logoutBtn.style.display = isLoggedIn ? 'inline-block' : 'none';
-        if (adminPanelLink) adminPanelLink.style.display = isAdmin ? 'inline-block' : 'none';
-        if (registerBtn) registerBtn.style.display = isLoggedIn ? 'none' : 'inline-block';
+        // Toggle button visibility using CSS classes for a cleaner approach
+        loginBtn.classList.toggle('hidden', isLoggedIn);
+        registerBtn.classList.toggle('hidden', isLoggedIn);
+        logoutBtn.classList.toggle('hidden', !isLoggedIn);
+        adminPanelLink.classList.toggle('hidden', !isAdmin);
     };
 
-    // Initial UI update
-    updateUI();
-
-    // Handle login form submission (only if on login.html)
+    // 4. Handle login form submission (This code only runs if the loginForm exists)
     if (loginForm) {
         loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -89,28 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
 
-                if (response.ok) {
+                if (response.ok && data.token) {
                     localStorage.setItem('authToken', data.token);
-                    
-                    // Store user data from login response for immediate UI updates
                     const payload = parseJwt(data.token);
-                    if (payload) {
-                        localStorage.setItem('userData', JSON.stringify({
-                            username: payload.sub || username,
-                            role: payload.roles?.includes("ROLE_ADMIN") ? "ADMIN" : "USER"
-                        }));
-                    }
                     
                     if (successElement) {
                         successElement.textContent = 'Login successful! Redirecting...';
                         successElement.style.display = 'block';
                     }
 
+                    // Redirect after a short delay
                     setTimeout(() => {
-                        window.location.href = payload && payload.roles?.includes("ROLE_ADMIN") 
-                            ? 'admin-dashboard.html' 
-                            : 'index.html';
+                        const isAdmin = payload && (payload.roles || []).includes("ROLE_ADMIN");
+                        window.location.href = isAdmin ? 'admin-dashboard.html' : 'index.html';
                     }, 500);
+
                 } else {
                     if (errorElement) {
                         errorElement.textContent = data.message || 'Invalid username or password';
@@ -127,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle logout
+    // 5. Handle logout
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
             if (!confirm('Are you sure you want to log out?')) {
@@ -137,62 +121,60 @@ document.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('authToken');
             
             try {
-                // Attempt to notify backend of logout (optional, but good practice for session management)
+                // Optional: Notify backend of logout for session invalidation
                 await fetch('https://placement-portal-backend-nwaj.onrender.com/api/auth/logout', {
                     method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
             } catch (e) {
-                console.warn('Logout notification to backend failed (may be due to expired token or network issue):', e);
-                // Continue with client-side logout even if backend notification fails
+                console.warn('Backend logout notification failed:', e);
             } finally {
-                // Clear all auth-related data
+                // Always clear local data and redirect
                 localStorage.removeItem('authToken');
                 localStorage.removeItem('userData');
-                
-                // Update UI immediately
-                updateUI(); 
-                
-                // Redirect to login page or home page
-                window.location.href = 'logout-confirmation.html'; // Redirect to home after logout
+                window.location.href = 'logout-confirmation.html'; // Or 'index.html'
             }
         });
     }
-});
+    
+    // --- ADDITIONAL PAGE FEATURES --- //
 
-
-
-        // Slideshow functionality for the HOME PAGE (ONLY automatic advancement)
+    // 6. Slideshow functionality (if a slideshow exists on the page)
+    const slides = document.querySelectorAll(".mySlides");
+    if (slides.length > 0) {
         let slideIndex = 0;
-        let autoSlideInterval;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            showSlides();
-            startAutoSlide();
-        });
-
-        function showSlides() {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
-
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-
+        const showSlides = () => {
+            slides.forEach(slide => slide.style.display = "none");
             slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1
-            }
-
+            if (slideIndex > slides.length) { slideIndex = 1; }
             slides[slideIndex - 1].style.display = "block";
-        }
+            setTimeout(showSlides, 4000); // Change image every 4 seconds
+        };
+        showSlides();
+    }
 
-        function startAutoSlide() {
-            clearInterval(autoSlideInterval);
-            autoSlideInterval = setInterval(() => {
-                showSlides();
-            }, 4000); // Change image every 4 seconds
-        }
-  
+    // 7. Dynamic Copyright Year
+    const yearSpan = document.getElementById('year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // 8. Scroll-In Animations
+    const animatedElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target); // Animate only once
+            }
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    });
+    animatedElements.forEach(el => observer.observe(el));
+
+    // --- INITIALIZATION --- //
+    
+    // 9. Run the UI update function once on page load to set the initial state
+    updateAuthUI();
+});
