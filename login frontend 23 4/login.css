@@ -1,6 +1,6 @@
-/* === LOGIN PAGE STYLESHEET === */
+/* === LOGIN PAGE: PRO-LEVEL STYLESHEET === */
 
-/* --- 1. Root Variables & Global Styles (Consistent with homepage) --- */
+/* --- 1. Root Variables & Global Styles (Identical to Homepage) --- */
 :root {
     --dark-bg: #0A0A10;
     --surface-bg: #111119;
@@ -10,7 +10,7 @@
     --accent: #ff477b;
     --text-primary: #ECEFF1;
     --text-secondary: #90A4AE;
-    --error: #ff477b;
+    --error: #ff477b; /* Using accent color for error */
     --success: #28a745;
     --font-family: 'Poppins', sans-serif;
 }
@@ -26,8 +26,9 @@ body {
     flex-direction: column;
     min-height: 100vh;
     overflow-x: hidden;
+    /* Animated background for visual interest */
     background-image: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a2e 100%);
-    animation: background-pan 15s infinite alternate ease-in-out;
+    animation: background-pan 20s infinite alternate ease-in-out;
 }
 
 @keyframes background-pan {
@@ -35,7 +36,7 @@ body {
     to { background-position: 100% center; }
 }
 
-/* --- 2. Navigation (Consistent with homepage) --- */
+/* --- 2. Navigation (Identical to Homepage) --- */
 nav {
     padding: 1rem 5%;
     background: rgba(10, 10, 16, 0.5);
@@ -45,12 +46,14 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 1000;
 }
 .logo { font-size: 1.8rem; font-weight: 800; }
 .logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
 nav ul { display: flex; list-style: none; gap: 1.5rem; }
-nav ul a { color: var(--text-secondary); font-weight: 500; text-decoration: none; transition: color 0.3s ease; }
-nav ul a:hover { color: var(--primary); }
+nav a { color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
+nav a:hover { color: var(--primary); }
 
 /* --- 3. Login Section & Card --- */
 .login-section {
@@ -66,6 +69,7 @@ nav ul a:hover { color: var(--primary); }
     width: 100%;
     padding: 3rem;
     position: relative;
+    /* Staggered entry animation */
     opacity: 0;
     transform: scale(0.95) translateY(20px);
     animation: card-pop-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards 0.2s;
@@ -85,7 +89,7 @@ nav ul a:hover { color: var(--primary); }
     font-weight: 700;
 }
 
-/* --- 4. Interactive Glowing Border (Consistent with homepage) --- */
+/* --- 4. Interactive Glowing Border (Identical to Homepage) --- */
 .surface-glow {
     background: var(--surface-bg);
     border-radius: 16px;
@@ -108,18 +112,18 @@ nav ul a:hover { color: var(--primary); }
 
 .input-group {
     position: relative;
+    /* Staggered entry animation for inputs */
     opacity: 0;
     transform: translateX(-20px);
     animation: fade-in-slide 0.5s ease-out forwards;
 }
+/* Stagger the delays */
 .input-group:nth-of-type(1) { animation-delay: 0.4s; }
 .input-group:nth-of-type(2) { animation-delay: 0.5s; }
 .login-card form button { animation-delay: 0.6s; }
 .login-card p { animation-delay: 0.7s; }
 
-@keyframes fade-in-slide {
-    to { opacity: 1; transform: translateX(0); }
-}
+@keyframes fade-in-slide { to { opacity: 1; transform: translateX(0); } }
 
 .input-group label {
     display: block;
@@ -146,17 +150,21 @@ nav ul a:hover { color: var(--primary); }
     box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
-/* Button Styling (Consistent with homepage) */
+/* --- 6. Button Styling (Identical to Homepage) --- */
 .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
     padding: 0.9rem 1.8rem; border-radius: 50px; font-weight: 600;
     text-decoration: none; border: none; cursor: pointer;
     transition: all 0.3s ease;
+    /* Animation properties for the form */
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fade-in-slide 0.5s ease-out forwards;
 }
 .btn-primary { background: var(--primary); color: #000; box-shadow: 0 0 25px var(--primary-glow); }
 .btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 40px var(--primary-glow); }
 
-/* --- 6. Form Bottom & Alerts --- */
+/* --- 7. Form Bottom & Alerts --- */
 .login-card p {
     text-align: center;
     margin-top: 2rem;
@@ -166,8 +174,8 @@ nav ul a:hover { color: var(--primary); }
     transform: translateX(-20px);
     animation: fade-in-slide 0.5s ease-out forwards;
 }
-
-.login-card p a { font-weight: 600; }
+.login-card p a { font-weight: 600; color: var(--primary); }
+.login-card p a:hover { color: white; }
 
 .alert {
     padding: 0.8rem 1rem;
@@ -180,21 +188,20 @@ nav ul a:hover { color: var(--primary); }
 .alert-error { border-color: var(--error); color: var(--error); }
 .alert-success { border-color: var(--success); color: var(--success); }
 
-/* --- 7. Spinner & Loading State --- */
+/* --- 8. Spinner & Loading State --- */
 .spinner {
-    display: none;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-top-color: #fff;
+    display: none; /* Hide by default */
+    border: 3px solid rgba(0, 0, 0, 0.3); /* Dark spinner on a light button */
+    border-top-color: #000;
     border-radius: 50%;
     width: 20px;
     height: 20px;
     animation: spin-button 1s linear infinite;
 }
 
-@keyframes spin-button {
-    to { transform: rotate(360deg); }
-}
+@keyframes spin-button { to { transform: rotate(360deg); } }
 
 button:disabled { cursor: not-allowed; opacity: 0.7; }
+/* When loading class is added by JS */
 button.loading .button-text { display: none; }
 button.loading .spinner { display: block; }
