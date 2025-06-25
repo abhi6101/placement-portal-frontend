@@ -1,16 +1,17 @@
-/* --- VARIABLE & FONT DEFINITIONS --- */
+/* --- NEW COLOR PALETTE: TEAL & SLATE --- */
 :root {
-    --dark-bg: #11122D;
-    --mid-bg: #1A1B3A;
-    --card-bg: rgba(35, 36, 75, 0.6);
-    --primary-accent: #8A63D2;
-    --secondary-accent: #C8B6E2;
-    --text-primary: #F0F2F5;
-    --text-secondary: #A9B2C4;
+    --dark-bg: #0D1B2A;          /* Very dark, almost black slate blue */
+    --mid-bg: #1B263B;           /* Dark slate blue for sections */
+    --card-bg: rgba(65, 90, 119, 0.4); /* Semi-transparent card background */
+    --primary-accent: #00F5D4;   /* A bright, vibrant teal */
+    --secondary-accent: #778DA9; /* Muted slate for secondary text/hovers */
+    --text-primary: #E0E1DD;     /* Off-white, easy on the eyes */
+    --text-secondary: #778DA9;   /* Muted slate blue for subtitles */
     --font-family: 'Poppins', sans-serif;
-    --border-color: rgba(255, 255, 255, 0.1);
+    --border-color: rgba(224, 225, 221, 0.1); /* Subtle border using text color */
 }
 
+/* --- BASE STYLES --- */
 * {
     margin: 0;
     padding: 0;
@@ -29,13 +30,13 @@ body {
     overflow-x: hidden;
 }
 
-/* --- UTILITY CLASSES --- */
+/* --- UTILITY & HIGHLIGHT --- */
 .hidden { display: none !important; }
 .highlight { color: var(--primary-accent); }
 
 /* --- HEADER & NAVIGATION --- */
 .main-header {
-    background: rgba(17, 18, 45, 0.8);
+    background: rgba(13, 27, 42, 0.8); /* Darker background for more contrast */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
@@ -53,21 +54,10 @@ body {
     margin: 0 auto;
 }
 
-.logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-}
+.logo { font-size: 1.8rem; font-weight: 700; }
+.logo span { color: var(--primary-accent); }
 
-.logo span {
-    color: var(--primary-accent);
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
-}
-
+.nav-links { display: flex; list-style: none; gap: 1.5rem; }
 .nav-links a {
     color: var(--text-secondary);
     text-decoration: none;
@@ -93,20 +83,13 @@ body {
     transition: transform 0.3s ease-out;
 }
 
-.nav-links a:hover, .nav-links a.active {
-    color: var(--text-primary);
-}
-
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
 .nav-links a:hover::after, .nav-links a.active::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
 
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
 
 /* --- BUTTONS --- */
 .btn {
@@ -126,17 +109,17 @@ body {
 
 .btn-primary {
     background-color: var(--primary-accent);
-    color: var(--text-primary);
-    box-shadow: 0 4px 15px rgba(138, 99, 210, 0.2);
+    color: var(--dark-bg); /* High contrast for the bright teal */
+    box-shadow: 0 4px 15px rgba(0, 245, 212, 0.1);
 }
 .btn-primary:hover {
-    background-color: #7a58bb;
+    background-color: #00d9bc;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(138, 99, 210, 0.3);
+    box-shadow: 0 6px 20px rgba(0, 245, 212, 0.2);
 }
 
 .btn-secondary {
-    background-color: var(--card-bg);
+    background-color: transparent;
     color: var(--text-secondary);
     border: 1px solid var(--border-color);
 }
@@ -145,34 +128,20 @@ body {
     color: var(--text-primary);
 }
 
-.btn-admin {
-    background-color: #ff7b00;
-    color: var(--dark-bg);
-}
+.btn-admin { background-color: #ff7b00; color: var(--dark-bg); }
 
 /* --- HERO SECTION --- */
 .hero {
-    background: linear-gradient(180deg, var(--dark-bg) 0%, #1a1b3a 100%);
+    background: var(--dark-bg);
     text-align: center;
     padding: 8rem 2rem 6rem;
-    min-height: 80vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.hero-content {
-    max-width: 800px;
-}
-
-.hero h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-}
-
+.hero-content { max-width: 800px; }
+.hero h1 { font-size: 4rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
 .hero p {
     font-size: 1.2rem;
     color: var(--text-secondary);
@@ -186,12 +155,7 @@ body {
 #userWelcome p { margin-bottom: 0; font-size: 1rem; }
 #userWelcome span { color: var(--primary-accent); }
 
-.hero-cta-buttons {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-}
-
+.hero-cta-buttons { display: flex; gap: 1.5rem; justify-content: center; }
 .cta-btn {
     background-color: var(--mid-bg);
     border: 1px solid var(--border-color);
@@ -205,18 +169,17 @@ body {
     gap: 0.8rem;
     transition: all 0.3s ease;
 }
-
 .cta-btn:hover {
     background-color: var(--card-bg);
     border-color: var(--primary-accent);
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(138, 99, 210, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 245, 212, 0.05);
 }
 
 /* --- GENERAL SECTION STYLING --- */
-.features, .stats, .testimonials, .gallery, .companies {
-    padding: 6rem 2rem;
-}
+.features, .stats, .testimonials { padding: 6rem 2rem; }
+.features { background-color: var(--mid-bg); }
+
 .section-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -224,18 +187,10 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-.section-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-.section-header p {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-}
+.section-header h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.section-header p { color: var(--text-secondary); font-size: 1.1rem; }
 
 /* Features Section */
-.features { background-color: var(--mid-bg); }
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -255,11 +210,7 @@ body {
     transform: translateY(-8px);
     border-color: var(--primary-accent);
 }
-.features-box i {
-    font-size: 2.5rem;
-    color: var(--primary-accent);
-    margin-bottom: 1.5rem;
-}
+.features-box i { font-size: 2.5rem; color: var(--primary-accent); margin-bottom: 1.5rem; }
 .features-box h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
 .features-box p { color: var(--text-secondary); }
 
@@ -290,16 +241,8 @@ body {
     border-radius: 12px;
     padding: 2rem;
 }
-.testimonial-card p {
-    font-style: italic;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-}
-.testimonial-author {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+.testimonial-card p { font-style: italic; color: var(--text-secondary); margin-bottom: 1.5rem; }
+.testimonial-author { display: flex; align-items: center; gap: 1rem; }
 .testimonial-author img {
     width: 50px;
     height: 50px;
@@ -312,7 +255,7 @@ body {
 
 /* --- FOOTER --- */
 footer {
-    background-color: var(--mid-bg);
+    background-color: var(--dark-bg);
     border-top: 1px solid var(--border-color);
     color: var(--text-secondary);
     text-align: center;
@@ -336,8 +279,8 @@ footer {
 
 .social-links { display: flex; gap: 1rem; }
 .social-links a {
-    color: var(--text-primary);
-    background: var(--card-bg);
+    color: var(--dark-bg);
+    background: var(--secondary-accent);
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -356,28 +299,22 @@ footer .heart { color: #e25555; animation: pulse 1.5s infinite; }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
 
-/* --- SCROLL ANIMATIONS --- */
+/* --- ANIMATIONS & MEDIA QUERIES --- */
 .fade-in {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-.fade-in.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+.fade-in.is-visible { opacity: 1; transform: translateY(0); }
 .fade-in:nth-child(2) { transition-delay: 0.1s; }
 .fade-in:nth-child(3) { transition-delay: 0.2s; }
 .fade-in:nth-child(4) { transition-delay: 0.3s; }
 
-
-/* --- MEDIA QUERIES --- */
 @media (max-width: 992px) {
-    .nav-links { display: none; } /* On smaller screens, you'd implement a hamburger menu */
+    .nav-links { display: none; }
     .hero h1 { font-size: 3rem; }
     .hero-cta-buttons { flex-direction: column; align-items: center; }
 }
-
 @media (max-width: 768px) {
     .main-nav { flex-wrap: wrap; }
     .nav-actions { margin-top: 1rem; width: 100%; justify-content: flex-end; }
@@ -385,7 +322,6 @@ footer .heart { color: #e25555; animation: pulse 1.5s infinite; }
     .hero h1 { font-size: 2.5rem; }
     .footer-content { grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 480px) {
     .footer-content { grid-template-columns: 1fr; }
 }
