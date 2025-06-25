@@ -1,4 +1,4 @@
-/* === REGISTER PAGE: PRO-LEVEL STYLESHEET === */
+/* === REGISTER PAGE: PRO-LEVEL STYLESHEET (Simplified) === */
 
 /* --- 1. Root Variables & Global Styles (Consistent with Site) --- */
 :root {
@@ -56,7 +56,7 @@ nav a:hover { color: var(--primary); }
 }
 
 .register-card {
-    max-width: 600px;
+    max-width: 550px; /* Adjusted width for a single form card */
     width: 100%;
     padding: 2.5rem;
     position: relative;
@@ -67,14 +67,6 @@ nav a:hover { color: var(--primary); }
 
 @keyframes card-fade-in {
     to { opacity: 1; transform: translateY(0); }
-}
-
-/* Transition for hiding the instructions card */
-.register-card.blur-hide {
-    transition: opacity 0.5s ease-out, filter 0.5s ease-out, transform 0.5s ease-out;
-    opacity: 0;
-    filter: blur(10px);
-    transform: scale(0.95);
 }
 
 .register-card h1 {
@@ -106,42 +98,7 @@ nav a:hover { color: var(--primary); }
 @property --angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 @keyframes spin { to { --angle: 360deg; } }
 
-/* --- 5. Instructions Card Specifics --- */
-#instruction-content { margin-bottom: 1.5rem; }
-#instruction-content ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin-top: 1rem;
-}
-#instruction-content li {
-    margin-bottom: 0.75rem;
-    color: var(--text-secondary);
-    padding-left: 1.75rem;
-    position: relative;
-}
-#instruction-content li::before {
-    content: '⚡';
-    position: absolute;
-    left: 0;
-    color: var(--primary);
-}
-
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-}
-.checkbox-container input[type="checkbox"] {
-    width: 1.25em;
-    height: 1.25em;
-    accent-color: var(--primary);
-    cursor: pointer;
-}
-.checkbox-container label { cursor: pointer; }
-
-/* --- 6. Form Styling --- */
+/* --- 5. Form Styling --- */
 form { display: flex; flex-direction: column; gap: 1.25rem; }
 
 .form-group label {
@@ -175,7 +132,7 @@ form { display: flex; flex-direction: column; gap: 1.25rem; }
     opacity: 0.8;
 }
 
-/* --- 7. Button Styling (Consistent with Site) --- */
+/* --- 6. Button Styling (Consistent with Site) --- */
 .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
     width: 100%;
@@ -186,7 +143,7 @@ form { display: flex; flex-direction: column; gap: 1.25rem; }
 .btn-primary { background: var(--primary); color: #000; box-shadow: 0 0 25px var(--primary-glow); }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 40px var(--primary-glow); }
 
-/* --- 8. Form Footer & Alerts --- */
+/* --- 7. Form Footer & Alerts --- */
 .form-footer-text {
     text-align: center;
     margin-top: 2rem;
@@ -199,15 +156,15 @@ form { display: flex; flex-direction: column; gap: 1.25rem; }
 .alert {
     padding: 0.8rem 1rem;
     border-radius: 8px;
+    margin-bottom: 1.5rem;
     font-weight: 500;
     border-left: 4px solid;
     background-color: var(--surface-bg);
 }
 .alert-error { border-color: var(--error); color: var(--error); }
 .alert-success { border-color: var(--success); color: var(--success); }
-.alert-info { border-color: var(--primary); color: var(--text-primary); } /* For instructions card */
 
-/* --- 9. Spinner & Loading State --- */
+/* --- 8. Spinner & Loading State --- */
 .spinner {
     display: none;
     border: 3px solid rgba(0, 0, 0, 0.3);
