@@ -1,206 +1,208 @@
-document.addEventListener('DOMContentLoaded', () => {
+// index.js - REFACTORED & ENHANCED SCRIPT
 
-    //======================================//
-    //== 1. AUTHENTICATION & UI MANAGEMENT ==//
-    //======================================//
+const App = {
+    // --- 1. Properties & Elements ---
+    config: {
+        apiBaseUrl: 'https://placement-portal-backend-nwaj.onrender.com/api/auth',
+    },
+    elements: {
+        loginBtn: null, logoutBtn: null, adminPanelLink: null, registerBtn: null,
+        userWelcome: null, displayUsername: null, displayRole: null,
+        heroHeading: null, heroSubtitle: null, loginForm: null,
+        slideshowContainer: null, sectionsToAnimate: null,
+    },
 
-    // Get all relevant elements (do this once)
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const adminPanelLink = document.getElementById('adminPanelLink');
-    const registerBtn = document.getElementById('registerBtn');
-    const userWelcome = document.getElementById('userWelcome');
-    const displayUsername = document.getElementById('displayUsername');
-    const displayRole = document.getElementById('displayRole');
-    const heroHeading = document.getElementById('heroHeading');
-    const heroSubtitle = document.getElementById('heroSubtitle');
-    const loginForm = document.getElementById('loginForm');
+    // --- 2. Initialization ---
+    init() {
+        // Cache DOM elements once
+        this.cacheDOMElements();
+        // Set up all event listeners
+        this.initEventListeners();
+        // Initialize functional modules
+        this.ui.update();
+        this.slideshow.init();
+        this.animations.init();
+    },
 
-    // Helper function to decode JWT token
-    const parseJwt = (token) => {
-        try {
-            return JSON.parse(atob(token.split('.')[1]));
-        } catch (e) {
-            console.error("Error decoding JWT token:", e);
-            return null;
+    cacheDOMElements() {
+        this.elements.loginBtn = document.getElementById('loginBtn');
+        this.elements.logoutBtn = document.getElementById('logoutBtn');
+        this.elements.adminPanelLink = document.getElementById('adminPanelLink');
+        this.elements.registerBtn = document.getElementById('registerBtn');
+        this.elements.userWelcome = document.getElementById('userWelcome');
+        this.elements.displayUsername = document.getElementById('displayUsername');
+        this.elements.displayRole = document.getElementById('displayRole');
+        this.elements.heroHeading = document.getElementById('heroHeading');
+        this.elements.heroSubtitle = document.getElementById('heroSubtitle');
+        this.elements.loginForm = document.getElementById('loginForm');
+        this.elements.slideshowContainer = document.querySelector('.slideshow-container');
+        this.elements.sectionsToAnimate = document.querySelectorAll('section:not(.hero)');
+    },
+
+    initEventListeners() {
+        if (this.elements.loginForm) {
+            this.elements.loginForm.addEventListener('submit', (e) => this.auth.handleLogin(e));
         }
-    };
-
-    // Function to update UI based on auth state (adapted for new design)
-    const updateUI = () => {
-        const token = localStorage.getItem('authToken');
-        const isLoggedIn = !!token;
-        let isAdmin = false;
-        let username = '';
-        let userRole = 'Student';
-
-        if (isLoggedIn) {
-            const payload = parseJwt(token);
-            if (payload) {
-                username = payload.sub || payload.username || 'User';
-                const roles = payload.roles || payload.authorities || [];
-                isAdmin = roles.includes("ROLE_ADMIN");
-                userRole = isAdmin ? 'Admin' : 'Student';
-            }
-
-            // For logged-in users, show the welcome box and hide the generic subtitle
-            if (heroSubtitle) heroSubtitle.style.display = 'none';
-            if (userWelcome) {
-                userWelcome.style.display = 'block';
-                displayUsername.textContent = username;
-                displayRole.textContent = userRole;
-            }
-        } else {
-            // For logged-out users, show the generic subtitle and hide the welcome box
-            if (heroSubtitle) heroSubtitle.style.display = 'block';
-            if (userWelcome) userWelcome.style.display = 'none';
+        if (this.elements.logoutBtn) {
+            this.elements.logoutBtn.addEventListener('click', () => this.auth.handleLogout());
         }
+    },
 
-        // Update button visibility
-        if (loginBtn) loginBtn.style.display = isLoggedIn ? 'none' : 'inline-block';
-        if (logoutBtn) logoutBtn.style.display = isLoggedIn ? 'inline-block' : 'none';
-        if (adminPanelLink) adminPanelLink.style.display = isAdmin ? 'block' : 'none';
-        if (registerBtn) registerBtn.style.display = isLoggedIn ? 'none' : 'inline-block';
-    };
+    // --- 3. Functional Modules ---
 
-    // Initial UI update on page load
-    updateUI();
-
-    // Handle login form submission (this will only run on pages with a loginForm)
-    if (loginForm) {
-        loginForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorElement = document.getElementById('error-message');
-            const successElement = document.getElementById('success-message');
-
-            if (errorElement) errorElement.style.display = 'none';
-            if (successElement) successElement.style.display = 'none';
-
+    auth: {
+        _parseJwt(token) {
             try {
-                const response = await fetch('https://placement-portal-backend-nwaj.onrender.com/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    localStorage.setItem('authToken', data.token);
-                    
-                    const payload = parseJwt(data.token);
-                    if (payload) {
-                        localStorage.setItem('userData', JSON.stringify({
-                            username: payload.sub || username,
-                            role: payload.roles?.includes("ROLE_ADMIN") ? "ADMIN" : "USER"
-                        }));
-                    }
-                    
-                    if (successElement) {
-                        successElement.textContent = 'Login successful! Redirecting...';
-                        successElement.style.display = 'block';
-                    }
-
-                    setTimeout(() => {
-                        window.location.href = payload && payload.roles?.includes("ROLE_ADMIN") 
-                            ? 'admin-dashboard.html' 
-                            : 'index.html';
-                    }, 500);
-                } else {
-                    if (errorElement) {
-                        errorElement.textContent = data.message || 'Invalid username or password';
-                        errorElement.style.display = 'block';
-                    }
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                if (errorElement) {
-                    errorElement.textContent = 'Network error. Please try again.';
-                    errorElement.style.display = 'block';
-                }
+                return JSON.parse(atob(token.split('.')[1]));
+            } catch (e) {
+                console.error("Error decoding JWT token:", e);
+                return null;
             }
-        });
-    }
+        },
 
-    // Handle logout
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', async () => {
-            if (!confirm('Are you sure you want to log out?')) {
-                return; // Stop if user cancels
-            }
+        isLoggedIn() {
+            return !!localStorage.getItem('authToken');
+        },
 
+        getUserData() {
             const token = localStorage.getItem('authToken');
+            if (!token) return { isLoggedIn: false };
+            
+            const payload = this._parseJwt(token);
+            if (!payload) return { isLoggedIn: false };
+
+            const roles = payload.roles || payload.authorities || [];
+            const isAdmin = roles.includes("ROLE_ADMIN");
+
+            return {
+                isLoggedIn: true,
+                username: payload.sub || payload.username || 'User',
+                role: isAdmin ? 'Admin' : 'Student',
+                isAdmin: isAdmin,
+            };
+        },
+
+        async handleLogin(event) {
+            event.preventDefault();
+            // This logic would be on the login.html page, but we include it for completeness
+            const username = event.target.username.value;
+            const password = event.target.password.value;
             
             try {
-                await fetch('https://placement-portal-backend-nwaj.onrender.com/api/auth/logout', {
+                const response = await fetch(`${App.config.apiBaseUrl}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password }),
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('authToken', data.token);
+                    const userData = this.getUserData();
+                    window.location.href = userData.isAdmin ? 'admin-dashboard.html' : 'index.html';
+                } else {
+                    alert(data.message || 'Invalid credentials');
+                }
+            } catch (error) {
+                console.error('Login failed:', error);
+                alert('A network error occurred. Please try again.');
+            }
+        },
+
+        async handleLogout() {
+            if (!confirm('Are you sure you want to log out?')) return;
+            
+            const token = localStorage.getItem('authToken');
+            try {
+                await fetch(`${App.config.apiBaseUrl}/logout`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
             } catch (e) {
                 console.warn('Logout notification to backend failed:', e);
             } finally {
-                // Clear all auth-related data from local storage
                 localStorage.removeItem('authToken');
-                localStorage.removeItem('userData');
-                // Redirect to the homepage to see the logged-out state.
-                window.location.href = 'index.html'; 
+                App.ui.update(); // Update UI immediately
+                window.location.href = 'index.html'; // Or a dedicated logout confirmation page
             }
-        });
-    }
-
-
-    //======================================//
-    //======= 2. GALLERY SLIDESHOW =========//
-    //======================================//
-
-    let slideIndex = 0;
-    const slides = document.getElementsByClassName("mySlides");
-
-    function showSlides() {
-        // Guard clause in case slideshow isn't on the page
-        if (slides.length === 0) return;
-
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
         }
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1;
-        }
-        slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 4000); // Recursive call for automatic slideshow
-    }
+    },
 
-    showSlides(); // Start the slideshow
+    ui: {
+        update() {
+            const userData = App.auth.getUserData();
+            const { elements } = App;
 
-
-    //======================================//
-    //===== 3. ON-SCROLL ANIMATIONS ========//
-    //======================================//
-
-    const sectionsToAnimate = document.querySelectorAll('section:not(.hero)');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
+            // Update welcome message / subtitle
+            if (userData.isLoggedIn) {
+                if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'none';
+                if (elements.userWelcome) {
+                    elements.userWelcome.style.display = 'block';
+                    elements.displayUsername.textContent = userData.username;
+                    elements.displayRole.textContent = userData.role;
+                }
+            } else {
+                if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'block';
+                if (elements.userWelcome) elements.userWelcome.style.display = 'none';
             }
-        });
-    }, {
-        threshold: 0.15 // Trigger when 15% of the section is visible
-    });
 
-    sectionsToAnimate.forEach(section => {
-        // Set initial state for animation
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(40px)';
-        section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-        observer.observe(section);
-    });
+            // Update button visibility
+            if (elements.loginBtn) elements.loginBtn.style.display = userData.isLoggedIn ? 'none' : 'inline-flex';
+            if (elements.logoutBtn) elements.logoutBtn.style.display = userData.isLoggedIn ? 'inline-flex' : 'none';
+            if (elements.registerBtn) elements.registerBtn.style.display = userData.isLoggedIn ? 'none' : 'inline-flex';
+            if (elements.adminPanelLink) elements.adminPanelLink.style.display = userData.isAdmin ? 'block' : 'none';
+        }
+    },
 
-});
+    slideshow: {
+        slideIndex: 0,
+        init() {
+            if (App.elements.slideshowContainer) {
+                this.run();
+            }
+        },
+        run() {
+            const slides = App.elements.slideshowContainer.getElementsByClassName("mySlides");
+            if (slides.length === 0) return;
+
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            this.slideIndex++;
+            if (this.slideIndex > slides.length) {
+                this.slideIndex = 1;
+            }
+            slides[this.slideIndex - 1].style.display = "block";
+            setTimeout(() => this.run(), 4000);
+        }
+    },
+
+    animations: {
+        init() {
+            if (App.elements.sectionsToAnimate.length > 0) {
+                this.setupScrollObserver();
+            }
+        },
+        setupScrollObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            App.elements.sectionsToAnimate.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(50px)';
+                section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                observer.observe(section);
+            });
+        }
+    }
+};
+
+// --- App Entry Point ---
+document.addEventListener('DOMContentLoaded', () => App.init());
