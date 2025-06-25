@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,134 +8,64 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="dashboard.css">
 </head>
+
 <body>
-    <div class="dashboard-wrapper">
-        <!-- ===== Left Profile Sidebar ===== -->
-        <aside class="profile-sidebar">
-            <div class="sidebar-header">
-                <div class="logo">Hack-2-<span>Hired</span></div>
+    <!-- The Navigation Bar will be dynamically populated by auth.js -->
+    <nav>
+        <div class="logo">Hack-2-<span>Hired</span></div>
+        <ul id="nav-links">
+            <!-- Links like "Dashboard" and "Logout" will be inserted here by JavaScript -->
+        </ul>
+    </nav>
+
+    <main class="dashboard-container">
+        <header class="dashboard-header">
+            <!-- The user's name will be inserted here -->
+            <h1 id="welcome-message">Welcome!</h1>
+            <p>This is your central hub for job opportunities and career growth.</p>
+        </header>
+
+        <section class="dashboard-widgets">
+            <!-- Widget 1: Job Listings -->
+            <div class="widget">
+                <div class="widget-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="widget-content">
+                    <h3>Available Jobs</h3>
+                    <p>Explore and apply to the latest job openings from top companies.</p>
+                    <a href="/jobs.html" class="widget-link">View Jobs →</a>
+                </div>
             </div>
-            <div class="profile-card">
-                <div class="profile-avatar">
-                    <!-- Placeholder, can be replaced with a real img tag -->
-                    <span id="user-initial">A</span>
+
+            <!-- Widget 2: Profile -->
+            <div class="widget">
+                <div class="widget-icon"><i class="fas fa-user-circle"></i></div>
+                <div class="widget-content">
+                    <h3>Your Profile</h3>
+                    <p>Keep your profile updated to attract the best recruiters.</p>
+                    <a href="/profile.html" class="widget-link">Edit Profile →</a>
                 </div>
-                <h2 id="user-fullname">Abhi Jain</h2>
-                <p id="user-handle">@username</p>
-                <div class="profile-bio">
-                    <p>Add a bio to tell others about yourself.</p>
-                </div>
-                <ul class="profile-details">
-                    <li><i class="fas fa-building"></i> <span>Add company</span></li>
-                    <li><i class="fas fa-map-marker-alt"></i> <span>Add location</span></li>
-                    <li><i class="fas fa-graduation-cap"></i> <span>Add education</span></li>
-                    <li><i class="fas fa-cogs"></i> <span>Skills & Expertise</span></li>
-                </ul>
             </div>
-            <div class="sidebar-footer">
-                <button id="logout-button-sidebar" class="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            
+            <!-- Widget 3: Applications -->
+            <div class="widget">
+                <div class="widget-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="widget-content">
+                    <h3>My Applications</h3>
+                    <p>Track the status of all your job applications in one place.</p>
+                    <a href="/applications.html" class="widget-link">View Applications →</a>
+                </div>
             </div>
-        </aside>
+        </section>
+    </main>
 
-        <!-- ===== Main Content Area ===== -->
-        <main class="main-content">
-            <!-- Top Navigation Bar within the main content -->
-            <header class="main-header">
-                <div class="header-title">Dashboard</div>
-                <nav class="header-nav">
-                    <a href="#" class="nav-link active">Dashboard</a>
-                    <a href="#" class="nav-link">Practice</a>
-                    <a href="#" class="nav-link">Jobs</a>
-                    <a href="#" class="nav-link">Profile</a>
-                </nav>
-            </header>
+    <footer>
+        <p>Made with <span class="heart">❤️</span> by Abhi</p>
+        <p>© 2025 College Placement System. All rights reserved.</p>
+    </footer>
 
-            <!-- Welcome Banner -->
-            <section class="welcome-banner">
-                <div>
-                    <h1 id="welcome-message">Welcome back, Abhi!</h1>
-                    <p>Track your progress, find jobs, and improve your skills.</p>
-                </div>
-                <a href="#" class="btn btn-primary"><i class="fas fa-search"></i> Find a Job</a>
-            </section>
-
-            <!-- Stats Grid -->
-            <section class="stats-grid">
-                <div class="stat-card">
-                    <i class="fas fa-file-signature"></i>
-                    <div class="stat-info">
-                        <h3>Applications Sent</h3>
-                        <p>0</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-eye"></i>
-                    <div class="stat-info">
-                        <h3>Profile Views</h3>
-                        <p>0</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-check-circle"></i>
-                    <div class="stat-info">
-                        <h3>Profile Completion</h3>
-                        <p>40%</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Main Content Grid (History & Jobs) -->
-            <section class="content-grid">
-                <div class="card" id="application-history">
-                    <div class="card-header">
-                        <h3>Application History</h3>
-                        <span>Your recent applications</span>
-                    </div>
-                    <div class="card-body empty-state">
-                        <i class="fas fa-folder-open"></i>
-                        <h4>No Applications Yet</h4>
-                        <p>Start your first application to see your history here.</p>
-                        <a href="#" class="btn btn-secondary">Apply to Jobs</a>
-                    </div>
-                </div>
-
-                <div class="card" id="featured-jobs">
-                    <div class="card-header">
-                        <h3>Featured Jobs</h3>
-                        <span>Top companies hiring now</span>
-                    </div>
-                    <ul class="job-list">
-                        <li>
-                            <div class="job-info">
-                                <h4>Software Engineer Intern</h4>
-                                <p>Google</p>
-                            </div>
-                            <span class="job-location">Remote</span>
-                        </li>
-                        <li>
-                            <div class="job-info">
-                                <h4>Frontend Developer</h4>
-                                <p>Microsoft</p>
-                            </div>
-                            <span class="job-location">Hyderabad</span>
-                        </li>
-                        <li>
-                            <div class="job-info">
-                                <h4>Data Analyst</h4>
-                                <p>Amazon</p>
-                            </div>
-                            <span class="job-location">Bangalore</span>
-                        </li>
-                    </ul>
-                    <div class="card-footer">
-                        <a href="#">View all jobs →</a>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- We no longer need the separate auth.js; logic is now in dashboard.js -->
+    <!-- This script is essential for checking login status and protecting the page -->
+    <script src="auth.js"></script> 
+    <!-- This script is specific to the dashboard page's functionality -->
     <script src="dashboard.js"></script>
 </body>
 </html>

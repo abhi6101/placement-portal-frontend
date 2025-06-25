@@ -1,51 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Authentication Check ---
-    const authToken = localStorage.getItem('authToken');
-    if (!authToken) {
-        // If no token, redirect to login page immediately
-        window.location.href = '/login.html';
-        return; // Stop script execution
-    }
-
-    // --- Element References ---
-    const logoutButton = document.getElementById('logout-button-sidebar');
     const welcomeMessage = document.getElementById('welcome-message');
-    const userFullName = document.getElementById('user-fullname');
-    const userHandle = document.getElementById('user-handle');
-    const userInitial = document.getElementById('user-initial');
+    const authToken = localStorage.getItem('authToken');
 
-    // --- Logout Functionality ---
-    const handleLogout = () => {
-        localStorage.removeItem('authToken');
-        window.location.href = '/login.html';
-    };
+    // This function will fetch user data from a protected backend endpoint
+    const fetchUserProfile = async () => {
+        if (!authToken) {
+            // This is a fallback, auth.js should have already redirected
+            console.error('No auth token found.');
+            return;
+        }
 
-    if (logoutButton) {
-        logoutButton.addEventListener('click', handleLogout);
-    }
-    
-    // --- Fetch User Data (Placeholder) ---
-    // In the future, you will fetch user data from your backend here.
-    // For now, we'll use mock data.
-    const fetchAndDisplayUserData = () => {
-        // MOCK USER DATA (Replace with a real API call)
-        const mockUser = {
-            fullName: "Abhi Jain",
-            username: "@abhi21",
-            // You would get other details like company, location etc. here
-        };
+        try {
+            // **IMPORTANT**: You need to create this backend endpoint
+            const response = await fetch('https://placement-portal-backend-nwaj.onrender.com/api/user/profile', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // The token is sent in the Authorization header
+                    'Authorization': `Bearer ${authToken}`
+                }
+            });
 
-        // Populate the UI with user data
-        if (mockUser) {
-            welcomeMessage.textContent = `Welcome back, ${mockUser.fullName.split(' ')[0]}!`;
-            userFullName.textContent = mockUser.fullName;
-            userHandle.textContent = mockUser.username;
-            if (mockUser.fullName) {
-                userInitial.textContent = mockUser.fullName.charAt(0).toUpperCase();
+            if (response.ok) {
+                const user = await response.json();
+                // Personalize the welcome message
+                welcomeMessage.textContent = `Welcome, ${user.username}!`;
+            } else {
+                // If token is invalid or expired, backend will likely return 401/403
+                console.error('Failed to fetch user profile:', response.statusText);
+                // The auth.js script should handle redirecting on token failure,
+                // but we can also force it here.
+                localStorage.removeItem('authToken');
+                window.location.href = '/login.html';
             }
+        } catch (error) {
+            console.error('Error fetching user profile:', error);
+            welcomeMessage.textContent = 'Welcome!'; // Fallback message
         }
     };
-    
-    // Call the function to display user data
-    fetchAndDisplayUserData();
+
+    // Run the function to get user data when the page loads
+    fetchUserProfile();
 });
