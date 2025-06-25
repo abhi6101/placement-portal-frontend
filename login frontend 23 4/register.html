@@ -5,8 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | Hack-2-Hired</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link to new external stylesheet -->
     <link rel="stylesheet" href="register.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
 </head>
 
 <body>
@@ -18,20 +28,22 @@
         </ul>
     </nav>
 
-    <div class="register-container">
-        <div id="persistent-alert-message" class="alert alert-info initial-state">
+    <main class="register-page-container">
+        <!-- Step 1: Instructions Card -->
+        <div id="instructions-card" class="register-card surface-glow">
             <div id="instruction-content"></div>
             <div class="checkbox-container">
                 <input type="checkbox" id="readInstructionsCheckbox">
                 <label for="readInstructionsCheckbox">I have read and understood these instructions.</label>
             </div>
-            <button type="button" id="proceedToRegisterBtn" class="btn">Proceed to Registration <i class="fas fa-arrow-right"></i></button>
+            <button type="button" id="proceedToRegisterBtn" class="btn btn-primary">Proceed to Registration <i class="fas fa-arrow-right"></i></button>
             <div id="instruction-error-message" class="alert alert-error" style="display:none; margin-top: 1rem;"></div>
         </div>
 
-        <section class="register" style="display:none;">
+        <!-- Step 2: Registration Form Card (initially hidden) -->
+        <section id="register-form-card" class="register-card surface-glow" style="display:none;">
             <h1>Create Your Account</h1>
-            <p>Join our placement portal to access job opportunities, courses, and career resources.</p>
+            <p class="subtitle">Join our portal to access exclusive job opportunities and resources.</p>
 
             <div id="error-message" class="alert alert-error" style="display:none;"></div>
             <div id="success-message" class="alert alert-success" style="display:none;"></div>
@@ -39,27 +51,27 @@
             <form id="registrationForm">
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required placeholder="e.g., @yourusername (lowercase, no spaces)">
-                    <small>Must start with '@', be lowercase after '@', and contain no spaces.</small>
+                    <input type="text" id="username" name="username" required placeholder="e.g., @yourusername">
+                    <small>Must start with '@', be lowercase, and have no spaces.</small>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
                 </div>
 
                 <div class="form-group">
                     <label for="role">Select Role</label>
                     <select id="role" name="role" required>
-                        <option value="">--Select Role--</option>
+                        <option value="">-- Please Select a Role --</option>
                         <option value="USER">Student</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Create a password">
-                    <small>Minimum 8 characters with at least 1 number and 1 special character</small>
+                    <input type="password" id="password" name="password" required placeholder="Create a strong password">
+                    <small>Min. 8 characters, with 1 number & 1 special character.</small>
                 </div>
 
                 <div class="form-group">
@@ -67,19 +79,14 @@
                     <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
                 </div>
 
-                <button type="submit" id="registerButton">
+                <button type="submit" id="registerButton" class="btn btn-primary">
                     <span class="button-text">Register Now <i class="fas fa-user-plus"></i></span>
                     <span class="spinner"></span>
                 </button>
             </form>
-            <p>Already have an account? <a href="login.html">Login here</a></p>
+            <p class="form-footer-text">Already have an account? <a href="login.html">Login here</a></p>
         </section>
-    </div>
-
-    <footer>
-        <p>Made with <span class="heart">❤️</span> by Abhi</p>
-        <p> 2025 College Placement System. All rights reserved.</p>
-    </footer>
+    </main>
 
     <script src="register.js"></script>
 </body>
