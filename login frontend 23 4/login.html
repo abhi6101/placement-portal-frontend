@@ -6,457 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Hack-2-Hired</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="login.css"> <!-- Link to your external CSS -->
-
-
-    <style>
-       :root {
-    /* Keep your existing color palette but adjust light/dark */
-    --primary: #00d4ff;
-    --secondary: #0077b6;
-    --dark: #e0f2f7; /* Changed to a light color for text on dark background */
-    --light: #1a1a2e; /* New dark background */
-    --background-accent: #0f0f1d; /* Slightly darker accent for gradient */
-    --gray: #b0c4de; /* Lighter gray for secondary text */
-    --accent: #ff7b00;
-    --error: #dc3545;
-    --success: #28a745;
-    --link-hover: #0096d2;
-    --button-hover-shadow: rgba(0, 212, 255, 0.4);
-
-    /* Animation variables remain */
-    --animation-duration: 0.6s;
-    --animation-ease: cubic-bezier(0.23, 1, 0.32, 1);
-    --fade-in-duration: 0.8s;
-}
-
-/* Global Box-sizing and Font */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-
-/* Body Styling - Now with Dark Gradient Background Animation */
-body {
-    background: linear-gradient(135deg, var(--light) 0%, var(--background-accent) 100%); /* Dark gradient */
-    color: var(--dark); /* Light text on dark background */
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-    animation: backgroundShift 15s infinite alternate ease-in-out; /* Slow, continuous background animation */
-}
-
-/* Keyframes for background animation */
-@keyframes backgroundShift {
-    0% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 100% 50%;
-    }
-}
-
-/* Navigation Bar - Subtle entrance animation */
-nav {
-    background-color: rgba(255, 255, 255, 0.05); /* Slightly transparent white for a modern look */
-    backdrop-filter: blur(10px); /* Frosted glass effect */
-    -webkit-backdrop-filter: blur(10px); /* For Safari */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Darker shadow for contrast */
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
-    opacity: 0;
-    transform: translateY(-20px);
-    animation: fadeInSlideDown var(--fade-in-duration) forwards ease-out;
-}
-
-.logo {
-    font-size: 2rem;
-    font-weight: 800;
-    /* Keeping the gradient for the logo is good for branding */
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.5px;
-}
-
-nav ul {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-    align-items: center;
-    margin: 0;
-}
-
-nav ul a {
-    color: var(--dark); /* Light text for nav links */
-    text-decoration: none;
-    font-weight: 600;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease, transform 0.2s ease;
-}
-
-nav ul a:hover {
-    color: var(--accent);
-    transform: translateY(-2px) scale(1.05);
-}
-
-nav ul a .fas {
-    margin-right: 0.5rem;
-}
-
-/* Login Section */
-.login {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 1rem;
-}
-
-.login-card {
-    max-width: 450px;
-    width: 100%;
-    padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.08); /* Slightly transparent white for content */
-    backdrop-filter: blur(15px); /* Stronger frosted glass for card */
-    -webkit-backdrop-filter: blur(15px);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
-    transform: scale(0.9);
-    opacity: 0;
-    animation: cardPopIn var(--fade-in-duration) var(--animation-ease) forwards calc(var(--fade-in-duration) * 0.5);
-}
-
-@keyframes cardPopIn {
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.login h1 {
-    text-align: center;
-    margin-bottom: 2.5rem;
-    font-size: 2.2rem;
-    font-weight: 700;
-    /* Keeping the gradient for the heading is effective */
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.8px;
-    transform: translateY(-10px);
-    opacity: 0;
-    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.2s);
-}
-
-@keyframes fadeInSlideUp {
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.login form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.8rem;
-}
-
-.login label {
-    font-weight: 600;
-    color: var(--dark); /* Light text for labels */
-    font-size: 0.95rem;
-    margin-bottom: 0.2rem;
-}
-
-.login input {
-    padding: 1rem 1.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border for inputs */
-    background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent dark background for inputs */
-    color: var(--dark); /* Light text color for input values */
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    width: 100%;
-    transform: translateX(-20px);
-    opacity: 0;
-    animation: fadeInSlideRight var(--fade-in-duration) forwards ease-out;
-}
-
-@keyframes fadeInSlideRight {
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Individual input delays for staggered effect */
-.login input:nth-of-type(1) {
-    animation-delay: calc(var(--fade-in-duration) + 0.4s);
-}
-.login input:nth-of-type(2) {
-    animation-delay: calc(var(--fade-in-duration) + 0.6s);
-}
-
-.login input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.4); /* Stronger, more vibrant glow on focus */
-    background-color: rgba(0, 0, 0, 0.4); /* Slightly darker on focus */
-}
-
-.login button {
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-    color: white; /* Button text remains white */
-    padding: 1rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s var(--animation-ease);
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Darker shadow for button */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    transform: translateY(20px);
-    opacity: 0;
-    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.8s);
-}
-
-.login button:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 8px 20px var(--button-hover-shadow);
-    background: linear-gradient(to right, var(--primary), #008cc7);
-}
-
-.login p {
-    text-align: center;
-    margin-top: 2rem;
-    color: var(--gray); /* Lighter gray for paragraph text */
-    font-size: 0.95rem;
-    transform: translateY(20px);
-    opacity: 0;
-    animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 1s);
-}
-
-.login a {
-    color: var(--primary); /* Use primary for links to stand out */
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease, text-decoration 0.3s ease, transform 0.2s ease;
-}
-
-.login a:hover {
-    color: var(--link-hover);
-    text-decoration: underline;
-    transform: scale(1.05);
-}
-
-/* Alert Messages - Adjust colors for dark theme readability */
-.alert {
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 1.8rem;
-    font-weight: 500;
-    opacity: 0;
-    transform: translateY(-10px);
-    animation: fadeInSlideDown 0.5s forwards ease-out;
-}
-
-.alert-error {
-    background-color: rgba(220, 53, 69, 0.25); /* More opaque for visibility */
-    color: var(--error);
-    border-left: 5px solid var(--error);
-}
-
-.alert-success {
-    background-color: rgba(40, 167, 69, 0.25); /* More opaque for visibility */
-    color: var(--success);
-    border-left: 5px solid var(--success);
-}
-
-@keyframes fadeInSlideDown {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Spinner specific CSS - Remains white */
-.spinner {
-    display: none;
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid white;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    animation: spin 1s linear infinite;
-    margin-left: 10px;
-    vertical-align: middle;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.login button:disabled {
-    cursor: not-allowed;
-    opacity: 0.8;
-    box-shadow: none;
-    transform: none;
-}
-
-.login button.loading .button-text {
-    display: none;
-}
-
-.login button.loading .spinner {
-    display: block;
-}
-
-/* Media Queries for Responsiveness - No changes here */
-@media (max-width: 768px) {
-    nav {
-        padding: 0.8rem 1rem;
-    }
-
-    .logo {
-        font-size: 1.6rem;
-    }
-
-    nav ul {
-        gap: 1rem;
-    }
-
-    .login-card {
-        margin: 2rem 1rem;
-        padding: 2rem;
-        border-radius: 10px;
-    }
-
-    .login h1 {
-        font-size: 1.8rem;
-        margin-bottom: 2rem;
-    }
-
-    .login form {
-        gap: 1.5rem;
-    }
-
-    .login input,
-    .login button {
-        padding: 0.9rem 1rem;
-        font-size: 0.95rem;
-    }
-
-    .login p {
-        margin-top: 1.5rem;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem;
-    }
-
-    nav ul {
-        margin-top: 1rem;
-        width: 100%;
-        justify-content: space-around;
-        gap: 0.5rem;
-    }
-
-    nav ul li {
-        width: 50%;
-        text-align: center;
-    }
-
-    nav ul a {
-        display: block;
-        padding: 0.5rem;
-    }
-
-    .login-card {
-        margin: 1.5rem 0.8rem;
-        padding: 1.5rem;
-    }
-
-    .login h1 {
-        font-size: 1.6rem;
-        margin-bottom: 1.8rem;
-    }
-}
-/* Add these styles to your login.css file */
-
-.form-group {
-    /* Adding this helps contain the label and the input wrapper */
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-/* Ensure the input inside the wrapper takes full width and has space for the icon */
-.input-wrapper input {
-    width: 100%;
-    /* You already have padding, so we just add padding-right */
-    padding-right: 3.5rem !important; /* Make space on the right for the icon */
-}
-
-/* Style for the password visibility toggle icon */
-.toggle-password-visibility {
-    position: absolute;
-    right: 1.2rem; /* Position from the right edge of the wrapper */
-    top: 50%;
-    transform: translateY(-50%); /* Perfectly center vertically */
-    cursor: pointer;
-    color: var(--gray); /* Use a subtle color from your theme */
-    transition: color 0.3s ease;
-    z-index: 2; /* Ensure it's above the input field */
-}
-
-.toggle-password-visibility:hover {
-    color: var(--primary); /* Highlight color on hover */
-}
-    </style>
-
-
+    
+    <!-- Link to GLOBAL styles first, then page-specific styles -->
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
+    <!-- Consistent Navigation Bar -->
     <nav>
         <div class="logo">Hack-2-<span>Hired</span></div>
-        <ul style="display: flex; gap: 1rem; list-style: none; align-items: center; margin: 0;">
+        <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="register.html"><i class="fas fa-user-plus"></i> Register</a></li>
         </ul>
     </nav>
 
-    <section class="login">
+    <!-- Main Content Area -->
+    <main class="login-container">
         <div class="login-card">
             <h1>Login</h1>
             <div id="error-message" class="alert alert-error" role="alert" style="display:none;"></div>
@@ -464,30 +31,34 @@ nav ul a .fas {
 
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required placeholder="Enter your username"
-                        aria-label="Username input">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                         <input type="text" id="username" name="username" required placeholder="e.g., @yourusername">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password:</label>
-                    <!-- START: Added input-wrapper and icon -->
+                    <label for="password">Password</label>
                     <div class="input-wrapper">
-                        <input type="password" id="password" name="password" required placeholder="Enter your password"
-                            aria-label="Password input">
+                        <input type="password" id="password" name="password" required placeholder="Enter your password">
                         <i class="fas fa-eye toggle-password-visibility" id="togglePassword"></i>
                     </div>
-                    <!-- END: Added input-wrapper and icon -->
                 </div>
 
-                <button type="submit" id="loginButton">
+                <button type="submit" id="loginButton" class="btn">
                     <span class="button-text">Login <i class="fas fa-sign-in-alt"></i></span>
                     <span class="spinner"></span>
                 </button>
             </form>
             <p>Don't have an account? <a href="register.html">Register here</a></p>
         </div>
-    </section>
+    </main>
+
+    <!-- Consistent Footer -->
+    <footer>
+        <p>Made with <span class="heart">❤️</span> by Abhi</p>
+        <p>© 2025 College Placement System. All rights reserved.</p>
+    </footer>
 
     <script src="login.js"></script>
 </body>
