@@ -1,61 +1,1133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Insights Blog | Hack-2-Hired</title>
-    <meta name="description" content="Explore expert career advice, latest industry trends, and essential placement preparation tips on the Hack-2-Hired blog.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="blog.css">
+    <title>Career Insights Blog | Hack-2-Hired - Your Guide to Success</title>
+    <meta name="description"
+        content="Explore expert career advice, latest industry trends, and essential placement preparation tips on the Placements Adda blog. Your ultimate resource for college placements.">
+    <meta name="keywords"
+        content="career insights, placement tips, job preparation, interview guides, resume building, tech careers, industry trends, Placements Adda blog">
+    <meta name="author" content="Abhi Jain">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+    <style>
+        /* CSS Variables for better maintainability */
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --text-color: #333;
+            --bg-color: #f5f7fa;
+            --card-bg: white;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Using a more common and legible font-family stack */
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Global Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            gap: 0.5rem;
+            /* Added gap for icon alignment */
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            /* Allows items to wrap on smaller screens */
+            gap: 1rem;
+            /* Space between logo and contact info */
+        }
+
+        .top-nav .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .top-nav .logo span {
+            color: var(--primary);
+        }
+
+        .top-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            /* Allows contact info to wrap */
+        }
+
+        .top-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .top-nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Main Navigation Bar */
+       /* Main Navigation Bar */
+.main-nav {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 10px var(--shadow-medium);
+    padding: 0.8rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex; /* Added flex for alignment of toggle and menu */
+    justify-content: flex-start; /* Changed from flex-end to flex-start */
+    align-items: center; /* Vertically align toggle and menu */
+}
+
+        .main-nav .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            overflow-x: auto;
+            /* Enables horizontal scrolling for many items */
+            padding-bottom: 0.5rem;
+            /* Hide scrollbar for a cleaner look, but keep functionality */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .main-nav .nav-links::-webkit-scrollbar {
+            /* Chrome, Safari, Opera */
+            display: none;
+        }
+
+
+        .main-nav li {
+            flex-shrink: 0;
+            /* Prevents items from shrinking */
+        }
+
+        .main-nav a,
+        .main-nav button {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .main-nav a:hover,
+        .main-nav button:hover {
+            color: var(--primary);
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+
+        .main-nav a.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+        }
+
+        /* Hamburger Menu Icon */
+        .menu-toggle {
+            display: none; /* Hidden by default, shown in media query */
+            background-color: var(--primary); /* Button background */
+            color: white; /* Button text color */
+            border: none;
+            border-radius: 5px;
+            padding: 0.6rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: none; /* Hidden by default, shown in media query */
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background-color: var(--secondary);
+        }
+
+        .menu-toggle:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Ensure the image path is correct or accessible */
+            background: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Blog Posts Section */
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            /* Adjusted minmax for better layout on smaller desktops */
+            gap: 2.5rem;
+            /* Increased gap for better spacing */
+            margin: 3rem 0;
+        }
+
+        .post {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            /* Ensures content stacks nicely */
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-medium);
+        }
+
+        .post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .post-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            /* Allows content area to expand */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .post h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .post p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            /* Allows paragraph to take up available space */
+        }
+
+        .post .category-tags {
+            margin-bottom: 1rem;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .post .btn {
+            align-self: flex-start;
+            /* Aligns button to the start within the flex column */
+        }
+
+        /* Categories Section - Moved here for logical flow */
+        .categories {
+            margin: 3rem 0;
+            text-align: center;
+            /* Center the heading and tags */
+        }
+
+        .categories h2 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            /* Increased gap for better spacing */
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .category-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
+            /* Prevent tags from breaking into multiple lines */
+        }
+
+        .category-tag:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
+        }
+
+        .category-tag.active {
+            background: var(--primary);
+            color: white;
+        }
+
+
+        /* Newsletter Section */
+        .newsletter {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 4rem auto;
+            /* Changed to auto for horizontal centering */
+            max-width: 800px;
+            /* Added max-width */
+            box-shadow: 0 5px 15px var(--shadow-light);
+        }
+
+        .newsletter h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .newsletter p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+        }
+
+        .newsletter-form button {
+            padding: 0 2rem;
+            /* Ensure button styles from .btn apply correctly */
+            height: 48px;
+            /* Match input height for visual alignment */
+            line-height: 1;
+            /* Adjust line height for vertical centering */
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 5rem;
+            /* Add some space above the footer */
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            /* Adjusted minmax for slightly larger columns */
+            gap: 2rem;
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+            gap: 0.5rem;
+        }
+
+        .pagination a,
+        .pagination span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 2px 5px var(--shadow-light);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .pagination a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .pagination .active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Style for the dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--card-bg);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            top: 100%;
+            /* Position below the Courses button */
+            left: 0;
+            margin-top: 5px;
+            /* Small gap between button and dropdown */
+        }
+
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-weight: 400;
+            /* Adjust font weight for dropdown items */
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .blog-posts {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                /* Adjust for slightly smaller screens */
+            }
+        }
+
+
+        @media (max-width: 768px) {
+
+            .top-nav {
+                flex-direction: column;
+                padding: 1rem;
+                align-items: center; /* Center items when stacked */
+            }
+
+            .top-nav .logo {
+                margin-bottom: 1rem; /* Add space below logo */
+            }
+
+            .top-nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%; /* Ensure lists take full width */
+            }
+
+            /* Main navigation for mobile */
+            .main-nav {
+                flex-direction: column;
+                align-items: flex-start; /* Align menu-toggle to the left */
+                padding: 0.8rem 1rem;
+                position: relative;
+            }
+
+            .main-nav .menu-toggle {
+                display: flex; /* Show menu button on mobile */
+                width: 100%; /* Make button full width */
+                justify-content: center; /* Center content of the button */
+            }
+
+            .main-nav .nav-links {
+                display: none; /* Hide navigation links by default on mobile */
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--card-bg);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                padding: 1rem 0;
+                margin-top: 1rem; /* Space below the toggle button */
+                text-align: center;
+                gap: 0; /* Remove gap for vertical stacking */
+            }
+
+            .main-nav .nav-links.active {
+                display: flex; /* Show navigation links when active */
+            }
+
+            .main-nav .nav-links li {
+                width: 100%;
+                margin-bottom: 0.5rem; /* Space between menu items */
+            }
+
+            .main-nav .nav-links li:last-child {
+                margin-bottom: 0;
+            }
+
+            .main-nav .nav-links a,
+            .main-nav .nav-links .dropbtn {
+                width: 100%;
+                justify-content: center; /* Center text/icon in menu items */
+                padding: 0.8rem 1rem;
+            }
+
+
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .blog-posts {
+                grid-template-columns: 1fr;
+                /* Single column on small screens */
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form button {
+                width: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                /* Stack columns on small screens */
+                text-align: center;
+                /* Center footer content */
+            }
+
+            .social-links {
+                justify-content: center;
+                /* Center social links */
+            }
+
+            /* Adjust dropdown for mobile when menu is active */
+            .dropdown {
+                width: 100%; /* Make dropdown button full width */
+                text-align: center;
+            }
+
+            .dropdown .dropbtn {
+                width: 100%;
+                justify-content: center; /* Center content in the button */
+            }
+
+            .dropdown-content {
+                position: static; /* Remove absolute positioning */
+                display: none; /* Hide content by default on mobile, revealed by JS */
+                width: 100%;
+                box-shadow: none; /* Remove shadow */
+                border-top: 1px solid rgba(0, 0, 0, 0.1); /* Add a separator */
+                border-radius: 0;
+            }
+            /* Show dropdown content when dropdown button is clicked (handled by JS) */
+            .dropdown-content.active {
+                display: block;
+            }
+
+            .dropdown-content a {
+                padding-left: 2rem; /* Indent dropdown items */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-nav,
+            .main-nav {
+                padding: 0.8rem 1rem;
+            }
+
+            .top-nav ul,
+            .main-nav ul {
+                gap: 0.8rem;
+            }
+
+            .top-nav .logo {
+                font-size: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .post-content {
+                padding: 1rem;
+            }
+
+            .newsletter h2 {
+                font-size: 1.6rem;
+            }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+            }
+
+            .footer-column h3 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Single, Consistent Navigation Bar -->
-    <nav>
-        <div class="logo">Hack-2-<span>Hired</span></div>
-        <ul>
+    <nav class="top-nav">
+         <div class="logo">Hack-2-<span>Hired</span></div>
+        <!-- <ul>
+            <li><a href="mailto:abhijain6101@gmail.com" aria-label="Email us at abhijain6101@gmail.com"><i
+                        class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
+            <li><a href="tel:+91-6266017070" aria-label="Call us at +91-6266017070"><i class="fas fa-phone"></i>
+                        +91-6266017070</a></li>
+        </ul> -->
+    </nav>
+
+    <nav class="main-nav">
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+
+        <ul class="nav-links">
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <!-- <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li> -->
+            <!-- <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li> -->
+            <!-- <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li> -->
+            <!-- <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li> -->
+            <!-- <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li> -->
             <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
             <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
-            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <!-- <li class="dropdown">
+                <button class="dropbtn"><i class="fas fa-book"></i> Courses <i class="fas fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="courses.html">All Courses</a>
+                    <a href="web_development.html">Web Development</a>
+                    <a href="data_science.html">Data Science</a>
+                    <a href="digital_marketing.html">Digital Marketing</a>
+                    <a href="graphic_design.html">Graphic Design</a>
+                </div>
+            </li> -->
             <li><a href="blog.html" class="active"><i class="fas fa-blog"></i> Blog</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Main Content Area -->
-    <main>
-        <header class="hero">
-            <div class="hero-content">
-                <h1>Career Insights Blog</h1>
-                <p>Expert advice, industry trends, and placement tips from our career specialists.</p>
-                <a href="#blog-posts-section" class="btn">Explore Posts <i class="fas fa-arrow-down"></i></a>
-            </div>
-        </header>
-
-        <div class="blog-container">
-            <section class="categories" aria-labelledby="categories-heading">
-                <h2 id="categories-heading">Explore by Category</h2>
-                <div class="category-tags" id="categoryTags">
-                    <span class="category-tag active" data-category="all">All Posts</span>
-                    <span class="category-tag" data-category="tech-skills">Tech Skills</span>
-                    <span class="category-tag" data-category="career-growth">Career Growth</span>
-                    <span class="category-tag" data-category="interview-tips">Interview Tips</span>
-                    <span class="category-tag" data-category="resume-advice">Resume Advice</span>
-                </div>
-            </section>
-
-            <section class="blog-posts" id="blog-posts-section">
-                <!-- Blog posts will be dynamically generated by JS -->
-            </section>
+    <header class="hero" role="banner">
+        <div class="hero-content">
+            <h1>Career Insights Blog</h1>
+            <p>Get expert advice, industry trends, and placement preparation tips from our career specialists.</p>
+            <a href="#blog-posts-section" class="btn">Explore Posts <i class="fas fa-arrow-down"></i></a>
         </div>
+    </header>
+
+    <main class="container">
+        <section class="categories" aria-labelledby="categories-heading">
+            <h2 id="categories-heading">Explore by Category</h2>
+            <div class="category-tags" id="categoryTags">
+                <span class="category-tag active" data-category="all">All Posts</span>
+                <span class="category-tag" data-category="tech-skills">Tech Skills</span>
+                <span class="category-tag" data-category="career-growth">Career Growth</span>
+                <span class="category-tag" data-category="interview-tips">Interview Tips</span>
+                <span class="category-tag" data-category="resume-advice">Resume Advice</span>
+                <span class="category-tag" data-category="industry-trends">Industry Trends</span>
+            </div>
+        </section>
+
+        <hr>
+        <section class="blog-posts" id="blog-posts-section" aria-labelledby="recent-posts-heading">
+            <h2 id="recent-posts-heading" class="sr-only">Recent Blog Posts</h2> <article class="post"
+                data-categories="tech-skills">
+                <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Laptop showing Java code" loading="lazy">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> June 15, 2025</span>
+                        <span><i class="far fa-eye"></i> 1.2K views</span>
+                    </div>
+                    <h2>Understanding Java for Beginners</h2>
+                    <p>Java remains one of the most in-demand programming languages. Learn core concepts, OOP
+                        principles, and best practices to kickstart your programming journey...</p>
+                    <div class="category-tags">
+                        <span class="category-tag">Tech Skills</span>
+                    </div>
+                    <a href="post1.html" class="btn">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="post" data-categories="tech-skills industry-trends">
+                <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Person coding on a laptop, showing web development" loading="lazy">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> June 10, 2025</span>
+                        <span><i class="far fa-eye"></i> 2.4K views</span>
+                    </div>
+                    <h2>Web Development Trends in 2025</h2>
+                    <p>The web development landscape is evolving rapidly. Discover the top frameworks, tools, and
+                        methodologies that will dominate in 2025 and how to prepare for them...</p>
+                    <div class="category-tags">
+                        <span class="category-tag">Tech Skills</span>
+                        <span class="category-tag">Industry Trends</span>
+                    </div>
+                    <a href="post2.html" class="btn">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="post" data-categories="career-growth">
+                <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Abstract image representing IT career path" loading="lazy">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> June 5, 2025</span>
+                        <span><i class="far fa-eye"></i> 3.1K views</span>
+                    </div>
+                    <h2>Tips for a Successful IT Career</h2>
+                    <p>Building a thriving career in IT requires more than just technical skills. Learn the essential
+                        soft skills, networking strategies, and career planning techniques...</p>
+                    <div class="category-tags">
+                        <span class="category-tag">Career Growth</span>
+                    </div>
+                    <a href="post3.html" class="btn">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="post" data-categories="resume-advice interview-tips">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Resume on a laptop screen" loading="lazy">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> May 28, 2025</span>
+                        <span><i class="far fa-eye"></i> 4.7K views</span>
+                    </div>
+                    <h2>Crafting the Perfect Tech Resume</h2>
+                    <p>Your resume is your first impression. Discover how to highlight technical skills, projects, and
+                        achievements to stand out in competitive tech job markets...</p>
+                    <div class="category-tags">
+                        <span class="category-tag">Resume Advice</span>
+                        <span class="category-tag">Interview Tips</span>
+                    </div>
+                    <a href="post4.html" class="btn">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="post" data-categories="interview-tips tech-skills">
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Two people shaking hands, representing an interview" loading="lazy">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> May 20, 2025</span>
+                        <span><i class="far fa-eye"></i> 5.3K views</span>
+                    </div>
+                    <h2>Acing Technical Interviews</h2>
+                    <p>Technical interviews can be daunting. Learn proven strategies to solve coding problems, explain
+                        your thought process, and impress your interviewers...</p>
+                    <div class="category-tags">
+                        <span class="category-tag">Interview Tips</span>
+                        <span class="category-tag">Tech Skills</span>
+                    </div>
+                    <a href="post5.html" class="btn">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="post" data-categories="career-growth industry-trends">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                    alt="Laptop and notes, representing freelancing" loading="lazy">
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar-alt"></i> May 15, 2025</span>
+                        <span><i class="far fa-eye"></i> 2.8K views</span>
+                    </div>
+                    <h2>Freelancing in Tech: Getting Started</h2>
+                    <p>Explore the world of tech freelancing - from finding clients and setting rates to managing
+                        projects and building your personal brand in the industry...</p>
+                    <div class="category-tags">
+                        <span class="category-tag">Career Growth</span>
+                        <span class="category-tag">Industry Trends</span>
+                    </div>
+                    <a href="post6.html" class="btn">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        </section>
+
+        <hr>
+
+        <nav class="pagination" aria-label="Blog post navigation">
+            <a href="#" class="prev" aria-label="Previous page"><i class="fas fa-chevron-left"></i></a>
+            <a href="#" class="active" aria-current="page">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <span class="ellipsis">...</span>
+            <a href="#">10</a>
+            <a href="#" class="next" aria-label="Next page"><i class="fas fa-chevron-right"></i></a>
+        </nav>
+
+        <section class="newsletter" aria-labelledby="newsletter-heading">
+            <h2 id="newsletter-heading">Stay Updated with Our Newsletter!</h2>
+            <p>Get the latest career insights, job alerts, and exclusive tips delivered straight to your inbox.</p>
+            <form class="newsletter-form" action="#" method="POST">
+                <label for="email-subscribe" class="sr-only">Enter your email address</label>
+                <input type="email" id="email-subscribe" placeholder="Your email address"
+                    aria-label="Your email address" required>
+                <button type="submit" class="btn">Subscribe <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </section>
+
     </main>
 
-    <!-- Consistent Footer -->
-    <footer>
-        <p>Made with <span class="heart">❤️</span> by Abhi</p>
-        <p>© 2025 College Placement System. All rights reserved.</p>
+    <footer role="contentinfo">
+        <div class="footer-content container">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="jobs.html">Job Openings</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="resume.html">Resume Builder</a></li>
+                    <li><a href="interview.html">Interview Prep</a></li>
+                    <li><a href="videos.html">Study Materials</a></li>
+                    <li><a href="index.html">Career Guides</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="contact.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="contact.html">Privacy Policy</a></li>
+                    <li><a href="contact.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                </div>
+                <p style="margin-top: 1.5rem; color: #ccc;">abhijain6101@gmail.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+             <p>Made with <span class="heart">❤️</span> by Abhi</p>
+        <p> 2025 College Placement System. All rights reserved.</p>
+        </div>
     </footer>
 
-    <script src="blog.js"></script>
+    <script>
+        // JavaScript for category filtering (optional, but enhances UX)
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryTags = document.querySelectorAll('.category-tag');
+            const blogPosts = document.querySelectorAll('.post');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const dropdownBtn = document.querySelector('.dropbtn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+
+            // Category Filtering
+            categoryTags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    categoryTags.forEach(t => t.classList.remove('active'));
+                    tag.classList.add('active');
+
+                    const selectedCategory = tag.dataset.category;
+
+                    blogPosts.forEach(post => {
+                        const postCategories = post.dataset.categories.split(' ');
+                        if (selectedCategory === 'all' || postCategories.includes(selectedCategory)) {
+                            post.style.display = 'flex'; // Show the post
+                        } else {
+                            post.style.display = 'none'; // Hide the post
+                        }
+                    });
+                });
+            });
+
+            // Mobile Menu Toggle
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                // Close dropdown if it's open when menu is toggled off
+                if (!navLinks.classList.contains('active') && dropdownContent.classList.contains('active')) {
+                    dropdownContent.classList.remove('active');
+                }
+            });
+
+            // Dropdown Toggle for Mobile (if main menu is active)
+            dropdownBtn.addEventListener('click', (event) => {
+                // Only toggle dropdown if main nav links are active (on mobile)
+                // or if it's a desktop view (where navLinks is always visible)
+                if (window.innerWidth <= 768 || navLinks.classList.contains('active')) {
+                    dropdownContent.classList.toggle('active');
+                    event.stopPropagation(); // Prevent click from bubbling up and closing menu immediately
+                }
+            });
+
+            // Close menu and dropdown when a link is clicked (optional, but good for UX)
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                        dropdownContent.classList.remove('active'); // Close dropdown too
+                    }
+                });
+            });
+
+            // Close dropdown if clicking outside (for desktop and mobile after menu is open)
+            document.addEventListener('click', (event) => {
+                if (!dropdownBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
+                    if (dropdownContent.classList.contains('active')) {
+                        dropdownContent.classList.remove('active');
+                    }
+                }
+            });
+
+            // Handle window resize to reset menu state
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    navLinks.classList.remove('active'); // Ensure menu is visible on desktop
+                    navLinks.style.display = ''; // Reset display to default flex for desktop
+                    dropdownContent.classList.remove('active'); // Hide dropdown on desktop
+                    dropdownContent.style.display = ''; // Reset display to default for desktop
+                } else {
+                    // On mobile, ensure menu is hidden unless explicitly activated
+                    if (!navLinks.classList.contains('active')) {
+                        navLinks.style.display = 'none';
+                    }
+                    // Hide dropdown by default on mobile unless activated
+                    if (!dropdownContent.classList.contains('active')) {
+                        dropdownContent.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

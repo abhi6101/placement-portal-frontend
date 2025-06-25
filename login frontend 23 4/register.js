@@ -22,39 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const buttonText = registerButton.querySelector(".button-text");
     const spinner = registerButton.querySelector(".spinner");
 
-    // --- START: New code for Password Visibility Toggle ---
-    const togglePassword = document.getElementById('togglePassword');
-    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-
-    function setupPasswordToggle(toggleElement, inputElement) {
-        if (toggleElement && inputElement) {
-            toggleElement.addEventListener('click', function () {
-                // Check if the input type is 'password'
-                const isPassword = inputElement.getAttribute('type') === 'password';
-                
-                if (isPassword) {
-                    // If it is, change it to 'text' to show the password
-                    inputElement.setAttribute('type', 'text');
-                    // Change the icon from eye to eye-slash
-                    toggleElement.classList.remove('fa-eye');
-                    toggleElement.classList.add('fa-eye-slash');
-                } else {
-                    // Otherwise, change it back to 'password'
-                    inputElement.setAttribute('type', 'password');
-                    // Change the icon from eye-slash back to eye
-                    toggleElement.classList.remove('fa-eye-slash');
-                    toggleElement.classList.add('fa-eye');
-                }
-            });
-        }
-    }
-
-    // Apply the toggle functionality to both password fields
-    setupPasswordToggle(togglePassword, passwordInput);
-    setupPasswordToggle(toggleConfirmPassword, confirmPasswordInput);
-    // --- END: New code for Password Visibility Toggle ---
-
-
     // Helper function to display messages
     function showMessage(element, message, type) {
         if (element.id === 'persistent-alert-message' || element.id === 'instruction-content') {
@@ -117,15 +84,24 @@ document.addEventListener("DOMContentLoaded", () => {
         if (readInstructionsCheckbox.checked) {
             hideElement(instructionErrorMessageDiv);
 
+            // 1. Add the 'blur-hide' class to start the blur-out animation
             persistentAlertMessageDiv.classList.add('blur-hide');
-            setTimeout(() => {
-                persistentAlertMessageDiv.style.display = 'none';
-                persistentAlertMessageDiv.classList.remove('blur-hide');
 
+            // 2. Use setTimeout to wait for the animation to finish
+            // The delay should match the animation duration in CSS (0.6s or 600ms)
+            setTimeout(() => {
+                // After the blur-out animation, fully hide the element
+                persistentAlertMessageDiv.style.display = 'none';
+                persistentAlertMessageDiv.classList.remove('blur-hide'); // Clean up the class
+
+                // Show the registration form
                 registerSection.style.display = 'block';
+                // Add 'show-form' class to trigger its fade-in/slide-up transition
                 registerSection.classList.add('show-form');
+
+                // Optional: Scroll to the top of the form for better UX
                 registerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 600);
+            }, 600); // This timeout matches the CSS animation duration
         } else {
             showMessage(instructionErrorMessageDiv, "Please confirm you have read and understood the instructions to proceed.", "error");
         }

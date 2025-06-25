@@ -3,10 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Account - Hack-2-Hired</title>
+    <title>Verify Account -Hack-2-Hired</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- The CSS is now in a separate file -->
-    <link rel="stylesheet" href="verify-account.css"> 
+    <style>
+        :root {
+            /* Keep your existing color palette but adjust light/dark */
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #e0f2f7; /* Changed to a light color for text on dark background */
+            --light: #1a1a2e; /* New dark background */
+            --background-accent: #0f0f1d; /* Slightly darker accent for gradient */
+            --gray: #b0c4de; /* Lighter gray for secondary text */
+            --accent: #ff7b00;
+            --error: #dc3545;
+            --success: #28a745;
+            --link-hover: #0096d2;
+            --button-hover-shadow: rgba(0, 212, 255, 0.4);
+
+            /* Animation variables remain */
+            --animation-duration: 0.6s;
+            --animation-ease: cubic-bezier(0.23, 1, 0.32, 1);
+            --fade-in-duration: 0.8s;
+        }
+
+        /* Global Box-sizing and Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Body Styling - Now with Dark Gradient Background Animation */
+        body {
+            background: linear-gradient(135deg, var(--light) 0%, var(--background-accent) 100%); /* Dark gradient */
+            color: var(--dark); /* Light text on dark background */
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            animation: backgroundShift 15s infinite alternate ease-in-out; /* Slow, continuous background animation */
+        }
+
+        /* Keyframes for background animation */
+        @keyframes backgroundShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Navigation Bar - Subtle entrance animation */
+        nav {
+            background-color: rgba(255, 255, 255, 0.05); /* Slightly transparent white for a modern look */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px); /* For Safari */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Darker shadow for contrast */
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInSlideDown var(--fade-in-duration) forwards ease-out;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            /* Keeping the gradient for the logo is good for branding */
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            align-items: center;
+            margin: 0;
+        }
+
+        nav ul a {
+            color: var(--dark); /* Light text for nav links */
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        nav ul a:hover {
+            color: var(--accent);
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        nav ul a .fas {
+            margin-right: 0.5rem;
+        }
+
+        /* Verification Section - Adapted from .login-card styles */
+        .verification {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .verification-card { /* Renamed .verification to .verification-card to encapsulate styles better */
+            max-width: 450px;
+            width: 100%;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.08); /* Slightly transparent white for content */
+            backdrop-filter: blur(15px); /* Stronger frosted glass for card */
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Darker shadow for depth */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+            transform: scale(0.9);
+            opacity: 0;
+            animation: cardPopIn var(--fade-in-duration) var(--animation-ease) forwards calc(var(--fade-in-duration) * 0.5);
+        }
+
+        @keyframes cardPopIn {
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .verification-card h1 {
+            text-align: center;
+            margin-bottom: 1.5rem; /* Adjusted margin */
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.8px;
+            transform: translateY(-10px);
+            opacity: 0;
+            animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.2s);
+        }
+
+        @keyframes fadeInSlideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .verification-card p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--gray); /* Lighter gray for paragraph text */
+            font-size: 1.05rem;
+            transform: translateY(10px);
+            opacity: 0;
+            animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 0.4s);
+        }
+
+        .verification-card form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem; /* Adjusted gap */
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .verification-card label {
+            font-weight: 600;
+            color: var(--dark); /* Light text for labels */
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+            display: block;
+        }
+
+        .verification-card input {
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border for inputs */
+            background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent dark background for inputs */
+            color: var(--dark); /* Light text color for input values */
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            text-align: center; /* Center text for OTP input */
+            letter-spacing: 2px; /* Space out OTP digits */
+            transform: translateX(-20px);
+            opacity: 0;
+            animation: fadeInSlideRight var(--fade-in-duration) forwards ease-out;
+        }
+
+        @keyframes fadeInSlideRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Staggered input animation delays */
+        .verification-card .form-group:nth-of-type(1) input {
+            animation-delay: calc(var(--fade-in-duration) + 0.6s);
+        }
+        .verification-card .form-group:nth-of-type(2) input {
+            animation-delay: calc(var(--fade-in-duration) + 0.8s);
+        }
+
+        .verification-card input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.4); /* Stronger, more vibrant glow on focus */
+            background-color: rgba(0, 0, 0, 0.4); /* Slightly darker on focus */
+        }
+
+        .verification-card input.is-invalid {
+            border-color: var(--error);
+            box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.25);
+        }
+
+        .verification-card .input-feedback {
+            font-size: 0.85rem;
+            color: var(--error);
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .verification-card button {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white; /* Button text remains white */
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s var(--animation-ease);
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Darker shadow for button */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 1s);
+        }
+
+        .verification-card button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 20px var(--button-hover-shadow);
+            background: linear-gradient(to right, var(--primary), #008cc7);
+        }
+
+        /* Alert Messages - Adjust colors for dark theme readability */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.8rem;
+            font-weight: 500;
+            text-align: center;
+            border: 1px solid; /* Keep border for consistency */
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeInSlideDown 0.5s forwards ease-out;
+        }
+
+        .alert-error {
+            background-color: rgba(220, 53, 69, 0.25); /* More opaque for visibility */
+            color: var(--error);
+            border-left: 5px solid var(--error);
+            border-color: var(--error); /* Ensure border color is set */
+        }
+
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.25); /* More opaque for visibility */
+            color: var(--success);
+            border-left: 5px solid var(--success);
+            border-color: var(--success); /* Ensure border color is set */
+        }
+
+        @keyframes fadeInSlideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Spinner specific CSS - Remains white */
+        .verification-card button.is-loading {
+            background: var(--secondary);
+            cursor: not-allowed;
+            opacity: 0.8;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .verification-card button.is-loading .fa-spinner {
+            margin-left: 8px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(255, 255, 255, 0.05); /* Match nav transparency */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--dark); /* Light text on dark background */
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: auto;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle light border */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSlideUp var(--fade-in-duration) forwards ease-out calc(var(--fade-in-duration) + 1.2s);
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0.8rem 1rem;
+                flex-direction: column; /* Stack nav items vertically */
+                align-items: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.6rem;
+            }
+
+            .verification-card { /* Target .verification-card */
+                margin: 2rem 1rem;
+                padding: 2rem;
+                border-radius: 10px;
+            }
+
+            .verification-card h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .verification-card p {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .verification-card input,
+            .verification-card button {
+                padding: 0.9rem 1rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                align-items: flex-start;
+                padding: 1rem;
+            }
+
+            nav ul {
+                justify-content: space-around;
+                gap: 0.5rem;
+            }
+
+            nav ul li {
+                width: 50%;
+                text-align: center;
+            }
+
+            nav ul a {
+                padding: 0.5rem;
+            }
+
+            .verification-card { /* Target .verification-card */
+                margin: 1.5rem 0.8rem;
+                padding: 1.5rem;
+            }
+
+            .verification-card h1 {
+                font-size: 1.6rem;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -18,54 +416,35 @@
     </nav>
 
     <section class="verification">
-        <div class="verification-card">
-            <h1>Verify Your Account</h1>
-            <p>A 6-digit verification code has been sent to your email. Please enter it below.</p>
+        <div class="verification-card"> <h1>Verify Your Account</h1>
+            <p>A verification code has been sent to your email address. Please enter it below to activate your account.</p>
 
-            <div id="alert-container"></div>
+            <div id="alert-container">
+                </div>
 
             <form id="verifyCodeForm" novalidate>
                 <div class="form-group">
-                    <label for="identifier">Your Email/Username</label>
-                    <input type="text" id="identifier" name="identifier" required placeholder="Your registered email or username">
+                    <label for="identifier">Your Email/Username:</label>
+                    <input type="text" id="identifier" name="identifier" required placeholder="Enter your registered email or username">
+                    <small>This should be the email/username you registered with.</small>
                     <div class="input-feedback" id="identifier-feedback"></div>
                 </div>
-                
-                <!-- START: Enhanced OTP Input Group -->
                 <div class="form-group">
-                    <label for="otp-group">Verification Code (OTP)</label>
-                    <div id="otp-group" class="otp-input-group">
-                        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                        <input type="text" class="otp-input" maxlength="1" pattern="\d" required>
-                    </div>
+                    <label for="verificationCode">Verification Code (OTP):</label>
+                    <input type="text" id="verificationCode" name="verificationCode" required maxlength="6" pattern="\d{6}" placeholder="e.g., 123456">
+                    <small>Enter the 6-digit code sent to your email.</small>
                     <div class="input-feedback" id="verificationCode-feedback"></div>
                 </div>
-                <!-- END: Enhanced OTP Input Group -->
-
                 <button type="submit">Verify Account <i class="fas fa-check-circle"></i></button>
             </form>
-
-            <!-- START: Resend OTP Section -->
-            <div class="resend-container">
-                <p>Didn't receive the code? 
-                    <a href="#" id="resend-otp-link">Resend OTP</a>
-                    <span id="resend-timer" style="display: none;">in 00:30</span>
-                </p>
-            </div>
-            <!-- END: Resend OTP Section -->
         </div>
     </section>
 
     <footer>
         <p>Made with <span class="heart">❤️</span> by Abhi</p>
-        <p>© 2025 College Placement System. All rights reserved.</p>
+        <p> 2025 College Placement System. All rights reserved.</p>
     </footer>
 
-    <!-- The JavaScript is now in a separate file -->
     <script src="verify-account.js"></script>
 </body>
 </html>

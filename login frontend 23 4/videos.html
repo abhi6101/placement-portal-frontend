@@ -1,62 +1,831 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Videos | Hack-2-Hired</title>
+    <title>Study Videos |Hack-2-Hired</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="videos.css">
+    <style>
+        :root {
+            --primary: #00d4ff;
+            --secondary: #0077b6;
+            --dark: #03045e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --accent: #ff7b00;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            /* Smooth scrolling for anchor links */
+        }
+
+        /* --- Navigation Bars --- */
+
+        /* Top Navigation Bar */
+        nav:first-of-type {
+            background-color: var(--dark);
+            color: white;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            /* Allow wrapping for smaller screens */
+            gap: 1rem;
+            /* Space between logo and nav items */
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            /* Prevent logo from shrinking */
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav:first-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+            /* Allow nav items to wrap */
+            justify-content: center;
+            /* Center items when wrapped */
+            margin-left: auto;
+            /* Push items to the right */
+        }
+
+        nav:first-of-type a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        nav:first-of-type a:hover {
+            color: var(--primary);
+        }
+
+        /* Main Navigation Bar */
+        nav:last-of-type {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex; /* Added for hamburger layout */
+            justify-content: space-between; /* Added for hamburger layout */
+            align-items: center; /* Added for hamburger layout */
+        }
+
+        nav:last-of-type ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            overflow-x: auto;
+            /* Enable horizontal scrolling for too many items */
+            padding-bottom: 0.5rem;
+            /* Space for scrollbar */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+            flex-grow: 1; /* Allows the ul to take up available space */
+            justify-content: flex-start; /* Aligns items to the start */
+        }
+
+        /* Hide scrollbar for Webkit browsers */
+        nav:last-of-type ul::-webkit-scrollbar {
+            display: none;
+        }
+
+        nav:last-of-type li {
+            flex-shrink: 0;
+        }
+
+        nav:last-of-type a,
+        nav:last-of-type button {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            white-space: nowrap;
+            /* Prevent text wrapping in nav items */
+        }
+
+        nav:last-of-type a:hover,
+        nav:last-of-type button:hover {
+            color: var(--primary);
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+
+        nav:last-of-type a.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Hamburger Menu Icon */
+        .hamburger-menu {
+            display: none;
+            /* Hidden by default on larger screens */
+            font-size: 1.8rem;
+            color: var(--dark);
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+
+        /* --- Videos Section --- */
+        .videos {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .videos h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.8rem;
+            /* Slightly larger heading */
+            font-weight: 700;
+        }
+
+        .videos p {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            /* Increased margin for better separation */
+            color: var(--gray);
+            font-size: 1.15rem;
+            /* Slightly larger text */
+            max-width: 750px;
+            /* Wider paragraph */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            /* Increased margin-bottom */
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            /* Larger padding for input */
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1.05rem;
+            padding-left: 3.5rem;
+            /* Space for icon */
+            transition: all 0.3s ease;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            /* Subtle shadow */
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2), 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Enhanced shadow on focus */
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1.3rem;
+            /* Adjusted icon position */
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        /* Category Filters */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            /* Slightly smaller gap */
+            margin-bottom: 3rem;
+            /* Increased margin */
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.6rem;
+            /* Slightly larger padding */
+            background: white;
+            border: 1px solid #e0e0e0;
+            /* Lighter border */
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: var(--dark);
+            /* Use dark variable for text */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            /* Subtle shadow */
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            /* Slight lift on hover/active */
+            box-shadow: 0 4px 10px rgba(0, 212, 255, 0.2);
+            /* More pronounced shadow */
+        }
+
+        /* Video List */
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            /* Adjusted minmax for better fit */
+            gap: 2.5rem;
+            /* Increased gap between video cards */
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            /* Slightly more rounded corners */
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            /* Stronger initial shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            /* Distribute content evenly */
+        }
+
+        .video-card:hover {
+            transform: translateY(-12px);
+            /* More pronounced lift */
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
+            /* Stronger hover shadow */
+        }
+
+        .video-card iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+            border-bottom: 4px solid var(--primary);
+            /* Thicker border */
+        }
+
+        .video-card h2 {
+            padding: 1.5rem 1.5rem 0.5rem;
+            color: var(--dark);
+            font-size: 1.3rem;
+            /* Slightly larger title */
+            min-height: 65px;
+            /* Ensure consistent height for titles */
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Align items vertically */
+            padding: 0.5rem 1.5rem;
+            /* Adjusted padding */
+            color: var(--gray);
+            font-size: 0.95rem;
+            /* Slightly larger meta info */
+            flex-wrap: wrap;
+            /* Allow wrapping for smaller screens */
+            gap: 0.5rem;
+            /* Space between meta items when wrapped */
+        }
+
+        .video-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            /* Slightly larger gap for icons */
+        }
+
+        .video-meta i {
+            color: var(--secondary);
+            /* Color icons */
+        }
+
+        .before-link-as {
+            padding: 0.5rem 1.5rem 1.5rem;
+            font-size: 0.95rem;
+            color: var(--dark);
+            border-top: 1px solid #eee;
+            /* Subtle separator */
+            margin-top: 0.5rem;
+            /* Space from meta */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            /* Space between links */
+            align-items: center;
+        }
+
+        .before-link-as a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+            padding: 0.2rem 0;
+            /* Add slight padding for click area */
+        }
+
+        .before-link-as a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2.5rem;
+            /* Increased padding */
+            margin-top: 4rem;
+            /* More space above footer */
+            font-size: 0.95rem;
+        }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--light);
+        }
+
+        /* --- Utility Classes (Existing ones) --- */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            /* Added shadow */
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+            /* No shadow for outline btn initially */
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 3px 10px rgba(0, 212, 255, 0.2);
+            /* Shadow on hover */
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 1024px) {
+            .videos {
+                padding: 0 1.5rem;
+            }
+
+            .video-list {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav:first-of-type {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            nav:first-of-type ul {
+                margin-top: 1rem;
+                flex-direction: column;
+                /* Stack contact info vertically */
+                gap: 0.8rem;
+            }
+
+            nav:last-of-type {
+                flex-wrap: wrap; /* Allow items to wrap */
+                padding: 0.8rem 1rem;
+            }
+
+            nav:last-of-type ul {
+                display: none; /* Hide by default on small screens */
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                background-color: white;
+                position: absolute;
+                top: 100%; /* Position below the nav */
+                left: 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+                gap: 0.5rem;
+            }
+
+            nav:last-of-type ul.active {
+                display: flex; /* Show when active */
+            }
+
+            nav:last-of-type li {
+                width: 100%;
+                padding: 0 1rem;
+            }
+
+            nav:last-of-type a,
+            nav:last-of-type button {
+                justify-content: center; /* Center links in responsive menu */
+                padding: 0.7rem 1rem;
+            }
+
+            .hamburger-menu {
+                display: block; /* Show hamburger icon */
+            }
+
+            .videos {
+                padding: 0 1rem;
+            }
+
+            .videos h1 {
+                font-size: 2.2rem;
+            }
+
+            .videos p {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .search-bar {
+                margin-bottom: 2rem;
+            }
+
+            .search-bar input {
+                padding: 0.8rem 1rem;
+                padding-left: 3rem;
+            }
+
+            .search-bar i {
+                left: 1rem;
+                font-size: 1rem;
+            }
+
+            .category-filters {
+                gap: 0.6rem;
+                margin-bottom: 2rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .video-list {
+                grid-template-columns: 1fr;
+                /* Single column on small screens */
+                gap: 1.5rem;
+            }
+
+            .video-card h2 {
+                font-size: 1.15rem;
+                min-height: auto;
+                /* Allow title height to be dynamic */
+            }
+
+            .video-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .before-link-as {
+                padding: 0.5rem 1.5rem 1rem;
+                font-size: 0.9rem;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav:first-of-type {
+                padding: 0.7rem 0.5rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            nav:first-of-type a {
+                font-size: 0.9rem;
+            }
+
+            nav:last-of-type a,
+            nav:last-of-type button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .videos h1 {
+                font-size: 1.8rem;
+            }
+
+            .videos p {
+                font-size: 0.95rem;
+            }
+
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            footer {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <!-- Single, Consistent Navigation Bar -->
     <nav>
-        <div class="logo">Hack-2-<span>Hired</span></div>
-        <ul>
+         <div class="logo">Hack-2-<span>Hired</span></div>
+    </nav>
+
+    <nav>
+        <ul id="mainNav">
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <!-- <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li> -->
+            <!-- <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li> -->
+            <!-- <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li> -->
+            <!-- <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li> -->
+            <!-- <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li> -->
             <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
             <li><a href="videos.html" class="active"><i class="fas fa-video"></i> Study Videos</a></li>
             <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
             <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
+        <div class="hamburger-menu" id="hamburgerMenu">
+            <i class="fas fa-bars"></i>
+        </div>
     </nav>
 
-    <!-- Main Content Area -->
-    <main>
-        <header class="hero">
-            <h1>Curated Study Videos</h1>
-            <p>Enhance your skills with our hand-picked collection of educational videos from top instructors and industry experts.</p>
-        </header>
+    <section class="videos">
+        <h1>Study Videos</h1>
+        <p>Enhance your skills with our curated collection of educational videos from top instructors.</p>
 
-        <div class="videos-container">
-            <div class="video-controls">
-                <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="videoSearch" placeholder="Search for videos by title...">
-                </div>
-
-                <div class="category-filters">
-                    <button class="filter-btn active" data-category="all">All</button>
-                    <button class="filter-btn" data-category="programming">Programming</button>
-                    <button class="filter-btn" data-category="dsa">DSA</button>
-                    <button class="filter-btn" data-category="interview">Interview Prep</button>
-                </div>
-            </div>
-
-            <!-- Video cards will be injected here by JavaScript -->
-            <div class="video-list" id="videoList"></div>
-             <p id="no-videos-message" class="no-results-found" style="display: none;">
-                <i class="fas fa-exclamation-circle"></i> No videos found matching your criteria.
-            </p>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="videoSearch" placeholder="Search for videos by title...">
         </div>
-    </main>
 
-    <!-- Consistent Footer -->
+        <div class="category-filters">
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="programming">Programming</button>
+            <button class="filter-btn" data-category="dsa">Data Structures & Algorithms</button>
+            <button class="filter-btn" data-category="interview">Interview Prep</button>
+        </div>
+
+        <div class="video-list" id="videoList">
+        </div>
+    </section>
+
     <footer>
         <p>Made with <span class="heart">❤️</span> by Abhi</p>
-        <p>© 2025 College Placement System. All rights reserved.</p>
+       
+        <p> 2025 College Placement System. All rights reserved. | Contact: <a
+                href="mailto:hack2hired.official@gmail.com">hack2hired.official@gmail.com</a></p>
     </footer>
 
-    <script src="videos.js"></script>
+    <script>
+        const allVideos = [
+            {
+                id: 0,
+                title: "JavaScript for Beginners - Full Course",
+                src: "https://www.youtube.com/embed/jS4aFq5-91M", // Working YouTube embed link
+                duration: "4h 12m",
+                level: "Beginner",
+                category: "programming",
+                beforeLinkAs: [
+                    { text: "FreeCodeCamp Course", url: "https://www.freecodecamp.org/news/learn-javascript-full-course/" },
+                    { text: "MDN Docs", url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" }
+                ]
+            },
+            {
+                id: 1,
+                title: "Introduction to C++ Programming",
+                src: "https://www.youtube.com/embed/vLnPwxZdW4Y", // Working YouTube embed link
+                duration: "3h 45m",
+                level: "Beginner",
+                category: "programming",
+                beforeLinkAs: [
+                    { text: "GeeksforGeeks C++", url: "https://www.geeksforgeeks.org/cpp-tutorial/" },
+                    { text: "C++ Official Docs", url: "https://en.cppreference.com/w/" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Data Structures & Algorithms Explained",
+                src: "https://www.youtube.com/embed/pkq_t3R5z6I", // Working YouTube embed link
+                duration: "6h 30m",
+                level: "Intermediate",
+                category: "dsa",
+                beforeLinkAs: [
+                    { text: "Programiz DSA", url: "https://www.programiz.com/dsa/" },
+                    { text: "Algorithms by Robert Sedgewick", url: "https://algs4.cs.princeton.edu/home/" }
+                ]
+            },
+            {
+                id: 3,
+                title: "HTML & CSS Crash Course",
+                src: "https://www.youtube.com/embed/videoseries?list=PL4-jD0FwH51vQc0YpE9u8M3XlY0N3zR8Z", // Working YouTube embed link
+                duration: "2h 50m",
+                level: "Beginner",
+                category: "programming",
+                beforeLinkAs: [
+                    { text: "W3Schools HTML", url: "https://www.w3schools.com/html/" },
+                    { text: "W3Schools CSS", url: "https://www.w3schools.com/css/" }
+                ]
+            },
+            {
+                id: 4,
+                title: "Technical Interview Preparation",
+                src: "https://www.youtube.com/embed/videoseries?list=PLMC9KNzXFh5u4_J8e5FfXQjF2-Pj2-K3", // Working YouTube embed link
+                duration: "4h 45m",
+                level: "Intermediate",
+                category: "interview",
+                beforeLinkAs: [
+                    { text: "LeetCode", url: "https://leetcode.com/" },
+                    { text: "GeeksforGeeks Interview Prep", url: "https://www.geeksforgeeks.org/prepare-for-competitive-programming-and-interviews/" }
+                ]
+            },
+            {
+                id: 5,
+                title: "Python for Data Science",
+                src: "https://www.youtube.com/embed/videoseries?list=PL-osiEw6vsCsPFVBC139fF2V_Wl4_K1_B",
+                duration: "5h 20m",
+                level: "Intermediate",
+                category: "programming",
+                beforeLinkAs: [
+                    { text: "Pandas Docs", url: "https://pandas.pydata.org/docs/" },
+                    { text: "NumPy Docs", url: "https://numpy.org/doc/" }
+                ]
+            },
+            {
+                id: 6,
+                title: "Advanced Algorithms",
+                src: "https://www.youtube.com/embed/ videoseries?list=PLUl4u3cNGP63EdgpjGgS4d-eM6hS0o-X",
+                duration: "7h 10m",
+                level: "Advanced",
+                category: "dsa",
+                beforeLinkAs: [
+                    { text: "Cormen et al. (CLRS)", url: "https://mitpress.mit.edu/books/introduction-algorithms" },
+                    { text: "TopCoder Tutorials", url: "https://www.topcoder.com/community/data-science/data-science-tutorials/" }
+                ]
+            },
+            {
+                id: 7,
+                title: "Mock Interview Practice",
+                src: "https://www.youtube.com/embed/videoseries?list=PLl-K7zJPzkfwvhrnK32x35x5C5eZqB8w",
+                duration: "3h 00m",
+                level: "All Levels",
+                category: "interview",
+                beforeLinkAs: [
+                    { text: "Pramp", url: "https://www.pramp.com/#/" },
+                    { text: "Interviewing.io", url: "https://interviewing.io/" }
+                ]
+            }
+        ];
+
+        const videoListContainer = document.getElementById('videoList');
+        const searchInput = document.getElementById('videoSearch');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        function displayVideos(videos) {
+            videoListContainer.innerHTML = ''; // Clear current videos
+            videos.forEach(video => {
+                const videoCard = `
+                    <div class="video-card" data-category="${video.category}">
+                        <iframe src="${video.src}" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                        <h2>${video.title}</h2>
+                        <div class="video-meta">
+                            <span><i class="far fa-clock"></i> ${video.duration}</span>
+                            <span><i class="fas fa-user-graduate"></i> ${video.level}</span>
+                            <span><i class="fas fa-tag"></i> ${video.category.replace(/\b\w/g, char => char.toUpperCase())}</span>
+                        </div>
+                        <div class="before-link-as">
+                            ${video.beforeLinkAs.map(link => `<a href="${link.url}" target="_blank">${link.text}</a>`).join('')}
+                        </div>
+                    </div>
+                `;
+                videoListContainer.insertAdjacentHTML('beforeend', videoCard);
+            });
+        }
+
+        function filterAndSearchVideos() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
+
+            const filteredVideos = allVideos.filter(video => {
+                const matchesSearch = video.title.toLowerCase().includes(searchTerm);
+                const matchesCategory = activeCategory === 'all' || video.category === activeCategory;
+                return matchesSearch && matchesCategory;
+            });
+            displayVideos(filteredVideos);
+        }
+
+        // Initial display of all videos
+        displayVideos(allVideos);
+
+        // Event Listeners for filters and search
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                btn.classList.add('active');
+                filterAndSearchVideos();
+            });
+        });
+
+        searchInput.addEventListener('input', filterAndSearchVideos);
+
+        // Hamburger menu toggle
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const mainNavUl = document.getElementById('mainNav'); // Make sure this ID matches your ul
+
+        if (hamburgerMenu && mainNavUl) { // Add a check to ensure elements exist
+            hamburgerMenu.addEventListener('click', () => {
+                mainNavUl.classList.toggle('active');
+            });
+
+            // Close hamburger menu when a link is clicked
+            mainNavUl.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mainNavUl.classList.contains('active')) {
+                        mainNavUl.classList.remove('active');
+                    }
+                });
+            });
+        }
+    </script>
 </body>
+
 </html>
