@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | Hack-2-Hired</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Link to GLOBAL styles first, then page-specific styles -->
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="register.css">
 </head>
-
 <body>
-    <!-- Consistent Navigation Bar -->
     <nav>
         <div class="logo">Hack-2-<span>Hired</span></div>
         <ul>
@@ -22,9 +17,8 @@
         </ul>
     </nav>
 
-    <!-- Main Content Area -->
+    <!-- FIX: Wrap content in a <main> tag -->
     <main class="register-container">
-        <!-- Step 1: Instructions Card -->
         <div id="persistent-alert-message" class="instruction-card">
             <div id="instruction-content"></div>
             <div class="checkbox-container">
@@ -34,15 +28,11 @@
             <button type="button" id="proceedToRegisterBtn" class="btn">Proceed to Registration <i class="fas fa-arrow-right"></i></button>
             <div id="instruction-error-message" class="alert alert-error" style="display:none; margin-top: 1rem;"></div>
         </div>
-
-        <!-- Step 2: Registration Form Card (Initially hidden) -->
         <section class="register-card" style="display:none;">
             <h1>Create Your Account</h1>
             <p>Join our portal to access job opportunities and career resources.</p>
-
             <div id="error-message" class="alert alert-error" style="display:none;"></div>
             <div id="success-message" class="alert alert-success" style="display:none;"></div>
-
             <form id="registrationForm">
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -51,31 +41,27 @@
                     </div>
                     <small>Must start with '@' and be lowercase.</small>
                 </div>
-
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <div class="input-wrapper">
                         <input type="email" id="email" name="email" required placeholder="Enter your email">
                     </div>
                 </div>
-                
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="input-wrapper">
                         <input type="password" id="password" name="password" required placeholder="Create a password">
-                        <i class="fas fa-eye toggle-password-visibility" data-for="password"></i>
+                        <i class="fas fa-eye toggle-password-visibility"></i>
                     </div>
                     <small>Min. 8 characters, with 1 number & 1 special character.</small>
                 </div>
-
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
                     <div class="input-wrapper">
                         <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
-                         <i class="fas fa-eye toggle-password-visibility" data-for="confirmPassword"></i>
+                         <i class="fas fa-eye toggle-password-visibility"></i>
                     </div>
                 </div>
-
                 <button type="submit" id="registerButton" class="btn">
                     <span class="button-text">Register Now <i class="fas fa-user-plus"></i></span>
                     <span class="spinner"></span>
@@ -85,7 +71,6 @@
         </section>
     </main>
 
-    <!-- Consistent Footer -->
     <footer>
         <p>Made with <span class="heart">❤️</span> by Abhi</p>
         <p>© 2025 College Placement System. All rights reserved.</p>
