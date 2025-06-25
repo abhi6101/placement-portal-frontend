@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Hack-2-Hired</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <!-- The Navigation Bar will be dynamically populated by auth.js -->
+    <nav>
+        <div class="logo">Hack-2-<span>Hired</span></div>
+        <ul id="nav-links">
+            <!-- Links like "Dashboard" and "Logout" will be inserted here by JavaScript -->
+        </ul>
+    </nav>
+
+    <main class="dashboard-container">
+        <header class="dashboard-header">
+            <!-- The user's name will be inserted here -->
+            <h1 id="welcome-message">Welcome!</h1>
+            <p>This is your central hub for job opportunities and career growth.</p>
+        </header>
+
+        <section class="dashboard-widgets">
+            <!-- Widget 1: Job Listings -->
+            <div class="widget">
+                <div class="widget-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="widget-content">
+                    <h3>Available Jobs</h3>
+                    <p>Explore and apply to the latest job openings from top companies.</p>
+                    <a href="/jobs.html" class="widget-link">View Jobs →</a>
+                </div>
+            </div>
+
+            <!-- Widget 2: Profile -->
+            <div class="widget">
+                <div class="widget-icon"><i class="fas fa-user-circle"></i></div>
+                <div class="widget-content">
+                    <h3>Your Profile</h3>
+                    <p>Keep your profile updated to attract the best recruiters.</p>
+                    <a href="/profile.html" class="widget-link">Edit Profile →</a>
+                </div>
+            </div>
+            
+            <!-- Widget 3: Applications -->
+            <div class="widget">
+                <div class="widget-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="widget-content">
+                    <h3>My Applications</h3>
+                    <p>Track the status of all your job applications in one place.</p>
+                    <a href="/applications.html" class="widget-link">View Applications →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Made with <span class="heart">❤️</span> by Abhi</p>
+        <p>© 2025 College Placement System. All rights reserved.</p>
+    </footer>
+
+    <!-- This script is essential for checking login status and protecting the page -->
+    <script src="auth.js"></script> 
+    <!-- This script is specific to the dashboard page's functionality -->
+    <script src="dashboard.js"></script>
+</body>
+</html>

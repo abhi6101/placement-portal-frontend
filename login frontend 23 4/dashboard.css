@@ -1,0 +1,156 @@
+/* Using the same root variables for consistency */
+:root {
+    --primary: #00d4ff;
+    --secondary: #0077b6;
+    --dark-text: #e0f2f7;
+    --light-bg: #1a1a2e;
+    --background-accent: #0f0f1d;
+    --gray-text: #b0c4de;
+    --accent: #ff7b00;
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --box-shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    background: linear-gradient(135deg, var(--light-bg) 0%, var(--background-accent) 100%);
+    color: var(--dark-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+nav {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+nav ul { display: flex; list-style: none; gap: 2rem; margin: 0; }
+nav ul a, nav ul button {
+    color: var(--dark-text);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 6px;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: inherit;
+}
+nav ul a:hover, nav ul button:hover { color: var(--primary); background-color: rgba(0, 212, 255, 0.1); }
+nav a .fas, nav button .fas { margin-right: 0.5rem; }
+
+.dashboard-container {
+    flex-grow: 1;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    width: 100%;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.dashboard-header h1 {
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+    font-size: 1.2rem;
+    color: var(--gray-text);
+}
+
+.dashboard-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    animation: fadeInUp 0.8s ease-out 0.3s;
+    animation-fill-mode: backwards; /* Ensures it starts invisible */
+}
+
+.widget {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    box-shadow: var(--box-shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.widget:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 212, 255, 0.2);
+}
+
+.widget-icon {
+    font-size: 2.5rem;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.widget-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--dark-text);
+}
+
+.widget-content p {
+    color: var(--gray-text);
+    margin-bottom: 1.5rem;
+}
+
+.widget-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.widget-link:hover {
+    color: #ff9833; /* Lighter accent on hover */
+}
+
+footer {
+    text-align: center;
+    padding: 2.5rem;
+    margin-top: auto;
+    background-color: var(--background-accent);
+}
+
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) {
+    nav { flex-direction: column; gap: 1rem; }
+    .dashboard-header h1 { font-size: 2.2rem; }
+    .dashboard-container { padding: 1rem; }
+}
