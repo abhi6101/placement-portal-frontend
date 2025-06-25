@@ -714,3 +714,33 @@ footer {
 }
 
 /* Keep other existing styles for .register-container, .checkbox-container, etc. */
+
+/* Add these styles to your register.css file */
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Ensure the input inside the wrapper takes full width and has space for the icon */
+.input-wrapper input {
+    width: 100%;
+    padding-right: 3.5rem; /* Make space on the right for the icon */
+}
+
+/* Style for the password visibility toggle icon */
+.toggle-password-visibility {
+    position: absolute;
+    right: 1.1rem; /* Position from the right edge of the wrapper */
+    top: 50%;
+    transform: translateY(-50%); /* Perfectly center vertically */
+    cursor: pointer;
+    color: var(--gray-text); /* Use a subtle color */
+    transition: color 0.3s ease;
+    z-index: 2; /* Ensure it's above the input field */
+}
+
+.toggle-password-visibility:hover {
+    color: var(--primary); /* Highlight color on hover */
+}
