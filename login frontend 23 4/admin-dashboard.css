@@ -23,6 +23,19 @@ body {
     color: var(--dark-text);
     line-height: 1.6;
 }
+/* ENHANCEMENT: Screen-reader only class for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 
 /* --- MAIN LAYOUT (Sidebar + Content) --- */
 .admin-container {
@@ -39,6 +52,7 @@ body {
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
+    transition: width 0.3s ease; /* ENHANCEMENT: Smooth transition for sidebar collapse */
 }
 .sidebar-header {
     padding: 1.5rem;
@@ -87,6 +101,7 @@ body {
     flex: 1;
     margin-left: 260px;
     padding: 2.5rem;
+    transition: margin-left 0.3s ease; /* ENHANCEMENT: Smooth transition for content area */
 }
 .main-content h1 {
     font-size: 2.5rem;
@@ -149,7 +164,7 @@ textarea.form-control { resize: vertical; }
     justify-content: center;
     gap: 0.5rem;
     background: var(--gradient-blue);
-    color: white !important;
+    color: white; /* Removed !important, not needed */
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
     text-decoration: none;
@@ -158,9 +173,10 @@ textarea.form-control { resize: vertical; }
     border: none;
     cursor: pointer;
 }
-.btn:hover { transform: translateY(-3px); }
+.btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0, 212, 255, 0.2); }
+.btn:disabled { cursor: not-allowed; background: var(--gray-text); opacity: 0.7; }
 .btn-danger { background: var(--danger); }
-.btn-danger:hover { background: #c0392b; }
+.btn-danger:hover:not(:disabled) { background: #c0392b; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2); }
 
 /* --- TABLES --- */
 .table-container { overflow-x: auto; }
@@ -182,22 +198,56 @@ th {
     font-size: 0.85rem;
     letter-spacing: 0.05em;
 }
+tbody tr { transition: background-color 0.2s ease; }
 tbody tr:hover { background-color: rgba(255, 255, 255, 0.03); }
 .action-btns { display: flex; gap: 0.5rem; }
 .action-btns .btn { padding: 0.5rem 0.8rem; }
 
 /* --- ALERTS & INDICATORS --- */
-#loadingJobsIndicator, #loadingUsersIndicator { padding: 1rem; text-align: center; color: var(--gray-text); }
+/* ENHANCEMENT: CSS Spinner for loading indicators */
+.loading-spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: var(--gray-text);
+}
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
 .alert { padding: 1rem; border-radius: 8px; font-weight: 600; border-left: 5px solid; }
 .alert-success { background-color: rgba(46, 204, 113, 0.15); color: var(--success); border-color: var(--success); }
 .alert-danger { background-color: rgba(231, 76, 60, 0.15); color: var(--danger); border-color: var(--danger); }
 
 /* --- RESPONSIVE DESIGN --- */
 @media (max-width: 992px) {
-    .sidebar { width: 70px; }
-    .sidebar-header h2 span, .sidebar-menu span { display: none; }
+    .sidebar { width: 80px; }
+    /* ENHANCEMENT: Use a class to hide text for better accessibility and control */
+    .sidebar:not(:hover) .sidebar-text {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+    .sidebar-header h2 { justify-content: center; }
     .sidebar-menu li a { justify-content: center; }
-    .main-content { margin-left: 70px; }
+    .main-content { margin-left: 80px; }
 }
 
 @media (max-width: 768px) {
@@ -210,6 +260,7 @@ tbody tr:hover { background-color: rgba(255, 255, 255, 0.03); }
         align-items: center;
         justify-content: space-between;
     }
+    .sidebar .sidebar-text { position: static; width: auto; height: auto; clip: auto; }
     .sidebar-menu { display: flex; flex-direction: row; }
     .sidebar-menu li a:hover { transform: none; }
     .main-content { margin-left: 0; padding: 1.5rem; }

@@ -4,21 +4,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const passwordInput = document.getElementById("password");
     const errorMessageDiv = document.getElementById("error-message");
     const loginButton = document.getElementById("loginButton");
-    const buttonText = loginButton.querySelector(".button-text");
-    const spinner = loginButton.querySelector(".spinner");
-    const togglePassword = document.getElementById('togglePassword');
+    const togglePasswordBtn = document.getElementById('togglePassword');
 
     // Password visibility toggle logic
-    if (togglePassword) {
-        togglePassword.addEventListener('click', () => {
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', () => {
             const isPassword = passwordInput.type === 'password';
             passwordInput.type = isPassword ? 'text' : 'password';
-            togglePassword.classList.toggle('fa-eye');
-            togglePassword.classList.toggle('fa-eye-slash');
+            
+            // Update ARIA label for accessibility
+            togglePasswordBtn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+            
+            // Toggle icon
+            const icon = togglePasswordBtn.querySelector('.fas');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
         });
     }
 
-    // Helper functions for UI feedback
     const showMessage = (message, type = "error") => {
         errorMessageDiv.textContent = message;
         errorMessageDiv.className = `alert alert-${type}`;
@@ -29,18 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
         errorMessageDiv.style.display = "none";
     };
 
-    const showLoadingState = () => {
-        loginButton.disabled = true;
-        loginButton.classList.add('is-loading');
-        buttonText.style.display = 'none';
-        spinner.style.display = 'block';
-    };
-
-    const hideLoadingState = () => {
-        loginButton.disabled = false;
-        loginButton.classList.remove('is-loading');
-        buttonText.style.display = 'block';
-        spinner.style.display = 'none';
+    const setLoadingState = (isLoading) => {
+        loginButton.disabled = isLoading;
+        loginButton.classList.toggle('is-loading', isLoading);
     };
 
     loginForm.addEventListener("submit", async (e) => {
@@ -55,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        showLoadingState();
+        setLoadingState(true);
 
         try {
             const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/login", {
@@ -66,25 +60,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const result = await response.json();
 
-            if (response.ok) {
-                // IMPORTANT: Store the token from the backend
+            if (response.ok && result.token) {
+                // ENHANCEMENT: Store token and user role
                 localStorage.setItem("authToken", result.token);
+                localStorage.setItem("userRole", result.role); // Assuming backend sends role
 
-                // Show success feedback and redirect
                 showMessage("Login successful! Redirecting...", "success");
+
+                // ENHANCEMENT: Role-based redirection
                 setTimeout(() => {
-                    // Redirect to the dashboard page
-                    window.location.href = "dashboard.html";
-                }, 2000);
+                    if (result.role === 'ADMIN') {
+                        window.location.href = "admin-dashboard.html";
+                    } else {
+                        window.location.href = "dashboard.html";
+                    }
+                }, 1500);
 
             } else {
                 showMessage(result.message || "Invalid credentials. Please try again.");
-                hideLoadingState();
+                setLoadingState(false);
             }
         } catch (error) {
             console.error("Login error:", error);
             showMessage("An error occurred. Please check your network and try again.");
-            hideLoadingState();
+            setLoadingState(false);
         }
+        /*
+        SECURITY NOTE (Advanced): Storing tokens in localStorage is common but vulnerable to XSS attacks.
+        The most secure method is for the backend to set a secure, HttpOnly cookie. The token would then be
+        sent automatically by the browser on subsequent requests, and it would be inaccessible to client-side
+        JavaScript, mitigating XSS risks.
+        */
     });
 });

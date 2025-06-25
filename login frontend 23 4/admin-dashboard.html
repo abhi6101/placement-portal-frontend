@@ -12,11 +12,12 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <h2><i class="fas fa-user-shield"></i> Admin Panel</h2>
+                <h2><i class="fas fa-user-shield"></i> <span class="sidebar-text">Admin Panel</span></h2>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Back to Portal</a></li>
+                <!-- Added aria-current="page" for accessibility on the active link -->
+                <li><a href="#" class="active" aria-current="page"><i class="fas fa-tachometer-alt"></i> <span class="sidebar-text">Dashboard</span></a></li>
+                <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> <span class="sidebar-text">Back to Portal</span></a></li>
             </ul>
         </aside>
 
@@ -56,7 +57,10 @@
                         <textarea id="jobDescription" class="form-control" rows="4" required></textarea>
                     </div>
                     <div class="form-group full-width">
-                        <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Post Job</button>
+                        <!-- ENHANCEMENT: Added a disabled state for the button during form submission -->
+                        <button type="submit" class="btn" id="postJobBtn">
+                            <i class="fas fa-paper-plane"></i> <span>Post Job</span>
+                        </button>
                     </div>
                 </form>
             </section>
@@ -66,7 +70,11 @@
                 <div class="card-header">
                     <h3><i class="fas fa-briefcase"></i> Posted Jobs</h3>
                 </div>
-                <div id="loadingJobsIndicator">Loading jobs...</div>
+                <!-- ENHANCEMENT: Replaced simple text with a CSS spinner for a better UX -->
+                <div id="loadingJobsIndicator" class="loading-spinner-container">
+                    <div class="spinner"></div>
+                    <p>Loading jobs...</p>
+                </div>
                 <div class="table-container">
                     <table id="jobsTable" style="display: none;">
                         <thead>
@@ -88,7 +96,10 @@
                 <div class="card-header">
                     <h3><i class="fas fa-users"></i> Registered Users</h3>
                 </div>
-                <div id="loadingUsersIndicator">Loading users...</div>
+                <div id="loadingUsersIndicator" class="loading-spinner-container">
+                    <div class="spinner"></div>
+                    <p>Loading users...</p>
+                </div>
                  <div class="table-container">
                     <table id="usersTable" style="display: none;">
                         <thead>
