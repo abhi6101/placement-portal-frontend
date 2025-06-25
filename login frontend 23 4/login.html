@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Hack-2-Hired</title>
+    <title>Login | Hack-2-Hired</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- FIX: Link ONLY to the single, complete login.css file -->
     <link rel="stylesheet" href="login.css">
 </head>
+
 <body>
     <nav>
         <div class="logo">Hack-2-<span>Hired</span></div>
@@ -18,18 +18,19 @@
         </ul>
     </nav>
 
-    <main class="login-container">
+    <section class="login-section">
         <div class="login-card">
-            <h1>Login</h1>
-            <div id="error-message" class="alert alert-error" role="alert" style="display:none;"></div>
-            <div id="success-message" class="alert alert-success" role="alert" style="display:none;"></div>
-            <form id="loginForm">
+            <h1>Welcome Back!</h1>
+            <p>Please log in to access your dashboard and career resources.</p>
+
+            <div id="error-message" class="alert alert-error" style="display:none;"></div>
+
+            <form id="loginForm" novalidate>
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <div class="input-wrapper">
-                         <input type="text" id="username" name="username" required placeholder="e.g., @yourusername">
-                    </div>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
                 </div>
+
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="input-wrapper">
@@ -37,22 +38,25 @@
                         <i class="fas fa-eye toggle-password-visibility" id="togglePassword"></i>
                     </div>
                 </div>
-                <button type="submit" id="loginButton" class="btn">
-                    <span class="button-text">Login <i class="fas fa-sign-in-alt"></i></span>
+
+                <div class="form-options">
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+
+                <button type="submit" id="loginButton">
+                    <span class="button-text">Login Now <i class="fas fa-sign-in-alt"></i></span>
                     <span class="spinner"></span>
                 </button>
             </form>
-            <p>Don't have an account? <a href="register.html">Register here</a></p>
+            <p class="register-link">Don't have an account? <a href="register.html">Register here</a></p>
         </div>
-    </main>
+    </section>
 
     <footer>
         <p>Made with <span class="heart">❤️</span> by Abhi</p>
         <p>© 2025 College Placement System. All rights reserved.</p>
     </footer>
 
-    
     <script src="login.js"></script>
-    
 </body>
 </html>
