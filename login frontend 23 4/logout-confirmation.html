@@ -6,53 +6,91 @@
     <title>Logged Out - Hack-2-Hired</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- THEME & ROOT VARIABLES --- */
         :root {
             --primary: #00d4ff;
             --secondary: #0077b6;
-            --dark: #03045e;
-            --light: #f8f9fa;
-            --gray: #6c757d;
-            --accent: #ff7b00;
+            --dark-text: #e0f2f7;
+            --light-bg: #1a1a2e;
+            --background-accent: #0f0f1d;
+            --gray-text: #b0c4de;
+            --gradient-blue: linear-gradient(to right, var(--primary), var(--secondary));
+            --box-shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- GLOBAL & BODY STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light);
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--background-accent) 100%);
+            color: var(--dark-text);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            color: #333;
             text-align: center;
+            padding: 1rem;
         }
 
+        /* --- LOGOUT CARD STYLES --- */
         .logout-container {
-            background-color: white;
-            padding: 3rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            width: 90%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 3rem 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 550px;
+            width: 100%;
+            transform: scale(0.95);
+            opacity: 0;
+            animation: fadeInZoom 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes fadeInZoom {
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .logout-container h1 {
-            color: var(--dark);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            color: var(--dark-text);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logout-container h1 .fa-check-circle {
+            color: var(--primary);
+            font-size: 4rem; /* Larger icon */
         }
 
         .logout-container p {
             font-size: 1.1rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
+            color: var(--gray-text);
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
         }
 
-        .logout-container .btn {
-            display: inline-block;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.8rem 1.8rem;
+        /* --- BUTTON STYLES --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--gradient-blue);
+            color: white !important;
+            padding: 0.8rem 2rem;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
@@ -61,17 +99,20 @@
             cursor: pointer;
         }
 
-        .logout-container .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
         }
     </style>
 </head>
 <body>
     <div class="logout-container">
-        <h1><i class="fas fa-check-circle" style="color: var(--primary);"></i> Logged Out Successfully!</h1>
-        <p>Thank you for visiting College Placement Portal. We wish you the best in your career endeavors!</p>
-        <a href="index.html" class="btn">Return to Home Page</a>
+        <h1>
+            <i class="fas fa-check-circle"></i>
+            <span>Logged Out Successfully!</span>
+        </h1>
+        <p>Thank you for visiting Hack-2-Hired. We wish you the best in your career endeavors!</p>
+        <a href="index.html" class="btn">Return to Home</a>
     </div>
 </body>
 </html>
