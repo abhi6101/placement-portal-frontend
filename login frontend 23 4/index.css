@@ -31,7 +31,8 @@ nav {
     align-items: center;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    /* The fix is here: ensures the nav and its children are on top of everything else */
+    z-index: 1001;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -65,7 +66,6 @@ nav a:hover, nav a.active, nav button:hover { color: var(--primary); }
 #userWelcome span { color: var(--primary); }
 
 /* --- OTHER SECTIONS (Features, Stats, Testimonials) --- */
-/* Styles for these sections remain the same as before */
 .features { padding: 5rem 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; max-width: 1300px; margin: 0 auto; }
 .features-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 2.5rem; box-shadow: var(--box-shadow-card); text-align: center; transition: all 0.3s ease; }
 .features-box:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); border-color: var(--primary); }
@@ -80,31 +80,24 @@ nav a:hover, nav a.active, nav button:hover { color: var(--primary); }
 
 .testimonials { padding: 5rem 2rem; text-align: center; }
 .testimonials h2 { font-size: 2.5rem; margin-bottom: 3rem; }
-/* Other testimonial styles remain the same... */
 
 .reveal { position: relative; transform: translateY(100px); opacity: 0; transition: transform 1s, opacity 1s; }
 .reveal.active { transform: translateY(0px); opacity: 1; }
 
-/*
-================================================
-=== RESPONSIVE STYLES (Mobile First Approach) ===
-================================================
-*/
-
-/* --- Small devices (phones, 768px and down) --- */
+/* --- RESPONSIVE STYLES --- */
 @media (max-width: 768px) {
     nav { padding: 1rem; }
     .logo { font-size: 1.8rem; }
     
-    .menu-toggle { display: block; } /* Show hamburger */
+    .menu-toggle { display: block; }
     
     nav ul {
-        display: none; /* Hide nav links by default */
+        display: none;
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: rgba(26, 26, 46, 0.95); /* Slightly more opaque for readability */
+        background-color: rgba(26, 26, 46, 0.95);
         backdrop-filter: blur(10px);
         flex-direction: column;
         align-items: center;
@@ -112,12 +105,9 @@ nav a:hover, nav a.active, nav button:hover { color: var(--primary); }
         gap: 1.5rem;
     }
     
-    nav ul.active {
-        display: flex; /* Show menu when active */
-    }
-
+    nav ul.active { display: flex; }
     nav ul li { width: 100%; text-align: center; }
-    nav ul .nav-btns { margin-left: 0; display: flex; flex-direction: column; gap: 1rem; padding: 0 1rem; width: 100%;}
+    nav ul .nav-btns { margin-left: 0; display: flex; flex-direction: column; gap: 1rem; padding: 0 1rem; width: 100%; }
     nav ul .nav-btns .btn { width: 100%; max-width: 300px; }
 
     .hero h1 { font-size: 2.5rem; }
@@ -128,7 +118,6 @@ nav a:hover, nav a.active, nav button:hover { color: var(--primary); }
     .testimonials { padding: 4rem 1.5rem; }
 }
 
-/* --- Medium devices (tablets, 768px and up) --- */
 @media (min-width: 769px) {
     .menu-toggle { display: none; }
     nav ul { display: flex; }
