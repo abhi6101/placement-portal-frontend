@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const usernameInput = document.getElementById("username");
     const emailInput = document.getElementById("email");
+    
+    // Correctly selecting password inputs
     const passwordInput = document.getElementById("password");
     const confirmPasswordInput = document.getElementById("confirmPassword");
     
@@ -19,11 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const proceedToRegisterBtn = document.getElementById("proceedToRegisterBtn");
 
     const registerButton = document.getElementById("registerButton");
-    const passwordToggles = document.querySelectorAll(".toggle-password-visibility");
-
+    
     // --- HELPER FUNCTIONS ---
     function showMessage(element, message, type) {
-        element.innerHTML = message; // Use innerHTML to render HTML tags like <ul>
+        element.innerHTML = message;
         element.className = `alert alert-${type}`;
         element.style.display = "block";
     }
@@ -69,19 +70,25 @@ document.addEventListener("DOMContentLoaded", () => {
             hideElement(instructionCard);
             registerCard.classList.add('show-form');
             registerCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 600); // Match animation duration
+        }, 600);
     });
     
-    // Password visibility toggles
-    passwordToggles.forEach(toggle => {
-        toggle.addEventListener('click', () => {
-            const inputId = toggle.getAttribute('data-for');
-            const input = document.getElementById(inputId);
-            const isPassword = input.type === 'password';
-            
-            input.type = isPassword ? 'text' : 'password';
-            toggle.classList.toggle('fa-eye');
-            toggle.classList.toggle('fa-eye-slash');
+    // *** FIX: Corrected Password Visibility Toggle Logic ***
+    document.querySelectorAll('.toggle-password-visibility').forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            // Get the input element this toggle is associated with
+            const input = this.previousElementSibling; 
+            const isPassword = input.getAttribute('type') === 'password';
+
+            if (isPassword) {
+                input.setAttribute('type', 'text');
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                input.setAttribute('type', 'password');
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
         });
     });
 
@@ -95,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         const confirmPassword = confirmPasswordInput.value;
+        const role = 'USER'; // Hardcoded role as per your form
 
         // --- FORM VALIDATION ---
         if (!username.startsWith('@') || username.substring(1) !== username.substring(1).toLowerCase() || username.includes(" ")) {
@@ -121,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, email, password, role: 'USER' }),
+                body: JSON.stringify({ username, email, password, role }),
             });
             const result = await response.json();
 
