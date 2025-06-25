@@ -5,12 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hack-2-Hired - Launch Your Career</title>
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Your Stylesheet -->
     <link rel="stylesheet" href="index.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
 </head>
 
 <body>
+    <!-- Top Contact Nav -->
     <nav>
         <div class="logo">Hack-2-<span>Hired</span></div>
         <ul>
@@ -19,15 +29,11 @@
         </ul>
     </nav>
 
+    <!-- Main Sticky Nav -->
     <nav>
         <ul>
             <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-            <!-- <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
-            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
-            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li> -->
-            <!-- <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li> -->
-            <!-- <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li> -->
-           <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
             <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
             <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
             <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
@@ -40,6 +46,7 @@
         </ul>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
             <h1 id="heroHeading">Launch Your Career with Ease!</h1>
@@ -58,55 +65,44 @@
         </div>
     </section>
 
-    <section class="features">
-        <div class="features-box">
-            <i class="fas fa-briefcase"></i>
-            <h2>Job Listings</h2>
-            <p>Access hundreds of curated job opportunities from top companies matching your skills and aspirations.</p>
-            <a href="jobs.html" class="btn">Explore Jobs</a>
+    <!-- Features Section (Bento Grid) -->
+    <section class="features-section">
+        <h2>Everything You Need To Succeed</h2>
+        <div class="features">
+            <div class="features-box">
+                <i class="fas fa-briefcase"></i>
+                <h2>Curated Job Listings</h2>
+                <p>Access hundreds of curated job opportunities from top companies matching your skills and aspirations.</p>
+                <a href="jobs.html" class="btn">Explore Jobs</a>
+            </div>
+            <div class="features-box">
+                <i class="fas fa-file-alt"></i>
+                <h2>Resume Builder</h2>
+                <p>Create professional, ATS-friendly resumes with our builder.</p>
+                <a href="resume.html" class="btn">Design Your CV</a>
+            </div>
+            <div class="features-box">
+                <i class="fas fa-comments"></i>
+                <h2>Interview Prep</h2>
+                <p>Practice with mock interviews and expert feedback.</p>
+                <a href="interview.html" class="btn">Start Preparing</a>
+            </div>
+            <div class="features-box">
+                <i class="fas fa-scroll"></i>
+                <h2>Previous Papers</h2>
+                <p>Sharpen your skills with previous year's placement papers.</p>
+                <a href="papers.html" class="btn">Practice Now</a>
+            </div>
+            <div class="features-box">
+                <i class="fas fa-brain"></i>
+                <h2>Quiz Arena</h2>
+                <p>Test your knowledge with our interactive quizzes.</p>
+                <a href="quiz.html" class="btn">Start Quiz</a>
+            </div>
         </div>
-        <div class="features-box">
-            <i class="fas fa-file-alt"></i>
-            <h2>Resume Builder</h2>
-            <p>Create professional, ATS-friendly resumes with our easy-to-use builder and templates.</p>
-            <a href="resume.html" class="btn">Design Your CV</a>
-        </div>
-        <div class="features-box">
-            <i class="fas fa-comments"></i>
-            <h2>Interview Prep</h2>
-            <p>Practice with mock interviews, common questions, and get feedback from industry experts.</p>
-            <a href="interview.html" class="btn">Start Preparing</a>
-        </div>
-
-
-
-
-
-        <div class="features-box">
-            <i class="fas fa-scroll"></i>
-            <h2>Previous year Papers</h2>
-            <p>Practice with Papers.</p>
-            <a href="papers.html" class="btn">Start Preparing</a>
-        </div>
-
-
-        <div class="features-box">
-            <i class="fas fa-brain"></i>
-            <h2>Quiz</h2>
-            <p>Practice with Quiz.</p>
-            <a href="quiz.html" class="btn">Start Quiz</a>
-        </div>
-
-
-
-
-
-
-
-
-
     </section>
 
+    <!-- Stats Section -->
     <section class="stats">
         <div class="stats-container">
             <div class="stat-item">
@@ -128,11 +124,12 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
     <section class="testimonials">
         <h2>Success Stories</h2>
         <div class="testimonial-cards">
             <div class="testimonial-card">
-                <p>"The placement portal helped me land my dream job at a top tech company. The resume builder and mock interviews were game-changers!"</p>
+                <p>"The resume builder and mock interviews were game-changers! Landed my dream job at a top tech company thanks to this portal."</p>
                 <div class="testimonial-author">
                     <img src="images/i-priya.jpg" alt="Priya Sharma">
                     <div class="author-info">
@@ -142,7 +139,7 @@
                 </div>
             </div>
             <div class="testimonial-card">
-                <p>"I went from no calls to 5 job offers in 2 months after using the interview preparation resources on this platform."</p>
+                <p>"I went from zero calls to 5 job offers in 2 months. The interview prep resources are pure gold."</p>
                 <div class="testimonial-author">
                     <img src="images/i-rahul.jpg" alt="Rahul Verma">
                     <div class="author-info">
@@ -152,7 +149,7 @@
                 </div>
             </div>
             <div class="testimonial-card">
-                <p>"The personalized career guidance and job matching helped me transition into a higher-paying role in my field."</p>
+                <p>"Personalized career guidance and job matching helped me transition into a higher-paying role. Highly recommended!"</p>
                 <div class="testimonial-author">
                     <img src="images/i-neha.jpg" alt="Neha Patel">
                     <div class="author-info">
@@ -164,82 +161,37 @@
         </div>
     </section>
 
+    <!-- Gallery Section -->
     <section class="gallery">
         <h2>Our Campus Glimpses</h2>
         <div class="slideshow-container">
-            <div class="mySlides fade">
-                <img src="images/4E9A7129-copy.jpg" alt="Students in a computer lab">
-            </div>
-            <div class="mySlides fade">
-                <img src="images/20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
-            </div>
-            <div class="mySlides fade">
-                <img src="images/DSCF2122-copy.jpg" alt="Students working on computers in a lab">
-            </div>
-            <div class="mySlides fade">
-                <img src="images/Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
-            </div>
-            <div class="mySlides fade">
-                <img src="images/STUDENT5-1.jpg" alt="Students in a circular computer lab">
-            </div>
-            <div class="mySlides fade">
-                <img src="images/student-group-photo.jpg" alt="Large group photo of students and faculty">
-            </div>
+            <div class="mySlides fade"><img src="images/4E9A7129-copy.jpg" alt="Students in a computer lab"></div>
+            <div class="mySlides fade"><img src="images/20240123_145917-copy.jpg" alt="Building entrance"></div>
+            <div class="mySlides fade"><img src="images/DSCF2122-copy.jpg" alt="Students in a lab"></div>
+            <div class="mySlides fade"><img src="images/Group-photo-1-copy-4.jpg" alt="Group photo"></div>
+            <div class="mySlides fade"><img src="images/STUDENT5-1.jpg" alt="Circular computer lab"></div>
+            <div class="mySlides fade"><img src="images/student-group-photo.jpg" alt="Large group photo"></div>
         </div>
-        <a href="gallery.html" class="btn" style="margin-top: 1.5rem;">View All Photos in Gallery</a>
+        <a href="gallery.html" class="btn" style="margin-top: 1.5rem;">View All Photos</a>
     </section>
 
+    <!-- Companies Section -->
     <section class="companies">
         <h2>Our Valued Placement Partners</h2>
         <div class="company-logos">
-            <div class="company-logo-item">
-                <a href="https://www.accenture.com" target="_blank" aria-label="Accenture website">
-                    <img src="images/accenture-logo.jpg" alt="Accenture logo">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.wipro.com" target="_blank" aria-label="Wipro website">
-                    <img src="images/wipro-logo.jpg" alt="Wipro logo">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.infosys.com" target="_blank" aria-label="Infosys website">
-                    <img src="images/infosys-logo.jpg" alt="Infosys logo">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.tcs.com" target="_blank" aria-label="TCS website">
-                    <img src="images/tcs-logo.jpg" alt="TCS logo">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.capgemini.com" target="_blank" aria-label="Capgemini website">
-                    <img src="images/capgemini-logo.jpg" alt="Capgemini logo">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.persistent.com" target="_blank" aria-label="Persistent Systems website">
-                    <img src="images/persistent-logo.jpg" alt="Persistent Systems logo">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://hexaware.com" target="_blank" aria-label="Hexaware website">
-                    <img src="images/hexaware-logo.jpg" alt="Hexaware logo">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.google.com" target="_blank" aria-label="Google website">
-                    <img src="images/google.png" alt="Google logo">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.microsoft.com" target="_blank" aria-label="Microsoft website">
-                    <img src="images/microsoft.png" alt="Microsoft logo">
-                </a>
-            </div>
+            <div class="company-logo-item"><a href="https://www.accenture.com" target="_blank"><img src="images/accenture-logo.jpg" alt="Accenture"></a></div>
+            <div class="company-logo-item"><a href="https://www.wipro.com" target="_blank"><img src="images/wipro-logo.jpg" alt="Wipro"></a></div>
+            <div class="company-logo-item"><a href="https://www.infosys.com" target="_blank"><img src="images/infosys-logo.jpg" alt="Infosys"></a></div>
+            <div class="company-logo-item"><a href="https://www.tcs.com" target="_blank"><img src="images/tcs-logo.jpg" alt="TCS"></a></div>
+            <div class="company-logo-item"><a href="https://www.capgemini.com" target="_blank"><img src="images/capgemini-logo.jpg" alt="Capgemini"></a></div>
+            <div class="company-logo-item"><a href="https://www.persistent.com" target="_blank"><img src="images/persistent-logo.jpg" alt="Persistent"></a></div>
+            <div class="company-logo-item"><a href="https://hexaware.com" target="_blank"><img src="images/hexaware-logo.jpg" alt="Hexaware"></a></div>
+            <div class="company-logo-item"><a href="https://www.google.com" target="_blank"><img src="images/google.png" alt="Google"></a></div>
+            <div class="company-logo-item"><a href="https://www.microsoft.com" target="_blank"><img src="images/microsoft.png" alt="Microsoft"></a></div>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-column">
@@ -249,7 +201,6 @@
                     <li><a href="jobs.html">Job Openings</a></li>
                     <li><a href="courses.html">Courses</a></li>
                     <li><a href="blog.html">Blog</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -258,7 +209,6 @@
                     <li><a href="resume.html">Resume Builder</a></li>
                     <li><a href="interview.html">Interview Prep</a></li>
                     <li><a href="videos.html">Study Materials</a></li>
-                    <li><a href="index.html">Career Guides</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -266,26 +216,22 @@
                 <ul>
                     <li><a href="contact.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
-                    <li><a href="contact.html">Privacy Policy</a></li>
-                    <li><a href="contact.html">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Connect With Us</h3>
                 <div class="social-links">
-                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram profile"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
-                <p style="margin-top: 1.5rem; color: #ccc;">hack2hired.official@gmail.com</p>
             </div>
         </div>
-       <p>Made with <span class="heart">❤️</span> by Abhi</p>
-        <p> 2025 College Placement System. All rights reserved.</p>
+        <p>Made with <span class="heart">❤️</span> by Abhi</p>
+        <p>© 2025 Hack-2-Hired. All rights reserved.</p>
     </footer>
 
     <script src="index.js"></script>
-    
-
 </body>
-
 </html>
