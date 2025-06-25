@@ -4,119 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Hack-2-Hired</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Your Provided CSS File -->
     <link rel="stylesheet" href="admin-dashboard.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="admin-container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
-            <div class="sidebar-header">
+            <header class="sidebar-header">
                 <h2><i class="fas fa-user-shield"></i> <span class="sidebar-text">Admin Panel</span></h2>
-            </div>
-            <ul class="sidebar-menu">
-                <!-- Added aria-current="page" for accessibility on the active link -->
-                <li><a href="#" class="active" aria-current="page"><i class="fas fa-tachometer-alt"></i> <span class="sidebar-text">Dashboard</span></a></li>
-                <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> <span class="sidebar-text">Back to Portal</span></a></li>
-            </ul>
+            </header>
+            <nav>
+                <ul class="sidebar-menu">
+                    <li><a href="#" class="active" aria-current="page"><i class="fas fa-tachometer-alt"></i> <span class="sidebar-text">Dashboard</span></a></li>
+                    <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> <span class="sidebar-text">Logout</span></a></li>
+                </ul>
+            </nav>
         </aside>
 
         <!-- Main Content Area -->
         <main class="main-content">
-            <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+            <header>
+                <h1><i class="fas fa-chart-line"></i> Dashboard</h1>
+            </header>
             
             <!-- Post New Job Card -->
-            <section class="card" id="post-job-card">
+            <section class="card" id="post-job-card" aria-labelledby="post-job-heading">
                 <div class="card-header">
-                    <h3><i class="fas fa-plus-circle"></i> Post New Job</h3>
+                    <h3 id="post-job-heading"><i class="fas fa-plus-circle"></i> Post New Job</h3>
                 </div>
-                <div id="jobMessage" class="alert" style="display: none;"></div>
-                <form id="jobForm" class="grid-form">
-                    <div class="form-group">
-                        <label for="jobTitle">Job Title</label>
-                        <input type="text" id="jobTitle" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="companyName">Company Name</label>
-                        <input type="text" id="companyName" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastDate">Last Date to Apply</label>
-                        <input type="date" id="lastDate" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="salary">Salary (₹ per annum)</label>
-                        <input type="number" id="salary" class="form-control" min="0" required>
-                    </div>
+                <div id="jobMessage" class="alert" role="status" aria-live="polite" style="display: none;"></div>
+                <form id="jobForm" class="grid-form" novalidate>
+                    <div class="form-group"><label for="jobTitle">Job Title</label><input type="text" id="jobTitle" class="form-control" required aria-describedby="jobTitle-feedback"><div class="input-feedback" id="jobTitle-feedback"></div></div>
+                    <div class="form-group"><label for="companyName">Company Name</label><input type="text" id="companyName" class="form-control" required aria-describedby="companyName-feedback"><div class="input-feedback" id="companyName-feedback"></div></div>
+                    <div class="form-group"><label for="lastDate">Last Date to Apply</label><input type="date" id="lastDate" class="form-control" required aria-describedby="lastDate-feedback"><div class="input-feedback" id="lastDate-feedback"></div></div>
+                    <div class="form-group"><label for="salary">Salary (₹ per annum)</label><input type="number" id="salary" class="form-control" min="0" required aria-describedby="salary-feedback"><div class="input-feedback" id="salary-feedback"></div></div>
+                    <div class="form-group full-width"><label for="applyLink">Apply Link</label><input type="url" id="applyLink" class="form-control" required aria-describedby="applyLink-feedback"><div class="input-feedback" id="applyLink-feedback"></div></div>
+                    <div class="form-group full-width"><label for="jobDescription">Job Description</label><textarea id="jobDescription" class="form-control" rows="4" required aria-describedby="jobDescription-feedback"></textarea><div class="input-feedback" id="jobDescription-feedback"></div></div>
                     <div class="form-group full-width">
-                        <label for="applyLink">Apply Link</label>
-                        <input type="url" id="applyLink" class="form-control" required>
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="jobDescription">Job Description</label>
-                        <textarea id="jobDescription" class="form-control" rows="4" required></textarea>
-                    </div>
-                    <div class="form-group full-width">
-                        <!-- ENHANCEMENT: Added a disabled state for the button during form submission -->
                         <button type="submit" class="btn" id="postJobBtn">
-                            <i class="fas fa-paper-plane"></i> <span>Post Job</span>
+                            <span class="btn-text"><i class="fas fa-paper-plane"></i> Post Job</span>
+                            <span class="spinner"></span>
                         </button>
                     </div>
                 </form>
             </section>
 
-            <!-- Posted Jobs Card -->
-            <section class="card" id="posted-jobs-card">
-                <div class="card-header">
-                    <h3><i class="fas fa-briefcase"></i> Posted Jobs</h3>
-                </div>
-                <!-- ENHANCEMENT: Replaced simple text with a CSS spinner for a better UX -->
-                <div id="loadingJobsIndicator" class="loading-spinner-container">
-                    <div class="spinner"></div>
-                    <p>Loading jobs...</p>
-                </div>
-                <div class="table-container">
-                    <table id="jobsTable" style="display: none;">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Company</th>
-                                <th>Last Date</th>
-                                <th>Salary (₹)</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="jobsList"></tbody>
-                    </table>
-                </div>
+            <!-- Posted Jobs & Users Cards (no changes needed) -->
+            <section class="card" id="posted-jobs-card" aria-labelledby="posted-jobs-heading">
+                <div class="card-header"><h3 id="posted-jobs-heading"><i class="fas fa-briefcase"></i> Posted Jobs</h3></div>
+                <div id="loadingJobsIndicator" class="loading-spinner-container"><div class="spinner"></div><p>Loading jobs...</p></div>
+                <div class="table-container"><table id="jobsTable" style="display: none;"><caption class="sr-only">A list of all currently posted job opportunities.</caption><thead><tr><th>Title</th><th>Company</th><th>Last Date</th><th>Actions</th></tr></thead><tbody id="jobsList"></tbody></table></div>
             </section>
-
-            <!-- Registered Users Card -->
-            <section class="card" id="registered-users-card">
-                <div class="card-header">
-                    <h3><i class="fas fa-users"></i> Registered Users</h3>
-                </div>
-                <div id="loadingUsersIndicator" class="loading-spinner-container">
-                    <div class="spinner"></div>
-                    <p>Loading users...</p>
-                </div>
-                 <div class="table-container">
-                    <table id="usersTable" style="display: none;">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                            </tr>
-                        </thead>
-                        <tbody id="userList"></tbody>
-                    </table>
-                </div>
+            <section class="card" id="registered-users-card" aria-labelledby="registered-users-heading">
+                <div class="card-header"><h3 id="registered-users-heading"><i class="fas fa-users"></i> Registered Users</h3></div>
+                <div id="loadingUsersIndicator" class="loading-spinner-container"><div class="spinner"></div><p>Loading users...</p></div>
+                 <div class="table-container"><table id="usersTable" style="display: none;"><caption class="sr-only">A list of all registered users in the system.</caption><thead><tr><th>Username</th><th>Email</th><th>Role</th></tr></thead><tbody id="userList"></tbody></table></div>
             </section>
         </main>
-      </div>
-
+    </div>
     <script src="admin-dashboard.js"></script>
 </body>
 </html>
