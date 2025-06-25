@@ -1,95 +1,112 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
-    const emailInput = document.getElementById("email");
+    const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
-    const errorMessageDiv = document.getElementById("error-message");
-    const loginButton = document.getElementById("loginButton");
-    const togglePasswordBtn = document.getElementById('togglePassword');
+    const errorElement = document.getElementById("error-message");
+    const successElement = document.getElementById("success-message");
+    const loginButton = document.getElementById("loginButton"); // Get the button
+    const buttonText = loginButton.querySelector(".button-text"); // Get the text span
+    const spinner = loginButton.querySelector(".spinner"); // Get the spinner span
 
-    // Password visibility toggle logic
-    if (togglePasswordBtn) {
-        togglePasswordBtn.addEventListener('click', () => {
-            const isPassword = passwordInput.type === 'password';
-            passwordInput.type = isPassword ? 'text' : 'password';
-            
-            // Update ARIA label for accessibility
-            togglePasswordBtn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
-            
-            // Toggle icon
-            const icon = togglePasswordBtn.querySelector('.fas');
-            icon.classList.toggle('fa-eye');
-            icon.classList.toggle('fa-eye-slash');
-        });
+
+    // Helper function to show messages
+    function showMessage(element, message, type) {
+        element.textContent = message;
+        element.className = `alert alert-${type}`;
+        element.style.display = "block";
+        // Optionally, hide the message after a few seconds
+        // setTimeout(() => {
+        //     element.style.display = "none";
+        //     element.textContent = "";
+        // }, 5000);
     }
 
-    const showMessage = (message, type = "error") => {
-        errorMessageDiv.textContent = message;
-        errorMessageDiv.className = `alert alert-${type}`;
-        errorMessageDiv.style.display = "block";
-    };
+    // Helper function to hide all messages
+    function hideMessages() {
+        errorElement.style.display = "none";
+        successElement.style.display = "none";
+        errorElement.textContent = "";
+        successElement.textContent = "";
+    }
 
-    const hideMessage = () => {
-        errorMessageDiv.style.display = "none";
-    };
+    // Function to show the spinner and disable the button
+    function showLoadingState() {
+        loginButton.disabled = true;
+        loginButton.classList.add('loading'); // Add loading class
+        spinner.style.display = "block"; // Show spinner
+        buttonText.style.display = "none"; // Hide button text
+    }
 
-    const setLoadingState = (isLoading) => {
-        loginButton.disabled = isLoading;
-        loginButton.classList.toggle('is-loading', isLoading);
-    };
+    // Function to hide the spinner and enable the button
+    function hideLoadingState() {
+        loginButton.disabled = false;
+        loginButton.classList.remove('loading'); // Remove loading class
+        spinner.style.display = "none"; // Hide spinner
+        buttonText.style.display = "inline-block"; // Show button text (inline-block to keep icon alignment)
+    }
 
-    loginForm.addEventListener("submit", async (e) => {
+    loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
-        hideMessage();
 
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
+        hideMessages(); // Clear any previous messages
 
-        if (!email || !password) {
-            showMessage("Both email and password are required.");
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        // Basic client-side validation
+        if (!username || !password) {
+            showMessage(errorElement, "Please enter both username and password.", "error");
             return;
         }
 
-        setLoadingState(true);
+        showLoadingState(); // Show spinner and disable button
 
         try {
             const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ username, password }),
             });
 
-            const result = await response.json();
+            const data = await response.json();
 
-            if (response.ok && result.token) {
-                // ENHANCEMENT: Store token and user role
-                localStorage.setItem("authToken", result.token);
-                localStorage.setItem("userRole", result.role); // Assuming backend sends role
+            if (response.ok) {
+                if (data.token) {
+                    localStorage.setItem("authToken", data.token);
 
-                showMessage("Login successful! Redirecting...", "success");
+                    try {
+                        const payload = JSON.parse(atob(data.token.split(".")[1]));
+                        const roles = payload.roles || payload.authorities || [];
+                        const isAdmin = roles.includes("ROLE_ADMIN");
 
-                // ENHANCEMENT: Role-based redirection
-                setTimeout(() => {
-                    if (result.role === 'ADMIN') {
-                        window.location.href = "admin-dashboard.html";
-                    } else {
-                        window.location.href = "dashboard.html";
+                        localStorage.setItem("userRole", isAdmin ? "ADMIN" : "USER");
+
+                        showMessage(successElement, "Login successful! Redirecting...", "success");
+
+                        setTimeout(() => {
+                            window.location.href = isAdmin
+                                ? "admin-dashboard.html"
+                                : "index.html";
+                        }, 700);
+                    } catch (jwtError) {
+                        console.error("Error parsing JWT token:", jwtError);
+                        showMessage(errorElement, "Login successful, but an error occurred processing user data. Please try again or contact support.", "error");
+                        setTimeout(() => {
+                            window.location.href = "index.html";
+                        }, 700);
                     }
-                }, 1500);
-
+                } else {
+                    showMessage(errorElement, data.message || "Login successful, but no authentication token received.", "error");
+                }
             } else {
-                showMessage(result.message || "Invalid credentials. Please try again.");
-                setLoadingState(false);
+                showMessage(errorElement, data.message || "Invalid username or password. Please try again.", "error");
             }
         } catch (error) {
-            console.error("Login error:", error);
-            showMessage("An error occurred. Please check your network and try again.");
-            setLoadingState(false);
+            console.error("Login network error:", error);
+            showMessage(errorElement, "Network error. Please check your internet connection and try again.", "error");
+        } finally {
+            // Always hide the spinner and enable the button, regardless of success or failure
+            hideLoadingState();
         }
-        /*
-        SECURITY NOTE (Advanced): Storing tokens in localStorage is common but vulnerable to XSS attacks.
-        The most secure method is for the backend to set a secure, HttpOnly cookie. The token would then be
-        sent automatically by the browser on subsequent requests, and it would be inaccessible to client-side
-        JavaScript, mitigating XSS risks.
-        */
     });
 });
