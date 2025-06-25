@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- MOBILE NAVIGATION TOGGLE ---
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
     // --- AUTHENTICATION & UI LOGIC (No changes here) ---
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
@@ -29,10 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const roles = payload.roles || payload.authorities || [];
                 isAdmin = roles.includes("ROLE_ADMIN");
             }
-            if (userWelcome) {
-                userWelcome.style.display = 'block';
-                displayUsername.textContent = username;
-            }
+            if (userWelcome) userWelcome.style.display = 'block';
+            if (displayUsername) displayUsername.textContent = username;
             if (heroHeading) heroHeading.style.display = 'none';
         } else {
             if (userWelcome) userWelcome.style.display = 'none';
@@ -49,64 +57,52 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutBtn.addEventListener('click', () => {
             if (!confirm('Are you sure you want to log out?')) return;
             localStorage.removeItem('authToken');
+            // We should also remove userRole from localStorage on logout
+            localStorage.removeItem('userRole'); 
             window.location.href = 'logout-confirmation.html';
         });
     }
 
     updateUI();
 
-    // --- NEW: REVEAL ON SCROLL ANIMATION ---
+    // --- REVEAL ON SCROLL ANIMATION ---
     const revealElements = document.querySelectorAll('.reveal');
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                observer.unobserve(entry.target); // Stop observing once it's visible
             }
         });
-    }, {
-        threshold: 0.1 // Trigger when 10% of the element is visible
-    });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => revealObserver.observe(el));
 
-    revealElements.forEach(el => {
-        revealObserver.observe(el);
-    });
-
-    // --- NEW: ANIMATED STATS COUNTER ---
+    // --- ANIMATED STATS COUNTER ---
     const counters = document.querySelectorAll('.counter');
     const statsSection = document.querySelector('.stats');
-
-    const countUp = (counter) => {
-        const target = +counter.getAttribute('data-target');
-        const count = +counter.innerText;
-        const increment = target / 200; // Speed of the count
-
-        if (count < target) {
-            counter.innerText = `${Math.ceil(count + increment)}`;
-            setTimeout(() => countUp(counter), 10);
-        } else {
-            counter.innerText = target.toLocaleString(); // Add commas for thousands
-        }
-    };
-
     const statsObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 counters.forEach(counter => {
-                    countUp(counter);
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const increment = target / 100; // Animation speed
+                        
+                        if(count < target) {
+                            counter.innerText = `${Math.ceil(count + increment)}`;
+                            setTimeout(updateCount, 20);
+                        } else {
+                            counter.innerText = target.toLocaleString();
+                        }
+                    };
+                    updateCount();
                 });
-                observer.unobserve(statsSection); // Only run the counter animation once
+                observer.unobserve(statsSection);
             }
         });
-    }, {
-        threshold: 0.5 // Trigger when 50% of the stats section is visible
-    });
-
+    }, { threshold: 0.5 });
+    
     if (statsSection) {
         statsObserver.observe(statsSection);
     }
-    
-    // --- SLIDESHOW LOGIC (If you have it on the page) ---
-    // Your existing slideshow JS can go here.
 });
