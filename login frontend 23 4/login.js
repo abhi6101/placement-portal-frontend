@@ -1,68 +1,94 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // --- Configuration ---
+    const API_BASE_URL = "https://placement-portal-backend-nwaj.onrender.com/api/auth";
+    const REDIRECT_DELAY_MS = 1500;
+
+    // --- DOM Elements ---
     const loginForm = document.getElementById("loginForm");
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
-    const errorElement = document.getElementById("error-message");
-    const successElement = document.getElementById("success-message");
-    const loginButton = document.getElementById("loginButton"); // Get the button
-    const buttonText = loginButton.querySelector(".button-text"); // Get the text span
-    const spinner = loginButton.querySelector(".spinner"); // Get the spinner span
+    const messageContainer = document.getElementById("message-container");
+    const loginButton = document.getElementById("loginButton");
+    
+    const usernameFeedback = document.getElementById("username-feedback");
+    const passwordFeedback = document.getElementById("password-feedback");
 
+    // --- Helper Functions ---
 
-    // Helper function to show messages
-    function showMessage(element, message, type) {
-        element.textContent = message;
-        element.className = `alert alert-${type}`;
-        element.style.display = "block";
-        // Optionally, hide the message after a few seconds
-        // setTimeout(() => {
-        //     element.style.display = "none";
-        //     element.textContent = "";
-        // }, 5000);
-    }
+    const showGlobalMessage = (message, type) => {
+        messageContainer.textContent = message;
+        messageContainer.className = `alert alert-${type}`;
+        messageContainer.style.display = "flex";
+    };
 
-    // Helper function to hide all messages
-    function hideMessages() {
-        errorElement.style.display = "none";
-        successElement.style.display = "none";
-        errorElement.textContent = "";
-        successElement.textContent = "";
-    }
+    const hideGlobalMessage = () => {
+        messageContainer.style.display = "none";
+    };
+    
+    const showInputError = (input, feedbackEl, message) => {
+        input.classList.add('is-invalid');
+        input.setAttribute('aria-invalid', 'true');
+        feedbackEl.textContent = message;
+        feedbackEl.style.display = 'block';
+    };
 
-    // Function to show the spinner and disable the button
-    function showLoadingState() {
-        loginButton.disabled = true;
-        loginButton.classList.add('loading'); // Add loading class
-        spinner.style.display = "block"; // Show spinner
-        buttonText.style.display = "none"; // Hide button text
-    }
+    const hideInputError = (input, feedbackEl) => {
+        input.classList.remove('is-invalid');
+        input.removeAttribute('aria-invalid');
+        feedbackEl.style.display = 'none';
+    };
 
-    // Function to hide the spinner and enable the button
-    function hideLoadingState() {
-        loginButton.disabled = false;
-        loginButton.classList.remove('loading'); // Remove loading class
-        spinner.style.display = "none"; // Hide spinner
-        buttonText.style.display = "inline-block"; // Show button text (inline-block to keep icon alignment)
-    }
+    const setButtonLoading = (isLoading) => {
+        loginButton.disabled = isLoading;
+        loginButton.classList.toggle('loading', isLoading);
+    };
 
-    loginForm.addEventListener("submit", async function (e) {
+    const handleLoginSuccess = (token) => {
+        localStorage.setItem("authToken", token);
+        let isAdmin = false;
+        try {
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            const roles = payload.roles || payload.authorities || [];
+            isAdmin = roles.includes("ROLE_ADMIN");
+        } catch (e) {
+            console.error("Could not parse JWT payload.", e);
+        }
+        localStorage.setItem("userRole", isAdmin ? "ADMIN" : "USER");
+        
+        showGlobalMessage("Login successful! Redirecting...", "success");
+        setTimeout(() => {
+            window.location.href = isAdmin ? "admin-dashboard.html" : "index.html";
+        }, REDIRECT_DELAY_MS);
+    };
+
+    // --- Event Listeners ---
+
+    loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-
-        hideMessages(); // Clear any previous messages
+        
+        hideGlobalMessage();
+        hideInputError(usernameInput, usernameFeedback);
+        hideInputError(passwordInput, passwordFeedback);
 
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
+        let isValid = true;
 
-        // Basic client-side validation
-        if (!username || !password) {
-            showMessage(errorElement, "Please enter both username and password.", "error");
-            return;
+        if (!username) {
+            showInputError(usernameInput, usernameFeedback, "Username is required.");
+            isValid = false;
+        }
+        if (!password) {
+            showInputError(passwordInput, passwordFeedback, "Password is required.");
+            isValid = false;
         }
 
-        showLoadingState(); // Show spinner and disable button
+        if (!isValid) return;
+
+        setButtonLoading(true);
 
         try {
-            const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/login", {
+            const response = await fetch(`${API_BASE_URL}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password }),
@@ -70,43 +96,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
 
-            if (response.ok) {
-                if (data.token) {
-                    localStorage.setItem("authToken", data.token);
-
-                    try {
-                        const payload = JSON.parse(atob(data.token.split(".")[1]));
-                        const roles = payload.roles || payload.authorities || [];
-                        const isAdmin = roles.includes("ROLE_ADMIN");
-
-                        localStorage.setItem("userRole", isAdmin ? "ADMIN" : "USER");
-
-                        showMessage(successElement, "Login successful! Redirecting...", "success");
-
-                        setTimeout(() => {
-                            window.location.href = isAdmin
-                                ? "admin-dashboard.html"
-                                : "index.html";
-                        }, 700);
-                    } catch (jwtError) {
-                        console.error("Error parsing JWT token:", jwtError);
-                        showMessage(errorElement, "Login successful, but an error occurred processing user data. Please try again or contact support.", "error");
-                        setTimeout(() => {
-                            window.location.href = "index.html";
-                        }, 700);
-                    }
-                } else {
-                    showMessage(errorElement, data.message || "Login successful, but no authentication token received.", "error");
-                }
+            if (response.ok && data.token) {
+                handleLoginSuccess(data.token);
             } else {
-                showMessage(errorElement, data.message || "Invalid username or password. Please try again.", "error");
+                const errorMessage = data.message || "Invalid credentials. Please try again.";
+                showGlobalMessage(errorMessage, "error");
+                setButtonLoading(false);
             }
         } catch (error) {
             console.error("Login network error:", error);
-            showMessage(errorElement, "Network error. Please check your internet connection and try again.", "error");
-        } finally {
-            // Always hide the spinner and enable the button, regardless of success or failure
-            hideLoadingState();
+            showGlobalMessage("Network error. Please check your connection.", "error");
+            setButtonLoading(false);
         }
     });
+
+    // Clear validation error on input for better UX
+    usernameInput.addEventListener('input', () => hideInputError(usernameInput, usernameFeedback));
+    passwordInput.addEventListener('input', () => hideInputError(passwordInput, passwordFeedback));
 });
