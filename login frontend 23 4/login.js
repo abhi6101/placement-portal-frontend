@@ -4,21 +4,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const passwordInput = document.getElementById("password");
     const errorElement = document.getElementById("error-message");
     const successElement = document.getElementById("success-message");
-    const loginButton = document.getElementById("loginButton"); // Get the button
-    const buttonText = loginButton.querySelector(".button-text"); // Get the text span
-    const spinner = loginButton.querySelector(".spinner"); // Get the spinner span
+    const loginButton = document.getElementById("loginButton");
+    const buttonText = loginButton.querySelector(".button-text");
+    const spinner = loginButton.querySelector(".spinner");
 
+    // --- START: New code for Password Visibility Toggle ---
+    const togglePassword = document.getElementById('togglePassword');
+
+    if (togglePassword && passwordInput) {
+        togglePassword.addEventListener('click', function () {
+            // Check the current type of the password input field
+            const isPassword = passwordInput.getAttribute('type') === 'password';
+
+            if (isPassword) {
+                // If it's a password, change to text to show it
+                passwordInput.setAttribute('type', 'text');
+                // Change the icon to the 'eye-slash'
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                // Otherwise, change it back to a password
+                passwordInput.setAttribute('type', 'password');
+                // Change the icon back to the 'eye'
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+    }
+    // --- END: New code for Password Visibility Toggle ---
 
     // Helper function to show messages
     function showMessage(element, message, type) {
         element.textContent = message;
         element.className = `alert alert-${type}`;
         element.style.display = "block";
-        // Optionally, hide the message after a few seconds
-        // setTimeout(() => {
-        //     element.style.display = "none";
-        //     element.textContent = "";
-        // }, 5000);
     }
 
     // Helper function to hide all messages
@@ -32,34 +51,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // Function to show the spinner and disable the button
     function showLoadingState() {
         loginButton.disabled = true;
-        loginButton.classList.add('loading'); // Add loading class
-        spinner.style.display = "block"; // Show spinner
-        buttonText.style.display = "none"; // Hide button text
+        loginButton.classList.add('loading');
+        spinner.style.display = "block";
+        buttonText.style.display = "none";
     }
 
     // Function to hide the spinner and enable the button
     function hideLoadingState() {
         loginButton.disabled = false;
-        loginButton.classList.remove('loading'); // Remove loading class
-        spinner.style.display = "none"; // Hide spinner
-        buttonText.style.display = "inline-block"; // Show button text (inline-block to keep icon alignment)
+        loginButton.classList.remove('loading');
+        spinner.style.display = "none";
+        buttonText.style.display = "inline-block";
     }
 
     loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
-
-        hideMessages(); // Clear any previous messages
+        hideMessages();
 
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
 
-        // Basic client-side validation
         if (!username || !password) {
             showMessage(errorElement, "Please enter both username and password.", "error");
             return;
         }
 
-        showLoadingState(); // Show spinner and disable button
+        showLoadingState();
 
         try {
             const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/login", {
@@ -90,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         }, 700);
                     } catch (jwtError) {
                         console.error("Error parsing JWT token:", jwtError);
-                        showMessage(errorElement, "Login successful, but an error occurred processing user data. Please try again or contact support.", "error");
+                        showMessage(errorElement, "Login successful, but an error occurred processing user data.", "error");
                         setTimeout(() => {
                             window.location.href = "index.html";
                         }, 700);
@@ -105,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Login network error:", error);
             showMessage(errorElement, "Network error. Please check your internet connection and try again.", "error");
         } finally {
-            // Always hide the spinner and enable the button, regardless of success or failure
             hideLoadingState();
         }
     });
