@@ -11,179 +11,154 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Your Stylesheet -->
+    <!-- Your New Stylesheet -->
     <link rel="stylesheet" href="index.css">
     <link rel="icon" href="images/favicon.png" type="image/png">
 </head>
 
 <body>
-    <nav class="top-nav">
-        <div class="logo">Hack-2-<span>Hired</span></div>
-        <ul>
-            <li><a href="mailto:hack2hired.official@gmail.com" aria-label="Email us"><i class="fas fa-envelope"></i>hack2hired.official@gmail.com</a></li>
-            <li><a href="tel:+91-6266017070" aria-label="Call us"><i class="fas fa-phone"></i> +91-6266017070</a></li>
-        </ul>
-    </nav>
+    <!-- Single, Modern Navigation Bar -->
+    <header class="main-header">
+        <nav class="main-nav">
+            <div class="logo">Hack-2-<span>Hired</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="videos.html"><i class="fas fa-video"></i> Videos</a></li>
+                <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+                <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+                <li><a href="contact.html"><i class="fas fa-id-card"></i> Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                 <a href="login.html" id="loginBtn" class="btn btn-secondary"><i class="fas fa-sign-in-alt"></i> Login</a>
+                 <a href="register.html" id="registerBtn" class="btn btn-primary"><i class="fas fa-user-plus"></i> Register</a>
+                 <button id="logoutBtn" class="btn btn-primary hidden"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                 <a href="admin-dashboard.html" id="adminPanelLink" class="btn btn-admin hidden"><i class="fas fa-user-shield"></i> Admin</a>
+            </div>
+             <!-- Add a hamburger menu for mobile if needed -->
+        </nav>
+    </header>
 
-    <nav class="main-nav">
-        <ul>
-            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-            <!-- Links are commented out as in original -->
-            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
-            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
-            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
-            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-            <li id="adminPanelLink" class="hidden">
-                <a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a>
-            </li>
-            <li><a href="login.html" id="loginBtn" class="btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-            <li><button id="logoutBtn" class="btn hidden"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
-        </ul>
-    </nav>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                 <div id="userWelcome" class="hidden">
+                    <h2>Welcome, <span id="displayUsername"></span>!</h2>
+                    <p>Account type: <span id="displayRole"></span></p>
+                </div>
+                <h1 id="heroHeading">Launch Your <span class="highlight">Career</span></h1>
+                <p id="heroSubtitle">Your journey from student to professional starts here. Find jobs, build resumes, and ace interviews.</p>
+                <div class="hero-cta-buttons">
+                    <a href="jobs.html" class="cta-btn fade-in">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Explore Job Listings</span>
+                    </a>
+                    <a href="resume.html" class="cta-btn fade-in">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Build Your Resume</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-    <section class="hero">
-        <div class="hero-content">
-            <div id="userWelcome" class="hidden">
-                <h2>Welcome, <span id="displayUsername"></span>!</h2>
-                <p>Account type: <span id="displayRole"></span></p>
+        <section class="features">
+            <div class="section-header">
+                <h2 class="fade-in">Everything You Need To Get Hired</h2>
+                <p class="fade-in">We provide a complete toolkit for your career success.</p>
             </div>
-            <h1 id="heroHeading">Launch Your Career with Ease!</h1>
-            <p id="heroSubtitle">Your comprehensive platform for job placements, resume building, interview preparation, and career growth.</p>
-            <div class="cta-btns">
-                <a href="jobs.html" class="btn">Explore Jobs</a>
-                <a href="register.html" id="registerBtn" class="btn btn-outline">Register Now</a>
+            <div class="features-grid">
+                <div class="features-box fade-in">
+                    <i class="fas fa-comments"></i>
+                    <h3>Interview Prep</h3>
+                    <p>Practice with mock interviews and expert feedback.</p>
+                </div>
+                <div class="features-box fade-in">
+                    <i class="fas fa-scroll"></i>
+                    <h3>Previous Papers</h3>
+                    <p>Get an edge by studying past placement papers.</p>
+                </div>
+                <div class="features-box fade-in">
+                    <i class="fas fa-brain"></i>
+                    <h3>Aptitude Quizzes</h3>
+                    <p>Sharpen your skills with our interactive quizzes.</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="features">
-        <!-- Added 'fade-in' class for scroll animation -->
-        <div class="features-box fade-in">
-            <i class="fas fa-briefcase"></i>
-            <h2>Job Listings</h2>
-            <p>Access hundreds of curated job opportunities from top companies matching your skills.</p>
-            <a href="jobs.html" class="btn">Explore Jobs</a>
-        </div>
-        <div class="features-box fade-in">
-            <i class="fas fa-file-alt"></i>
-            <h2>Resume Builder</h2>
-            <p>Create professional, ATS-friendly resumes with our easy-to-use builder and templates.</p>
-            <a href="resume.html" class="btn">Design Your CV</a>
-        </div>
-        <div class="features-box fade-in">
-            <i class="fas fa-comments"></i>
-            <h2>Interview Prep</h2>
-            <p>Practice with mock interviews, common questions, and get feedback from industry experts.</p>
-            <a href="interview.html" class="btn">Start Preparing</a>
-        </div>
-        <div class="features-box fade-in">
-            <i class="fas fa-scroll"></i>
-            <h2>Previous year Papers</h2>
-            <p>Practice with past placement papers to get ahead of the competition.</p>
-            <a href="papers.html" class="btn">Start Preparing</a>
-        </div>
-        <div class="features-box fade-in">
-            <i class="fas fa-brain"></i>
-            <h2>Aptitude Quiz</h2>
-            <p>Sharpen your problem-solving skills with our interactive quizzes.</p>
-            <a href="quiz.html" class="btn">Start Quiz</a>
-        </div>
-    </section>
-
-    <section class="stats">
-        <div class="stats-container">
-            <div class="stat-item fade-in">
-                <h3>500+</h3>
-                <p>Companies Hiring</p>
+        <section class="stats">
+            <div class="stats-container">
+                <div class="stat-item fade-in"><h3>500+</h3><p>Companies Hiring</p></div>
+                <div class="stat-item fade-in"><h3>10,000+</h3><p>Successful Placements</p></div>
+                <div class="stat-item fade-in"><h3>95%</h3><p>Placement Rate</p></div>
+                <div class="stat-item fade-in"><h3>50+</h3><p>Career Resources</p></div>
             </div>
-            <div class="stat-item fade-in">
-                <h3>10,000+</h3>
-                <p>Successful Placements</p>
+        </section>
+        
+        <section class="testimonials">
+             <div class="section-header">
+                <h2 class="fade-in">Success Stories from Our Alumni</h2>
             </div>
-            <div class="stat-item fade-in">
-                <h3>95%</h3>
-                <p>Placement Rate</p>
-            </div>
-            <div class="stat-item fade-in">
-                <h3>50+</h3>
-                <p>Career Resources</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials">
-        <h2>Success Stories</h2>
-        <div class="testimonial-cards">
-            <div class="testimonial-card fade-in">
-                <p>"The placement portal helped me land my dream job at a top tech company. The resume builder and mock interviews were game-changers!"</p>
-                <div class="testimonial-author">
-                    <img src="images/i-priya.jpg" alt="Priya Sharma">
-                    <div class="author-info">
-                        <h4>Priya Sharma</h4>
-                        <p>Software Engineer at Google</p>
+            <div class="testimonial-cards">
+                <div class="testimonial-card fade-in">
+                    <p>"The placement portal helped me land my dream job. The resume builder and mock interviews were game-changers!"</p>
+                    <div class="testimonial-author">
+                        <img src="images/i-priya.jpg" alt="Priya Sharma">
+                        <div class="author-info"><h4>Priya Sharma</h4><p>Software Engineer at Google</p></div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <p>"I went from no calls to 5 job offers in 2 months after using the interview preparation resources on this platform."</p>
+                    <div class="testimonial-author">
+                        <img src="images/i-rahul.jpg" alt="Rahul Verma">
+                        <div class="author-info"><h4>Rahul Verma</h4><p>Data Analyst at Amazon</p></div>
+                    </div>
+                </div>
+                 <div class="testimonial-card fade-in">
+                    <p>"The personalized career guidance and job matching helped me transition into a higher-paying role in my field."</p>
+                    <div class="testimonial-author">
+                        <img src="images/i-neha.jpg" alt="Neha Patel">
+                        <div class="author-info"><h4>Neha Patel</h4><p>Product Manager at Microsoft</p></div>
                     </div>
                 </div>
             </div>
-            <div class="testimonial-card fade-in">
-                <p>"I went from no calls to 5 job offers in 2 months after using the interview preparation resources on this platform."</p>
-                <div class="testimonial-author">
-                    <img src="images/i-rahul.jpg" alt="Rahul Verma">
-                    <div class="author-info">
-                        <h4>Rahul Verma</h4>
-                        <p>Data Analyst at Amazon</p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card fade-in">
-                <p>"The personalized career guidance and job matching helped me transition into a higher-paying role in my field."</p>
-                <div class="testimonial-author">
-                    <img src="images/i-neha.jpg" alt="Neha Patel">
-                    <div class="author-info">
-                        <h4>Neha Patel</h4>
-                        <p>Product Manager at Microsoft</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="gallery">
-        <h2>Our Campus Glimpses</h2>
-        <div class="slideshow-container">
-            <!-- Slides -->
-            <div class="mySlides fade"> <img src="images/4E9A7129-copy.jpg" alt="Students in a computer lab"> </div>
-            <div class="mySlides fade"> <img src="images/20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance"> </div>
-            <div class="mySlides fade"> <img src="images/DSCF2122-copy.jpg" alt="Students working on computers in a lab"> </div>
-            <div class="mySlides fade"> <img src="images/Group-photo-1-copy-4.jpg" alt="Group of students and faculty"> </div>
-            <div class="mySlides fade"> <img src="images/STUDENT5-1.jpg" alt="Students in a circular computer lab"> </div>
-            <div class="mySlides fade"> <img src="images/student-group-photo.jpg" alt="Large group photo of students"> </div>
-            <!-- Next and previous buttons -->
-            <a class="prev" aria-label="Previous slide">❮</a>
-            <a class="next" aria-label="Next slide">❯</a>
-        </div>
-        <!-- The dots/circles -->
-        <div class="dots-container">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-        <a href="gallery.html" class="btn" style="margin-top: 1.5rem;">View Full Gallery</a>
-    </section>
-
-    <section class="companies">
-        <h2>Our Valued Placement Partners</h2>
-        <div class="company-logos">
-            <!-- Logos remain the same -->
-        </div>
-    </section>
+    </main>
 
     <footer>
         <div class="footer-content">
-            <!-- Footer content remains the same -->
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="jobs.html">Job Openings</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="resume.html">Resume Builder</a></li>
+                    <li><a href="interview.html">Interview Prep</a></li>
+                    <li><a href="videos.html">Study Materials</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="contact.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="contact.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram profile"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
         </div>
        <p class="heart-line">Made with <span class="heart">❤️</span> by Abhi</p>
        <p>© <span id="year"></span> College Placement System. All rights reserved.</p>
@@ -191,4 +166,5 @@
 
     <script src="index.js"></script>
 </body>
+
 </html>
