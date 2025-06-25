@@ -134,18 +134,3 @@ nav a:hover, nav a.active, nav button:hover { color: var(--primary); }
     nav ul { display: flex; }
 }
 
-/* Find this rule in your index.css */
-nav {
-    background-color: rgba(26, 26, 46, 0.6);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    /* --- CRITICAL FIX HERE --- */
-    z-index: 1001; /* Changed from 1000 to a higher value */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
