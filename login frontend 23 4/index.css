@@ -185,7 +185,7 @@ nav:last-of-type a.active {
     -webkit-text-fill-color: transparent;
 }
 
-.hero p {
+.hero p#heroSubtitle {
     font-size: 1.2rem;
     color: var(--text-secondary);
     margin-bottom: 2.5rem;
@@ -193,6 +193,18 @@ nav:last-of-type a.active {
     margin-left: auto;
     margin-right: auto;
 }
+
+#userWelcome {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    margin: 0 auto 2.5rem auto;
+    max-width: 500px;
+}
+#userWelcome h2 { font-size: 1.8rem; margin: 0 0 0.5rem 0; }
+#userWelcome p { font-size: 1rem; margin: 0; color: var(--text-secondary); }
+#userWelcome span { color: var(--primary); font-weight: 600; }
 
 /* === 4. Modern Button & CTA Styles === */
 .btn {

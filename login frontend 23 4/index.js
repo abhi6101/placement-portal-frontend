@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Get all relevant elements
+
+    //======================================//
+    //== 1. AUTHENTICATION & UI MANAGEMENT ==//
+    //======================================//
+
+    // Get all relevant elements (do this once)
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
     const adminPanelLink = document.getElementById('adminPanelLink');
@@ -9,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayRole = document.getElementById('displayRole');
     const heroHeading = document.getElementById('heroHeading');
     const heroSubtitle = document.getElementById('heroSubtitle');
-    const loginForm = document.getElementById('loginForm'); // Assuming this element exists on login.html
+    const loginForm = document.getElementById('loginForm');
 
     // Helper function to decode JWT token
     const parseJwt = (token) => {
@@ -21,13 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Function to update UI based on auth state
+    // Function to update UI based on auth state (adapted for new design)
     const updateUI = () => {
         const token = localStorage.getItem('authToken');
         const isLoggedIn = !!token;
         let isAdmin = false;
         let username = '';
-        let userRole = 'Student'; // Default role
+        let userRole = 'Student';
 
         if (isLoggedIn) {
             const payload = parseJwt(token);
@@ -38,36 +43,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 userRole = isAdmin ? 'Admin' : 'Student';
             }
 
-            // Show welcome section
+            // For logged-in users, show the welcome box and hide the generic subtitle
+            if (heroSubtitle) heroSubtitle.style.display = 'none';
             if (userWelcome) {
                 userWelcome.style.display = 'block';
                 displayUsername.textContent = username;
                 displayRole.textContent = userRole;
             }
-
-            // Update hero text
-            //  if (heroHeading) heroHeading.style.display = 'none';
-            if (heroSubtitle) heroSubtitle.textContent = 'Ready to launch your career? Explore new opportunities or continue your learning journey!';
-
         } else {
-            // Hide welcome section if not logged in
-           
-            // Reset hero text to default
-            if (heroHeading) heroHeading.textContent = 'Launch Your Career with Ease!';
-            if (heroSubtitle) heroSubtitle.textContent = 'Your comprehensive platform for job placements, resume building, interview preparation, and career growth.';
+            // For logged-out users, show the generic subtitle and hide the welcome box
+            if (heroSubtitle) heroSubtitle.style.display = 'block';
+            if (userWelcome) userWelcome.style.display = 'none';
         }
 
         // Update button visibility
         if (loginBtn) loginBtn.style.display = isLoggedIn ? 'none' : 'inline-block';
         if (logoutBtn) logoutBtn.style.display = isLoggedIn ? 'inline-block' : 'none';
-        if (adminPanelLink) adminPanelLink.style.display = isAdmin ? 'inline-block' : 'none';
+        if (adminPanelLink) adminPanelLink.style.display = isAdmin ? 'block' : 'none';
         if (registerBtn) registerBtn.style.display = isLoggedIn ? 'none' : 'inline-block';
     };
 
-    // Initial UI update
+    // Initial UI update on page load
     updateUI();
 
-    // Handle login form submission (only if on login.html)
+    // Handle login form submission (this will only run on pages with a loginForm)
     if (loginForm) {
         loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -92,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     localStorage.setItem('authToken', data.token);
                     
-                    // Store user data from login response for immediate UI updates
                     const payload = parseJwt(data.token);
                     if (payload) {
                         localStorage.setItem('userData', JSON.stringify({
@@ -137,62 +135,72 @@ document.addEventListener('DOMContentLoaded', () => {
             const token = localStorage.getItem('authToken');
             
             try {
-                // Attempt to notify backend of logout (optional, but good practice for session management)
                 await fetch('https://placement-portal-backend-nwaj.onrender.com/api/auth/logout', {
                     method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: { 'Authorization': `Bearer ${token}` }
                 });
             } catch (e) {
-                console.warn('Logout notification to backend failed (may be due to expired token or network issue):', e);
-                // Continue with client-side logout even if backend notification fails
+                console.warn('Logout notification to backend failed:', e);
             } finally {
-                // Clear all auth-related data
+                // Clear all auth-related data from local storage
                 localStorage.removeItem('authToken');
                 localStorage.removeItem('userData');
-                
-                // Update UI immediately
-                updateUI(); 
-                
-                // Redirect to login page or home page
-                window.location.href = 'logout-confirmation.html'; // Redirect to home after logout
+                // Redirect to the homepage to see the logged-out state.
+                window.location.href = 'index.html'; 
             }
         });
     }
-});
 
 
+    //======================================//
+    //======= 2. GALLERY SLIDESHOW =========//
+    //======================================//
 
-        // Slideshow functionality for the HOME PAGE (ONLY automatic advancement)
-        let slideIndex = 0;
-        let autoSlideInterval;
+    let slideIndex = 0;
+    const slides = document.getElementsByClassName("mySlides");
 
-        document.addEventListener('DOMContentLoaded', () => {
-            showSlides();
-            startAutoSlide();
+    function showSlides() {
+        // Guard clause in case slideshow isn't on the page
+        if (slides.length === 0) return;
+
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 4000); // Recursive call for automatic slideshow
+    }
+
+    showSlides(); // Start the slideshow
+
+
+    //======================================//
+    //===== 3. ON-SCROLL ANIMATIONS ========//
+    //======================================//
+
+    const sectionsToAnimate = document.querySelectorAll('section:not(.hero)');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
         });
+    }, {
+        threshold: 0.15 // Trigger when 15% of the section is visible
+    });
 
-        function showSlides() {
-            let i;
-            let slides = document.getElementsByClassName("mySlides");
+    sectionsToAnimate.forEach(section => {
+        // Set initial state for animation
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(40px)';
+        section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+        observer.observe(section);
+    });
 
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-
-            slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1
-            }
-
-            slides[slideIndex - 1].style.display = "block";
-        }
-
-        function startAutoSlide() {
-            clearInterval(autoSlideInterval);
-            autoSlideInterval = setInterval(() => {
-                showSlides();
-            }, 4000); // Change image every 4 seconds
-        }
-  
+});
