@@ -2,14 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- MOBILE NAVIGATION TOGGLE ---
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
-
     if (menuToggle && navLinks) {
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
     }
 
-    // --- AUTHENTICATION & UI LOGIC (No changes here) ---
+    // --- AUTHENTICATION & UI LOGIC ---
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
     const adminPanelLink = document.getElementById('adminPanelLink');
@@ -19,37 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroHeading = document.getElementById('heroHeading');
 
     const parseJwt = (token) => {
-        try {
-            return JSON.parse(atob(token.split('.')[1]));
-        } catch (e) {
-            return null;
-        }
+        try { return JSON.parse(atob(token.split('.')[1])); } catch (e) { return null; }
     };
 
     const updateUI = () => {
         const token = localStorage.getItem('authToken');
         const isLoggedIn = !!token;
-        let isAdmin = false;
-        let username = '';
-
         if (isLoggedIn) {
             const payload = parseJwt(token);
             if (payload) {
-                username = payload.sub || 'User';
-                const roles = payload.roles || payload.authorities || [];
-                isAdmin = roles.includes("ROLE_ADMIN");
+                if (displayUsername) displayUsername.textContent = payload.sub || 'User';
+                if (payload.roles?.includes("ROLE_ADMIN")) {
+                    if (adminPanelLink) adminPanelLink.style.display = 'block';
+                }
             }
             if (userWelcome) userWelcome.style.display = 'block';
-            if (displayUsername) displayUsername.textContent = username;
             if (heroHeading) heroHeading.style.display = 'none';
-        } else {
-            if (userWelcome) userWelcome.style.display = 'none';
-            if (heroHeading) heroHeading.style.display = 'block';
         }
-
         if (loginBtn) loginBtn.style.display = isLoggedIn ? 'none' : 'flex';
         if (logoutBtn) logoutBtn.style.display = isLoggedIn ? 'flex' : 'none';
-        if (adminPanelLink) adminPanelLink.style.display = isAdmin ? 'block' : 'none';
         if (registerBtn) registerBtn.style.display = isLoggedIn ? 'none' : 'flex';
     };
 
@@ -57,37 +44,29 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutBtn.addEventListener('click', () => {
             if (!confirm('Are you sure you want to log out?')) return;
             localStorage.removeItem('authToken');
-            // We should also remove userRole from localStorage on logout
-            localStorage.removeItem('userRole'); 
+            localStorage.removeItem('userRole');
             window.location.href = 'logout-confirmation.html';
         });
     }
-
     updateUI();
 
     // --- REVEAL ON SCROLL ANIMATION ---
-    const revealElements = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('active');
         });
     }, { threshold: 0.1 });
-    revealElements.forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
     // --- ANIMATED STATS COUNTER ---
-    const counters = document.querySelectorAll('.counter');
-    const statsSection = document.querySelector('.stats');
     const statsObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                counters.forEach(counter => {
+                document.querySelectorAll('.counter').forEach(counter => {
                     const updateCount = () => {
                         const target = +counter.getAttribute('data-target');
                         const count = +counter.innerText;
-                        const increment = target / 100; // Animation speed
-                        
+                        const increment = target / 100;
                         if(count < target) {
                             counter.innerText = `${Math.ceil(count + increment)}`;
                             setTimeout(updateCount, 20);
@@ -97,12 +76,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     };
                     updateCount();
                 });
-                observer.unobserve(statsSection);
+                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.5 });
-    
-    if (statsSection) {
-        statsObserver.observe(statsSection);
+    const statsSection = document.querySelector('.stats');
+    if (statsSection) statsObserver.observe(statsSection);
+
+    // --- AUTOMATIC SLIDESHOW FOR GALLERY ---
+    let slideIndex = 0;
+    const slides = document.getElementsByClassName("mySlides");
+    function showSlides() {
+        if (slides.length === 0) return;
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 4000); // Change image every 4 seconds
     }
+    showSlides();
 });
