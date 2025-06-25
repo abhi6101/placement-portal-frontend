@@ -1,4 +1,4 @@
-/* === REGISTER PAGE: PRO-LEVEL STYLESHEET (Simplified) === */
+/* === REGISTER PAGE: PRO-LEVEL STYLESHEET (Corrected) === */
 
 /* --- 1. Root Variables & Global Styles (Consistent with Site) --- */
 :root {
@@ -56,7 +56,7 @@ nav a:hover { color: var(--primary); }
 }
 
 .register-card {
-    max-width: 550px; /* Adjusted width for a single form card */
+    max-width: 550px;
     width: 100%;
     padding: 2.5rem;
     position: relative;
@@ -80,19 +80,29 @@ nav a:hover { color: var(--primary); }
     color: var(--text-secondary);
 }
 
-/* --- 4. Interactive Glowing Border (Consistent with Site) --- */
+/* --- 4. Interactive Glowing Border (CORRECTED) --- */
 .surface-glow {
     background: var(--surface-bg);
     border-radius: 16px;
+    position: relative;
 }
 .surface-glow::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: inherit; padding: 1px;
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: inherit;
+    padding: 1px;
     background: conic-gradient(from var(--angle), transparent 20%, var(--primary), var(--accent), transparent 80%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude;
-    animation: spin 5s linear infinite paused; opacity: 0; transition: opacity 0.4s ease;
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: spin 5s linear infinite paused;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    
+    /* THE FIX: Makes the overlay non-interactive */
+    pointer-events: none;
 }
 .surface-glow:hover::before { animation-play-state: running; opacity: 1; }
 @property --angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
