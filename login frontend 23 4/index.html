@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hack-2-Hired - Launch Your Career</title>
+    <title>Hack-2-Hired - Ace Your Career</title>
     <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Your New Stylesheet -->
@@ -17,108 +17,102 @@
 </head>
 
 <body>
-    <!-- Single, Modern Navigation Bar -->
     <header class="main-header">
         <nav class="main-nav">
             <div class="logo">Hack-2-<span>Hired</span></div>
             <ul class="nav-links">
-                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-                <li><a href="videos.html"><i class="fas fa-video"></i> Videos</a></li>
-                <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
-                <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
-                <li><a href="contact.html"><i class="fas fa-id-card"></i> Contact</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                 <a href="login.html" id="loginBtn" class="btn btn-secondary"><i class="fas fa-sign-in-alt"></i> Login</a>
-                 <a href="register.html" id="registerBtn" class="btn btn-primary"><i class="fas fa-user-plus"></i> Register</a>
-                 <button id="logoutBtn" class="btn btn-primary hidden"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                 <a href="admin-dashboard.html" id="adminPanelLink" class="btn btn-admin hidden"><i class="fas fa-user-shield"></i> Admin</a>
+                 <a href="login.html" id="loginBtn" class="btn btn-secondary">Login</a>
+                 <a href="register.html" id="registerBtn" class="btn btn-primary">Get Started</a>
+                 <button id="logoutBtn" class="btn btn-primary hidden">Logout</button>
+                 <a href="admin-dashboard.html" id="adminPanelLink" class="btn btn-admin hidden">Admin Panel</a>
             </div>
-             <!-- Add a hamburger menu for mobile if needed -->
         </nav>
     </header>
 
     <main>
         <section class="hero">
             <div class="hero-content">
-                 <div id="userWelcome" class="hidden">
-                    <h2>Welcome, <span id="displayUsername"></span>!</h2>
-                    <p>Account type: <span id="displayRole"></span></p>
+                <div class="hero-text">
+                    <div class="ai-tag">
+                        <i class="fas fa-wand-magic-sparkles"></i> AI-Powered Placement Assistant
+                    </div>
+                    <h1>
+                        Launch Your <span class="highlight">Career</span> with Confidence
+                    </h1>
+                    <p>
+                        Practice with our AI simulator that provides real-time feedback, personalized coaching, and detailed analytics to help you land your dream job.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="resume.html" class="btn btn-primary">Start Free Practice <i class="fas fa-arrow-right"></i></a>
+                        <a href="#features" class="btn btn-secondary">See how it works <i class="fas fa-play-circle"></i></a>
+                    </div>
                 </div>
-                <h1 id="heroHeading">Launch Your <span class="highlight">Career</span></h1>
-                <p id="heroSubtitle">Your journey from student to professional starts here. Find jobs, build resumes, and ace interviews.</p>
-                <div class="hero-cta-buttons">
-                    <a href="jobs.html" class="cta-btn fade-in">
-                        <i class="fas fa-briefcase"></i>
-                        <span>Explore Job Listings</span>
-                    </a>
-                    <a href="resume.html" class="cta-btn fade-in">
-                        <i class="fas fa-file-alt"></i>
-                        <span>Build Your Resume</span>
-                    </a>
+
+                <div class="hero-image-mockup">
+                    <div class="mockup-card">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Professional interview simulation" class="mockup-bg-image">
+                        <div class="live-tag">
+                            <span class="live-dot"></span> Live Interview
+                        </div>
+                        <div class="question-counter">
+                            <i class="far fa-file-alt"></i> Question 3/10
+                        </div>
+                        <div class="mockup-overlay">
+                            <p class="question-text">Tell me about a time when you had to solve a complex technical problem.</p>
+                            <div class="question-tags">
+                                <span class="tag behavioral">Behavioral</span>
+                                <span class="tag technical">Technical</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mockup-details-card">
+                        <h3>Senior Developer Interview</h3>
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <p class="description">Technical questions focusing on system design and problem-solving.</p>
+                        <div class="info-pills">
+                            <span><i class="far fa-clock"></i> 30 minutes</span>
+                            <span><i class="fas fa-cogs"></i> Technical</span>
+                            <span><i class="fas fa-user-tie"></i> Senior Level</span>
+                        </div>
+                        <div class="ai-feedback">
+                            <div class="feedback-header">
+                                <i class="fas fa-robot"></i> AI Feedback
+                            </div>
+                            <p>Your response was clear and structured. Consider adding more specific examples.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="features">
-            <div class="section-header">
-                <h2 class="fade-in">Everything You Need To Get Hired</h2>
-                <p class="fade-in">We provide a complete toolkit for your career success.</p>
+         <section id="features" class="features">
+             <div class="section-header">
+                <h2>A Complete Toolkit for Success</h2>
+                <p>From resume to final interview, we've got you covered.</p>
             </div>
             <div class="features-grid">
-                <div class="features-box fade-in">
+                <div class="features-box">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>AI Resume Builder</h3>
+                    <p>Create ATS-friendly resumes that get noticed by recruiters.</p>
+                </div>
+                <div class="features-box">
                     <i class="fas fa-comments"></i>
-                    <h3>Interview Prep</h3>
-                    <p>Practice with mock interviews and expert feedback.</p>
+                    <h3>Mock Interviews</h3>
+                    <p>Practice with unlimited AI-driven interview simulations.</p>
                 </div>
-                <div class="features-box fade-in">
-                    <i class="fas fa-scroll"></i>
-                    <h3>Previous Papers</h3>
-                    <p>Get an edge by studying past placement papers.</p>
-                </div>
-                <div class="features-box fade-in">
-                    <i class="fas fa-brain"></i>
-                    <h3>Aptitude Quizzes</h3>
-                    <p>Sharpen your skills with our interactive quizzes.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="stats">
-            <div class="stats-container">
-                <div class="stat-item fade-in"><h3>500+</h3><p>Companies Hiring</p></div>
-                <div class="stat-item fade-in"><h3>10,000+</h3><p>Successful Placements</p></div>
-                <div class="stat-item fade-in"><h3>95%</h3><p>Placement Rate</p></div>
-                <div class="stat-item fade-in"><h3>50+</h3><p>Career Resources</p></div>
-            </div>
-        </section>
-        
-        <section class="testimonials">
-             <div class="section-header">
-                <h2 class="fade-in">Success Stories from Our Alumni</h2>
-            </div>
-            <div class="testimonial-cards">
-                <div class="testimonial-card fade-in">
-                    <p>"The placement portal helped me land my dream job. The resume builder and mock interviews were game-changers!"</p>
-                    <div class="testimonial-author">
-                        <img src="images/i-priya.jpg" alt="Priya Sharma">
-                        <div class="author-info"><h4>Priya Sharma</h4><p>Software Engineer at Google</p></div>
-                    </div>
-                </div>
-                <div class="testimonial-card fade-in">
-                    <p>"I went from no calls to 5 job offers in 2 months after using the interview preparation resources on this platform."</p>
-                    <div class="testimonial-author">
-                        <img src="images/i-rahul.jpg" alt="Rahul Verma">
-                        <div class="author-info"><h4>Rahul Verma</h4><p>Data Analyst at Amazon</p></div>
-                    </div>
-                </div>
-                 <div class="testimonial-card fade-in">
-                    <p>"The personalized career guidance and job matching helped me transition into a higher-paying role in my field."</p>
-                    <div class="testimonial-author">
-                        <img src="images/i-neha.jpg" alt="Neha Patel">
-                        <div class="author-info"><h4>Neha Patel</h4><p>Product Manager at Microsoft</p></div>
-                    </div>
+                <div class="features-box">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Performance Analytics</h3>
+                    <p>Track your progress with detailed reports and insights.</p>
                 </div>
             </div>
         </section>
@@ -127,44 +121,12 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="jobs.html">Job Openings</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Resources</h3>
-                <ul>
-                    <li><a href="resume.html">Resume Builder</a></li>
-                    <li><a href="interview.html">Interview Prep</a></li>
-                    <li><a href="videos.html">Study Materials</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="contact.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="contact.html">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Connect With Us</h3>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram profile"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+             <!-- Your existing footer columns can go here -->
         </div>
        <p class="heart-line">Made with <span class="heart">❤️</span> by Abhi</p>
-       <p>© <span id="year"></span> College Placement System. All rights reserved.</p>
+       <p>© <span id="year"></span> Hack-2-Hired. All rights reserved.</p>
     </footer>
 
     <script src="index.js"></script>
 </body>
-
 </html>
