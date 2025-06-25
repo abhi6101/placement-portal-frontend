@@ -15,12 +15,10 @@
     <nav>
         <div class="logo">Hack-2-<span>Hired</span></div>
         
-        <!-- This is the hamburger menu button -->
         <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
             <i class="fas fa-bars"></i>
         </button>
 
-        <!-- Navigation links now have an ID for JS targeting -->
         <ul id="nav-links">
             <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
@@ -54,23 +52,97 @@
             </div>
         </section>
 
+        <!-- FIX: ADDING THE MISSING SECTIONS BACK -->
+
         <section class="features reveal">
-            <!-- Feature boxes remain the same -->
+            <div class="features-box">
+                <i class="fas fa-briefcase"></i>
+                <h2>Job Listings</h2>
+                <p>Access hundreds of curated job opportunities from top companies matching your skills.</p>
+                <a href="jobs.html" class="btn">Explore Jobs</a>
+            </div>
+            <div class="features-box">
+                <i class="fas fa-file-alt"></i>
+                <h2>Resume Builder</h2>
+                <p>Create professional, ATS-friendly resumes with our easy-to-use builder and templates.</p>
+                <a href="resume.html" class="btn">Design Your CV</a>
+            </div>
+            <div class="features-box">
+                <i class="fas fa-comments"></i>
+                <h2>Interview Prep</h2>
+                <p>Practice with mock interviews, common questions, and get expert feedback.</p>
+                <a href="interview.html" class="btn">Start Preparing</a>
+            </div>
+            <div class="features-box">
+                <i class="fas fa-scroll"></i>
+                <h2>Previous Papers</h2>
+                <p>Sharpen your skills by practicing with previous years' placement papers.</p>
+                <a href="papers.html" class="btn">Start Practicing</a>
+            </div>
         </section>
 
         <section class="stats">
-            <!-- Stats items remain the same -->
+            <div class="stats-container">
+                <div class="stat-item">
+                    <h3 class="counter" data-target="500">0</h3>
+                    <p>Companies Hiring</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="10000">0</h3>
+                    <p>Successful Placements</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="95">0</h3>
+                    <p>Placement Rate (%)</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="counter" data-target="200">0</h3>
+                    <p>Career Resources</p>
+                </div>
+            </div>
         </section>
 
         <section class="testimonials reveal">
-           <!-- Testimonial cards remain the same -->
+            <h2>Success Stories</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <p>"The placement portal helped me land my dream job at a top tech company. The resume builder and mock interviews were game-changers!"</p>
+                    <div class="testimonial-author">
+                        <img src="images/i-priya.jpg" alt="Priya Sharma">
+                        <div class="author-info">
+                            <h4>Priya Sharma</h4>
+                            <p>Software Engineer at Google</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"I went from no calls to 5 job offers in 2 months after using the interview preparation resources on this platform."</p>
+                    <div class="testimonial-author">
+                        <img src="images/i-rahul.jpg" alt="Rahul Verma">
+                        <div class="author-info">
+                            <h4>Rahul Verma</h4>
+                            <p>Data Analyst at Amazon</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The personalized career guidance and job matching helped me transition into a higher-paying role in my field."</p>
+                    <div class="testimonial-author">
+                        <img src="images/i-neha.jpg" alt="Neha Patel">
+                        <div class="author-info">
+                            <h4>Neha Patel</h4>
+                            <p>Product Manager at Microsoft</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         
-        <!-- Other sections remain the same -->
     </main>
 
     <footer>
-        <!-- Footer content remains the same -->
+        <p>Made with <span class="heart">❤️</span> by Abhi</p>
+        <p>© 2025 College Placement System. All rights reserved.</p>
     </footer>
 
     <script src="index.js"></script>
