@@ -1,207 +1,211 @@
-document.addEventListener('DOMContentLoaded', () => {
+/* --- COLOR PALETTE: ULTRA-MODERN AURORA GLOW 2.0 (Corrected) --- */
+:root {
+    --dark-bg: #050816;
+    --card-bg: rgba(20, 20, 35, 0.6);
+    --primary-accent: #915EFF;
+    --secondary-accent: #00CFE8;
+    --text-primary: #F1F2F6;
+    --text-secondary: #AAA6C3;
+    --font-family: 'Poppins', sans-serif;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glow-color: rgba(145, 94, 255, 0.5);
+}
 
-    // --- AUTHENTICATION & UI LOGIC (Your Proven Code) ---
+/* --- BASE STYLES --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-    // 1. Get all relevant elements from the page
-    const loginBtn = document.getElementById('loginBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const adminPanelLink = document.getElementById('adminPanelLink');
-    const registerBtn = document.getElementById('registerBtn');
-    const userWelcome = document.getElementById('userWelcome');
-    const displayUsername = document.getElementById('displayUsername');
-    const displayRole = document.getElementById('displayRole');
-    const heroHeading = document.getElementById('heroHeading');
-    const heroSubtitle = document.getElementById('heroSubtitle');
-    const loginForm = document.getElementById('loginForm');
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative; /* FIX: Added relative positioning to contain the absolute background */
+}
 
-    // 2. Helper function to decode JWT token
-    const parseJwt = (token) => {
-        try {
-            return JSON.parse(atob(token.split('.')[1]));
-        } catch (e) {
-            console.error("Error decoding JWT token:", e);
-            return null;
-        }
-    };
+/* --- ANIMATED AURORA BACKGROUND (CORRECTED) --- */
+body::before, body::after {
+    content: '';
+    /* FIX: Changed from 'fixed' to 'absolute' to scroll with the page */
+    position: absolute; 
+    top: 0; left: 0; width: 100%;
+    /* FIX: Changed from '100vh' to '100%' to cover the entire page height */
+    height: 100%;
+    z-index: -2; 
+    filter: blur(150px); 
+    opacity: 0.15;
+    /* This prevents the gradients from being clickable in some browsers */
+    pointer-events: none; 
+}
 
-    // 3. Function to update the entire UI based on auth state
-    const updateAuthUI = () => {
-        const token = localStorage.getItem('authToken');
-        const isLoggedIn = !!token;
-        let isAdmin = false;
+body::before {
+    background: radial-gradient(circle at 20% 30%, var(--primary-accent), transparent 40%);
+    animation: move-gradient1 20s infinite alternate ease-in-out;
+}
 
-        if (isLoggedIn) {
-            const payload = parseJwt(token);
-            if (payload) {
-                const username = payload.sub || 'User';
-                isAdmin = (payload.roles || []).includes("ROLE_ADMIN");
-                const userRole = isAdmin ? 'Admin' : 'Student';
-                userWelcome.classList.remove('hidden');
-                heroHeading.classList.add('hidden');
-                heroSubtitle.classList.add('hidden');
-                displayUsername.textContent = username;
-                displayRole.textContent = userRole;
-            }
-        } else {
-            userWelcome.classList.add('hidden');
-            heroHeading.classList.remove('hidden');
-            heroSubtitle.classList.remove('hidden');
-        }
+body::after {
+    background: radial-gradient(circle at 80% 70%, var(--secondary-accent), transparent 40%);
+    animation: move-gradient2 25s infinite alternate ease-in-out;
+}
 
-        loginBtn.classList.toggle('hidden', isLoggedIn);
-        registerBtn.classList.toggle('hidden', isLoggedIn);
-        logoutBtn.classList.toggle('hidden', !isLoggedIn);
-        adminPanelLink.classList.toggle('hidden', !isAdmin);
-    };
+/* The Spotlight Effect (works with the new background) */
+body {
+    background-image: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.04),
+        transparent 20%
+    );
+    transition: background-position 0.1s ease-out;
+}
 
-    // 4. Handle login form submission (This code only runs if the loginForm exists)
-    if (loginForm) {
-        loginForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorElement = document.getElementById('error-message');
-            const successElement = document.getElementById('success-message');
-            if (errorElement) errorElement.style.display = 'none';
-            if (successElement) successElement.style.display = 'none';
+@keyframes move-gradient1 { from { transform: translate(-20%, -10%); } to { transform: translate(10%, 20%); } }
+@keyframes move-gradient2 { from { transform: translate(10%, 20%); } to { transform: translate(-20%, -30%); } }
 
-            try {
-                const response = await fetch('https://placement-portal-backend-nwaj.onrender.com/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-                const data = await response.json();
+/* FIX: No longer need to manage z-index on these elements */
+main, header, footer {
+    position: relative;
+    background-color: transparent; /* Ensures the body background is visible */
+}
 
-                if (response.ok && data.token) {
-                    localStorage.setItem('authToken', data.token);
-                    const payload = parseJwt(data.token);
-                    if (successElement) {
-                        successElement.textContent = 'Login successful! Redirecting...';
-                        successElement.style.display = 'block';
-                    }
-                    setTimeout(() => {
-                        const isAdmin = payload && (payload.roles || []).includes("ROLE_ADMIN");
-                        window.location.href = isAdmin ? 'admin-dashboard.html' : 'index.html';
-                    }, 500);
-                } else {
-                    if (errorElement) {
-                        errorElement.textContent = data.message || 'Invalid username or password';
-                        errorElement.style.display = 'block';
-                    }
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                if (errorElement) {
-                    errorElement.textContent = 'Network error. Please try again.';
-                    errorElement.style.display = 'block';
-                }
-            }
-        });
-    }
+/* --- UTILITY & HIGHLIGHT --- */
+.hidden { display: none !important; }
+.highlight { color: var(--primary-accent); }
 
-    // 5. Handle logout
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', async () => {
-            if (!confirm('Are you sure you want to log out?')) return;
-            const token = localStorage.getItem('authToken');
-            try {
-                await fetch('https://placement-portal-backend-nwaj.onrender.com/api/auth/logout', {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-            } catch (e) {
-                console.warn('Backend logout notification failed:', e);
-            } finally {
-                localStorage.removeItem('authToken');
-                localStorage.removeItem('userData');
-                window.location.href = 'logout-confirmation.html';
-            }
-        });
-    }
+/* --- HEADER & NAVIGATION --- */
+.main-header {
+    background: rgba(5, 8, 22, 0.7);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000;
+}
+.main-nav { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+.logo { font-size: 1.8rem; font-weight: 700; }
+.logo span { color: var(--primary-accent); }
+.nav-links { display: flex; list-style: none; gap: 1.5rem; }
+.nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
+.nav-links a:hover, .nav-links a.active { color: var(--text-primary); text-shadow: 0 0 10px var(--glow-color); }
+.nav-actions { display: flex; align-items: center; gap: 1rem; }
 
-    // --- ENHANCED INTERACTIVE EFFECTS ---
+/* --- BUTTONS WITH ENHANCED GLOW --- */
+.btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.5rem; padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none;
+    font-weight: 600; transition: all 0.3s ease; border: 1px solid transparent;
+    cursor: pointer; font-size: 0.95rem;
+}
+.btn-primary { background-color: var(--primary-accent); color: var(--text-primary); border-color: var(--primary-accent); }
+.btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 30px var(--glow-color); }
+.btn-secondary { background-color: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); }
+.btn-secondary:hover { background-color: var(--card-bg); color: var(--text-primary); }
+.btn-admin { background-color: var(--secondary-accent); color: var(--dark-bg); }
 
-    // 6. Mouse-Tracking Spotlight Effect for the entire page
-    window.addEventListener('mousemove', e => {
-        document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
-        document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
-    });
+/* --- HERO SECTION WITH ENTRY ANIMATION --- */
+.hero { text-align: center; padding: 8rem 2rem 6rem; display: flex; align-items: center; justify-content: center; }
+.hero-content { max-width: 800px; }
+.hero-content > * { animation: slideInUp 0.8s backwards; }
+.hero h1 { font-size: 4.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(145, 94, 255, 0.3); }
+.hero p { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto; animation-delay: 0.2s; }
+#userWelcome { animation-delay: 0s; }
+.hero-cta-buttons { display: flex; gap: 1.5rem; justify-content: center; animation-delay: 0.4s; }
+.cta-btn {
+    background-color: var(--card-bg); border: 1px solid var(--border-color);
+    color: var(--text-primary); padding: 1rem 2rem; border-radius: 12px; text-decoration: none;
+    font-size: 1.1rem; display: flex; align-items: center; gap: 0.8rem;
+    transition: all 0.3s ease; backdrop-filter: blur(5px);
+}
+.cta-btn:hover { border-color: var(--primary-accent); transform: translateY(-5px); box-shadow: 0 0 25px rgba(145, 94, 255, 0.2); }
 
-    // 7. 3D Interactive Card Tilt Effect
-    const interactiveCards = document.querySelectorAll('.features-box, .testimonial-card');
-    interactiveCards.forEach(card => {
-        // Dynamically add a div for the inner glow effect if it doesn't exist
-        if (!card.querySelector('.inner-glow')) {
-            const glow = document.createElement('div');
-            glow.className = 'inner-glow';
-            card.appendChild(glow);
-        }
-        
-        const glow = card.querySelector('.inner-glow');
+@keyframes slideInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
 
-        card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+/* --- SECTIONS & 3D INTERACTIVE CARDS --- */
+.features, .stats, .testimonials { padding: 6rem 2rem; }
+.section-header { text-align: center; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+.section-header h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.section-header p { color: var(--text-secondary); font-size: 1.1rem; }
 
-            const rotateX = (y - centerY) / 10; // Adjust divisor for sensitivity
-            const rotateY = (centerX - x) / 10;
+.features-grid, .testimonial-cards {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem; max-width: 1200px; margin: 0 auto;
+}
+.features-box, .testimonial-card {
+    background: var(--card-bg); border: 1px solid var(--border-color);
+    border-radius: 16px; padding: 2.5rem; text-align: center;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    transform-style: preserve-3d;
+}
+.features-box .inner-glow, .testimonial-card .inner-glow {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 16px; opacity: 0; transition: opacity 0.4s ease;
+    background: radial-gradient( circle at var(--mouse-card-x, 50%) var(--mouse-card-y, 50%),
+                 var(--primary-accent), transparent 40% );
+    pointer-events: none;
+}
+.features-box:hover, .testimonial-card:hover {
+    border-color: rgba(145, 94, 255, 0.5);
+    box-shadow: 0 10px 40px rgba(145, 94, 255, 0.1);
+}
+.features-box:hover .inner-glow, .testimonial-card:hover .inner-glow { opacity: 0.1; }
+.features-box > *, .testimonial-card > * { position: relative; z-index: 1; transform: translateZ(20px); }
+.features-box i { font-size: 2.5rem; color: var(--primary-accent); margin-bottom: 1.5rem; }
+.features-box h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.features-box p, .testimonial-card p { color: var(--text-secondary); }
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-            
-            if (glow) {
-                glow.style.setProperty('--mouse-card-x', `${x}px`);
-                glow.style.setProperty('--mouse-card-y', `${y}px`);
-            }
-        });
+/* Other sections... */
+.stats-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; text-align: center; }
+.stat-item h3 { font-size: 3rem; color: var(--primary-accent); font-weight: 700; }
+.stat-item p { font-size: 1.1rem; color: var(--text-secondary); }
 
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        });
-    });
+/* --- FOOTER --- */
+footer {
+    background: linear-gradient(180deg, rgba(5, 8, 22, 0) 0%, rgba(5, 8, 22, 1) 100%);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 6rem 2rem 2rem;
+}
+.footer-content {
+    max-width: 1200px; margin: 0 auto 3rem auto; display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem; text-align: left; padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border-color);
+}
+.footer-column h3 { color: var(--primary-accent); margin-bottom: 1.5rem; }
+.footer-column ul { list-style: none; }
+.footer-column li { margin-bottom: 1rem; }
+.footer-column a { color: var(--text-secondary); text-decoration: none; transition: all 0.3s ease; }
+.footer-column a:hover { color: var(--text-primary); padding-left: 5px; }
+.social-links { display: flex; gap: 1rem; }
+.social-links a {
+    color: var(--dark-bg); background: var(--text-secondary);
+    width: 45px; height: 45px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+.social-links a:hover { background: var(--primary-accent); color: var(--text-primary); transform: translateY(-5px); }
+footer .heart-line { margin-top: 2rem; }
+footer .heart { color: #e25555; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
+/* --- ANIMATIONS & MEDIA QUERIES --- */
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.fade-in.is-visible { opacity: 1; transform: translateY(0); }
+.features-grid.is-visible .features-box:nth-child(2), .testimonial-cards.is-visible .testimonial-card:nth-child(2) { transition-delay: 0.2s; }
+.features-grid.is-visible .features-box:nth-child(3), .testimonial-cards.is-visible .testimonial-card:nth-child(3) { transition-delay: 0.4s; }
 
-    // --- OTHER PAGE FEATURES ---
-
-    // 8. Slideshow functionality
-    const slides = document.querySelectorAll(".mySlides");
-    if (slides.length > 0) {
-        let slideIndex = 0;
-        const showSlides = () => {
-            slides.forEach(slide => slide.style.display = "none");
-            slideIndex++;
-            if (slideIndex > slides.length) { slideIndex = 1; }
-            slides[slideIndex - 1].style.display = "block";
-            setTimeout(showSlides, 4000);
-        };
-        showSlides();
-    }
-
-    // 9. Dynamic Copyright Year
-    const yearSpan = document.getElementById('year');
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-    }
-
-    // 10. Scroll-In Animations
-    const animatedElements = document.querySelectorAll('.fade-in, .features-grid, .testimonial-cards');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-    animatedElements.forEach(el => observer.observe(el));
-
-
-    // --- INITIALIZATION ---
-    
-    // 11. Run the UI update function once on page load
-    updateAuthUI();
-});
+@media (max-width: 992px) {
+    .nav-links { display: none; }
+    .hero h1 { font-size: 3rem; }
+    .hero-cta-buttons { flex-direction: column; align-items: center; }
+}
+@media (max-width: 768px) {
+    .main-nav { flex-wrap: wrap; }
+    .nav-actions { margin-top: 1rem; width: 100%; justify-content: flex-end; }
+    .hero { padding: 6rem 1.5rem; }
+    .hero h1 { font-size: 2.5rem; }
+    .footer-content { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+    .footer-content { grid-template-columns: 1fr; }
+}
