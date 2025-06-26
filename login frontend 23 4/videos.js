@@ -2,10 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const allVideos = [
         { id: 0, title: "JavaScript for Beginners - Full Course", src: "https://www.youtube.com/embed/jS4aFq5-91M", duration: "4h 12m", level: "Beginner", category: "programming", links: [{ text: "FreeCodeCamp", url: "#" }, { text: "MDN Docs", url: "#" }] },
         { id: 1, title: "C++ Programming Full Course for Beginners", src: "https://www.youtube.com/embed/vLnPwxZdW4Y", duration: "3h 45m", level: "Beginner", category: "programming", links: [{ text: "GeeksforGeeks", url: "#" }, { text: "C++ Docs", url: "#" }] },
-        { id: 2, title: "Data Structures & Algorithms For Beginners", src: "https://www.youtube.com/embed/pkq_t3R5z6I", duration: "6h 30m", level: "Intermediate", category: "dsa", links: [{ text: "Programiz DSA", url: "#" }] },
-        { id: 3, title: "HTML & CSS Crash Course For Beginners", src: "https://www.youtube.com/embed/gQargcoTRH4", duration: "2h 50m", level: "Beginner", category: "programming", links: [{ text: "W3Schools", url: "#" }] },
-        { id: 4, title: "How to Prepare for Technical Interviews", src: "https://www.youtube.com/embed/1t1_a1AUwB8", duration: "4h 45m", level: "Intermediate", category: "interview", links: [{ text: "LeetCode", url: "#" }] },
-        { id: 5, title: "Complete Python for Data Science Course", src: "https://www.youtube.com/embed/Viiq1tQ-tG0", duration: "5h 20m", level: "Intermediate", category: "programming", links: [{ text: "Pandas Docs", url: "#" }] },
+        
         { id: 6, title: "Advanced Algorithms (Graph Theory)", src: "https://www.youtube.com/embed/09_LlHjoEiY", duration: "7h 10m", level: "Advanced", category: "dsa", links: [{ text: "TopCoder", url: "#" }] },
         { id: 7, title: "FAANG Mock Interview Practice Session", src: "https://www.youtube.com/embed/1qw5ITr3k9E", duration: "3h 00m", level: "All Levels", category: "interview", links: [{ text: "Pramp", url: "#" }] }
     ];
