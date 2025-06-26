@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details | Hack-2-Hired</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link to a new stylesheet for this page -->
+    <link rel="stylesheet" href="job-details.css">
+
+    <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+    <nav>
+        <div class="logo">Hack-2-<span>Hired</span></div>
+    </nav>
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <!-- Other nav links... -->
+        </ul>
+    </nav>
+
+    <main class="job-details-container">
+        <div id="jobDetailContent" class="surface-glow">
+            <!-- Job details will be dynamically injected here -->
+            <div class="loading-indicator">
+                <div class="spinner"></div>
+                <span>Loading Job Details...</span>
+            </div>
+        </div>
+    </main>
+
+    <script src="job-details.js"></script>
+</body>
+</html>

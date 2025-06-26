@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // --- 1. Constants and Element Caching ---
     const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs";
     const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job";
-
     const jobList = document.getElementById('jobList');
     const searchInput = document.getElementById('searchInput');
-    const filterButtons = document.querySelectorAll('.category-filters .btn');
+    const filterButtons = document.querySelectorAll('.filter-btn');
     const sortSelect = document.getElementById('sortSelect');
     const applicationFormModal = document.getElementById('applicationFormModal');
     const closeModalButton = document.querySelector('.close-button');
@@ -16,83 +14,44 @@ document.addEventListener('DOMContentLoaded', function () {
     let allJobs = [];
     let currentUserDetails = null;
 
-    // --- 2. Helper Functions ---
     const getUserDetailsFromToken = (token) => {
         try {
             const payload = JSON.parse(atob(token.split('.')[1]));
             return { username: payload.sub, email: payload.email || '', exp: payload.exp };
-        } catch (e) {
-            console.error("Failed to parse token:", e);
-            return null;
-        }
+        } catch (e) { return null; }
     };
 
     const formatDate = (dateString) => new Date(dateString).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 
-    // --- 3. Authentication Handling ---
     const handleAuth = () => {
         const token = localStorage.getItem("authToken");
-        if (!token) {
-            // No alert, just redirect. The user will know they need to log in.
-            window.location.href = "login.html";
-            return { token: null, isValid: false };
-        }
-        
+        if (!token) { window.location.href = "login.html"; return { token: null, isValid: false }; }
         currentUserDetails = getUserDetailsFromToken(token);
         if (!currentUserDetails || currentUserDetails.exp < Date.now() / 1000) {
-            localStorage.clear();
-            alert("Your session has expired. Please log in again.");
-            window.location.href = "login.html";
-            return { token: null, isValid: false };
+            localStorage.clear(); alert("Session expired. Please log in again.");
+            window.location.href = "login.html"; return { token: null, isValid: false };
         }
         return { token, isValid: true };
     };
 
     const auth = handleAuth();
-    // If auth fails, stop the script immediately.
     if (!auth.isValid) {
-        jobList.innerHTML = `<div class="loading-indicator"><span>Redirecting to login...</span></div>`;
+        jobList.innerHTML = `<div class="loading-indicator"><span>Please <a href="login.html">log in</a> to view job opportunities.</span></div>`;
         return;
     }
-
-    // --- 4. Job Loading & Rendering ---
-    const loadJobs = async () => {
-        jobList.innerHTML = '<div class="loading-indicator"><div class="spinner"></div><span>Loading Jobs...</span></div>';
-        try {
-            // THE FIX: Add the Authorization header to the fetch request.
-            const response = await fetch(API_URL, {
-                headers: {
-                    'Authorization': `Bearer ${auth.token}`
-                }
-            });
-
-            if (!response.ok) {
-                if (response.status === 403) throw new Error('Access Forbidden.');
-                throw new Error(`Failed to fetch jobs (Status: ${response.status})`);
-            }
-            
-            allJobs = await response.json();
-            filterAndSortJobs();
-        } catch (error) {
-            console.error('Error fetching jobs:', error);
-            jobList.innerHTML = `<div class="loading-indicator"><span>Failed to load jobs. Please try refreshing the page.</span></div>`;
-        }
-    };
 
     const displayJobs = (jobs) => {
         jobList.innerHTML = '';
         if (jobs.length === 0) {
-            jobList.innerHTML = `<div class="loading-indicator"><span>No jobs found matching your criteria.</span></div>`;
+            jobList.innerHTML = `<div class="loading-indicator"><span>No jobs found.</span></div>`;
             return;
         }
         jobs.forEach((job, index) => {
             const jobCard = document.createElement('div');
             jobCard.className = 'job-card surface-glow';
             jobCard.style.animationDelay = `${index * 0.05}s`;
-
             const jobTypeClass = job.title.toLowerCase().includes('intern') ? 'internship' : '';
             const jobTypeText = job.title.toLowerCase().includes('intern') ? 'Internship' : 'Full-time';
-
             jobCard.innerHTML = `
                 <div class="job-header">
                     <h3 class="job-title">${job.title}</h3>
@@ -105,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <span><i class="fas fa-calendar-times"></i> Deadline: ${formatDate(job.last_date)}</span>
                 </div>
                 <div class="job-actions">
-                    <a href="${job.apply_link || '#'}" target="_blank" class="btn btn-outline"><i class="fas fa-external-link-alt"></i> View Details</a>
+                    <a href="job-details.html?id=${job.id}" class="btn btn-outline"><i class="fas fa-eye"></i> View Details</a>
                     <button class="btn btn-primary apply-btn" data-job-id="${job.id}" data-job-title="${job.title}">Apply Now</button>
                 </div>
             `;
@@ -113,16 +72,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
     
-    // --- 5. Filtering, Sorting, and Modal Logic ---
     const filterAndSortJobs = () => {
         const searchTerm = searchInput.value.toLowerCase();
         const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
         let filteredJobs = allJobs.filter(job => {
             const matchesSearch = job.title.toLowerCase().includes(searchTerm) || job.company_name.toLowerCase().includes(searchTerm);
-            let matchesFilter = true;
-            if (activeFilter !== 'all') {
-                matchesFilter = job.title.toLowerCase().includes(activeFilter) || job.description.toLowerCase().includes(activeFilter);
-            }
+            let matchesFilter = (activeFilter === 'all') || (job.title.toLowerCase().includes(activeFilter) || job.description.toLowerCase().includes(activeFilter));
             return matchesSearch && matchesFilter;
         });
         const sortValue = sortSelect.value;
@@ -130,12 +85,24 @@ document.addEventListener('DOMContentLoaded', function () {
             switch (sortValue) {
                 case 'salary-high': return b.salary - a.salary;
                 case 'deadline': return new Date(a.last_date) - new Date(b.last_date);
-                default: return new Date(b.last_date) - new Date(a.last_date);
+                default: return new Date(b.created_at || b.last_date) - new Date(a.created_at || b.last_date);
             }
         });
         displayJobs(filteredJobs);
     };
-    
+
+    const loadJobs = async () => {
+        jobList.innerHTML = '<div class="loading-indicator"><div class="spinner"></div><span>Loading Jobs...</span></div>';
+        try {
+            const response = await fetch(API_URL, { headers: { 'Authorization': `Bearer ${auth.token}` } });
+            if (!response.ok) throw new Error(`Network response was not ok`);
+            allJobs = await response.json();
+            filterAndSortJobs();
+        } catch (error) {
+            jobList.innerHTML = `<div class="loading-indicator"><span>Failed to load jobs. Please refresh.</span></div>`;
+        }
+    };
+
     const openModal = (jobId, jobTitle) => {
         jobTitleForApplication.textContent = jobTitle;
         appliedJobIdInput.value = jobId;
@@ -143,13 +110,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('applicantEmail').value = currentUserDetails.email || '';
         applicationFormModal.classList.add('show');
     };
-    
     const closeModal = () => {
         applicationFormModal.classList.remove('show');
         jobApplicationForm.reset();
     };
 
-    // --- 6. Event Listeners ---
+    // --- Event Listeners ---
     searchInput.addEventListener('input', filterAndSortJobs);
     sortSelect.addEventListener('change', filterAndSortJobs);
     filterButtons.forEach(button => {
@@ -159,16 +125,16 @@ document.addEventListener('DOMContentLoaded', function () {
             filterAndSortJobs();
         });
     });
+
     jobList.addEventListener('click', e => {
         const applyButton = e.target.closest('.apply-btn');
         if (applyButton) {
             openModal(applyButton.dataset.jobId, applyButton.dataset.jobTitle);
         }
     });
+
     closeModalButton.addEventListener('click', closeModal);
-    applicationFormModal.addEventListener('click', e => {
-        if (e.target === applicationFormModal) closeModal();
-    });
+    applicationFormModal.addEventListener('click', e => { if (e.target === applicationFormModal) closeModal(); });
     jobApplicationForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         const submitButton = this.querySelector('button[type="submit"]');
