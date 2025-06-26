@@ -211,3 +211,106 @@ footer .heart { color: var(--accent); animation: pulse 1.5s infinite; }
     .hero-content { padding: 0 1rem; }
     .cta-btns { flex-direction: column; gap: 1rem; align-items: center; }
 }
+
+/* ================================================= */
+/* === ENHANCED: Companies / Partners Section CSS === */
+/* ================================================= */
+
+.companies {
+    background: var(--surface-bg);
+    padding: 6rem 0; /* Vertical padding, no horizontal padding on the section itself */
+    overflow: hidden; /* Important for containing the scrolling elements */
+}
+
+.companies h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.companies .subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto 4rem;
+}
+
+/* --- The Scroller Animation --- */
+.scroller {
+    max-width: 100%; /* Take up full width */
+}
+
+.scroller__inner {
+    padding-block: 1rem;
+    display: flex;
+    flex-wrap: wrap; /* This will be overridden by the animation, but good for fallback */
+    gap: 2rem;
+}
+
+.scroller[data-animated="true"] {
+    overflow: hidden;
+    /* Applies a soft edge fade effect */
+    -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+.scroller[data-animated="true"] .scroller__inner {
+    width: max-content; /* Critical for making the long row of items */
+    flex-wrap: nowrap; /* Prevent items from wrapping */
+    animation: scroll var(--_animation-duration, 40s) var(--_animation-direction, forwards) linear infinite;
+}
+
+.scroller[data-direction="right"] {
+    --_animation-direction: reverse;
+}
+
+.scroller[data-direction="left"] {
+    --_animation-direction: forwards;
+}
+
+.scroller[data-speed="fast"] {
+    --_animation-duration: 20s;
+}
+
+.scroller[data-speed="slow"] {
+    --_animation-duration: 60s; /* Slower, more elegant scroll speed */
+}
+
+@keyframes scroll {
+    to {
+        transform: translate(calc(-50% - 1rem));
+    }
+}
+
+/* --- Styling for the Logos --- */
+.tag-list {
+    margin: 0;
+    padding-inline: 0;
+    list-style: none;
+}
+
+.tag-list li {
+    padding: 1rem 1.5rem;
+    background: var(--dark-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tag-list img {
+    height: 40px; /* Control the logo height */
+    width: auto;
+    max-width: 150px;
+    /* Invert dark logos to white for visibility */
+    filter: brightness(0) invert(1) grayscale(100%) contrast(200%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.tag-list li:hover img {
+    filter: brightness(0) invert(1) grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+}
+

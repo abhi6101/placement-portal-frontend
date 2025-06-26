@@ -1,4 +1,4 @@
-// index.js - REFACTORED & ENHANCED SCRIPT
+// index.js - COMPLETE, MERGED, AND FINAL SCRIPT
 
 const App = {
     // --- 1. Properties & Elements ---
@@ -10,6 +10,7 @@ const App = {
         userWelcome: null, displayUsername: null, displayRole: null,
         heroHeading: null, heroSubtitle: null, loginForm: null,
         slideshowContainer: null, sectionsToAnimate: null,
+        membersFeaturesSection: null, // For the members-only features section
     },
 
     // --- 2. Initialization ---
@@ -18,10 +19,11 @@ const App = {
         this.cacheDOMElements();
         // Set up all event listeners
         this.initEventListeners();
-        // Initialize functional modules
+        // Initialize all functional modules
         this.ui.update();
         this.slideshow.init();
         this.animations.init();
+        this.scroller.init(); // Initialize the logo scroller
     },
 
     cacheDOMElements() {
@@ -37,6 +39,7 @@ const App = {
         this.elements.loginForm = document.getElementById('loginForm');
         this.elements.slideshowContainer = document.querySelector('.slideshow-container');
         this.elements.sectionsToAnimate = document.querySelectorAll('section:not(.hero)');
+        this.elements.membersFeaturesSection = document.getElementById('members-features');
     },
 
     initEventListeners() {
@@ -60,69 +63,40 @@ const App = {
             }
         },
 
-        isLoggedIn() {
-            return !!localStorage.getItem('authToken');
-        },
-
         getUserData() {
             const token = localStorage.getItem('authToken');
             if (!token) return { isLoggedIn: false };
-            
             const payload = this._parseJwt(token);
-            if (!payload) return { isLoggedIn: false };
-
+            if (!payload || payload.exp < Date.now() / 1000) {
+                localStorage.clear(); // Clear expired or invalid token
+                return { isLoggedIn: false };
+            }
             const roles = payload.roles || payload.authorities || [];
             const isAdmin = roles.includes("ROLE_ADMIN");
-
             return {
                 isLoggedIn: true,
-                username: payload.sub || payload.username || 'User',
+                username: payload.sub || 'User',
                 role: isAdmin ? 'Admin' : 'Student',
                 isAdmin: isAdmin,
             };
         },
 
-        async handleLogin(event) {
-            event.preventDefault();
-            const username = event.target.username.value;
-            const password = event.target.password.value;
-            
-            try {
-                const response = await fetch(`${App.config.apiBaseUrl}/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password }),
-                });
-                const data = await response.json();
-                
-                if (response.ok) {
-                    localStorage.setItem('authToken', data.token);
-                    const userData = this.getUserData();
-                    window.location.href = userData.isAdmin ? 'admin-dashboard.html' : 'index.html';
-                } else {
-                    alert(data.message || 'Invalid credentials');
-                }
-            } catch (error) {
-                console.error('Login failed:', error);
-                alert('A network error occurred. Please try again.');
-            }
-        },
-
         async handleLogout() {
             if (!confirm('Are you sure you want to log out?')) return;
-            
             const token = localStorage.getItem('authToken');
             try {
-                await fetch(`${App.config.apiBaseUrl}/logout`, {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
+                if (token) {
+                    await fetch(`${App.config.apiBaseUrl}/logout`, {
+                        method: 'POST',
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                }
             } catch (e) {
                 console.warn('Logout notification to backend failed:', e);
             } finally {
                 localStorage.removeItem('authToken');
+                localStorage.removeItem('userRole'); // Also clear the role
                 App.ui.update();
-                window.location.href = 'index.html';
             }
         }
     },
@@ -133,42 +107,42 @@ const App = {
             const { elements } = App;
 
             if (userData.isLoggedIn) {
-                if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'none';
+                // LOGGED-IN VIEW
                 if (elements.userWelcome) {
                     elements.userWelcome.style.display = 'block';
                     elements.displayUsername.textContent = userData.username;
                     elements.displayRole.textContent = userData.role;
                 }
+                if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'none';
+                if (elements.registerBtn) elements.registerBtn.style.display = 'none';
+                if (elements.loginBtn) elements.loginBtn.style.display = 'none';
+                if (elements.logoutBtn) elements.logoutBtn.style.display = 'inline-flex';
+                if (elements.adminPanelLink) elements.adminPanelLink.style.display = userData.isAdmin ? 'block' : 'none';
+                if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'none';
             } else {
-                if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'block';
+                // LOGGED-OUT VIEW
                 if (elements.userWelcome) elements.userWelcome.style.display = 'none';
+                if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'block';
+                if (elements.registerBtn) elements.registerBtn.style.display = 'inline-flex';
+                if (elements.loginBtn) elements.loginBtn.style.display = 'inline-flex';
+                if (elements.logoutBtn) elements.logoutBtn.style.display = 'none';
+                if (elements.adminPanelLink) elements.adminPanelLink.style.display = 'none';
+                if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'block';
             }
-
-            if (elements.loginBtn) elements.loginBtn.style.display = userData.isLoggedIn ? 'none' : 'inline-flex';
-            if (elements.logoutBtn) elements.logoutBtn.style.display = userData.isLoggedIn ? 'inline-flex' : 'none';
-            if (elements.registerBtn) elements.registerBtn.style.display = userData.isLoggedIn ? 'none' : 'inline-flex';
-            if (elements.adminPanelLink) elements.adminPanelLink.style.display = userData.isAdmin ? 'block' : 'none';
         }
     },
 
     slideshow: {
         slideIndex: 0,
         init() {
-            if (App.elements.slideshowContainer) {
-                this.run();
-            }
+            if (this.elements.slideshowContainer) this.run();
         },
         run() {
             const slides = App.elements.slideshowContainer.getElementsByClassName("mySlides");
             if (slides.length === 0) return;
-
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
+            for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
             this.slideIndex++;
-            if (this.slideIndex > slides.length) {
-                this.slideIndex = 1;
-            }
+            if (this.slideIndex > slides.length) { this.slideIndex = 1; }
             slides[this.slideIndex - 1].style.display = "block";
             setTimeout(() => this.run(), 4000);
         }
@@ -176,11 +150,10 @@ const App = {
 
     animations: {
         init() {
-            if (App.elements.sectionsToAnimate.length > 0) {
-                this.setupScrollObserver();
-            }
+            const sections = document.querySelectorAll('section:not(.hero)');
+            if (sections.length > 0) this.setupScrollObserver(sections);
         },
-        setupScrollObserver() {
+        setupScrollObserver(sections) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -191,14 +164,29 @@ const App = {
                 });
             }, { threshold: 0.15 });
 
-            App.elements.sectionsToAnimate.forEach(section => {
+            sections.forEach(section => {
                 section.style.opacity = '0';
                 section.style.transform = 'translateY(50px)';
                 section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
                 observer.observe(section);
             });
         }
+    },
+    
+    scroller: {
+        init() {
+            const scrollers = document.querySelectorAll(".scroller");
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                this.addAnimation(scrollers);
+            }
+        },
+        addAnimation(scrollers) {
+            scrollers.forEach((scroller) => {
+                scroller.setAttribute("data-animated", true);
+            });
+        }
     }
 };
 
+// --- App Entry Point ---
 document.addEventListener('DOMContentLoaded', () => App.init());
