@@ -29,7 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
         registerButton.classList.toggle('is-loading', isLoading);
     }
 
-    // --- 3. Main Event Listener ---
+    // --- NEW: Password Visibility Toggle Logic ---
+    document.querySelectorAll('.password-toggle-icon').forEach(icon => {
+        icon.addEventListener('click', () => {
+            const passwordField = icon.previousElementSibling; // The input field is right before the icon
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            
+            // Toggle the icon class
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        });
+    });
+
+    // --- 4. Main Form Submission Event Listener ---
     if (registrationForm) {
         registrationForm.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -41,9 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const confirmPassword = confirmPasswordInput.value;
             const role = roleInput.value;
 
-            // --- Client-Side Validation ---
+            // Client-Side Validation...
             if (!username.startsWith('@') || username.includes(" ") || username.substring(1).toLowerCase() !== username.substring(1)) {
-                showMessage(errorMessageDiv, "Username must start with '@', be lowercase, and contain no spaces.", "error"); return;
+                showMessage(errorMessageDiv, "Username must start with '@', be lowercase, and have no spaces.", "error"); return;
             }
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 showMessage(errorMessageDiv, "Please enter a valid email address.", "error"); return;
@@ -66,9 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ username, email, password, role }),
                 });
-
                 const result = await response.json();
-
                 if (response.ok) {
                     showMessage(successMessageDiv, result.message || "Registration successful! Redirecting...", "success");
                     registrationForm.reset();

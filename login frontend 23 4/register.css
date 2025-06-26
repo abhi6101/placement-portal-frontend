@@ -189,3 +189,35 @@ form { display: flex; flex-direction: column; gap: 1.25rem; }
 button:disabled { cursor: not-allowed; opacity: 0.7; }
 button.is-loading .button-text { display: none; }
 button.is-loading .spinner { display: block; }
+
+
+
+/* In register.css */
+
+/* ... (your existing form-group and input styles) ... */
+
+/* NEW STYLES for the password toggle */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    /* Make room for the icon on the right */
+    padding-right: 3.5rem; 
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 1.25rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.password-toggle-icon:hover {
+    color: var(--primary);
+}
+
+
