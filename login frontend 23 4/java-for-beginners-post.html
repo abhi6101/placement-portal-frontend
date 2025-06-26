@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Java for Beginners | Hack-2-Hired Blog</title>
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link to a new, self-contained stylesheet -->
+    <link rel="stylesheet" href="post-detail.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+    <nav>
+        <div class="logo">Hack-2-<span>Hired</span></div>
+    </nav>
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="blog.html" class="active"><i class="fas fa-blog"></i> Blog</a></li>
+            <!-- ... other nav links ... -->
+        </ul>
+    </nav>
+
+    <main class="post-detail-container">
+        <article class="post-main-content">
+            <header class="post-header">
+                <div class="post-meta-tags">
+                    <span class="category-tag">Tech Skills</span>
+                </div>
+                <h1>Understanding Java for Beginners</h1>
+                <div class="post-meta">
+                    <span><i class="fas fa-calendar-alt"></i> June 15, 2025</span>
+                    <span><i class="fas fa-user-edit"></i> by Abhi Jain</span>
+                    <span><i class="fas fa-eye"></i> 1.2K Views</span>
+                </div>
+            </header>
+
+            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&q=80" alt="Laptop showing Java code" class="post-featured-image">
+
+            <div class="post-body">
+                <p class="lead">
+                    Java has consistently remained one of the most popular and in-demand programming languages in the world for decades. Its robustness, platform independence, and extensive ecosystem make it a top choice for everything from large-scale enterprise systems to Android mobile apps. This guide will walk you through the core concepts you need to know to kickstart your programming journey with Java.
+                </p>
+
+                <h2>Why Learn Java?</h2>
+                <p>Before diving into the syntax, it's important to understand why Java is such a valuable skill. Its "write once, run anywhere" philosophy, enabled by the Java Virtual Machine (JVM), means your code can run on any device with a compatible JVM, from Windows PCs to Macbooks and Linux servers.</p>
+                
+                <h2>Core Concepts: The Building Blocks</h2>
+                <p>Every Java programmer must have a solid grasp of these fundamental building blocks:</p>
+                
+                <h3>1. Variables and Data Types</h3>
+                <p>Java is a statically-typed language, meaning you must declare the type of a variable before you can use it. The primary data types include <code>int</code> for integers, <code>double</code> for floating-point numbers, <code>boolean</code> for true/false values, and <code>char</code> for single characters.</p>
+                <pre><code>int myAge = 25;
+String myName = "John Doe";
+boolean isStudent = true;</code></pre>
+
+                <h3>2. Control Structures</h3>
+                <p>Like most languages, Java uses control structures to direct the flow of your program. This includes <code>if-else</code> statements for conditional logic, and loops like <code>for</code> and <code>while</code> for repeating tasks.</p>
+
+                <h3>3. Object-Oriented Programming (OOP)</h3>
+                <p>This is the heart of Java. Understanding the four main principles of OOP is non-negotiable:</p>
+                <ul>
+                    <li><strong>Encapsulation:</strong> Bundling data (attributes) and methods (functions) that operate on the data into a single unit, or "class".</li>
+                    <li><strong>Abstraction:</strong> Hiding complex implementation details and showing only the essential features of the object.</li>
+                    <li><strong>Inheritance:</strong> Allowing a new class (subclass) to inherit properties and methods from an existing class (superclass).</li>
+                    <li><strong>Polymorphism:</strong> The ability of an object to take on many forms, most commonly seen through method overriding and overloading.</li>
+                </ul>
+
+                <h2>Setting Up Your Development Environment</h2>
+                <p>To start coding in Java, you need two main things: the Java Development Kit (JDK) and an Integrated Development Environment (IDE). The JDK includes the compiler and the JVM. Popular IDEs like IntelliJ IDEA, Eclipse, or VS Code (with extensions) make writing and debugging code much easier.</p>
+                
+                <h2>Your First "Hello, World!" Program</h2>
+                <p>No programming introduction is complete without it. This simple program demonstrates the basic structure of a Java class and its main method, the entry point for execution.</p>
+                <pre><code>public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+
+                <h2>Next Steps</h2>
+                <p>Once you've mastered these basics, you're ready to explore more advanced topics like the Java Collections Framework, exception handling, and multithreading. From there, the path opens up to powerful frameworks like Spring Boot for building robust backend services.</p>
+            </div>
+        </article>
+
+        <aside class="post-sidebar">
+            <div class="sidebar-card surface-glow">
+                <h3 class="sidebar-title">Master Java with Our Course</h3>
+                <img src="https://images.unsplash.com/photo-1545665277-5937489579f2?auto=format&fit=crop&q=80" alt="Java & Spring Boot Course" class="sidebar-course-image">
+                <p>Ready to go from beginner to pro? Our "Java & Spring Boot" course offers hands-on projects and expert guidance.</p>
+                <a href="java-course.html" class="btn btn-primary">View Course Details</a>
+            </div>
+        </aside>
+    </main>
+</body>
+</html>
