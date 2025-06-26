@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const jobId = urlParams.get('id');
 
         if (!jobId) {
-            jobDetailContent.innerHTML = `<p class="loading-indicator">Error: No job ID provided.</p>`;
+            jobDetailContent.innerHTML = `<p class="loading-indicator">Error: No job ID provided in the URL.</p>`;
             return;
         }
 
@@ -19,16 +19,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`https://placement-portal-backend-nwaj.onrender.com/jobs/${jobId}`, {
+            // THE FIX: Added '/api/' to the URL path to match common REST patterns.
+            const apiUrl = `https://placement-portal-backend-nwaj.onrender.com/api/jobs/${jobId}`;
+
+            const response = await fetch(apiUrl, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
             if (!response.ok) {
-                throw new Error('Job not found or an error occurred.');
+                if (response.status === 404) {
+                    throw new Error('The requested job could not be found.');
+                }
+                throw new Error('An error occurred while fetching job details.');
             }
 
             const job = await response.json();
 
+            // Populate the page with the fetched data
             jobDetailContent.innerHTML = `
                 <div class="job-details-header">
                     <h1>${job.title}</h1>
@@ -59,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
         } catch (error) {
+            console.error("Fetch job details error:", error);
             jobDetailContent.innerHTML = `<p class="loading-indicator">${error.message}</p>`;
         }
     };
