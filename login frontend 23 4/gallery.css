@@ -1,50 +1,24 @@
-/* === GALLERY PAGE: ENHANCED PRO-LEVEL STYLESHEET === */
+/* === GALLERY PAGE: PREMIUM ANIMATION STYLESHEET === */
 
-/* --- 1. Root Variables & Global Styles (from main.css) --- */
-/* This section would be in main.css if you were using a shared file. */
+/* --- Root Variables & Global Styles (Self-contained) --- */
 :root {
-    --dark-bg: #0A0A10;
-    --surface-bg: #111119;
-    --border-color: rgba(255, 255, 255, 0.1);
-    --primary: #00d4ff;
-    --primary-glow: rgba(0, 212, 255, 0.5);
-    --accent: #ff477b;
-    --text-primary: #ECEFF1;
-    --text-secondary: #90A4AE;
-    --font-family: 'Poppins', sans-serif;
+    --dark-bg: #0A0A10; --surface-bg: #111119; --border-color: rgba(255, 255, 255, 0.1);
+    --primary: #00d4ff; --primary-glow: rgba(0, 212, 255, 0.5); --accent: #ff477b;
+    --text-primary: #ECEFF1; --text-secondary: #90A4AE; --font-family: 'Poppins', sans-serif;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-    background-color: var(--dark-bg);
-    color: var(--text-primary);
-    font-family: var(--font-family);
-    line-height: 1.7;
-    overflow-x: hidden;
-}
+body { background-color: var(--dark-bg); color: var(--text-primary); font-family: var(--font-family); line-height: 1.7; overflow-x: hidden; }
 a { color: var(--primary); text-decoration: none; transition: color 0.3s ease; }
 a:hover { color: white; }
-nav {
-    padding: 1rem 5%; background: rgba(10, 10, 16, 0.5); backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color);
-}
-nav:first-of-type { display: flex; justify-content: space-between; align-items: center; position: relative; border-bottom: none; }
+nav { padding: 1rem 5%; background: rgba(10, 10, 16, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
 nav:last-of-type { position: sticky; top: 0; z-index: 1000; }
 .logo { font-size: 1.8rem; font-weight: 800; }
 .logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
 nav ul { display: flex; list-style: none; gap: 1rem; align-items: center; }
 nav:last-of-type ul { justify-content: center; overflow-x: auto; padding-bottom: 0.5rem; }
-nav:last-of-type a {
-    color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500;
-    display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease;
-}
+nav:last-of-type a { color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease; }
 nav:last-of-type a:hover { color: var(--text-primary); background-color: var(--surface-bg); }
 nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg); font-weight: 600; }
-.btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.8rem 1.8rem;
-    border-radius: 50px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s ease;
-}
-.btn-outline { background: transparent; border: 2px solid var(--border-color); color: var(--text-primary); }
-.btn-outline:hover { background: var(--surface-bg); border-color: var(--primary); color: var(--primary); }
 .surface-glow { background: var(--surface-bg); border-radius: 16px; position: relative; }
 .surface-glow::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; padding: 1px;
@@ -58,6 +32,7 @@ nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg)
 @property --angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 @keyframes spin { to { --angle: 360deg; } }
 
+
 /* === GALLERY-SPECIFIC STYLES START HERE === */
 
 /* --- Main Page Layout --- */
@@ -67,51 +42,83 @@ nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg)
 
 /* --- Category Filter Buttons --- */
 .gallery-categories { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-bottom: 3rem; }
-.gallery-categories .btn { padding: 0.6rem 1.5rem; font-weight: 500; }
-.gallery-categories .btn.active {
+.gallery-categories .btn-outline {
+    background: transparent; border: 2px solid var(--border-color); color: var(--text-primary);
+    padding: 0.6rem 1.5rem; font-weight: 500; border-radius: 50px;
+}
+.gallery-categories .btn-outline:hover { background: var(--surface-bg); border-color: var(--primary); color: var(--primary); }
+.gallery-categories .btn-outline.active {
     background: var(--primary); color: #000; border-color: var(--primary);
     box-shadow: 0 0 20px var(--primary-glow); transform: translateY(0);
 }
 
 /* --- Photo Grid Layout & Styling --- */
-.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    position: relative; /* Needed for FLIP animation */
+}
 
 .photo-item {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
-    cursor: pointer;
     aspect-ratio: 4 / 3;
-    
-    /* ENHANCEMENT: Prepare for staggered animation and hover effects */
-    transform-origin: center;
-    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease;
-    opacity: 0; /* Hidden by default for JS animation */
-    display: none; /* JS will change this to 'block' */
+    border-radius: 16px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    /* ENHANCEMENT: Prepare for FLIP animation */
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
+}
+
+/* States for FLIP animation (controlled by JS) */
+.photo-item.hide {
+    transform: scale(0.8);
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+    position: absolute; /* Allows items to animate out of the flow */
 }
 .photo-item.show {
-    display: block;
-    /* The animation will be applied by JS with a delay */
-    animation: scale-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-@keyframes scale-in {
-    from { transform: scale(0.8) translateY(20px); opacity: 0; }
-    to { transform: scale(1) translateY(0); opacity: 1; }
+    transform: scale(1);
+    opacity: 1;
+    z-index: 2;
+    position: static; /* Let it flow back into the grid */
 }
 
-/* ENHANCEMENT: Interactive 3D tilt hover effect */
-.photo-item:hover {
-    transform: scale(1.03) perspective(1000px) rotateX(2deg) rotateY(-2deg);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+/* ENHANCEMENT: Magnetic Glow Hover Effect */
+.photo-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.15) 0%, transparent 40%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none; /* Make sure it doesn't block clicks */
+}
+.photo-item:hover::after {
+    opacity: 1;
 }
 
-.photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-.photo-item:hover img { transform: scale(1.1); }
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.photo-item:hover img {
+    transform: scale(1.05);
+}
 
 .photo-info {
-    position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem;
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.5rem;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-    color: var(--text-primary); transform: translateY(100%); transition: transform 0.4s ease;
+    color: var(--text-primary);
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 .photo-item:hover .photo-info { transform: translateY(0); }
 .photo-info h4 { font-weight: 600; font-size: 1.1rem; margin: 0; }
@@ -135,34 +142,34 @@ nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg)
 /* --- Image Modal --- */
 .modal {
     display: none; position: fixed; z-index: 2000; left: 0; top: 0;
-    width: 100%; height: 100%; background-color: rgba(10, 10, 16, 0.8);
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-    display: flex; align-items: center; justify-content: center;
-    /* ENHANCEMENT: More refined fade transition */
+    width: 100%; height: 100%;
+    background-color: rgba(10, 10, 16, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
 }
-.modal.show {
-    opacity: 1;
-    visibility: visible;
-}
+.modal.show { opacity: 1; visibility: visible; }
 .modal-content {
-    display: block; max-width: 90vw; max-height: 90vh; border-radius: 16px;
+    display: block; max-width: 90vw; max-height: 90vh;
+    border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    /* ENHANCEMENT: Smoother zoom-in animation */
-    transform: scale(0.9);
+    /* ENHANCEMENT: Animate from clicked position */
+    transform-origin: center center;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease;
+    /* Will be set by JS */
+    transform: scale(0.5);
     opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .modal.show .modal-content {
     transform: scale(1);
     opacity: 1;
 }
-
 .close-modal {
-    position: absolute; top: 20px; right: 35px; color: var(--text-secondary);
-    font-size: 2.5rem; font-weight: bold; transition: color 0.3s ease, transform 0.3s ease;
+    position: absolute; top: 20px; right: 35px;
+    color: var(--text-secondary); font-size: 2.5rem; font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease;
     cursor: pointer; text-shadow: 0 0 10px var(--dark-bg);
 }
 .close-modal:hover { color: var(--primary); transform: scale(1.1); }
