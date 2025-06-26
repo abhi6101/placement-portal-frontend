@@ -1,358 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hack-2-Hired</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="gallery.css">
-  <!-- === FAVICON IMPLEMENTATION === -->
-<link rel="icon" href="images/fevicon.png" type="image/png">
-<link rel="shortcut icon" href="images/fevicon.ico" type="image/x-icon">
-</head>
+    <title>Gallery | Hack-2-Hired</title>
 
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheets: Global first, then page-specific -->
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="gallery.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
 <body>
     <nav>
-         <div class="logo">Hack-2-<span>Hired</span></div>
-        <!-- <ul>
-            <li><a href="mailto:abhijain6101@gmail.com"><i class="fas fa-envelope"></i> abhijain6101@gmail.com</a></li>
-            <li><a href="tel:+91-6266017070"><i class="fas fa-phone"></i> +91-6266017070</a></li>
-        </ul> -->
+        <div class="logo">Hack-2-<span>Hired</span></div>
+        <!-- Simplified top nav for consistency -->
     </nav>
-
     <nav>
         <ul>
-             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-          <!-- <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li> -->
-          <!-- <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li> -->
-          <!-- <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li> -->
-           <!-- <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li> -->
-            <!-- <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li> -->
-             <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a></li>
-          <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
-          <li><a href="courses.html"  ><i class="fas fa-book"></i> Courses</a></li>
-          <li><a href="blog.html" ><i class="fas fa-blog"></i> Blog</a></li>
-          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-            </ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
     </nav>
 
-    <section class="gallery-page">
-        <h1>Our College Memories & Moments</h1>
+    <main class="gallery-page">
+        <h1>Moments & Memories</h1>
+        <p class="subtitle">A collection of moments from our campus life, events, and sessions.</p>
 
         <div class="gallery-categories">
-            <button class="btn active" data-category="all">All Photos</button>
-            <button class="btn" data-category="function">Functions & Events</button>
-            <button class="btn" data-category="lab">Lab Sessions</button>
-            <button class="btn" data-category="farewell">Farewell</button>
-            <button class="btn" data-category="campus">Campus Life</button>
-            <button class="btn" data-category="memories">Memories</button>
-            <button class="btn" data-category="class">Classes</button>
+            <button class="btn btn-outline active" data-category="all">All Photos</button>
+            <button class="btn btn-outline" data-category="function">Functions & Events</button>
+            <button class="btn btn-outline" data-category="lab">Lab Sessions</button>
+            <button class="btn btn-outline" data-category="farewell">Farewell</button>
+            <button class="btn btn-outline" data-category="campus">Campus Life</button>
         </div>
 
         <div class="photo-grid">
-            <div class="photo-item" data-category="lab campus">
-                <img src="4E9A7129-copy.jpg" alt="Students in a computer lab">
-                <div class="photo-info">
-                    <h4>Computer Lab Session</h4>
-                    <p>Focused learning in the computer lab.</p>
-                </div>
-            </div>
-            <div class="photo-item" data-category="campus">
-                <img src="images/20240123_145917-copy.jpg" alt="IPS Academy School of Computers building entrance">
-                <div class="photo-info">
-                    <h4>IPS Academy Entrance</h4>
-                    <p>The inviting entrance to our School of Computers.</p>
-                </div>
-            </div>
-            <div class="photo-item" data-category="lab">
-                <img src="images/DSCF2122-copy.jpg" alt="Students working on computers in a lab">
-                <div class="photo-info">
-                    <h4>Hands-on Learning</h4>
-                    <p>Students actively engaged in lab exercises.</p>
-                </div>
-            </div>
-            <div class="photo-item" data-category="campus function memories">
-                <img src="images/Group-photo-1-copy-4.jpg" alt="Group of students and faculty outside IPS Academy">
-                <div class="photo-info">
-                    <h4>Campus Group Photo</h4>
-                    <p>A memorable moment with students and faculty.</p>
-                </div>
-            </div>
-            <div class="photo-item" data-category="lab campus">
-                <img src="images/STUDENT5-1.jpg" alt="Students in a circular computer lab">
-                <div class="photo-info">
-                    <h4>Circular Lab Environment</h4>
-                    <p>Collaborative setup in our unique lab.</p>
-                </div>
-            </div>
-            <div class="photo-item" data-category="function memories">
-                <img src="images/student-group-photo.jpg" alt="Large group photo of students and faculty">
-                <div class="photo-info">
-                    <h4>Annual Event Crowd</h4>
-                    <p>Students and faculty gathered for a special occasion.</p>
-                </div>
-            </div>
-
-            <div class="photo-item" data-category="campus function memories">
-                <img src="images/bgcoll.jpg" alt="Beautifully lit campus fountain at night">
-                <div class="photo-info">
-                    <h4>Evening Campus Lights</h4>
-                    <p>The campus illuminated beautifully at night.</p>
-                </div>
-            </div>
-            <!-- <div class="photo-item" data-category="lab">
-                <img src="lab2.jpg" alt="Students collaborating in a computer lab with a teacher">
-                <div class="photo-info">
-                    <h4>Collaborative Lab Work</h4>
-                    <p>Students learning and working together in the lab.</p>
-                </div>
-            </div> -->
-            <div class="photo-item" data-category="lab">
-                <img src="images/lab1.jpg" alt="Students and a teacher focused on a laptop in the computer lab">
-                <div class="photo-info">
-                    <h4>Focused Lab Session</h4>
-                    <p>Teacher guiding students during a practical session.</p>
-                </div>
-            </div>
-            <div class="photo-item" data-category="function">
-                <img src="images/wteach.jpg" alt="Group of female teachers from IPS Academy">
-                <div class="photo-info">
-                    <h4>The Support System of IPS Academy</h4>
-                    <p>Our dedicated female faculty members.</p>
-                </div>
-            </div>
-            <div class="photo-item" data-category="campus function memories">
-                <img src="images/fair.jpg" alt="Group of students posing outside a college building with an ATM">
-                <div class="photo-info">
-                    <h4>Student Group Photo on Campus</h4>
-                    <p>Students enjoying a moment outside the college building.</p>
-                </div>
-            </div>
-            <div class="photo-item" data-category="function farewell">
-                <img src="images/audi.jpg" alt="Students and faculty posing on a stage in an auditorium">
-                <div class="photo-info">
-                    <h4> Event</h4>
-                    <p>A group photo during a college event in the auditorium.</p>
-                </div>
-            </div>
-            <div class="photo-item" data-category="campus memories">
-                <img src="images/udit1.jpg" alt="Four students posing in front of a modern college building">
-                <div class="photo-info">
-                    <h4>Friends on Campus</h4>
-                    <p>Students enjoying the campus environment.</p>
-                </div>
-            </div>
-
-
-           <div class="photo-item" data-category="class">
-                    <img src="images/class1.jpg" alt="Students in a classroom setting">
-                    <div class="photo-info">
-                        <h4>Learning Environment</h4>
-                        <p>Students engaged in a class session.</p>
-                    </div>
-                </div>
-
-                <div class="photo-item" data-category="class">
-                    <img src="images/class2.jpg" alt="Students and a teacher in a classroom">
-                    <div class="photo-info">
-                        <h4>Interactive Session</h4>
-                        <p>Teacher guiding students in the classroom.</p>
-                    </div>
-                </div>
-
-
-
+            <!-- Add surface-glow class to each photo item -->
+            <div class="photo-item surface-glow" data-category="lab campus"><img src="images/4E9A7129-copy.jpg" alt="Lab Session"><div class="photo-info"><h4>Lab Session</h4></div></div>
+            <div class="photo-item surface-glow" data-category="campus"><img src="images/20240123_145917-copy.jpg" alt="Campus Entrance"><div class="photo-info"><h4>Campus Entrance</h4></div></div>
+            <div class="photo-item surface-glow" data-category="lab"><img src="images/DSCF2122-copy.jpg" alt="Hands-on Learning"><div class="photo-info"><h4>Hands-on Learning</h4></div></div>
+            <div class="photo-item surface-glow" data-category="campus function"><img src="images/Group-photo-1-copy-4.jpg" alt="Campus Group Photo"><div class="photo-info"><h4>Campus Group Photo</h4></div></div>
+            <div class="photo-item surface-glow" data-category="lab campus"><img src="images/STUDENT5-1.jpg" alt="Circular Lab"><div class="photo-info"><h4>Circular Lab</h4></div></div>
+            <div class="photo-item surface-glow" data-category="function"><img src="images/student-group-photo.jpg" alt="Annual Event"><div class="photo-info"><h4>Annual Event</h4></div></div>
+            <div class="photo-item surface-glow" data-category="campus function"><img src="images/bgcoll.jpg" alt="Evening Campus"><div class="photo-info"><h4>Evening Campus</h4></div></div>
+            <div class="photo-item surface-glow" data-category="lab"><img src="images/lab1.jpg" alt="Focused Lab Session"><div class="photo-info"><h4>Focused Lab Session</h4></div></div>
+            <div class="photo-item surface-glow" data-category="function"><img src="images/wteach.jpg" alt="Faculty Members"><div class="photo-info"><h4>Faculty Members</h4></div></div>
+            <div class="photo-item surface-glow" data-category="campus"><img src="images/fair.jpg" alt="Student Group Photo"><div class="photo-info"><h4>Student Group Photo</h4></div></div>
+            <div class="photo-item surface-glow" data-category="function farewell"><img src="images/audi.jpg" alt="Auditorium Event"><div class="photo-info"><h4>Auditorium Event</h4></div></div>
+            <div class="photo-item surface-glow" data-category="campus"><img src="images/udit1.jpg" alt="Friends on Campus"><div class="photo-info"><h4>Friends on Campus</h4></div></div>
+            <div class="photo-item surface-glow" data-category="class"><img src="images/class1.jpg" alt="Classroom"><div class="photo-info"><h4>Classroom Learning</h4></div></div>
+            <div class="photo-item surface-glow" data-category="class"><img src="images/class2.jpg" alt="Interactive Session"><div class="photo-info"><h4>Interactive Session</h4></div></div>
         </div>
-
-        <div class="gallery-contribution">
-            <h3>Share Your Photos & Good Memories!</h3>
-            <p>Have some great moments from college you'd like to share? Send them to us and we'll add them to our gallery!</p>
+    </main>
+    
+    <!-- The contribution section can be a separate section for better layout control -->
+    <section class="gallery-contribution-section">
+        <div class="gallery-contribution surface-glow">
+            <h3>Share Your Moments</h3>
+            <p>Have photos from college you'd like to share? Send them our way!</p>
             <div class="contact-links">
-                <a href="https://wa.me/916266017070?text=Hello!%20I%20want%20to%20share%20some%20photos%20for%20the%20college%20gallery." target="_blank" class="whatsapp-btn">
-                    <i class="fab fa-whatsapp"></i> WhatsApp Us
-                </a>
-                <a href="mailto:abhijain6101@gmail.com?subject=College%20Gallery%20Photo%20Submission&body=Hello!%0A%0AI would like to share some photos for the college gallery. Please find them attached or let me know the best way to share.%0A%0ARegards,%0A[Your Name]" class="email-btn">
-                    <i class="fas fa-envelope"></i> Email Photos
-                </a>
-            </div>
-            <p style="margin-top: 1.5rem; color: var(--dark); font-size: 0.9rem;">(By submitting, you agree to allow us to display your photos on the website)</p>
-        </div>
-    </section>
-
-    <section class="companies">
-        <h2>Our Valued Placement Partners</h2>
-        <div class="company-logos">
-            <div class="company-logo-item">
-                <a href="https://www.accenture.com" target="_blank">
-                    <img src="images/accenture-logo.jpg" alt="Accenture">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.wipro.com" target="_blank">
-                    <img src="images/wipro-logo.jpg" alt="Wipro">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.infosys.com" target="_blank">
-                    <img src="images/infosys-logo.jpg" alt="Infosys">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.tcs.com" target="_blank">
-                    <img src="images/tcs-logo.jpg" alt="TCS">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.capgemini.com" target="_blank">
-                    <img src="images/capgemini-logo.jpg" alt="Capgemini">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.persistent.com" target="_blank">
-                    <img src="images/persistent-logo.jpg" alt="Persistent Systems">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://hexaware.com" target="_blank">
-                    <img src="images/hexaware-logo.jpg" alt="Hexaware">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.google.com" target="_blank">
-                    <img src="images/google.png" alt="Google">
-                </a>
-            </div>
-            <div class="company-logo-item">
-                <a href="https://www.microsoft.com" target="_blank">
-                    <img src="images/microsoft.png" alt="Microsoft">
-                </a>
+                <a href="https://wa.me/916266017070?text=Hello!%20I%20want%20to%20share%20photos%20for%20the%20college%20gallery." target="_blank" class="btn-contact whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                <a href="mailto:abhijain6101@gmail.com?subject=College%20Gallery%20Photo%20Submission" class="btn-contact email-btn"><i class="fas fa-envelope"></i> Email Photos</a>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="jobs.html">Job Openings</a></li>
-                    <li><a href="courses.html">Courses</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Resources</h3>
-                <ul>
-                    <li><a href="resume.html">Resume Builder</a></li>
-                    <li><a href="interview.html">Interview Prep</a></li>
-                    <li><a href="videos.html">Study Materials</a></li>
-                    <li><a href="index.html">Career Guides</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="contact.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="contact.html">Privacy Policy</a></li>
-                    <li><a href="contact.html">Terms of Service</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Connect With Us</h3>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-                <p style="margin-top: 1.5rem; color: #ccc;">abhijain6101@gmail.com</p>
-            </div>
-        </div>
-         <p>Made with <span class="heart">❤️</span> by Abhi</p>
-        <p> 2025 College Placement System. All rights reserved.</p>
-    </footer>
-
+    <!-- Modal for viewing images -->
     <div id="imageModal" class="modal">
-        <span class="close-modal">&times;</span>
+        <span class="close-modal">×</span>
         <img class="modal-content" id="modalImage">
     </div>
 
-    <script>
-        // Gallery filtering logic for gallery.html
-        document.addEventListener('DOMContentLoaded', () => {
-            const galleryItems = document.querySelectorAll('.photo-item');
-            const categoryButtons = document.querySelectorAll('.gallery-categories .btn');
-
-            const imageModal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            const closeModalBtn = document.querySelector('.close-modal');
-
-            let closeTimer; // To store the setTimeout ID
-
-            function filterGallery(category) {
-                galleryItems.forEach(item => {
-                    const itemCategories = item.dataset.category ? item.dataset.category.split(' ') : [];
-                    if (category === 'all' || itemCategories.includes(category)) {
-                        item.classList.add('show');
-                    } else {
-                        item.classList.remove('show');
-                    }
-                });
-            }
-
-            // Initial display: show all photos
-            filterGallery('all');
-
-            // Add event listeners to category buttons
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove 'active' class from all buttons
-                    categoryButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add 'active' class to the clicked button
-                    this.classList.add('active');
-
-                    const category = this.dataset.category;
-                    filterGallery(category);
-                });
-            });
-
-            // Add click listener to each photo item for modal display
-            galleryItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const imgSrc = this.querySelector('img').src; // Get the source of the clicked image
-                    modalImage.src = imgSrc; // Set the modal image source
-                    imageModal.style.display = 'flex'; // Show the modal (using flex for centering)
-
-                    // Clear any existing timer before starting a new one
-                    if (closeTimer) {
-                        clearTimeout(closeTimer);
-                    }
-
-                    // Set a timeout to close the modal after 5 seconds
-                    closeTimer = setTimeout(() => {
-                        imageModal.style.display = 'none'; // Hide the modal
-                    }, 15000); // 5000 milliseconds = 5 seconds
-                });
-            });
-
-            // Close modal when the close button is clicked
-            closeModalBtn.addEventListener('click', () => {
-                imageModal.style.display = 'none';
-                clearTimeout(closeTimer); // Stop the timer if closed manually
-            });
-
-            // Close modal when clicking outside the image (on the overlay)
-            imageModal.addEventListener('click', (event) => {
-                if (event.target === imageModal) {
-                    imageModal.style.display = 'none';
-                    clearTimeout(closeTimer); // Stop the timer if closed by clicking overlay
-                }
-            });
-        });
-    </script>
-
+    <script src="gallery.js"></script>
 </body>
-
 </html>
