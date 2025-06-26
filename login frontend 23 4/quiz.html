@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Link to the new, self-contained stylesheet -->
+    <!-- Link to the self-contained stylesheet -->
     <link rel="stylesheet" href="quiz.css">
 
     <!-- Favicon -->
@@ -38,6 +38,10 @@
             </header>
             <div id="subject-menu" class="subject-grid">
                 <!-- Subject buttons will be dynamically populated by JS -->
+                <div class="loading-indicator">
+                    <div class="spinner"></div>
+                    <span>Loading Subjects...</span>
+                </div>
             </div>
         </section>
 
@@ -50,7 +54,7 @@
                 </header>
                 <div class="progress-container">
                     <div id="progress-bar-container"><div id="progress-bar"></div></div>
-                    <span id="progress-text">Question 1/10</span>
+                    <span id="progress-text">Question 1/15</span>
                 </div>
                 <div class="question-container">
                     <p id="question-text">Loading question...</p>
@@ -79,14 +83,15 @@
                     <div class="stat"><i class="fas fa-hourglass-half"></i> Time: <span id="timeTaken">0s</span></div>
                 </div>
                 <div class="result-actions">
-                    <button id="play-again-btn" class="btn btn-primary">Play Again</button>
+                    <button id="play-again-btn" class="btn btn-primary">Play Another Quiz</button>
                     <button id="back-to-home-btn" class="btn btn-outline">Back to Home</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <script src="quiz-data.js"></script> <!-- Your questions data -->
+    <!-- Make sure quiz-data.js is loaded BEFORE quiz.js -->
+    <script src="quiz-data.js"></script>
     <script src="quiz.js"></script>
 </body>
 </html>

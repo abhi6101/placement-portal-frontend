@@ -35,11 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 2. Initial Setup ---
     function setupSubjectButtons() {
         const subjects = [
-            { id: 'html', name: 'HTML', icon: 'fab fa-html5', desc: 'Structure of Web' },
-            { id: 'css', name: 'CSS', icon: 'fab fa-css3-alt', desc: 'Styling Web Pages' },
+            { id: 'html', name: 'HTML', icon: 'fab fa-html5', desc: 'Web Structure' },
+            { id: 'css', name: 'CSS', icon: 'fab fa-css3-alt', desc: 'Web Styling' },
             { id: 'javascript', name: 'JavaScript', icon: 'fab fa-js', desc: 'Web Interactivity' },
-            { id: 'java', name: 'Java', icon: 'fab fa-java', desc: 'Backend & Android' },
-            // Add all other subjects here...
+            { id: 'react', name: 'React', icon: 'fab fa-react', desc: 'Frontend Library' },
+            { id: 'java', name: 'Java', icon: 'fab fa-java', desc: 'Backend & OOP' },
+            { id: 'springboot', name: 'Spring Boot', icon: 'fas fa-leaf', desc: 'Java Framework' },
+            { id: 'python', name: 'Python', icon: 'fab fa-python', desc: 'Versatile Language' },
+            { id: 'sql', name: 'SQL', icon: 'fas fa-database', desc: 'Database Queries' },
+            { id: 'dsa', name: 'DSA', icon: 'fas fa-sitemap', desc: 'Problem Solving' },
+            { id: 'git', name: 'Git', icon: 'fab fa-git-alt', desc: 'Version Control' }
         ];
         
         subjectMenu.innerHTML = subjects.map(s => `
@@ -67,7 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         score = 0;
         timeElapsed = 0;
         
-        quizSubjectTitle.textContent = subject.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        const subjectName = subject.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        quizSubjectTitle.textContent = `${subjectName} Quiz`;
         updateScore();
         
         setActiveStep('quiz');
@@ -77,6 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showQuestion() {
         resetOptionStyles();
+        nextBtn.disabled = true;
+
         const question = currentQuiz[currentQuestionIndex];
         questionText.textContent = question.question;
 
@@ -89,11 +97,15 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
 
         document.querySelectorAll('.option input').forEach(input => {
-            input.addEventListener('change', () => nextBtn.disabled = false);
+            input.addEventListener('change', () => {
+                nextBtn.disabled = false;
+                // Optional: visual selection feedback
+                document.querySelectorAll('.option').forEach(l => l.classList.remove('selected'));
+                input.parentElement.classList.add('selected');
+            });
         });
 
         updateProgress();
-        nextBtn.disabled = true;
     }
     
     function startTimer() {
@@ -114,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedAnswer = selectedOptionInput.value;
         const correctAnswer = currentQuiz[currentQuestionIndex].answer;
         
-        // Provide visual feedback
         const allOptions = optionsContainer.querySelectorAll('.option');
         allOptions.forEach(optLabel => {
             const input = optLabel.querySelector('input');
@@ -130,6 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
             score++;
             updateScore();
         }
+
+        nextBtn.disabled = true; // Disable until next question loads
 
         setTimeout(() => {
             currentQuestionIndex++;
@@ -154,9 +167,9 @@ document.addEventListener('DOMContentLoaded', () => {
         wrongAnswersEl.textContent = totalQuestions - score;
         timeTakenEl.textContent = timerDisplay.textContent;
         
-        if (percentage >= 80) resultMessageEl.textContent = "Excellent Work!";
-        else if (percentage >= 50) resultMessageEl.textContent = "Good Job, Keep Practicing!";
-        else resultMessageEl.textContent = "Keep Trying, You'll Get There!";
+        if (percentage >= 80) resultMessageEl.textContent = "Excellent Work! You're a true pro.";
+        else if (percentage >= 50) resultMessageEl.textContent = "Good Job! Keep practicing to master it.";
+        else resultMessageEl.textContent = "Keep Trying! Every attempt is a step forward.";
     }
 
     // --- 4. UI Update Functions ---
@@ -176,9 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const resetOptionStyles = () => {
-        document.querySelectorAll('.option').forEach(opt => {
+        optionsContainer.querySelectorAll('.option').forEach(opt => {
             opt.classList.remove('selected', 'correct', 'wrong');
-            opt.querySelector('input').disabled = false;
         });
     };
     
