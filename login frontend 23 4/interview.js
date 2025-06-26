@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             positions: ["System Engineer", "Business Analyst"], eligibility: "CGPA ≥ 7.0",
             slots: { total: 25, booked: 10 },
             // THE FIX: Use a local path
-            logo: "images/infosys-logo.jpg"
+            // logo: "images/infosys-logo.jpg"
         },
         {
             id: 3, company: "Wipro", location: "Hyderabad", date: "2025-08-30",
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             positions: ["Project Engineer", "Cloud Specialist"], eligibility: "CSE/IT, CGPA ≥ 7.0",
             slots: { total: 15, booked: 5 },
             // THE FIX: Use a local path
-            logo: "images/wipro-logo.jpg"
+            // logo: "images/wipro-logo.jpg"
         },
         {
             id: 5, company: "Accenture", location: "Gurugram", date: "2025-07-05",
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             positions: ["Associate Software Engineer"], eligibility: "No backlogs",
             slots: { total: 30, booked: 10 },
             // THE FIX: Use a local path
-            logo: "images/accenture-logo.jpg"
+            // logo: "images/accenture-logo.jpg"
         },
         // ...and so on for other companies
     ];
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // The src will now correctly point to your local image
         card.innerHTML = `
             <div class="interview-header">
-                <div class="company-logo-container"><img src="${interview.logo}" alt="${interview.company} Logo" class="company-logo"></div>
+                <div class="company-logo-container"> alt="${interview.company} Logo" class="company-logo"></div>
                 <h2>${interview.company}</h2>
             </div>
             <div class="interview-body">
