@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             positions: ["Software Engineer", "Data Analyst"], eligibility: "CGPA ≥ 7.5",
             slots: { total: 20, booked: 18 },
             // THE FIX: Use a local path to your saved logo
-            logo: "images/tcs-logo.jpg"
+            // logo: "images/tcs-logo.jpg"
         },
         {
             id: 2, company: "Infosys", location: "Bengaluru", date: "2025-07-28",
