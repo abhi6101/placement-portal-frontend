@@ -149,3 +149,12 @@ footer .heart { color: var(--accent); animation: pulse 1.5s infinite; }
     .hero-content { padding: 0 1rem; }
     .cta-btns { flex-direction: column; gap: 1rem; align-items: center; }
 }
+
+
+/* In index.css, you can add this anywhere */
+
+.features-box-link {
+    text-decoration: none; /* Removes underline from the link */
+    color: inherit; /* Makes the text inside the link inherit its color from the parent */
+}
+
