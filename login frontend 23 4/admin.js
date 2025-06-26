@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!token || role !== 'ADMIN') {
         alert('Access Denied. Admins only.');
         window.location.href = 'login.html';
-        return; // Stop script execution if not an admin
+        return;
     }
 
-    // --- 2. Element Caching ---
+    // --- 2. Element Caching & Constants ---
     const apiUrl = "https://placement-portal-backend-nwaj.onrender.com/admin";
     const jobForm = document.getElementById('jobForm');
     const jobMessage = document.getElementById('jobMessage');
@@ -20,7 +20,77 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingUsersIndicator = document.getElementById('loadingUsersIndicator');
     const usersTable = document.getElementById('usersTable');
 
-    // --- 3. Job Management ---
+    // --- 3. Job Deletion Function ---
+    // This function will be called by our event listener.
+    async function deleteJob(jobId) {
+        if (!confirm('Are you sure you want to delete this job?')) return;
+        
+        try {
+            const response = await fetch(`${apiUrl}/jobs/${jobId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to delete job. Please try again.');
+            }
+            
+            // If deletion is successful, reload the job list to show the change.
+            loadJobs();
+
+        } catch (error) {
+            alert(error.message);
+        }
+    }
+
+    // --- 4. Job Rendering (THE FIX IS HERE) ---
+    const renderJobs = (jobs) => {
+        if (!jobsList || !loadingJobsIndicator || !jobsTable) return;
+        
+        jobsList.innerHTML = '';
+        
+        if (jobs.length === 0) {
+            loadingJobsIndicator.textContent = 'No jobs posted yet.';
+            jobsTable.style.display = 'none';
+            loadingJobsIndicator.style.display = 'block';
+            return;
+        }
+        
+        jobs.forEach(job => {
+            const row = document.createElement('tr');
+            
+            // Create cells for job data
+            row.innerHTML = `
+                <td>${job.title}</td>
+                <td>${job.company_name}</td>
+                <td>${new Date(job.last_date).toLocaleDateString('en-IN')}</td>
+                <td>₹${job.salary.toLocaleString()}</td>
+            `;
+
+            // Create the actions cell and the delete button programmatically
+            const actionsCell = document.createElement('td');
+            actionsCell.className = 'action-btns';
+
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'btn btn-danger';
+            deleteButton.innerHTML = `<i class="fas fa-trash"></i>`;
+            
+            // **THE CRITICAL CHANGE:** Add the event listener directly
+            deleteButton.addEventListener('click', () => deleteJob(job.id));
+            
+            actionsCell.appendChild(deleteButton);
+            row.appendChild(actionsCell);
+            
+            jobsList.appendChild(row);
+        });
+        
+        loadingJobsIndicator.style.display = 'none';
+        jobsTable.style.display = 'table';
+    };
+
+    // --- 5. Other Functions (Load Jobs, Form Submit, User Management) ---
+    // This code remains the same as your original, correct version.
+    
     const loadJobs = async () => {
         try {
             const response = await fetch(`${apiUrl}/jobs`, { headers: { 'Authorization': `Bearer ${token}` } });
@@ -31,32 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error loading jobs:', error);
             if (loadingJobsIndicator) loadingJobsIndicator.innerHTML = `<div class="alert alert-danger">Failed to load jobs.</div>`;
         }
-    };
-
-    const renderJobs = (jobs) => {
-        if (!jobsList || !loadingJobsIndicator || !jobsTable) return;
-        jobsList.innerHTML = '';
-        if (jobs.length === 0) {
-            loadingJobsIndicator.textContent = 'No jobs posted yet.';
-            jobsTable.style.display = 'none';
-            loadingJobsIndicator.style.display = 'block';
-            return;
-        }
-        jobs.forEach(job => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${job.title}</td>
-                <td>${job.company_name}</td>
-                <td>${new Date(job.last_date).toLocaleDateString('en-IN')}</td>
-                <td>₹${job.salary.toLocaleString()}</td>
-                <td class="action-btns">
-                    <button class="btn btn-danger" onclick="App.deleteJob('${job.id}')"><i class="fas fa-trash"></i></button>
-                </td>
-            `;
-            jobsList.appendChild(row);
-        });
-        loadingJobsIndicator.style.display = 'none';
-        jobsTable.style.display = 'table';
     };
 
     if (jobForm) {
@@ -83,21 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Expose deleteJob to the global scope via a namespace
-    window.App = {
-        deleteJob: async (jobId) => {
-            if (!confirm('Are you sure you want to delete this job?')) return;
-            try {
-                const response = await fetch(`${apiUrl}/jobs/${jobId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
-                if (!response.ok) throw new Error('Failed to delete job');
-                loadJobs();
-            } catch (error) {
-                alert(error.message);
-            }
-        }
-    };
-
-    // --- 4. User Management ---
     const loadUsers = async () => {
         try {
             const response = await fetch(`${apiUrl}/users`, { headers: { 'Authorization': `Bearer ${token}` } });
@@ -116,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (users.length === 0) {
             loadingUsersIndicator.textContent = 'No registered users found.';
             usersTable.style.display = 'none';
-            loadingUsersİndicator.style.display = 'block';
+            loadingUsersIndicator.style.display = 'block';
             return;
         }
         users.forEach(user => {
@@ -133,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         usersTable.style.display = 'table';
     };
 
-    // --- 5. Initial Load ---
+    // --- 6. Initial Load ---
     loadJobs();
     loadUsers();
 });
