@@ -8,13 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="jobs.css">
 
-
-    <!-- === FAVICON IMPLEMENTATION (UPDATED) === -->
-    <!-- Modern browsers will use the PNG -->
-    <link rel="icon" href="images/fevicon.png" type="image/png">
-    <!-- Fallback for older browsers -->
-    <link rel="shortcut icon" href="images/fevicon.ico" type="image/x-icon"> 
-
 </head>
 
 <body>
@@ -200,30 +193,20 @@
             }
 
 
-            // ----- THE FIX IS HERE -----
-    async function fetchJobs() {
-        try {
-            // Add the Authorization header to this fetch call
-            const response = await fetch(API_URL, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
+            // Fetch jobs from API
+            async function fetchJobs() {
+                try {
+                    const response = await fetch(API_URL);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch jobs');
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error('Error fetching jobs:', error);
+                    showError('Failed to load jobs. Please try again later.');
+                    return [];
                 }
-            });
-            if (!response.ok) {
-                // Handle potential auth errors here too
-                if (response.status === 403 || response.status === 401) {
-                    throw new Error('Authentication failed. Please log in again.');
-                }
-                throw new Error('Failed to fetch jobs from the server.');
             }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching jobs:', error);
-            showError(error.message);
-            return [];
-        }
-    }
-    // ----- END OF FIX -----
 
             // Load jobs from API then render
             async function loadJobs() {
