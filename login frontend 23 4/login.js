@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function setLoadingState(isLoading) {
         if (!loginButton) return;
         loginButton.disabled = isLoading;
-        loginButton.classList.toggle('is-loading', isLoading);
+        // THE FIX: Changed 'is-loading' to 'loading' to match the CSS
+        loginButton.classList.toggle('loading', isLoading);
     }
 
     // --- 3. Main Event Listener ---
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            setLoadingState(true);
+            setLoadingState(true); // This will now add the .loading class
 
             try {
                 const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/login", {
@@ -58,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     const roles = payload.roles || payload.authorities || [];
                     const isAdmin = roles.includes("ROLE_ADMIN");
 
-                    // This is the crucial step for the admin page to work
                     localStorage.setItem("userRole", isAdmin ? "ADMIN" : "USER");
 
                     showMessage(successElement, "Login successful! Redirecting...", "success");
