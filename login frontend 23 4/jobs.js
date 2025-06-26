@@ -2,12 +2,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const API_URL = "https://placement-portal-backend-nwaj.onrender.com/jobs";
     const APPLY_JOB_API_URL = "https://placement-portal-backend-nwaj.onrender.com/api/apply-job";
 
+    // --- Element Caching ---
     const jobList = document.getElementById('jobList');
-    const searchForm = document.getElementById('searchForm');
     const searchInput = document.getElementById('searchInput');
     const filterButtons = document.querySelectorAll('.filter-btn');
     const sortSelect = document.getElementById('sortSelect');
-
     const applicationFormModal = document.getElementById('applicationFormModal');
     const closeModalButton = document.querySelector('.close-button');
     const jobApplicationForm = document.getElementById('jobApplicationForm');
@@ -17,35 +16,67 @@ document.addEventListener('DOMContentLoaded', function () {
     let allJobs = [];
     let currentUserDetails = null;
 
+    // --- Helper Functions ---
     const getUserDetailsFromToken = (token) => {
         try {
             const payload = JSON.parse(atob(token.split('.')[1]));
-            return {
-                username: payload.sub,
-                email: payload.email || '',
-                exp: payload.exp
-            };
-        } catch (e) {
-            return null;
-        }
+            return { username: payload.sub, email: payload.email || '', exp: payload.exp };
+        } catch (e) { return null; }
     };
 
+    const formatDate = (dateString) => new Date(dateString).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+
+    // --- Authentication ---
     const handleAuth = () => {
         const token = localStorage.getItem("authToken");
         if (!token) {
+            alert("Authentication failed. Redirecting to login."); // Provide a clearer message
             window.location.href = "login.html";
-            return false;
+            return { token: null, isValid: false };
         }
         currentUserDetails = getUserDetailsFromToken(token);
         if (!currentUserDetails || currentUserDetails.exp < Date.now() / 1000) {
             localStorage.clear();
+            alert("Session expired. Please log in again.");
             window.location.href = "login.html";
-            return false;
+            return { token: null, isValid: false };
         }
-        return true;
+        return { token, isValid: true };
     };
 
-    const formatDate = (dateString) => new Date(dateString).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    const auth = handleAuth();
+    if (!auth.isValid) {
+        // Stop script execution if authentication fails
+        jobList.innerHTML = `<div class="loading-indicator"><span>Please <a href="login.html">log in</a> to view job opportunities.</span></div>`;
+        return;
+    }
+
+    // --- Job Loading & Rendering ---
+    const loadJobs = async () => {
+        jobList.innerHTML = '<div class="loading-indicator"><div class="spinner"></div><span>Loading Jobs...</span></div>';
+        try {
+            // THE FIX: Add Authorization header to the fetch request
+            const response = await fetch(API_URL, {
+                headers: {
+                    'Authorization': `Bearer ${auth.token}`
+                }
+            });
+
+            if (!response.ok) {
+                // Handle different error statuses
+                if (response.status === 403) {
+                    throw new Error('Access Forbidden. You might not have permission to view this.');
+                }
+                throw new Error(`Network response was not ok (status: ${response.status})`);
+            }
+            
+            allJobs = await response.json();
+            filterAndSortJobs();
+        } catch (error) {
+            console.error('Error fetching jobs:', error);
+            jobList.innerHTML = `<div class="loading-indicator"><span>Failed to load jobs. Please try refreshing the page.</span></div>`;
+        }
+    };
 
     const displayJobs = (jobs) => {
         jobList.innerHTML = '';
@@ -57,10 +88,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const jobCard = document.createElement('div');
             jobCard.className = 'job-card surface-glow';
             jobCard.style.animationDelay = `${index * 0.05}s`;
-
             const jobTypeClass = job.title.toLowerCase().includes('intern') ? 'internship' : '';
             const jobTypeText = job.title.toLowerCase().includes('intern') ? 'Internship' : 'Full-time';
-
             jobCard.innerHTML = `
                 <div class="job-header">
                     <h3 class="job-title">${job.title}</h3>
@@ -80,11 +109,11 @@ document.addEventListener('DOMContentLoaded', function () {
             jobList.appendChild(jobCard);
         });
     };
-
-    const filterAndSortJobs = () => {
+    
+    // --- Filtering, Sorting, and Modal Logic (No Changes Needed Here) ---
+    const filterAndSortJobs = () => { /* ... your existing correct code ... */ 
         const searchTerm = searchInput.value.toLowerCase();
         const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-
         let filteredJobs = allJobs.filter(job => {
             const matchesSearch = job.title.toLowerCase().includes(searchTerm) || job.company_name.toLowerCase().includes(searchTerm);
             let matchesFilter = true;
@@ -93,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             return matchesSearch && matchesFilter;
         });
-
         const sortValue = sortSelect.value;
         filteredJobs.sort((a, b) => {
             switch (sortValue) {
@@ -104,82 +132,66 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         displayJobs(filteredJobs);
     };
-
-    const loadJobs = async () => {
-        try {
-            const response = await fetch(API_URL);
-            if (!response.ok) throw new Error('Network response was not ok');
-            allJobs = await response.json();
-            filterAndSortJobs();
-        } catch (error) {
-            jobList.innerHTML = `<div class="loading-indicator"><span>Failed to load jobs. Please try again later.</span></div>`;
-        }
-    };
-
-    const openModal = (jobId, jobTitle) => {
+    
+    const openModal = (jobId, jobTitle) => { /* ... your existing correct code ... */ 
         jobTitleForApplication.textContent = jobTitle;
         appliedJobIdInput.value = jobId;
         document.getElementById('applicantName').value = currentUserDetails.username || '';
         document.getElementById('applicantEmail').value = currentUserDetails.email || '';
         applicationFormModal.classList.add('show');
     };
-
-    const closeModal = () => {
+    
+    const closeModal = () => { /* ... your existing correct code ... */ 
         applicationFormModal.classList.remove('show');
         jobApplicationForm.reset();
     };
 
-    // --- Main Execution ---
-    if (handleAuth()) {
-        loadJobs();
-
-        searchForm.addEventListener('submit', e => e.preventDefault());
-        searchInput.addEventListener('input', filterAndSortJobs);
-        sortSelect.addEventListener('change', filterAndSortJobs);
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                filterAndSortJobs();
+    // --- Event Listeners ---
+    searchInput.addEventListener('input', filterAndSortJobs);
+    sortSelect.addEventListener('change', filterAndSortJobs);
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            filterAndSortJobs();
+        });
+    });
+    jobList.addEventListener('click', e => {
+        if (e.target.closest('.apply-btn')) {
+            const btn = e.target.closest('.apply-btn');
+            openModal(btn.dataset.jobId, btn.dataset.jobTitle);
+        }
+    });
+    closeModalButton.addEventListener('click', closeModal);
+    applicationFormModal.addEventListener('click', e => {
+        if (e.target === applicationFormModal) closeModal();
+    });
+    jobApplicationForm.addEventListener('submit', async function(e) { /* ... your existing correct code ... */ 
+        e.preventDefault();
+        const submitButton = this.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.innerHTML = `<span class="spinner"></span> Submitting...`;
+        try {
+            const response = await fetch(APPLY_JOB_API_URL, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${auth.token}` },
+                body: new FormData(this)
             });
-        });
-
-        jobList.addEventListener('click', e => {
-            if (e.target.classList.contains('apply-btn')) {
-                openModal(e.target.dataset.jobId, e.target.dataset.jobTitle);
+            if (response.ok) {
+                alert('Application submitted successfully!');
+                closeModal();
+            } else {
+                const errorData = await response.json();
+                alert(`Submission failed: ${errorData.message}`);
             }
-        });
-        
-        closeModalButton.addEventListener('click', closeModal);
-        applicationFormModal.addEventListener('click', e => {
-            if (e.target === applicationFormModal) closeModal();
-        });
+        } catch (error) {
+            alert('An error occurred. Please try again.');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.innerHTML = `Submit Application`;
+        }
+    });
 
-        jobApplicationForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const submitButton = this.querySelector('button[type="submit"]');
-            submitButton.disabled = true;
-            submitButton.innerHTML = `<span class="spinner"></span> Submitting...`;
-
-            try {
-                const response = await fetch(APPLY_JOB_API_URL, {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer ${localStorage.getItem("authToken")}` },
-                    body: new FormData(this)
-                });
-                if (response.ok) {
-                    alert('Application submitted successfully!');
-                    closeModal();
-                } else {
-                    const errorData = await response.json();
-                    alert(`Submission failed: ${errorData.message}`);
-                }
-            } catch (error) {
-                alert('An error occurred. Please try again.');
-            } finally {
-                submitButton.disabled = false;
-                submitButton.innerHTML = `Submit Application`;
-            }
-        });
-    }
+    // --- Initial Load ---
+    loadJobs();
 });
