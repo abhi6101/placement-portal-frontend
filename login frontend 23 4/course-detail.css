@@ -37,21 +37,21 @@ nav a.active { color: var(--primary); background: var(--surface-bg); }
 @keyframes spin { to { --angle: 360deg; } }
 
 /* === COURSE DETAIL-SPECIFIC STYLES === */
-
-/* --- 4. Hero Header --- */
-.course-hero { text-align: center; padding: 5rem 1rem; background: linear-gradient(180deg, var(--surface-bg) 0%, var(--dark-bg) 100%); }
+.course-hero { text-align: center; padding: 5rem 1rem; }
 .hero-content h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 0.5rem; }
 .hero-content .subtitle { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
 
-/* --- 5. Main Layout --- */
 .course-detail-container {
-    max-width: 1200px; margin: 3rem auto; padding: 0 1rem;
-    display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;
+    max-width: 1200px; margin: 0 auto 4rem; padding: 0 1rem;
+    display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 2rem;
+    align-items: flex-start;
 }
 .course-main-content { display: flex; flex-direction: column; gap: 2rem; }
-.course-sidebar { position: sticky; top: 100px; /* Adjust based on nav height */ align-self: start; }
+.course-sidebar { position: sticky; top: 100px; align-self: start; }
 
-/* --- 6. Course Sections --- */
+.course-image-section { border-radius: 16px; overflow: hidden; }
+.course-image { width: 100%; height: auto; display: block; }
+
 .course-section { padding: 2rem; }
 .section-title {
     display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
@@ -60,35 +60,34 @@ nav a.active { color: var(--primary); background: var(--surface-bg); }
 .section-title i { font-size: 1.5rem; color: var(--primary); }
 .section-title h2 { font-size: 1.5rem; margin: 0; }
 .checklist { list-style: none; }
-.checklist li {
-    padding-left: 2rem; position: relative; margin-bottom: 0.75rem;
-    color: var(--text-secondary);
-}
+.checklist li { padding-left: 2rem; position: relative; margin-bottom: 0.75rem; color: var(--text-secondary); }
 .checklist li::before {
-    content: '\f058'; /* Font Awesome check-circle */
-    font-family: 'Font Awesome 6 Free'; font-weight: 900;
+    content: '\f058'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
     position: absolute; left: 0; color: var(--primary);
 }
 
-/* --- 7. Sidebar Card --- */
 .sidebar-card { padding: 2rem; }
-.sidebar-title { font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
-.feature-list { list-style: none; margin-bottom: 2rem; }
+.course-meta-grid { display: grid; gap: 1.5rem; margin-bottom: 2rem; }
+.meta-item { display: flex; align-items: center; gap: 1rem; }
+.meta-item i { font-size: 1.5rem; color: var(--primary); width: 25px; text-align: center; }
+.meta-item div span:first-child { display: block; color: var(--text-secondary); font-size: 0.9rem; }
+.meta-item div strong { font-weight: 600; font-size: 1rem; }
+
+.sidebar-title { font-size: 1.2rem; margin: 2rem 0 1.5rem; text-align: center; border-top: 1px solid var(--border-color); padding-top: 2rem; }
+.feature-list { list-style: none; }
 .feature-list li { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; color: var(--text-secondary); }
 .feature-list i { color: var(--primary); width: 20px; text-align: center; }
-.course-cta { text-align: center; }
-.course-cta .btn { width: 100%; }
+.course-cta { text-align: center; margin-top: 2rem; }
+.course-cta .btn { width: 100%; font-size: 1.1rem; }
 
-/* --- 8. Course Structure Grid --- */
 .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .module { background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 10px; border-left: 3px solid var(--primary); }
 .module h4 { font-size: 1.1rem; color: var(--text-primary); }
 .module p { font-size: 0.9rem; color: var(--text-secondary); margin: 0; }
 
-/* Responsive Adjustments */
 @media (max-width: 992px) {
     .course-detail-container { grid-template-columns: 1fr; }
-    .course-sidebar { position: static; /* Unstick the sidebar */ }
+    .course-sidebar { position: static; }
 }
 @media (max-width: 768px) {
     .module-grid { grid-template-columns: 1fr; }

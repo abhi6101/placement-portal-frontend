@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack Web Development Course | Hack-2-Hired</title>
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link to a new, self-contained stylesheet -->
+    <link rel="stylesheet" href="course-detail.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+    <nav>
+        <div class="logo">Hack-2-<span>Hired</span></div>
+    </nav>
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="courses.html" class="active"><i class="fas fa-book"></i> Courses</a></li>
+            <!-- ... other nav links ... -->
+        </ul>
+    </nav>
+
+    <header class="course-hero">
+        <div class="hero-content">
+            <h1>Full Stack Web Development</h1>
+            <p class="subtitle">Master the MERN stack and build complete web applications from scratch.</p>
+        </div>
+    </header>
+
+    <main class="course-detail-container">
+        <div class="course-main-content">
+            <!-- Course Image -->
+            <section class="course-image-section">
+                <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80" alt="Full Stack Web Development" class="course-image">
+            </section>
+            
+            <!-- Course Overview -->
+            <section class="course-section surface-glow">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> Course Overview</h2>
+                <p>Dive into the world of full-stack development with the MERN stack (MongoDB, Express, React, Node.js). This project-based course is designed to take you from foundational concepts to deploying complex, data-driven web applications, making you a job-ready developer.</p>
+            </section>
+            
+            <!-- What You'll Learn -->
+            <section class="course-section surface-glow">
+                <h2 class="section-title"><i class="fas fa-graduation-cap"></i> What You'll Master</h2>
+                <ul class="checklist">
+                    <li>Building responsive user interfaces with React and modern CSS.</li>
+                    <li>Creating robust RESTful APIs with Node.js and Express.</li>
+                    <li>Designing and managing NoSQL databases with MongoDB.</li>
+                    <li>Implementing user authentication and authorization with JWT.</li>
+                    <li>State management in React with Redux Toolkit or Context API.</li>
+                    <li>Deploying full-stack applications to cloud platforms.</li>
+                </ul>
+            </section>
+
+            <!-- Course Structure -->
+            <section class="course-section surface-glow">
+                <h2 class="section-title"><i class="fas fa-sitemap"></i> 10-Week Curriculum</h2>
+                <div class="module-grid">
+                    <div class="module"><h4>Weeks 1-3: Frontend with React</h4><p>JSX, components, props, state, hooks, and client-side routing.</p></div>
+                    <div class="module"><h4>Weeks 4-6: Backend with Node.js & Express</h4><p>Building servers, routing, middleware, and creating a full REST API.</p></div>
+                    <div class="module"><h4>Weeks 7-8: Database with MongoDB</h4><p>NoSQL concepts, Mongoose ODM, data modeling, and performing CRUD operations.</p></div>
+                    <div class="module"><h4>Weeks 9-10: Integration & Deployment</h4><p>Connecting frontend to backend, JWT authentication, and deploying to the web.</p></div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="course-sidebar">
+            <!-- Course Features Card -->
+            <div class="sidebar-card surface-glow">
+                <div class="course-meta-grid">
+                    <div class="meta-item"><i class="fas fa-clock"></i><div><span>Duration</span><strong>10 Weeks</strong></div></div>
+                    <div class="meta-item"><i class="fas fa-layer-group"></i><div><span>Level</span><strong>Intermediate</strong></div></div>
+                    <div class="meta-item"><i class="fas fa-users"></i><div><span>Enrolled</span><strong>1,500+ Students</strong></div></div>
+                </div>
+                <div class="course-cta">
+                    <a href="#" class="btn btn-primary enroll-btn">Enroll Now & Build</a>
+                </div>
+                <h3 class="sidebar-title">Key Features</h3>
+                <ul class="feature-list">
+                    <li><i class="fas fa-video"></i> 40+ hours of video content</li>
+                    <li><i class="fas fa-laptop-code"></i> 3 Real-world projects</li>
+                    <li><i class="fas fa-code-branch"></i> Git & GitHub integration</li>
+                    <li><i class="fas fa-life-ring"></i> Lifetime access & support</li>
+                    <li><i class="fas fa-certificate"></i> Verified Certificate</li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+    
+    <script src="course-detail.js"></script>
+</body>
+</html>
