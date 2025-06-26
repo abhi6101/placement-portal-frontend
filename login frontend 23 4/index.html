@@ -1,33 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hack-2-Hired</title>
+    <title>Hack-2-Hired - Launch Your Career</title>
 
-    <!-- Google Fonts: Poppins -->
+    <!-- Google Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Your Enhanced Stylesheet -->
+    
     <link rel="stylesheet" href="index.css">
-    <!-- === FAVICON IMPLEMENTATION === -->
-<link rel="icon" href="images/fevicon.png" type="image/png">
-<link rel="shortcut icon" href="images/fevicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/png">
 </head>
-
 <body>
     <!-- Top Contact Nav -->
     <nav>
         <div class="logo">Hack-2-<span>Hired</span></div>
         <ul>
             <li><a href="mailto:hack2hired.official@gmail.com" aria-label="Email us"><i class="fas fa-envelope"></i>hack2hired.official@gmail.com</a></li>
-           
         </ul>
     </nav>
 
@@ -35,28 +27,19 @@
     <nav>
         <ul>
             <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-             <li><a href="jobs.html" ><i class="fas fa-briefcase"></i> Jobs</a></li>
-          <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
-          <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
-           <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
+            <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
             <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
             <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
             <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
             <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
             <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-            <li id="adminPanelLink" style="display: none;">
-                <a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a>
-            </li>
+            <li id="adminPanelLink" style="display: none;"><a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
             <li><a href="login.html" id="loginBtn" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</a></li>
             <li><button id="logoutBtn" class="btn btn-primary" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
-
-
-             
-         
-            
-
-
         </ul>
     </nav>
 
@@ -64,12 +47,10 @@
     <section class="hero">
         <div class="hero-content">
             <h1 id="heroHeading">Launch Your Career with Ease!</h1>
-
             <div id="userWelcome" class="surface-glow" style="display: none;">
                 <h2>Welcome, <span id="displayUsername"></span>!</h2>
                 <p>Account type: <span id="displayRole"></span></p>
             </div>
-
             <p id="heroSubtitle">Your gateway to top-tier job placements, resume mastery, and interview excellence. Your future starts here.</p>
             <div class="cta-btns">
                 <a href="jobs.html" class="btn btn-primary">Explore Jobs <i class="fas fa-arrow-right"></i></a>
@@ -78,162 +59,82 @@
         </div>
     </section>
 
-    <!-- Features Section (Bento Grid) -->
+    <!-- Public Features Section -->
     <section class="features-section">
         <h2>Everything You Need To Succeed</h2>
         <div class="features">
-            <div class="features-box surface-glow">
-                <i class="fas fa-briefcase"></i>
-                <h2>Curated Job Listings</h2>
-                <p>Access hundreds of curated job opportunities from top companies matching your skills and aspirations.</p>
+            <div class="features-box surface-glow"><i class="fas fa-briefcase"></i><h2>Curated Job Listings</h2><p>Find job opportunities from top companies.</p></div>
+            <div class="features-box surface-glow"><i class="fas fa-file-alt"></i><h2>Resume Builder</h2><p>Create professional, ATS-friendly resumes.</p></div>
+            <div class="features-box surface-glow"><i class="fas fa-comments"></i><h2>Interview Prep</h2><p>Practice with mock interviews and expert feedback.</p></div>
+            <div class="features-box surface-glow"><i class="fas fa-scroll"></i><h2>Previous Papers</h2><p>Sharpen your skills with past exam papers.</p></div>
+            <div class="features-box surface-glow"><i class="fas fa-brain"></i><h2>Quiz Arena</h2><p>Test your knowledge with our interactive quizzes.</p></div>
+        </div>
+    </section>
+
+    <!-- Members-Only Features Section -->
+    <section id="members-features" class="members-features-section" style="display: none;">
+        <div class="members-features-container">
+            <div class="section-header">
+                <h2>Unlock Your Full Potential</h2>
+                <p class="subtitle">Register or log in to access these exclusive features and fast-track your career.</p>
             </div>
-            <div class="features-box surface-glow">
-                <i class="fas fa-file-alt"></i>
-                <h2>Resume Builder</h2>
-                <p>Create professional, ATS-friendly resumes with our builder.</p>
+            <div class="features-grid">
+                <div class="feature-card surface-glow"><i class="fas fa-briefcase"></i><h3>Exclusive Job Board</h3><p>Access a curated list of job openings from top-tier companies, updated daily.</p></div>
+                <div class="feature-card surface-glow"><i class="fas fa-file-alt"></i><h3>Pro Resume Builder</h3><p>Create and download professional, ATS-friendly resumes with our easy-to-use builder.</p></div>
+                <div class="feature-card surface-glow"><i class="fas fa-comments"></i><h3>Interview Prep</h3><p>Book mock interviews and get expert feedback to ace your next technical round.</p></div>
+                <div class="feature-card surface-glow"><i class="fas fa-scroll"></i><h3>Previous Year Papers</h3><p>Practice with a vast archive of previous exam papers to sharpen your skills.</p></div>
             </div>
-            <div class="features-box surface-glow">
-                <i class="fas fa-comments"></i>
-                <h2>Interview Prep</h2>
-                <p>Practice with mock interviews and expert feedback.</p>
-            </div>
-            <div class="features-box surface-glow">
-                <i class="fas fa-scroll"></i>
-                <h2>Previous Papers</h2>
-                <p>Sharpen your skills with previous year's placement papers.</p>
-            </div>
-            <div class="features-box surface-glow">
-                <i class="fas fa-brain"></i>
-                <h2>Quiz Arena</h2>
-                <p>Test your knowledge with our interactive quizzes.</p>
+            <div class="cta-container">
+                <a href="register.html" class="btn btn-primary">Register for Free <i class="fas fa-user-plus"></i></a>
             </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section class="stats">
-        <div class="stats-container">
-            <div class="stat-item"><h3>500+</h3><p>Companies Hiring</p></div>
-            <div class="stat-item"><h3>10,000+</h3><p>Successful Placements</p></div>
-            <div class="stat-item"><h3>95%</h3><p>Placement Rate</p></div>
-            <div class="stat-item"><h3>50+</h3><p>Career Resources</p></div>
-        </div>
-    </section>
+    <section class="stats"><div class="stats-container"><div class="stat-item"><h3>500+</h3><p>Companies Hiring</p></div><div class="stat-item"><h3>10,000+</h3><p>Successful Placements</p></div><div class="stat-item"><h3>95%</h3><p>Placement Rate</p></div><div class="stat-item"><h3>50+</h3><p>Career Resources</p></div></div></section>
 
     <!-- Testimonials Section -->
     <section class="testimonials">
         <h2>Success Stories</h2>
         <div class="testimonial-cards">
-            <div class="testimonial-card surface-glow">
-                <p>"The resume builder and mock interviews were game-changers! Landed my dream job at a top tech company thanks to this portal."</p>
-                <div class="testimonial-author">
-                    <img src="images/i-priya.jpg" alt="Priya Sharma">
-                    <div class="author-info"><h4>Priya Sharma</h4><p>Software Engineer at Google</p></div>
-                </div>
-            </div>
-            <div class="testimonial-card surface-glow">
-                <p>"I went from zero calls to 5 job offers in 2 months. The interview prep resources are pure gold."</p>
-                <div class="testimonial-author">
-                    <img src="images/i-rahul.jpg" alt="Rahul Verma">
-                    <div class="author-info"><h4>Rahul Verma</h4><p>Data Analyst at Amazon</p></div>
-                </div>
-            </div>
-            <div class="testimonial-card surface-glow">
-                <p>"Personalized career guidance and job matching helped me transition into a higher-paying role. Highly recommended!"</p>
-                <div class="testimonial-author">
-                    <img src="images/i-neha.jpg" alt="Neha Patel">
-                    <div class="author-info"><h4>Neha Patel</h4><p>Product Manager at Microsoft</p></div>
-                </div>
-            </div>
+            <div class="testimonial-card surface-glow"><p>"The resume builder and mock interviews were game-changers! Landed my dream job at a top tech company..."</p><div class="testimonial-author"><img src="images/i-priya.jpg" alt="Priya Sharma"><div class="author-info"><h4>Priya Sharma</h4><p>Software Engineer at Google</p></div></div></div>
+            <div class="testimonial-card surface-glow"><p>"I went from zero calls to 5 job offers in 2 months. The interview prep resources are pure gold."</p><div class="testimonial-author"><img src="images/i-rahul.jpg" alt="Rahul Verma"><div class="author-info"><h4>Rahul Verma</h4><p>Data Analyst at Amazon</p></div></div></div>
+            <div class="testimonial-card surface-glow"><p>"Personalized career guidance helped me transition into a higher-paying role. Highly recommended!"</p><div class="testimonial-author"><img src="images/i-neha.jpg" alt="Neha Patel"><div class="author-info"><h4>Neha Patel</h4><p>Product Manager at Microsoft</p></div></div></div>
         </div>
     </section>
 
-    <!-- Rest of the sections remain structurally the same -->
+    <!-- Gallery Section -->
     <section class="gallery">
         <h2>Our Campus Glimpses</h2>
         <div class="slideshow-container">
             <div class="mySlides fade"><img src="images/4E9A7129-copy.jpg" alt="Students in a computer lab"></div>
             <div class="mySlides fade"><img src="images/20240123_145917-copy.jpg" alt="Building entrance"></div>
             <div class="mySlides fade"><img src="images/DSCF2122-copy.jpg" alt="Students in a lab"></div>
-            <div class="mySlides fade"><img src="images/Group-photo-1-copy-4.jpg" alt="Group photo"></div>
         </div>
-        <!-- <a href="gallery.html" class="btn btn-primary" style="margin-top: 1.5rem;">View Full Gallery</a> -->
     </section>
 
-<!-- ======================================================= -->
-    <!-- === ENHANCED "OUR VALUED PARTNERS" SECTION === -->
-    <!-- ======================================================= -->
+    <!-- Valued Partners Section (Static Grid) -->
     <section class="companies">
         <h2>Our Valued Placement Partners</h2>
         <p class="subtitle">We are proud to collaborate with industry leaders to create unparalleled opportunities for our students.</p>
-        
-        <!-- Scroller Container -->
-        <div class="scroller" data-direction="right" data-speed="slow">
-            <ul class="tag-list scroller__inner">
-                <!-- First row of logos (will scroll right to left) -->
-                <li><img src="https://logo.clearbit.com/accenture.com" alt="Accenture"></li>
-                <li><img src="https://logo.clearbit.com/wipro.com" alt="Wipro"></li>
-                <li><img src="https://logo.clearbit.com/infosys.com" alt="Infosys"></li>
-                <li><img src="https://logo.clearbit.com/tcs.com" alt="TCS"></li>
-                <li><img src="https://logo.clearbit.com/capgemini.com" alt="Capgemini"></li>
-                <li><img src="https://logo.clearbit.com/persistent.com" alt="Persistent Systems"></li>
-                <li><img src="https://logo.clearbit.com/hexaware.com" alt="Hexaware"></li>
-                <!-- Duplicate the list for a seamless loop -->
-                <li><img src="https://logo.clearbit.com/accenture.com" alt="Accenture"></li>
-                <li><img src="https://logo.clearbit.com/wipro.com" alt="Wipro"></li>
-                <li><img src="https://logo.clearbit.com/infosys.com" alt="Infosys"></li>
-                <li><img src="https://logo.clearbit.com/tcs.com" alt="TCS"></li>
-                <li><img src="https://logo.clearbit.com/capgemini.com" alt="Capgemini"></li>
-                <li><img src="https://logo.clearbit.com/persistent.com" alt="Persistent Systems"></li>
-                <li><img src="https://logo.clearbit.com/hexaware.com" alt="Hexaware"></li>
-            </ul>
-        </div>
-
-        <!-- Second Scroller Container -->
-        <div class="scroller" data-direction="left" data-speed="slow">
-            <ul class="tag-list scroller__inner">
-                <!-- Second row of logos (will scroll left to right) -->
-                <li><img src="https://logo.clearbit.com/google.com" alt="Google"></li>
-                <li><img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft"></li>
-                <li><img src="https://logo.clearbit.com/amazon.com" alt="Amazon"></li>
-                <li><img src="https://logo.clearbit.com/adobe.com" alt="Adobe"></li>
-                <li><img src="https://logo.clearbit.com/oracle.com" alt="Oracle"></li>
-                <li><img src="https://logo.clearbit.com/sap.com" alt="SAP"></li>
-                <li><img src="https://logo.clearbit.com/ibm.com" alt="IBM"></li>
-                <!-- Duplicate the list for a seamless loop -->
-                <li><img src="https://logo.clearbit.com/google.com" alt="Google"></li>
-                <li><img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft"></li>
-                <li><img src="https://logo.clearbit.com/amazon.com" alt="Amazon"></li>
-                <li><img src="https://logo.clearbit.com/adobe.com" alt="Adobe"></li>
-                <li><img src="https://logo.clearbit.com/oracle.com" alt="Oracle"></li>
-                <li><img src="https://logo.clearbit.com/sap.com" alt="SAP"></li>
-                <li><img src="https://logo.clearbit.com/ibm.com" alt="IBM"></li>
-            </ul>
+        <div class="company-logo-grid">
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/accenture.com" alt="Accenture"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/wipro.com" alt="Wipro"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/infosys.com" alt="Infosys"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/tcs.com" alt="TCS"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/capgemini.com" alt="Capgemini"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/persistent.com" alt="Persistent Systems"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/google.com" alt="Google"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft"></a></div>
         </div>
     </section>
     
     <footer>
         <div class="footer-content">
-            <!-- Footer content remains the same -->
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul><li><a href="index.html">Home</a></li><li><a href="jobs.html">Jobs</a></li></ul>
-            </div>
-            <div class="footer-column">
-                <h3>Resources</h3>
-                <ul><li><a href="resume.html">Resume Builder</a></li><li><a href="interview.html">Interview Prep</a></li></ul>
-            </div>
-            <div class="footer-column">
-                <h3>Company</h3>
-                <ul><li><a href="contact.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul>
-            </div>
-            <div class="footer-column">
-                <h3>Connect</h3>
-                <div class="social-links">
-                    <a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+            <div class="footer-column"><h3>Quick Links</h3><ul><li><a href="index.html">Home</a></li><li><a href="jobs.html">Jobs</a></li></ul></div>
+            <div class="footer-column"><h3>Resources</h3><ul><li><a href="resume.html">Resume Builder</a></li><li><a href="interview.html">Interview Prep</a></li></ul></div>
+            <div class="footer-column"><h3>Company</h3><ul><li><a href="contact.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+            <div class="footer-column"><h3>Connect</h3><div class="social-links"><a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a></div></div>
         </div>
         <p>Made with <span class="heart">❤️</span> by Abhi</p>
         <p>© 2025 Hack-2-Hired. All rights reserved.</p>
