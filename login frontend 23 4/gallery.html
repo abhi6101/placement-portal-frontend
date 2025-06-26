@@ -21,7 +21,6 @@
 <body>
     <nav>
         <div class="logo">Hack-2-<span>Hired</span></div>
-        <!-- Simplified top nav for consistency -->
     </nav>
     <nav>
         <ul>
@@ -34,53 +33,53 @@
         </ul>
     </nav>
 
-    <main class="gallery-page">
-        <h1>Moments & Memories</h1>
-        <p class="subtitle">A collection of moments from our campus life, events, and sessions.</p>
+    <main>
+        <section class="gallery-page">
+            <h1>Moments & Memories</h1>
+            <p class="subtitle">A collection of moments from our campus life, events, and sessions.</p>
 
-        <div class="gallery-categories">
-            <button class="btn btn-outline active" data-category="all">All Photos</button>
-            <button class="btn btn-outline" data-category="function">Functions & Events</button>
-            <button class="btn btn-outline" data-category="lab">Lab Sessions</button>
-            <button class="btn btn-outline" data-category="farewell">Farewell</button>
-            <button class="btn btn-outline" data-category="campus">Campus Life</button>
-        </div>
-
-        <div class="photo-grid">
-            <!-- Add surface-glow class to each photo item -->
-            <div class="photo-item surface-glow" data-category="lab campus"><img src="images/4E9A7129-copy.jpg" alt="Lab Session"><div class="photo-info"><h4>Lab Session</h4></div></div>
-            <div class="photo-item surface-glow" data-category="campus"><img src="images/20240123_145917-copy.jpg" alt="Campus Entrance"><div class="photo-info"><h4>Campus Entrance</h4></div></div>
-            <div class="photo-item surface-glow" data-category="lab"><img src="images/DSCF2122-copy.jpg" alt="Hands-on Learning"><div class="photo-info"><h4>Hands-on Learning</h4></div></div>
-            <div class="photo-item surface-glow" data-category="campus function"><img src="images/Group-photo-1-copy-4.jpg" alt="Campus Group Photo"><div class="photo-info"><h4>Campus Group Photo</h4></div></div>
-            <div class="photo-item surface-glow" data-category="lab campus"><img src="images/STUDENT5-1.jpg" alt="Circular Lab"><div class="photo-info"><h4>Circular Lab</h4></div></div>
-            <div class="photo-item surface-glow" data-category="function"><img src="images/student-group-photo.jpg" alt="Annual Event"><div class="photo-info"><h4>Annual Event</h4></div></div>
-            <div class="photo-item surface-glow" data-category="campus function"><img src="images/bgcoll.jpg" alt="Evening Campus"><div class="photo-info"><h4>Evening Campus</h4></div></div>
-            <div class="photo-item surface-glow" data-category="lab"><img src="images/lab1.jpg" alt="Focused Lab Session"><div class="photo-info"><h4>Focused Lab Session</h4></div></div>
-            <div class="photo-item surface-glow" data-category="function"><img src="images/wteach.jpg" alt="Faculty Members"><div class="photo-info"><h4>Faculty Members</h4></div></div>
-            <div class="photo-item surface-glow" data-category="campus"><img src="images/fair.jpg" alt="Student Group Photo"><div class="photo-info"><h4>Student Group Photo</h4></div></div>
-            <div class="photo-item surface-glow" data-category="function farewell"><img src="images/audi.jpg" alt="Auditorium Event"><div class="photo-info"><h4>Auditorium Event</h4></div></div>
-            <div class="photo-item surface-glow" data-category="campus"><img src="images/udit1.jpg" alt="Friends on Campus"><div class="photo-info"><h4>Friends on Campus</h4></div></div>
-            <div class="photo-item surface-glow" data-category="class"><img src="images/class1.jpg" alt="Classroom"><div class="photo-info"><h4>Classroom Learning</h4></div></div>
-            <div class="photo-item surface-glow" data-category="class"><img src="images/class2.jpg" alt="Interactive Session"><div class="photo-info"><h4>Interactive Session</h4></div></div>
-        </div>
-    </main>
-    
-    <!-- The contribution section can be a separate section for better layout control -->
-    <section class="gallery-contribution-section">
-        <div class="gallery-contribution surface-glow">
-            <h3>Share Your Moments</h3>
-            <p>Have photos from college you'd like to share? Send them our way!</p>
-            <div class="contact-links">
-                <a href="https://wa.me/916266017070?text=Hello!%20I%20want%20to%20share%20photos%20for%20the%20college%20gallery." target="_blank" class="btn-contact whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
-                <a href="mailto:abhijain6101@gmail.com?subject=College%20Gallery%20Photo%20Submission" class="btn-contact email-btn"><i class="fas fa-envelope"></i> Email Photos</a>
+            <div class="gallery-categories">
+                <button class="btn btn-outline active" data-category="all">All Photos</button>
+                <button class="btn btn-outline" data-category="function">Functions & Events</button>
+                <button class="btn btn-outline" data-category="lab">Lab Sessions</button>
+                <button class="btn btn-outline" data-category="farewell">Farewell</button>
+                <button class="btn btn-outline" data-category="campus">Campus Life</button>
             </div>
-        </div>
-    </section>
 
-    <!-- Modal for viewing images -->
+            <div class="photo-grid">
+                <!-- CORRECTED IMAGE PATHS -->
+                <div class="photo-item surface-glow" data-category="lab campus"><img src="images/4E9A7129-copy.jpg" alt="Students in a modern computer lab"><div class="photo-info"><h4>Lab Session</h4></div></div>
+                <div class="photo-item surface-glow" data-category="campus"><img src="images/20240123_145917-copy.jpg" alt="IPS Academy School of Computers entrance"><div class="photo-info"><h4>Campus Entrance</h4></div></div>
+                <div class="photo-item surface-glow" data-category="lab"><img src="images/DSCF2122-copy.jpg" alt="Students working on projects in lab"><div class="photo-info"><h4>Hands-on Learning</h4></div></div>
+                <div class="photo-item surface-glow" data-category="campus function"><img src="images/Group-photo-1-copy-4.jpg" alt="Campus group photo with faculty"><div class="photo-info"><h4>Campus Group Photo</h4></div></div>
+                <div class="photo-item surface-glow" data-category="lab campus"><img src="images/STUDENT5-1.jpg" alt="Unique circular computer lab"><div class="photo-info"><h4>Circular Lab</h4></div></div>
+                <div class="photo-item surface-glow" data-category="function"><img src="images/student-group-photo.jpg" alt="Large group of students at an annual event"><div class="photo-info"><h4>Annual Event</h4></div></div>
+                <div class="photo-item surface-glow" data-category="campus function"><img src="images/bgcoll.jpg" alt="Campus fountain lit up at night"><div class="photo-info"><h4>Evening Campus</h4></div></div>
+                <div class="photo-item surface-glow" data-category="lab"><img src="images/lab1.jpg" alt="Teacher assisting student in lab"><div class="photo-info"><h4>Focused Lab Session</h4></div></div>
+                <div class="photo-item surface-glow" data-category="function"><img src="images/wteach.jpg" alt="Group of female faculty members"><div class="photo-info"><h4>Faculty Members</h4></div></div>
+                <div class="photo-item surface-glow" data-category="campus"><img src="images/fair.jpg" alt="Students posing in front of college building"><div class="photo-info"><h4>Student Group Photo</h4></div></div>
+                <div class="photo-item surface-glow" data-category="function farewell"><img src="images/audi.jpg" alt="Group photo on stage in auditorium"><div class="photo-info"><h4>Auditorium Event</h4></div></div>
+                <div class="photo-item surface-glow" data-category="campus"><img src="images/udit1.jpg" alt="Four friends smiling on campus"><div class="photo-info"><h4>Friends on Campus</h4></div></div>
+                <div class="photo-item surface-glow" data-category="class"><img src="images/class1.jpg" alt="Students paying attention in a classroom"><div class="photo-info"><h4>Classroom Learning</h4></div></div>
+                <div class="photo-item surface-glow" data-category="class"><img src="images/class2.jpg" alt="Interactive classroom session with teacher"><div class="photo-info"><h4>Interactive Session</h4></div></div>
+            </div>
+        </section>
+        
+        <section class="gallery-contribution-section">
+            <div class="gallery-contribution surface-glow">
+                <h3>Share Your Moments</h3>
+                <p>Have photos from college you'd like to share? Send them our way!</p>
+                <div class="contact-links">
+                    <a href="https://wa.me/916266017070?text=Hello!%20I%20want%20to%20share%20photos%20for%20the%20college%20gallery." target="_blank" class="btn-contact whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                    <a href="mailto:abhijain6101@gmail.com?subject=College%20Gallery%20Photo%20Submission" class="btn-contact email-btn"><i class="fas fa-envelope"></i> Email Photos</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <div id="imageModal" class="modal">
         <span class="close-modal">×</span>
-        <img class="modal-content" id="modalImage">
+        <img class="modal-content" id="modalImage" alt="Enlarged gallery view">
     </div>
 
     <script src="gallery.js"></script>

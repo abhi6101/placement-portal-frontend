@@ -1,73 +1,77 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Element Caching ---
+    // --- 1. Element Caching & Guard Clauses ---
     const galleryItems = document.querySelectorAll('.photo-item');
     const categoryButtons = document.querySelectorAll('.gallery-categories .btn');
     const imageModal = document.getElementById('imageModal');
+    
+    // If essential elements aren't on the page, exit the script to prevent errors.
+    if (!galleryItems.length || !categoryButtons.length || !imageModal) {
+        console.warn("Gallery elements not found. Script will not run.");
+        return;
+    }
+
     const modalImage = document.getElementById('modalImage');
     const closeModalBtn = document.querySelector('.close-modal');
+    let closeTimer; // To handle auto-closing the modal
 
-    if (!galleryItems.length) return; // Exit if no gallery items on page
-
-    // --- Filter Logic ---
+    // --- 2. Filter Logic ---
     const filterGallery = (category) => {
         galleryItems.forEach(item => {
             const itemCategories = item.dataset.category ? item.dataset.category.split(' ') : [];
             const shouldShow = (category === 'all' || itemCategories.includes(category));
             
-            // Add/remove 'show' class for CSS animation
-            if (shouldShow) {
-                item.classList.add('show');
-            } else {
-                item.classList.remove('show');
-            }
+            item.classList.toggle('show', shouldShow);
         });
     };
 
     categoryButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Update active state on buttons
             categoryButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
-            
-            // Filter the gallery
-            const category = this.dataset.category;
-            filterGallery(category);
+            filterGallery(this.dataset.category);
         });
     });
 
-    // --- Modal Logic ---
-    let closeTimer; // To handle auto-closing
-
-    const openModal = (imgSrc) => {
+    // --- 3. Modal Logic ---
+    const openModal = (imgSrc, altText) => {
         modalImage.src = imgSrc;
+        modalImage.alt = altText; // Set alt text for accessibility
         imageModal.style.display = 'flex';
-        // Auto-close after 15 seconds
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
         clearTimeout(closeTimer);
-        closeTimer = setTimeout(closeModal, 15000);
+        closeTimer = setTimeout(closeModal, 15000); // Auto-close after 15 seconds
     };
 
     const closeModal = () => {
         imageModal.style.display = 'none';
-        modalImage.src = ""; // Clear src to stop loading
+        modalImage.src = ""; // Clear src to stop image loading/display
+        document.body.style.overflow = 'auto'; // Restore background scrolling
         clearTimeout(closeTimer);
     };
 
     galleryItems.forEach(item => {
         item.addEventListener('click', function() {
-            const imgSrc = this.querySelector('img').src;
-            openModal(imgSrc);
+            const img = this.querySelector('img');
+            openModal(img.src, img.alt);
         });
     });
 
     closeModalBtn.addEventListener('click', closeModal);
-
+    
     imageModal.addEventListener('click', (event) => {
-        // Close if the click is on the modal background, not the image itself
         if (event.target === imageModal) {
             closeModal();
         }
     });
 
-    // --- Initial Load ---
-    filterGallery('all'); // Show all images by default
+    // Accessibility: Close modal with the 'Escape' key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && imageModal.style.display === 'flex') {
+            closeModal();
+        }
+    });
+
+    // --- 4. Initial Load ---
+    filterGallery('all');
 });
