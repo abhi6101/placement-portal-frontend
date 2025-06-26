@@ -1,0 +1,149 @@
+/* === VIDEOS PAGE: PRO-LEVEL STYLESHEET === */
+
+/* --- 1. Root Variables & Global Styles --- */
+:root {
+    --dark-bg: #0A0A10; --surface-bg: #111119; --border-color: rgba(255, 255, 255, 0.1);
+    --primary: #00d4ff; --primary-glow: rgba(0, 212, 255, 0.5); --accent: #ff477b;
+    --text-primary: #ECEFF1; --text-secondary: #90A4AE; --font-family: 'Poppins', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background-color: var(--dark-bg); color: var(--text-primary); font-family: var(--font-family); line-height: 1.7; overflow-x: hidden; }
+a { color: var(--primary); text-decoration: none; transition: color 0.3s ease; }
+a:hover { color: white; }
+
+/* --- 2. Navigation --- */
+nav { padding: 1rem 5%; background: rgba(10, 10, 16, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); }
+nav:first-of-type { display: flex; justify-content: space-between; align-items: center; position: relative; border-bottom: none; }
+nav:last-of-type { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; }
+.logo { font-size: 1.8rem; font-weight: 800; }
+.logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+nav ul { display: flex; list-style: none; gap: 1rem; align-items: center; overflow-x: auto; padding-bottom: 0.5rem; }
+nav:last-of-type a { color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease; }
+nav:last-of-type a:hover { color: var(--text-primary); background-color: var(--surface-bg); }
+nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg); font-weight: 600; }
+
+/* --- 3. Buttons & Surface Glow (Global) --- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s ease; }
+.btn-outline { background: transparent; border: 2px solid var(--border-color); color: var(--text-primary); }
+.btn-outline:hover { background: var(--surface-bg); border-color: var(--primary); color: var(--primary); }
+.btn-outline.active { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); transform: translateY(0); }
+.surface-glow { background: var(--surface-bg); border-radius: 16px; position: relative; }
+.surface-glow::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; padding: 1px;
+    background: conic-gradient(from var(--angle), transparent 20%, var(--primary), var(--accent), transparent 80%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: spin 5s linear infinite paused; opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+}
+.surface-glow:hover::before { animation-play-state: running; opacity: 1; }
+@property --angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes spin { to { --angle: 360deg; } }
+
+/* === VIDEOS-SPECIFIC STYLES START HERE === */
+
+/* --- 4. Page Header & Search --- */
+.videos-header { text-align: center; padding: 4rem 1rem 3rem; }
+.videos-header h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 0.5rem; }
+.videos-header .subtitle { color: var(--text-secondary); margin-bottom: 3rem; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+.search-bar { max-width: 600px; margin: 0 auto 3rem; position: relative; }
+.search-bar input {
+    width: 100%;
+    padding: 1rem 1.5rem 1rem 3.5rem;
+    background: var(--surface-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+.search-bar input::placeholder { color: var(--text-secondary); }
+.search-bar input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+.search-bar i {
+    position: absolute; left: 1.5rem; top: 50%;
+    transform: translateY(-50%); color: var(--text-secondary);
+}
+
+/* --- 5. Category Filters --- */
+.category-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+.category-filters .btn-outline { padding: 0.6rem 1.5rem; font-weight: 500; }
+
+/* --- 6. Video List & Cards --- */
+.video-list-section {
+    padding: 0 5% 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.video-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+}
+.video-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px; /* Match surface-glow */
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    opacity: 0; /* Hidden by default for animation */
+    transform: translateY(30px);
+    animation: fade-in-up 0.6s ease-out forwards;
+}
+@keyframes fade-in-up {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.video-card:hover { transform: translateY(-10px); }
+
+.video-thumbnail {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    background-color: var(--dark-bg);
+    overflow: hidden;
+}
+.video-thumbnail iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.video-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.video-content h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Pushes meta down */
+}
+.video-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    gap: 1rem;
+}
+.video-meta span { display: flex; align-items: center; gap: 0.4rem; }
+.video-meta i { color: var(--primary); }
+
+.related-links {
+    padding: 1rem 1.5rem 1.5rem;
+    background-color: rgba(0,0,0,0.2);
+}
+.related-links a {
+    display: inline-block;
+    margin-right: 1rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
