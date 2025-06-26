@@ -1,701 +1,118 @@
-/* --- Root Variables --- */
+/* === RESUME BUILDER PAGE: PRO-LEVEL STYLESHEET === */
+
+/* --- 1. Root Variables & Global Styles --- */
 :root {
-    --primary: #00d4ff; /* A bright, vibrant blue */
-    --secondary: #0077b6; /* A slightly darker, richer blue */
-    --dark: #03045e; /* Deep dark blue for main text/background */
-    --light: #f8f9fa; /* Very light gray for backgrounds */
-    --gray: #6c757d; /* Standard medium gray */
-    --accent: #ff7b00; /* Orange accent color */
-    --error: #dc3545; /* Red for errors */
-    --success: #28a745; /* Green for success */
-    --text-dark: #333; /* General dark text color */
-    --border-light: #e0e0e0; /* Light gray border for inputs/sections */
-    --shadow-light: rgba(0, 0, 0, 0.08); /* Subtle shadow for cards/sections */
-    --shadow-hover: rgba(0, 212, 255, 0.3); /* Stronger blue shadow on hover */
-    --shadow-dark: rgba(0, 0, 0, 0.15); /* For darker, more prominent shadows */
+    --dark-bg: #0A0A10; --surface-bg: #111119; --border-color: rgba(255, 255, 255, 0.1);
+    --primary: #00d4ff; --primary-glow: rgba(0, 212, 255, 0.5); --accent: #ff477b;
+    --text-primary: #ECEFF1; --text-secondary: #90A4AE; --font-family: 'Poppins', sans-serif;
 }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background-color: var(--dark-bg); color: var(--text-primary); font-family: var(--font-family); line-height: 1.7; }
+a { color: var(--primary); text-decoration: none; } a:hover { color: white; }
 
-/* --- Global Resets & Base Styles --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+/* --- 2. Navigation --- */
+nav { padding: 1rem 5%; background: rgba(10, 10, 16, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); }
+nav:last-of-type { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; }
+.logo { font-size: 1.8rem; font-weight: 800; } .logo span { color: var(--primary); }
+nav ul { display: flex; list-style: none; gap: 1rem; align-items: center; overflow-x: auto; padding-bottom: 0.5rem; }
+nav a { color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease; }
+nav a:hover { color: var(--text-primary); background-color: var(--surface-bg); }
+nav a.active { color: var(--primary); background: var(--surface-bg); }
+
+/* --- 3. Buttons & Surface Glow --- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s ease; }
+.btn-primary { background: var(--primary); color: #000; box-shadow: 0 0 25px var(--primary-glow); }
+.btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 40px var(--primary-glow); }
+.surface-glow { background: var(--surface-bg); border-radius: 16px; position: relative; }
+.surface-glow::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; padding: 1px;
+    background: conic-gradient(from var(--angle), transparent 20%, var(--primary), var(--accent), transparent 80%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: spin 5s linear infinite paused; opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
 }
+.surface-glow:hover::before { animation-play-state: running; opacity: 1; }
+@property --angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes spin { to { --angle: 360deg; } }
 
-body {
-    background-color: var(--light);
-    color: var(--text-dark);
-    line-height: 1.6;
-    overflow-x: hidden; /* Prevents horizontal scroll on effects */
-}
+/* === RESUME-SPECIFIC STYLES START HERE === */
 
-/* --- Global Button Styles --- */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    gap: 0.5rem;
-    font-size: 1rem;
-    box-shadow: 0 3px 8px rgba(0, 119, 182, 0.2); /* Initial subtle shadow */
-}
+/* --- 4. Page Layout & Header --- */
+.resume-builder-container { max-width: 1000px; margin: 0 auto; padding: 3rem 1rem; }
+.page-header { text-align: center; margin-bottom: 2rem; }
+.page-header h1 { font-size: clamp(2.2rem, 5vw, 3rem); }
+.page-header .subtitle { color: var(--text-secondary); font-size: 1.1rem; }
+#resumeForm { padding: 2.5rem; }
 
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px var(--shadow-hover);
-}
-
-.btn-outline {
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-}
-
-/* Specific adjustment for .btn-outline used in nav:first-of-type or hero-like sections */
-nav:first-of-type .btn-outline {
-    border-color: white;
-    color: white;
-}
-
-nav:first-of-type .btn-outline:hover {
-    background: white;
-    color: var(--dark);
-    border-color: white; /* Keep border color white */
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.3); /* White shadow for white button */
-}
-
-.btn-outline:hover {
-    background: var(--primary);
-    color: white;
-    box-shadow: 0 6px 18px var(--shadow-hover);
-}
-
-/* --- Top Navigation Bar (First Nav) --- */
-nav:first-of-type {
-    background-color: var(--dark);
-    color: white;
-    padding: 1rem 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 10px var(--shadow-dark);
-    position: relative; /* Crucial for positioning the mobile menu */
-}
-
-.logo {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.logo span {
-    color: var(--primary);
-}
-
-/* Desktop navigation links container */
-nav:first-of-type .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-    align-items: center;
-}
-
-nav:first-of-type .nav-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-nav:first-of-type .nav-links a:hover {
-    color: var(--primary);
-    transform: translateY(-2px);
-}
-
-/* Hamburger Icon (initially hidden) */
-.hamburger {
-    display: none; /* Hidden by default on larger screens */
-    font-size: 2rem; /* Adjusted for better visibility */
-    cursor: pointer;
-    z-index: 101; /* Ensure it's above the menu */
-}
-
-/* --- Main Navigation Bar (Second Nav - Filter Bar) --- */
-nav:last-of-type {
-    background-color: white;
-    box-shadow: 0 4px 15px var(--shadow-light);
-    padding: 0.9rem 2.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-nav:last-of-type ul {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    justify-content: center; /* Center items in main nav */
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-nav:last-of-type ul::-webkit-scrollbar {
-    display: none;
-}
-
-nav:last-of-type li {
-    flex-shrink: 0;
-}
-
-nav:last-of-type a,
-nav:last-of-type button {
-    color: var(--dark);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.7rem 1.2rem;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-nav:last-of-type a:hover,
-nav:last-of-type button:hover {
-    color: var(--primary);
-    background-color: rgba(0, 212, 255, 0.15);
-}
-
-nav:last-of-type a.active,
-.filter-btn.active { /* Ensure .filter-btn.active also has correct styling */
-    background-color: rgba(0, 212, 255, 0.25);
-    color: var(--primary);
-    font-weight: 600;
-}
-
-/* --- Resume Builder Section --- */
-.resume-builder {
-    max-width: 800px; /* Consistent with your provided reduction */
-    margin: 2rem auto;
-    padding: 1.5rem 2rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px var(--shadow-light);
-    font-size: 0.875em; /* Base font for this section */
-    line-height: 1.4;
-}
-
-.resume-builder h1 {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 2em;
-    color: var(--dark); /* Fallback */
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 700;
-}
-
-.resume-builder p {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: var(--gray);
-    font-size: 1em;
-}
-
-.resume-builder form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem; /* Gap between sections */
-}
-
-.resume-builder label {
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 0.4rem;
-    display: block;
-    font-size: 0.95em;
-}
-
-/* General input and textarea styling */
-.resume-builder input[type="text"],
-.resume-builder input[type="email"],
-.resume-builder input[type="tel"],
-.resume-builder input[type="url"],
-.resume-builder input[type="date"],
-.resume-builder textarea {
-    padding: 0.6rem 0.9rem;
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    font-size: 0.95em;
-    transition: all 0.3s ease;
-    width: 100%;
-}
-
-.resume-builder textarea {
-    min-height: 90px;
-    resize: vertical;
-}
-
-.resume-builder input:focus,
-.resume-builder textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
-    background-color: #f0faff; /* Light blue background on focus */
-}
-
-/* Specific styling for email and phone number inputs (inherits from general but allows overrides) */
-input[type="email"]::placeholder,
-input[type="tel"]::placeholder {
-    color: var(--gray);
-    opacity: 0.7; /* Make placeholders slightly faded */
-}
-
-/* Optional: Styling for inputs with icons (if you choose to implement this structure) */
-.input-with-icon {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem; /* Space between icon and input */
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    padding: 0.7rem 1rem;
-    transition: all 0.3s ease;
-}
-
-.input-with-icon:focus-within { /* When any child element inside gets focus */
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.25);
-    background-color: #f0faff;
-}
-
-.input-with-icon i {
-    color: var(--gray);
-    font-size: 1.1rem;
-}
-
-.input-with-icon input {
-    border: none; /* Remove individual border for input inside this container */
-    padding: 0; /* Remove individual padding */
-    flex-grow: 1; /* Allow input to fill available space */
-    background-color: transparent; /* Transparent background to show parent background */
-}
-
-.input-with-icon input:focus {
-    outline: none; /* Remove focus outline, handled by parent focus-within */
-    box-shadow: none; /* Remove individual box-shadow */
-    background-color: transparent; /* Keep transparent */
-}
-
-/* Optional: Highlight invalid email/phone (after user interaction) */
-input[type="email"]:invalid:not(:focus):not(:placeholder-shown),
-input[type="tel"]:invalid:not(:focus):not(:placeholder-shown) {
-    border-color: var(--error);
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
-}
-
-/* --- Template Options --- */
-.template-options {
-    display: flex;
-    gap: 1rem; /* Gap between templates */
-    margin: 1.2rem 0;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.template-option {
-    flex: 1;
-    min-width: 220px;
-    max-width: 30%; /* Remains 30% for desktop */
-    text-align: center;
-    cursor: pointer;
-    border: 2px solid var(--border-light);
-    border-radius: 10px;
-    padding: 0.8rem;
-    transition: all 0.3s ease;
-    background-color: #fff;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.template-option:hover {
-    border-color: var(--primary);
-    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.2);
-    transform: translateY(-3px);
-}
-
-.template-option input[type="radio"] {
-    display: none;
-}
-
-.template-option input[type="radio"]:checked + img {
-    border: 4px solid var(--primary);
-    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.3);
-}
-
-.template-option img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    border: 3px solid transparent;
-    transition: all 0.3s ease;
-    object-fit: cover;
-}
-
-.template-option p {
-    font-weight: 600;
-    color: var(--dark);
-    margin: 0;
-    font-size: 0.9em;
-}
-
-/* --- Form Sections --- */
+/* --- 5. Form Sections & Grid Layout --- */
 .form-section {
-    background-color: #f8f9fa;
-    padding: 2rem; /* Remains 2rem for desktop */
-    border-radius: 10px;
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--border-light);
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border-color);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fade-in-up 0.6s ease-out forwards;
 }
+#resumeForm .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.section-title { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.section-title i { font-size: 1.5rem; color: var(--primary); }
+.section-title h2 { font-size: 1.5rem; margin: 0; }
 
-.form-section h2 {
-    color: var(--secondary);
-    margin-bottom: 0.8rem;
-    font-size: 1.3em;
-    border-bottom: 1px solid rgba(0, 119, 182, 0.1);
-    padding-bottom: 0.5rem;
-}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.form-group.full-width { grid-column: 1 / -1; }
 
-.form-row {
-    display: flex;
-    gap: 1.5rem; /* Gap between items in a row */
-    margin-bottom: 0.8rem;
-    flex-wrap: wrap;
-}
-
-.form-group {
-    flex: 1;
-    min-width: 280px; /* Ensure fields don't get too small */
-}
-
-/* --- Character Counter --- */
-.char-counter {
-    font-size: 0.85rem !important;
-    color: var(--gray) !important;
-    text-align: right !important;
-    margin-top: 0.4rem !important;
-    opacity: 0.8;
-}
-
-/* --- Submit Button --- */
-button[type="submit"] {
-    background: linear-gradient(to right, var(--primary), var(--secondary));
-    color: white;
-    padding: 0.9rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1em;
-    font-weight: 600;
-    cursor: pointer;
+.form-group label { display: block; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.5rem; }
+.form-group input, .form-group textarea {
+    width: 100%; padding: 0.9rem 1rem; background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color); color: var(--text-primary);
+    border-radius: 8px; font-size: 1rem; font-family: var(--font-family);
     transition: all 0.3s ease;
-    margin-top: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
+}
+.form-group input:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+
+/* --- 6. Template Selection --- */
+.template-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+.template-option { display: block; position: relative; cursor: pointer; border-radius: 12px; overflow: hidden; border: 2px solid transparent; transition: all 0.3s ease; }
+.template-option img { width: 100%; display: block; transition: transform 0.3s ease; }
+.template-option span {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 0.75rem; text-align: center; font-weight: 600;
+    background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+}
+.template-option input[type="radio"] { position: absolute; opacity: 0; }
+.template-option:hover { transform: translateY(-5px); }
+.template-option:hover img { transform: scale(1.05); }
+.template-option input[type="radio"]:checked + img + span {
+    background: var(--primary);
+    color: var(--dark-bg);
+}
+.template-option input[type="radio"]:checked ~ img {
+    /* No visual change on image, border does the work */
+}
+.template-option input[type="radio"]:checked ~ span::before {
+    content: '✔';
+    margin-right: 0.5rem;
+}
+.template-option input[type="radio"]:focus-visible + img {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
 }
 
-button[type="submit"]:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px var(--shadow-hover);
+/* --- 7. Form Submission --- */
+.form-submission { text-align: center; margin-top: 2.5rem; }
+.form-submission .btn-primary { padding: 1rem 3rem; font-size: 1.1rem; }
+
+/* Spinner */
+.fa-spinner { animation: spin-button 1.5s linear infinite; }
+@keyframes spin-button { to { transform: rotate(360deg); } }
+
+/* Responsive */
+@media(max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; }
+    #resumeForm { padding: 1.5rem; }
 }
-
-/* --- Footer --- */
-footer {
-    background-color: var(--dark);
-    color: white;
-    text-align: center;
-    padding: 2.5rem;
-    margin-top: 4rem;
-    font-size: 0.95rem;
-    line-height: 1.8;
-}
-
-footer a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-footer a:hover {
-    color: var(--light);
-}
-
-/* --- Responsive Design --- */
-@media (max-width: 992px) {
-    /* Top Navigation (Hamburger Menu Activation) */
-    nav:first-of-type {
-        padding: 1rem 1.5rem; /* Adjust padding for smaller screens */
-    }
-    .hamburger {
-        display: block; /* Show hamburger icon */
-    }
-    nav:first-of-type .nav-links {
-        display: none; /* Hide default nav links on smaller screens */
-        flex-direction: column; /* Stack vertically */
-        background-color: var(--dark);
-        position: absolute;
-        top: 100%; /* Position below the main nav bar */
-        left: 0;
-        width: 100%;
-        padding: 1rem 1.5rem; /* Match main nav padding */
-        box-shadow: 0 5px 15px var(--shadow-dark);
-        transform: translateY(-10px); /* Start slightly up for slide effect */
-        opacity: 0;
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        z-index: 99; /* Below hamburger, above content */
-    }
-
-    /* Show the mobile menu when 'active' class is present (toggled by JS) */
-    nav:first-of-type .nav-links.active {
-        display: flex;
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    nav:first-of-type .nav-links li {
-        margin-bottom: 0.8rem;
-        text-align: center;
-        width: 100%; /* Full width for mobile list items */
-    }
-    nav:first-of-type .nav-links li:last-child {
-        margin-bottom: 0;
-    }
-
-    /* Adjust buttons inside mobile nav menu */
-    nav:first-of-type .nav-links .btn,
-    nav:first-of-type .nav-links .btn-outline {
-        width: 100%;
-        margin-top: 0.5rem;
-    }
-    nav:first-of-type .nav-links .btn-outline {
-        border-color: var(--primary); /* For mobile menu, outline should be primary */
-        color: var(--primary);
-    }
-    nav:first-of-type .nav-links .btn-outline:hover {
-        background: var(--primary);
-        color: var(--dark); /* Text dark on primary background for hover */
-        border-color: var(--primary);
-    }
-
-    /* Main Navigation Bar (Filter Bar) */
-    nav:last-of-type {
-        padding: 0.8rem 1.5rem;
-    }
-
-    .resume-builder {
-        margin: 2.5rem 1.5rem;
-        padding: 2rem;
-    }
-
-    .resume-builder h1 {
-        font-size: 2.2em;
-    }
-
-    .template-option {
-        max-width: 48%; /* Two columns on medium screens */
-    }
-
-    .form-section {
-        padding: 1.5rem;
-    }
-}
-
-@media (max-width: 768px) {
-    /* Top Navigation (Adjust for small screens) */
-    nav:first-of-type {
-        flex-direction: row; /* Keep logo and hamburger side-by-side */
-        align-items: center;
-        padding: 1rem;
-    }
-
-    /* Main Navigation Bar (Filter Bar) */
-    nav:last-of-type ul {
-        gap: 0.8rem;
-        justify-content: flex-start;
-        flex-wrap: wrap; /* Allow tabs to wrap */
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-    nav:last-of-type a, nav:last-of-type button {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.95rem;
-        flex-grow: 1; /* Make buttons fill available space when wrapping */
-        text-align: center;
-        justify-content: center; /* Center icon and text */
-    }
-
-    .resume-builder {
-        margin: 1.5rem 0.8rem;
-        padding: 1.5rem;
-    }
-
-    .resume-builder h1 {
-        font-size: 2em;
-    }
-
-    .form-row {
-        flex-direction: column;
-        gap: 1.2rem;
-    }
-
-    .form-group {
-        min-width: unset;
-        width: 100%;
-    }
-
-    .template-options {
-        flex-direction: column;
-        gap: 1.2rem;
-    }
-    .template-option {
-        max-width: 100%; /* Full width for templates */
-        padding: 1rem;
-    }
-
-    button[type="submit"] {
-        padding: 1rem;
-        font-size: 1rem;
-    }
-
-    footer {
-        padding: 2rem 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo {
-        font-size: 1.6rem;
-    }
-    nav:first-of-type .nav-links li { /* Adjust margin for very small screens if needed */
-        margin-bottom: 0.6rem;
-    }
-    nav:first-of-type .nav-links a {
-        font-size: 0.9rem;
-        gap: 0.4rem;
-    }
-
-    nav:last-of-type ul {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-    }
-    nav:last-of-type a, nav:last-of-type button {
-        padding: 0.5rem 0.6rem;
-        font-size: 0.85rem;
-    }
-
-    .resume-builder {
-        padding: 1rem;
-        margin: 1.5rem 0.5rem;
-    }
-
-    .resume-builder h1 {
-        font-size: 1.8em;
-    }
-
-    .form-section {
-        padding: 1rem;
-    }
-
-    .form-section h2 {
-        font-size: 1.1em;
-    }
-
-    footer {
-        padding: 1.5rem 1rem;
-    }
-}
-
-/* --- Animations --- */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInFromTop {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes iconPop {
-    0% {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    70% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Animations for Navbar Links (Top Nav) - only visible on desktop by default */
-@keyframes slideInNav {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Applied to individual list items in the top nav for the slide-in effect */
-nav:first-of-type .nav-links li {
-    position: relative;
-    animation: slideInNav 0.7s ease-out forwards;
-    opacity: 0; /* Start hidden */
-}
-
-/* Staggering the animation for each navigation item */
-/* These nth-child selectors assume your top navigation has 6 list items.
-   Adjust them if your top nav links change. */
-nav:first-of-type .nav-links li:nth-child(1) { animation-delay: 0.1s; }
-nav:first-of-type .nav-links li:nth-child(2) { animation-delay: 0.2s; }
-nav:first-of-type .nav-links li:nth-child(3) { animation-delay: 0.3s; }
-nav:first-of-type .nav-links li:nth-child(4) { animation-delay: 0.4s; }
-nav:first-of-type .nav-links li:nth-child(5) { animation-delay: 0.5s; }
-nav:first-of-type .nav-links li:nth-child(6) { animation-delay: 0.6s; }

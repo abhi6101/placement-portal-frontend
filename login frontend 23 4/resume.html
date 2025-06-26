@@ -3,419 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hack-2-Hired</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Resume Builder | Hack-2-Hired</title>
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link to the new, self-contained stylesheet -->
     <link rel="stylesheet" href="resume.css">
-    <!-- === FAVICON IMPLEMENTATION === -->
-<link rel="icon" href="images/fevicon.png" type="image/png">
-<link rel="shortcut icon" href="images/fevicon.ico" type="image/x-icon">
-  
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
 </head>
 <body>
-      <nav>
+    <nav>
         <div class="logo">Hack-2-<span>Hired</span></div>
-        
     </nav>
     <nav>
         <ul>
-           <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-          <!-- <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li> -->
-          <!-- <li><a href="resume.html" class="active"><i class="fas fa-file-alt"></i> Resume Builder</a></li> -->
-          <!-- <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li> -->
-           <!-- <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li> -->
-            <!-- <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li> -->
-             <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-          <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
-          <li><a href="courses.html"  ><i class="fas fa-book"></i> Courses</a></li>
-          <li><a href="blog.html" ><i class="fas fa-blog"></i> Blog</a></li>
-          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="jobs.html"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="resume.html" class="active"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <!-- ... other nav links ... -->
         </ul>
     </nav>
 
-    <section class="resume-builder">
-        <h1>Resume Builder</h1>
-        <p>Fill in the details below to create your professional resume.</p>
-        <form id="resumeForm">
+    <main class="resume-builder-container">
+        <header class="page-header">
+            <h1>Create Your Professional Resume</h1>
+            <p class="subtitle">Fill in your details below. Your progress is saved automatically.</p>
+        </header>
+
+        <form id="resumeForm" class="surface-glow">
+            <!-- Section 1: Personal Details -->
             <div class="form-section">
-                <h2>Basic Information</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Full Name:</label>
-                        <input type="text" id="name" name="name" required placeholder="John Doe" maxlength="100">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required placeholder="john@example.com" maxlength="100">
-                    </div>
+                <div class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    <h2>Personal Details</h2>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="phone">Phone:</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="+1 (123) 456-7890" maxlength="20">
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Current Address:</label>
-                        <input type="text" id="address" name="address" placeholder="123 Main St, City" maxlength="255">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="permanentAddress">Permanent Address:</label>
-                        <input type="text" id="permanentAddress" name="permanentAddress" placeholder="456 Oak Ave, Town" maxlength="255">
-                    </div>
-                    <div class="form-group">
-                        <label for="dateOfBirth">Date of Birth:</label>
-                        <input type="date" id="dateOfBirth" name="dateOfBirth"> </div>
-                </div>
-                <div class="form-group">
-                    <label for="linkedin">LinkedIn Profile:</label>
-                    <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/yourprofile" maxlength="255">
-                </div>
-                <div class="form-group">
-                    <label for="portfolio">Portfolio/GitHub (Optional):</label>
-                    <input type="url" id="portfolio" name="portfolio" placeholder="https://yourportfolio.com or https://github.com/yourusername" maxlength="255">
+                <div class="form-grid">
+                    <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="name" required placeholder="e.g., John Doe"></div>
+                    <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" required placeholder="e.g., john.doe@email.com"></div>
+                    <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" required placeholder="e.g., +91 98765 43210"></div>
+                    <div class="form-group"><label for="address">Current Address</label><input type="text" id="address" name="address" required placeholder="e.g., 123 Tech Park, Silicon Valley"></div>
+                    <div class="form-group"><label for="linkedin">LinkedIn Profile URL</label><input type="url" id="linkedin" name="linkedin" placeholder="e.g., linkedin.com/in/yourname"></div>
+                    <div class="form-group"><label for="portfolio">Portfolio/GitHub URL</label><input type="url" id="portfolio" name="portfolio" placeholder="e.g., github.com/yourusername"></div>
                 </div>
             </div>
 
+            <!-- Section 2: Professional Summary -->
             <div class="form-section">
-                <h2>Objective / Professional Summary</h2>
-                <textarea id="objective" name="objective" required placeholder="A highly motivated and results-oriented professional seeking to leverage my skills in [Your Field] to contribute to the success of [Company Name]." data-maxlength="1000"></textarea>
+                <div class="section-title"><i class="fas fa-bullseye"></i><h2>Professional Summary</h2></div>
+                <div class="form-group full-width">
+                    <textarea id="objective" name="objective" required placeholder="e.g., A highly motivated and detail-oriented Computer Science student..." rows="4"></textarea>
+                </div>
+            </div>
+            
+            <!-- Section 3: Education & Experience Grid -->
+            <div class="form-section">
+                 <div class="form-grid">
+                    <div>
+                        <div class="section-title"><i class="fas fa-graduation-cap"></i><h2>Education</h2></div>
+                        <div class="form-group"><textarea id="education" name="education" required placeholder="B.Tech in Computer Science - XYZ University (2021-2025)
+CGPA: 8.5/10" rows="6"></textarea></div>
+                    </div>
+                     <div>
+                        <div class="section-title"><i class="fas fa-briefcase"></i><h2>Work Experience</h2></div>
+                        <div class="form-group"><textarea id="experience" name="experience" placeholder="Software Engineer Intern - ABC Corp (Jun 2024 - Aug 2024)
+• Developed and maintained web applications..." rows="6"></textarea></div>
+                    </div>
+                 </div>
+            </div>
+            
+            <!-- Section 4: Skills & Projects Grid -->
+            <div class="form-section">
+                 <div class="form-grid">
+                    <div>
+                        <div class="section-title"><i class="fas fa-cogs"></i><h2>Skills</h2></div>
+                        <div class="form-group"><textarea id="skills" name="skills" required placeholder="Programming Languages: Java, Python, JavaScript
+Frameworks: Spring Boot, React
+Databases: MySQL, MongoDB" rows="6"></textarea></div>
+                    </div>
+                     <div>
+                        <div class="section-title"><i class="fas fa-project-diagram"></i><h2>Projects</h2></div>
+                        <div class="form-group"><textarea id="projects" name="projects" placeholder="Placement Portal - (2024)
+• Developed a full-stack web application..." rows="6"></textarea></div>
+                    </div>
+                 </div>
             </div>
 
+            <!-- Section 5: Template Selection -->
             <div class="form-section">
-                <h2>Education</h2>
-                <textarea id="education" name="education" required placeholder="University Name - Degree, Major (Year-Year)
-GPA: X.XX/4.00
-Relevant Coursework: Course1, Course2, Course3" data-maxlength="2000"></textarea>
-            </div>
-
-            <div class="form-section">
-                <h2>Work Experience (Optional)</h2>
-                <textarea id="experience" name="experience" placeholder="Company Name - Job Title (Month Year - Month Year)
-• Responsibility/achievement 1
-• Responsibility/achievement 2
-• Responsibility/achievement 3" data-maxlength="4000"></textarea>
-            </div>
-
-            <div class="form-section">
-                <h2>Skills</h2>
-                <textarea id="skills" name="skills" required placeholder="Technical Skills: Skill1, Skill2, Skill3
-Soft Skills: Skill1, Skill2, Skill3" data-maxlength="1000"></textarea>
-            </div>
-
-            <div class="form-section">
-                <h2>Projects (Optional)</h2>
-                <textarea id="projects" name="projects" placeholder="Project Name (Month Year)
-• Description of project and your role
-• Technologies used: Tech1, Tech2
-• Key achievements/results" data-maxlength="3000"></textarea>
-            </div>
-
-            <div class="form-section">
-                <h2>Certifications (Optional)</h2>
-                <textarea id="certifications" name="certifications" placeholder="Certification Name (Issuing Body, Year)
-Certification Name 2 (Issuing Body 2, Year 2)" data-maxlength="1000"></textarea>
-            </div>
-
-            <div class="form-section">
-                <h2>Awards & Achievements (Optional)</h2>
-                <textarea id="awards" name="awards" placeholder="Award Name (Issuing Body, Year)
-Achievement Description" data-maxlength="1000"></textarea>
-            </div>
-
-            <div class="form-section">
-                <h2>Languages Known (Optional)</h2>
-                <textarea id="languages" name="languages" placeholder="English (Fluent), Hindi (Native), Spanish (Basic)" data-maxlength="100"></textarea>
-            </div>
-
-            <div class="form-section">
-                <h2>Hobbies/Interests (Optional)</h2>
-                <textarea id="hobbies" name="hobbies" placeholder="Reading, Hiking, Photography, Coding challenges" data-maxlength="1000"></textarea>
-            </div>
-
-            <div class="form-section">
-                <h2>Declaration</h2>
-                <textarea id="declaration" name="declaration" required placeholder="I hereby declare that the information provided above is true and correct to the best of my knowledge and belief." data-maxlength="1000"></textarea>
-            </div>
-
-            <div class="form-section">
-                <h2>Choose a Template</h2>
+                <div class="section-title"><i class="fas fa-palette"></i><h2>Choose a Template</h2></div>
                 <div class="template-options">
                     <label class="template-option">
                         <input type="radio" name="template" value="classic" required checked>
-                        <img src="https://via.placeholder.com/300x200?text=Classic+Template" alt="Classic Template">
-                        <p>Classic</p>
+                        <img src="https://via.placeholder.com/300x400/1a1a2e/ffffff?text=Classic" alt="Classic Template">
+                        <span>Classic</span>
                     </label>
                     <label class="template-option">
                         <input type="radio" name="template" value="modern" required>
-                        <img src="https://via.placeholder.com/300x200?text=Modern+Template" alt="Modern Template">
-                        <p>Modern</p>
+                        <img src="https://via.placeholder.com/300x400/00d4ff/000000?text=Modern" alt="Modern Template">
+                        <span>Modern</span>
                     </label>
                     <label class="template-option">
                         <input type="radio" name="template" value="creative" required>
-                        <img src="https://via.placeholder.com/300x200?text=Creative+Template" alt="Creative Template">
-                        <p>Creative</p>
+                        <img src="https://via.placeholder.com/300x400/ff477b/ffffff?text=Creative" alt="Creative Template">
+                        <span>Creative</span>
                     </label>
                 </div>
             </div>
 
-            <button type="submit">Generate Resume <i class="fas fa-file-download"></i></button>
+            <div class="form-submission">
+                <button type="submit" class="btn btn-primary">Generate Resume <i class="fas fa-file-download"></i></button>
+            </div>
         </form>
-    </section>
-
-    <footer>
-         <p>Made with <span class="heart">❤️</span> by Abhi</p>
-       
-        <p>&copy; 2025 College Placement System. All rights reserved. | Contact: <a
-                href="mailto:hack2hired.official@gmail.com">hack2hired.official@gmail.com</a></p>
-    </footer>
-
-    <script>
-        // Backend API base URL - make this configurable in a real app
-        const API_BASE_URL = 'https://placement-portal-backend-nwaj.onrender.com/api';
-
-        // --- Authentication Check and Token Management ---
-        function checkAuth() {
-            const token = localStorage.getItem("authToken");
-
-            if (!token) {
-                alert("You must be logged in to access this page.");
-                window.location.href = "login.html";
-                return false;
-            }
-
-            try {
-                const payload = JSON.parse(atob(token.split('.')[1]));
-                const now = Date.now() / 1000;
-
-                if (payload.exp < now) {
-                    alert("Session expired. Please log in again.");
-                    localStorage.clear();
-                    window.location.href = "login.html";
-                    return false;
-                }
-            } catch (err) {
-                console.error("Invalid token:", err);
-                alert("Invalid session. Please log in again.");
-                localStorage.clear();
-                window.location.href = "login.html";
-                return false;
-            }
-            return true;
-        }
-
-        // Run authentication check on page load
-        if (!checkAuth()) {
-            // If auth check fails, the user is redirected, so no further script execution is needed for form logic
-        } else {
-            // --- Form Enhancement: Character Counters and Maxlength Enforcement ---
-            document.querySelectorAll('textarea[data-maxlength]').forEach(textarea => {
-                const maxLength = parseInt(textarea.dataset.maxlength);
-                textarea.setAttribute('maxlength', maxLength);
-
-                const counter = document.createElement('div');
-                counter.className = 'char-counter';
-                textarea.parentNode.insertBefore(counter, textarea.nextSibling);
-
-                const updateCounter = () => {
-                    counter.textContent = `${textarea.value.length}/${maxLength} characters`;
-                    if (textarea.value.length >= maxLength) {
-                        counter.style.color = 'var(--error)';
-                    } else {
-                        counter.style.color = 'var(--gray)';
-                    }
-                };
-
-                textarea.addEventListener('input', updateCounter);
-                // Initial update in case there's pre-filled content
-                updateCounter();
-            });
-
-            // --- Auto-save and Form Population Logic ---
-            const form = document.getElementById('resumeForm');
-            const LOCAL_STORAGE_KEY = 'resumeFormData';
-
-            function loadFormData() {
-                try {
-                    const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
-                    return savedData ? JSON.parse(savedData) : {};
-                } catch (e) {
-                    console.error("Error parsing saved form data:", e);
-                    localStorage.removeItem(LOCAL_STORAGE_KEY); // Clear corrupted data
-                    return {};
-                }
-            }
-
-            function saveFormData(data) {
-                try {
-                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
-                } catch (e) {
-                    console.error("Error saving form data to local storage:", e);
-                    alert("Could not save your progress automatically. Please ensure sufficient storage space.");
-                }
-            }
-
-            let formData = loadFormData();
-
-            // Populate form with saved data
-            function populateForm() {
-                Object.keys(formData).forEach(key => {
-                    const element = form.elements[key];
-                    if (element) {
-                        if (element.type === 'radio') {
-                            const radioButtons = form.querySelectorAll(`input[name="${key}"]`);
-                            radioButtons.forEach(radio => {
-                                if (radio.value === formData[key]) {
-                                    radio.checked = true;
-                                }
-                            });
-                        } else if (element.type === 'date') {
-                            if (formData[key] && !isNaN(new Date(formData[key]))) {
-                                element.value = formData[key];
-                            }
-                        } else {
-                            element.value = formData[key];
-                        }
-                    }
-                });
-                // After populating, trigger input event for textareas to update counters
-                document.querySelectorAll('textarea[data-maxlength]').forEach(textarea => {
-                    textarea.dispatchEvent(new Event('input'));
-                });
-            }
-
-            populateForm();
-
-            // Save on input
-            form.addEventListener('input', (e) => {
-                if (e.target.name) {
-                    if (e.target.type === 'radio') {
-                        if (e.target.checked) {
-                            formData[e.target.name] = e.target.value;
-                        }
-                    } else {
-                        formData[e.target.name] = e.target.value;
-                    }
-                    saveFormData(formData);
-                }
-            });
-
-            // --- Form Submission Logic with Fetch API ---
-            form.addEventListener('submit', async (event) => {
-                event.preventDefault(); // Prevent default form submission
-
-                const submitButton = form.querySelector('button[type="submit"]');
-                const originalButtonText = submitButton.innerHTML;
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
-
-                // Get all form data into a plain object
-                const data = {};
-                const formElements = event.target.elements;
-                for (let i = 0; i < formElements.length; i++) {
-                    const element = formElements[i];
-                    if (element.name) {
-                        if (element.type === 'radio') {
-                            if (element.checked) { // Only take the checked radio's value
-                                data[element.name] = element.value;
-                            }
-                        } else if (element.type !== 'submit' && element.type !== 'button') { // Exclude submit/button
-                            data[element.name] = element.value.trim(); // Trim whitespace from all inputs
-                        }
-                    }
-                }
-
-                // Client-side Validation (more robust)
-                const requiredFields = {
-                    name: "Full Name", email: "Email", phone: "Phone",
-                    objective: "Objective / Professional Summary", education: "Education",
-                    skills: "Skills", declaration: "Declaration", template: "Template Selection"
-                };
-
-                for (const field in requiredFields) {
-                    if (!data[field] || data[field].length === 0) {
-                        alert(`Please fill in the required field: "${requiredFields[field]}".`);
-                        submitButton.disabled = false;
-                        submitButton.innerHTML = originalButtonText;
-                        return;
-                    }
-                }
-
-                // Email format validation
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(data.email)) {
-                    alert("Please enter a valid email address.");
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
-                    return;
-                }
-
-                // URL validation for LinkedIn/Portfolio (if filled)
-                const urlRegex = /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/[a-zA-Z0-9]+\.[^\s]{2,}|[a-zA-Z0-9]+\.[^\s]{2,})$/i;
-
-                if (data.linkedin && !urlRegex.test(data.linkedin)) {
-                    alert("Please enter a valid LinkedIn URL (e.g., https://linkedin.com/in/yourprofile).");
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
-                    return;
-                }
-                if (data.portfolio && !urlRegex.test(data.portfolio)) {
-                    alert("Please enter a valid Portfolio/GitHub URL.");
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
-                    return;
-                }
-
-                // --- Send data to Backend ---
-                try {
-                    const token = localStorage.getItem("authToken"); // Re-fetch token to ensure it's current
-
-                    const response = await fetch(`${API_BASE_URL}/resume/generate-pdf`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify(data)
-                    });
-
-                    if (response.ok) {
-                        // Expecting a JSON response with the download URL
-                        const result = await response.json();
-                        const downloadUrl = result.downloadUrl; // This URL *must* come correctly from the backend
-
-                        if (downloadUrl) {
-                            // Open the generated PDF in a new tab (browser will usually download if Content-Disposition: attachment)
-                            window.open(downloadUrl, '_blank');
-                            alert('Resume generated and downloaded successfully!');
-                            // Optionally clear form data from localStorage after successful generation
-                            localStorage.removeItem(LOCAL_STORAGE_KEY);
-                            form.reset(); // Clear form fields
-                            populateForm(); // Re-initialize form elements and counters
-                        } else {
-                            alert('Resume generated successfully, but no download URL was provided by the server. Please contact support.');
-                        }
-
-                    } else if (response.status === 401 || response.status === 403) {
-                        alert("Session expired or unauthorized. Please log in again.");
-                        localStorage.clear();
-                        window.location.href = "login.html";
-                    } else {
-                        // Try to parse error message from backend if available
-                        const errorResult = await response.json().catch(() => ({}));
-                        const errorMessage = errorResult.message || errorResult.error || `Failed to generate resume: ${response.status} ${response.statusText || ''}`;
-                        alert(`Error: ${errorMessage}`);
-                        console.error('Server error:', response.status, errorResult);
-                    }
-                } catch (error) {
-                    console.error('Network error or unexpected issue:', error);
-                    alert('An unexpected error occurred while generating the resume. Please check your internet connection and try again.');
-                } finally {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText; // Restore button text
-                }
-            });
-        }
-    </script>
+    </main>
+    
+    <script src="resume.js"></script>
 </body>
 </html>
