@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Course Details | Hack-2-Hired</title>
+    
+    <!-- Google Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Link to the new, self-contained stylesheet -->
+    <link rel="stylesheet" href="course-detail.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+<body>
+    <nav>
+        <div class="logo">Hack-2-<span>Hired</span></div>
+    </nav>
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="courses.html" class="active"><i class="fas fa-book"></i> Courses</a></li>
+            <!-- ... other nav links ... -->
+        </ul>
+    </nav>
+
+    <header class="course-hero">
+        <div class="hero-content">
+            <h1>Master PHP Programming</h1>
+            <p class="subtitle">From fundamentals to frameworks, become a job-ready PHP developer.</p>
+        </div>
+    </header>
+
+    <main class="course-detail-container">
+        <div class="course-main-content">
+            <!-- Course Description -->
+            <section class="course-section surface-glow">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> Course Overview</h2>
+                <p>PHP is a powerful server-side scripting language used by millions of websites, including giants like Facebook and WordPress. Our comprehensive course will take you from the fundamentals to advanced concepts, empowering you to create robust, dynamic web solutions.</p>
+            </section>
+            
+            <!-- What You Will Learn -->
+            <section class="course-section surface-glow">
+                <h2 class="section-title"><i class="fas fa-graduation-cap"></i> What You'll Learn</h2>
+                <ul class="checklist">
+                    <li>PHP syntax, variables, and control structures</li>
+                    <li>Advanced form handling and server-side validation</li>
+                    <li>Database interaction with MySQL and PDO</li>
+                    <li>Building and consuming RESTful APIs</li>
+                    <li>Object-Oriented Programming (OOP) in PHP</li>
+                    <li>Security best practices to prevent common vulnerabilities</li>
+                </ul>
+            </section>
+
+            <!-- Course Structure -->
+            <section class="course-section surface-glow">
+                <h2 class="section-title"><i class="fas fa-sitemap"></i> Course Structure</h2>
+                <div class="module-grid">
+                    <div class="module"><h4>Weeks 1-2: PHP Fundamentals</h4><p>Environment setup, syntax, variables, data types, control structures, and functions.</p></div>
+                    <div class="module"><h4>Weeks 3-4: Working with Data</h4><p>Form handling, file uploads, and connecting to MySQL databases with PDO.</p></div>
+                    <div class="module"><h4>Weeks 5-6: Advanced Concepts</h4><p>Object-Oriented PHP, error handling, sessions, cookies, and security principles.</p></div>
+                    <div class="module"><h4>Weeks 7-8: Real-World Applications</h4><p>Building RESTful APIs, introduction to the Laravel framework, and deployment.</p></div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="course-sidebar">
+            <!-- Course Features Card -->
+            <div class="sidebar-card surface-glow">
+                <h3 class="sidebar-title">Key Features</h3>
+                <ul class="feature-list">
+                    <li><i class="fas fa-chalkboard-teacher"></i> Expert-Led Instruction</li>
+                    <li><i class="fas fa-laptop-code"></i> Hands-On Projects</li>
+                    <li><i class="fas fa-certificate"></i> Verified Certificate</li>
+                    <li><i class="fas fa-users"></i> Active Community Forum</li>
+                    <li><i class="fas fa-life-ring"></i> Lifetime Access & Support</li>
+                </ul>
+                <div class="course-cta">
+                    <a href="#" class="btn btn-primary enroll-btn">Enroll Now</a>
+                </div>
+            </div>
+        </aside>
+    </main>
+    
+    <script src="course-detail.js"></script>
+</body>
+</html>

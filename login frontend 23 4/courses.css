@@ -7,20 +7,17 @@
     --text-primary: #ECEFF1; --text-secondary: #90A4AE; --font-family: 'Poppins', sans-serif;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background-color: var(--dark-bg); color: var(--text-primary); font-family: var(--font-family); line-height: 1.7; overflow-x: hidden; }
-a { color: var(--primary); text-decoration: none; transition: color 0.3s ease; }
-a:hover { color: white; }
+body { background-color: var(--dark-bg); color: var(--text-primary); font-family: var(--font-family); line-height: 1.7; }
+a { color: var(--primary); text-decoration: none; } a:hover { color: white; }
 
 /* --- 2. Navigation --- */
 nav { padding: 1rem 5%; background: rgba(10, 10, 16, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); }
-nav:first-of-type { display: flex; justify-content: space-between; align-items: center; }
 nav:last-of-type { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; }
-.logo { font-size: 1.8rem; font-weight: 800; }
-.logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+.logo { font-size: 1.8rem; font-weight: 800; } .logo span { color: var(--primary); }
 nav ul { display: flex; list-style: none; gap: 1rem; align-items: center; overflow-x: auto; padding-bottom: 0.5rem; }
-nav:last-of-type a { color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease; }
-nav:last-of-type a:hover { color: var(--text-primary); background-color: var(--surface-bg); }
-nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg); font-weight: 600; }
+nav a { color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease; }
+nav a:hover { color: var(--text-primary); background-color: var(--surface-bg); }
+nav a.active { color: var(--primary); background: var(--surface-bg); }
 
 /* --- 3. Buttons & Surface Glow --- */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s ease; }
@@ -51,8 +48,9 @@ nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg)
 .courses-container { max-width: 1400px; margin: 0 auto; padding: 0 5% 6rem; }
 .course-controls {
     display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-    gap: 1.5rem; padding: 2rem; margin-bottom: 2rem;
-    background: var(--surface-bg); border-radius: 16px; border: 1px solid var(--border-color);
+    gap: 1.5rem; padding: 1.5rem; margin: -2rem auto 2.5rem; position: relative;
+    z-index: 10; background-color: var(--surface-bg); border-radius: 16px;
+    border: 1px solid var(--border-color);
 }
 .search-bar { position: relative; flex-grow: 1; min-width: 250px; }
 .search-bar input {
@@ -62,13 +60,12 @@ nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg)
 }
 .search-bar input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
 .search-bar i { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
-.category-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+.category-filters, .sort-control { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
 .category-filters .btn-outline { padding: 0.6rem 1.2rem; font-weight: 500; }
-.sort-control { position: relative; }
 .sort-select {
     -webkit-appearance: none; appearance: none;
     background: var(--surface-bg); border: 1px solid var(--border-color); color: var(--text-primary);
-    border-radius: 8px; padding: 0.9rem 2.5rem 0.9rem 1rem; font-size: 1rem; cursor: pointer;
+    border-radius: 8px; padding: 0.8rem 2.5rem 0.8rem 1rem; font-size: 0.9rem; cursor: pointer;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2390A4AE' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
     background-repeat: no-repeat; background-position: right 1rem center; background-size: 0.8em;
 }
