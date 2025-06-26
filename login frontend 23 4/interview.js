@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // The src will now correctly point to your local image
         card.innerHTML = `
             <div class="interview-header">
-                <div class="company-logo-container"> alt="${interview.company} Logo" class="company-logo"></div>
+               
                 <h2>${interview.company}</h2>
             </div>
             <div class="interview-body">
