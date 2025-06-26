@@ -1,4 +1,4 @@
-/* === RESUME BUILDER PAGE: PRO-LEVEL STYLESHEET === */
+/* === RESUME BUILDER: COMPLETE & SELF-CONTAINED STYLESHEET === */
 
 /* --- 1. Root Variables & Global Styles --- */
 :root {
@@ -10,16 +10,39 @@
 body { background-color: var(--dark-bg); color: var(--text-primary); font-family: var(--font-family); line-height: 1.7; }
 a { color: var(--primary); text-decoration: none; } a:hover { color: white; }
 
-/* --- 2. Navigation --- */
-nav { padding: 1rem 5%; background: rgba(10, 10, 16, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); }
-nav:last-of-type { position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; }
-.logo { font-size: 1.8rem; font-weight: 800; } .logo span { color: var(--primary); }
-nav ul { display: flex; list-style: none; gap: 1rem; align-items: center; overflow-x: auto; padding-bottom: 0.5rem; }
-nav a { color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease; }
+/* --- 2. Navigation (Now included in this file) --- */
+nav {
+    padding: 1rem 5%;
+    background: rgba(10, 10, 16, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+nav:last-of-type {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+}
+.logo { font-size: 1.8rem; font-weight: 800; }
+.logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    align-items: center;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+nav a {
+    color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500;
+    display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease;
+}
 nav a:hover { color: var(--text-primary); background-color: var(--surface-bg); }
 nav a.active { color: var(--primary); background: var(--surface-bg); }
 
-/* --- 3. Buttons & Surface Glow --- */
+/* --- 3. Buttons & Surface Glow (Global) --- */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s ease; }
 .btn-primary { background: var(--primary); color: #000; box-shadow: 0 0 25px var(--primary-glow); }
 .btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 40px var(--primary-glow); }
@@ -47,13 +70,17 @@ nav a.active { color: var(--primary); background: var(--surface-bg); }
 
 /* --- 5. Form Sections & Grid Layout --- */
 .form-section {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid var(--border-color);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fade-in-up 0.6s ease-out forwards;
+    margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--border-color);
+    opacity: 0; transform: translateY(20px); animation: fade-in-up 0.6s ease-out forwards;
 }
+/* Stagger the animation for each section */
+.form-section:nth-child(1) { animation-delay: 0.1s; }
+.form-section:nth-child(2) { animation-delay: 0.2s; }
+.form-section:nth-child(3) { animation-delay: 0.3s; }
+.form-section:nth-child(4) { animation-delay: 0.4s; }
+.form-section:nth-child(5) { animation-delay: 0.5s; }
+@keyframes fade-in-up { to { opacity: 1; transform: translateY(0); } }
+
 #resumeForm .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .section-title { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
 .section-title i { font-size: 1.5rem; color: var(--primary); }
@@ -77,7 +104,10 @@ nav a.active { color: var(--primary); background: var(--surface-bg); }
 
 /* --- 6. Template Selection --- */
 .template-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-.template-option { display: block; position: relative; cursor: pointer; border-radius: 12px; overflow: hidden; border: 2px solid transparent; transition: all 0.3s ease; }
+.template-option {
+    display: block; position: relative; cursor: pointer; border-radius: 12px;
+    overflow: hidden; border: 2px solid transparent; transition: all 0.3s ease;
+}
 .template-option img { width: 100%; display: block; transition: transform 0.3s ease; }
 .template-option span {
     position: absolute; bottom: 0; left: 0; right: 0;
@@ -88,26 +118,18 @@ nav a.active { color: var(--primary); background: var(--surface-bg); }
 .template-option:hover { transform: translateY(-5px); }
 .template-option:hover img { transform: scale(1.05); }
 .template-option input[type="radio"]:checked + img + span {
-    background: var(--primary);
-    color: var(--dark-bg);
+    background: var(--primary); color: var(--dark-bg);
 }
-.template-option input[type="radio"]:checked ~ img {
-    /* No visual change on image, border does the work */
-}
-.template-option input[type="radio"]:checked ~ span::before {
-    content: '✔';
-    margin-right: 0.5rem;
-}
+.template-option input[type="radio"]:checked ~ img { border: 2px solid var(--primary); border-radius: 12px; }
+.template-option input[type="radio"]:checked ~ span::before { content: '✔'; margin-right: 0.5rem; }
 .template-option input[type="radio"]:focus-visible + img {
-    outline: 3px solid var(--primary);
-    outline-offset: 3px;
+    outline: 3px solid var(--primary); outline-offset: 3px;
 }
 
-/* --- 7. Form Submission --- */
+/* --- 7. Form Submission & Spinner --- */
 .form-submission { text-align: center; margin-top: 2.5rem; }
 .form-submission .btn-primary { padding: 1rem 3rem; font-size: 1.1rem; }
 
-/* Spinner */
 .fa-spinner { animation: spin-button 1.5s linear infinite; }
 @keyframes spin-button { to { transform: rotate(360deg); } }
 
