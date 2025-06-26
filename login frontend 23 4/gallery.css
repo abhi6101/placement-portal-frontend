@@ -1,6 +1,7 @@
-/* === GALLERY PAGE: COMPLETE PRO-LEVEL STYLESHEET === */
+/* === GALLERY PAGE: ENHANCED PRO-LEVEL STYLESHEET === */
 
-/* --- 1. Root Variables & Global Styles --- */
+/* --- 1. Root Variables & Global Styles (from main.css) --- */
+/* This section would be in main.css if you were using a shared file. */
 :root {
     --dark-bg: #0A0A10;
     --surface-bg: #111119;
@@ -12,9 +13,7 @@
     --text-secondary: #90A4AE;
     --font-family: 'Poppins', sans-serif;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
     background-color: var(--dark-bg);
     color: var(--text-primary);
@@ -22,136 +21,60 @@ body {
     line-height: 1.7;
     overflow-x: hidden;
 }
-
 a { color: var(--primary); text-decoration: none; transition: color 0.3s ease; }
 a:hover { color: white; }
-
-/* --- 2. Navigation --- */
 nav {
-    padding: 1rem 5%;
-    background: rgba(10, 10, 16, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 5%; background: rgba(10, 10, 16, 0.5); backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color);
 }
-nav:first-of-type {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    border-bottom: none;
-}
-nav:last-of-type {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+nav:first-of-type { display: flex; justify-content: space-between; align-items: center; position: relative; border-bottom: none; }
+nav:last-of-type { position: sticky; top: 0; z-index: 1000; }
 .logo { font-size: 1.8rem; font-weight: 800; }
 .logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
 nav ul { display: flex; list-style: none; gap: 1rem; align-items: center; }
 nav:last-of-type ul { justify-content: center; overflow-x: auto; padding-bottom: 0.5rem; }
 nav:last-of-type a {
-    color: var(--text-secondary);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    white-space: nowrap;
-    transition: all 0.3s ease;
+    color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500;
+    display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease;
 }
-nav:last-of-type a:hover {
-    color: var(--text-primary);
-    background-color: var(--surface-bg);
-}
-nav:last-of-type a.active {
-    color: var(--primary);
-    background: var(--surface-bg);
-    font-weight: 600;
-}
-
-/* --- 3. Buttons (Global) --- */
+nav:last-of-type a:hover { color: var(--text-primary); background-color: var(--surface-bg); }
+nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg); font-weight: 600; }
 .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
-    padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600;
-    text-decoration: none; border: none; cursor: pointer;
-    transition: all 0.3s ease;
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.8rem 1.8rem;
+    border-radius: 50px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s ease;
 }
-.btn-primary { background: var(--primary); color: #000; box-shadow: 0 0 25px var(--primary-glow); }
-.btn-primary:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 40px var(--primary-glow); }
 .btn-outline { background: transparent; border: 2px solid var(--border-color); color: var(--text-primary); }
 .btn-outline:hover { background: var(--surface-bg); border-color: var(--primary); color: var(--primary); }
-
-/* --- 4. Glowing Border Effect (Global) --- */
-.surface-glow {
-    background: var(--surface-bg);
-    border-radius: 16px;
-    position: relative;
-}
+.surface-glow { background: var(--surface-bg); border-radius: 16px; position: relative; }
 .surface-glow::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: inherit; padding: 1px;
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; padding: 1px;
     background: conic-gradient(from var(--angle), transparent 20%, var(--primary), var(--accent), transparent 80%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
-    animation: spin 5s linear infinite paused; opacity: 0; transition: opacity 0.4s ease;
-    pointer-events: none;
+    animation: spin 5s linear infinite paused; opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
 }
 .surface-glow:hover::before { animation-play-state: running; opacity: 1; }
 @property --angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 @keyframes spin { to { --angle: 360deg; } }
 
-
 /* === GALLERY-SPECIFIC STYLES START HERE === */
 
-/* --- 5. Main Page Layout --- */
-.gallery-page {
-    padding: 4rem 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-    text-align: center;
-}
-.gallery-page h1 {
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
-    margin-bottom: 0.5rem;
-}
-.gallery-page .subtitle {
-    color: var(--text-secondary);
-    margin-bottom: 3rem;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
+/* --- Main Page Layout --- */
+.gallery-page { padding: 4rem 5%; max-width: 1400px; margin: 0 auto; text-align: center; }
+.gallery-page h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 0.5rem; }
+.gallery-page .subtitle { color: var(--text-secondary); margin-bottom: 3rem; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
 
-/* --- 6. Category Filter Buttons --- */
-.gallery-categories {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 3rem;
-}
-.gallery-categories .btn {
-    padding: 0.6rem 1.5rem;
-    font-weight: 500;
-}
+/* --- Category Filter Buttons --- */
+.gallery-categories { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-bottom: 3rem; }
+.gallery-categories .btn { padding: 0.6rem 1.5rem; font-weight: 500; }
 .gallery-categories .btn.active {
-    background: var(--primary);
-    color: #000;
-    border-color: var(--primary);
-    box-shadow: 0 0 20px var(--primary-glow);
-    transform: translateY(0);
+    background: var(--primary); color: #000; border-color: var(--primary);
+    box-shadow: 0 0 20px var(--primary-glow); transform: translateY(0);
 }
 
-/* --- 7. Photo Grid Layout & Styling --- */
-.photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
+/* --- Photo Grid Layout & Styling --- */
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
 
 .photo-item {
     position: relative;
@@ -159,66 +82,46 @@ nav:last-of-type a.active {
     overflow: hidden;
     cursor: pointer;
     aspect-ratio: 4 / 3;
+    
+    /* ENHANCEMENT: Prepare for staggered animation and hover effects */
     transform-origin: center;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    display: none;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease;
+    opacity: 0; /* Hidden by default for JS animation */
+    display: none; /* JS will change this to 'block' */
 }
 .photo-item.show {
     display: block;
-    animation: scale-in 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    /* The animation will be applied by JS with a delay */
+    animation: scale-in 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 @keyframes scale-in {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from { transform: scale(0.8) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
 }
 
-.photo-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
+/* ENHANCEMENT: Interactive 3D tilt hover effect */
+.photo-item:hover {
+    transform: scale(1.03) perspective(1000px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.photo-item:hover img {
-    transform: scale(1.05);
-}
+.photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.photo-item:hover img { transform: scale(1.1); }
 
 .photo-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem 1.5rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-    color: var(--text-primary);
-    transform: translateY(100%);
-    transition: transform 0.4s ease;
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: var(--text-primary); transform: translateY(100%); transition: transform 0.4s ease;
 }
+.photo-item:hover .photo-info { transform: translateY(0); }
+.photo-info h4 { font-weight: 600; font-size: 1.1rem; margin: 0; }
 
-.photo-item:hover .photo-info {
-    transform: translateY(0);
-}
-
-.photo-info h4 {
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin: 0;
-}
-
-/* --- 8. Contribution Section --- */
-.gallery-contribution-section {
-    padding: 4rem 5% 6rem;
-}
-.gallery-contribution {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 3rem;
-    text-align: center;
-}
+/* --- Contribution Section --- */
+.gallery-contribution-section { padding: 4rem 5% 6rem; }
+.gallery-contribution { max-width: 800px; margin: 0 auto; padding: 3rem; text-align: center; }
 .gallery-contribution h3 { font-size: 2rem; margin-bottom: 1rem; }
 .gallery-contribution p { color: var(--text-secondary); margin-bottom: 2rem; }
 .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-
 .btn-contact {
     display: inline-flex; align-items: center; justify-content: center; gap: 0.75rem;
     padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 600;
@@ -229,41 +132,37 @@ nav:last-of-type a.active {
 .email-btn { background-color: var(--accent); }
 .email-btn:hover { background-color: #d13a63; transform: translateY(-3px); }
 
-/* --- 9. Image Modal --- */
+/* --- Image Modal --- */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(10, 10, 16, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: modal-fade-in 0.3s ease;
+    display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+    width: 100%; height: 100%; background-color: rgba(10, 10, 16, 0.8);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    /* ENHANCEMENT: More refined fade transition */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
 }
-@keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
-
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
 .modal-content {
-    display: block;
-    max-width: 90vw;
-    max-height: 90vh;
-    border-radius: 16px;
+    display: block; max-width: 90vw; max-height: 90vh; border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    animation: modal-zoom-in 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    /* ENHANCEMENT: Smoother zoom-in animation */
+    transform: scale(0.9);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
-@keyframes modal-zoom-in { from { transform: scale(0.8); } to { transform: scale(1); } }
+.modal.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
 
 .close-modal {
-    position: absolute;
-    top: 20px; right: 35px;
-    color: var(--text-secondary);
-    font-size: 2.5rem;
-    font-weight: bold;
-    transition: color 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-    text-shadow: 0 0 10px var(--dark-bg);
+    position: absolute; top: 20px; right: 35px; color: var(--text-secondary);
+    font-size: 2.5rem; font-weight: bold; transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer; text-shadow: 0 0 10px var(--dark-bg);
 }
 .close-modal:hover { color: var(--primary); transform: scale(1.1); }
