@@ -1,85 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Opportunities | Hack-2-Hired</title>
-    
-    <!-- Google Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Hack-2-Hired</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="jobs.css">
-    <link rel="icon" href="images/favicon.png" type="image/png">
+
 </head>
+
 <body>
-    <nav>
-        <div class="logo">Hack-2-<span>Hired</span></div>
+     <nav>
+        <div class="logo">Placement<span>Portal</span></div>
+       
     </nav>
-    <nav>
+
+    <nav class="main-nav">
         <ul>
             <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
-            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
-            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
-            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
-            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="jobs.html" class="active"><i class="fas fa-briefcase"></i> Jobs</a></li>
+          <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+          <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+           <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+             <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+          <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+          <li><a href="courses.html"  ><i class="fas fa-book"></i> Courses</a></li>
+          <li><a href="blog.html" ><i class="fas fa-blog"></i> Blog</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
         </ul>
     </nav>
 
-    <main class="jobs-page-container">
-        <header class="jobs-hero">
-            <h1>Find Your Next Opportunity</h1>
-            <p class="subtitle">Browse the latest job openings from top companies and kickstart your career.</p>
-        </header>
+    <div class="container">
+        <div class="page-header">
+            <h1>Job Opportunities</h1>
+            <p>Browse through our latest job openings from top companies and kickstart your career</p>
+        </div>
 
-        <section class="job-controls surface-glow">
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Job title, keywords, or company">
-            </div>
-            <div class="category-filters">
+        <div class="search-container">
+            <form class="search-form" id="searchForm">
+                <input type="text" class="search-input" id="searchInput" placeholder="Job title, keywords, or company">
+                <input type="text" class="search-input" id="locationInput" placeholder="Location">
+                <button type="submit" class="btn search-btn">
+                    <i class="fas fa-search"></i> Search Jobs
+                </button>
+            </form>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">All Jobs</button>
                 <button class="filter-btn" data-filter="it">IT/Software</button>
+                <button class="filter-btn" data-filter="engineering">Engineering</button>
+                <button class="filter-btn" data-filter="finance">Finance</button>
                 <button class="filter-btn" data-filter="internship">Internships</button>
             </div>
-            <div class="sort-control">
+            <div class="sort-options">
+                <label for="sortSelect">Sort by:</label>
                 <select id="sortSelect">
-                    <option value="newest">Sort by: Newest</option>
-                    <option value="salary-high">Salary: High to Low</option>
+                    <option value="newest">Newest First</option>
+                    <option value="salary-high">Salary (High to Low)</option>
+                    <option value="salary-low">Salary (Low to High)</option>
                     <option value="deadline">Application Deadline</option>
                 </select>
             </div>
-        </section>
+        </div>
 
         <div class="job-list" id="jobList">
-            <div class="loading-indicator">
-                <div class="spinner"></div>
-                <span>Loading Jobs...</span>
+            <div class="loading">
+                <i class="fas fa-spinner"></i> Loading jobs...
             </div>
         </div>
-    </main>
 
-    <!-- Application Modal -->
+        <div class="pagination">
+            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+
     <div id="applicationFormModal" class="modal">
-        <div class="modal-content surface-glow">
-            <span class="close-button">×</span>
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
             <h2>Apply for <span id="jobTitleForApplication"></span></h2>
             <form id="jobApplicationForm" enctype="multipart/form-data">
                 <input type="hidden" id="appliedJobId" name="jobId">
-                <div class="form-group"><label for="applicantName">Full Name</label><input type="text" id="applicantName" name="applicantName" required></div>
-                <div class="form-group"><label for="applicantEmail">Email</label><input type="email" id="applicantEmail" name="applicantEmail" required></div>
-                <div class="form-group"><label for="applicantPhone">Phone Number</label><input type="tel" id="applicantPhone" name="applicantPhone" required></div>
-                <div class="form-group"><label for="resume">Upload Resume (PDF only)</label><input type="file" id="resume" name="resume" accept=".pdf" required></div>
-                <div class="form-group"><label for="coverLetter">Cover Letter (Optional)</label><textarea id="coverLetter" name="coverLetter" rows="4"></textarea></div>
-                <button type="submit" class="btn btn-primary">Submit Application</button>
+
+                <div class="form-group">
+                    <label for="applicantName">Full Name:</label>
+                    <input type="text" id="applicantName" name="applicantName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicantEmail">Email:</label>
+                    <input type="email" id="applicantEmail" name="applicantEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicantPhone">Phone Number:</label>
+                    <input type="tel" id="applicantPhone" name="applicantPhone" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="applicantRollNo">Roll Number (if applicable):</label>
+                    <input type="text" id="applicantRollNo" name="applicantRollNo">
+                </div>
+
+                <div class="form-group">
+                    <label for="resume">Upload Resume (PDF only):</label>
+                    <input type="file" id="resume" name="resume" accept=".pdf" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="coverLetter">Cover Letter (Optional):</label>
+                    <textarea id="coverLetter" name="coverLetter" rows="5"></textarea>
+                </div>
+
+                <button type="submit" class="btn">Submit Application</button>
             </form>
         </div>
     </div>
 
-    <script src="jobs.js"></script>
+
+    <footer>
+         <p>Made with <span class="heart">❤️</span> by Abhi</p>
+       
+        <p>&copy; 2025 College Placement System. All rights reserved. | Contact: <a
+                href="mailto:hack2hired.official@gmail.com">hack2hired.official@gmail.com</a></p>
+    </footer>
+
+    <script src="jobs.js">
+     
+    </script>
+
 </body>
+
 </html>
+
+
