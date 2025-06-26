@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             positions: ["Software Engineer", "Data Analyst"], eligibility: "CGPA ≥ 7.5",
             slots: { total: 20, booked: 18 },
             // THE FIX: Use a local path to your saved logo
-            logo: "images/tcs-logo.png"
+            logo: "images/tcs-logo.jpg"
         },
         {
             id: 2, company: "Infosys", location: "Bengaluru", date: "2025-07-28",
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             positions: ["System Engineer", "Business Analyst"], eligibility: "CGPA ≥ 7.0",
             slots: { total: 25, booked: 10 },
             // THE FIX: Use a local path
-            logo: "images/infosys-logo.png"
+            logo: "images/infosys-logo.jpg"
         },
         {
             id: 3, company: "Wipro", location: "Hyderabad", date: "2025-08-30",
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             positions: ["Project Engineer", "Cloud Specialist"], eligibility: "CSE/IT, CGPA ≥ 7.0",
             slots: { total: 15, booked: 5 },
             // THE FIX: Use a local path
-            logo: "images/wipro-logo.png"
+            logo: "images/wipro-logo.jpg"
         },
         {
             id: 5, company: "Accenture", location: "Gurugram", date: "2025-07-05",
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
             positions: ["Associate Software Engineer"], eligibility: "No backlogs",
             slots: { total: 30, booked: 10 },
             // THE FIX: Use a local path
-            logo: "images/accenture-logo.png"
+            logo: "images/accenture-logo.jpg"
         },
         // ...and so on for other companies
     ];
