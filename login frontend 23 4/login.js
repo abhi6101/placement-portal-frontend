@@ -5,73 +5,83 @@ document.addEventListener("DOMContentLoaded", () => {
     const errorElement = document.getElementById("error-message");
     const successElement = document.getElementById("success-message");
     const loginButton = document.getElementById("loginButton");
-    const spinner = loginButton.querySelector(".spinner");
+    
+    // Spinner logic might not be in your provided HTML, but the JS handles it
+    const spinner = loginButton ? loginButton.querySelector(".spinner") : null;
 
     function showMessage(element, message, type) {
+        if (!element) return;
         element.textContent = message;
         element.className = `alert alert-${type}`;
         element.style.display = "block";
     }
 
     function hideMessages() {
-        errorElement.style.display = "none";
-        successElement.style.display = "none";
+        if (errorElement) errorElement.style.display = "none";
+        if (successElement) successElement.style.display = "none";
     }
 
     function setLoadingState(isLoading) {
-        if (isLoading) {
-            loginButton.disabled = true;
-            loginButton.classList.add('loading');
-        } else {
-            loginButton.disabled = false;
-            loginButton.classList.remove('loading');
-        }
+        if (!loginButton) return;
+        loginButton.disabled = isLoading;
+        // Use a single class to control loading state
+        isLoading ? loginButton.classList.add('is-loading') : loginButton.classList.remove('is-loading');
     }
 
-    loginForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        hideMessages();
+    if (loginForm) {
+        loginForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            hideMessages();
 
-        const username = usernameInput.value.trim();
-        const password = passwordInput.value.trim();
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
 
-        if (!username || !password) {
-            showMessage(errorElement, "Please enter both username and password.", "error");
-            return;
-        }
+            if (!username || !password) {
+                showMessage(errorElement, "Please enter both username and password.", "error");
+                return;
+            }
 
-        setLoadingState(true);
+            setLoadingState(true);
 
-        try {
-            const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
-            });
+            try {
+                const response = await fetch("https://placement-portal-backend-nwaj.onrender.com/api/auth/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                });
 
-            const data = await response.json();
+                const data = await response.json();
 
-            if (response.ok && data.token) {
-                localStorage.setItem("authToken", data.token);
+                if (response.ok && data.token) {
+                    // --- THE FIX IS HERE ---
+                    // Step 1: Store the authentication token
+                    localStorage.setItem("authToken", data.token);
 
-                const payload = JSON.parse(atob(data.token.split(".")[1]));
-                const roles = payload.roles || payload.authorities || [];
-                const isAdmin = roles.includes("ROLE_ADMIN");
+                    // Step 2: Decode the token to get user roles
+                    const payload = JSON.parse(atob(data.token.split(".")[1]));
+                    const roles = payload.roles || payload.authorities || [];
+                    const isAdmin = roles.includes("ROLE_ADMIN");
 
-                showMessage(successElement, "Login successful! Redirecting...", "success");
+                    // Step 3: Store the role string in localStorage
+                    localStorage.setItem("userRole", isAdmin ? "ADMIN" : "USER");
+                    // --- END OF FIX ---
 
-                setTimeout(() => {
-                    window.location.href = isAdmin ? "admin-dashboard.html" : "index.html";
-                }, 700);
+                    showMessage(successElement, "Login successful! Redirecting...", "success");
 
-            } else {
-                showMessage(errorElement, data.message || "Invalid username or password.", "error");
+                    // Redirect based on the isAdmin flag
+                    setTimeout(() => {
+                        window.location.href = isAdmin ? "admin-dashboard.html" : "index.html";
+                    }, 700);
+
+                } else {
+                    showMessage(errorElement, data.message || "Invalid username or password.", "error");
+                    setLoadingState(false);
+                }
+            } catch (error) {
+                console.error("Login network error:", error);
+                showMessage(errorElement, "Network error. Please check your connection.", "error");
                 setLoadingState(false);
             }
-        } catch (error) {
-            console.error("Login network error:", error);
-            showMessage(errorElement, "Network error. Please check your connection.", "error");
-            setLoadingState(false);
-        }
-    });
+        });
+    }
 });
