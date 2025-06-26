@@ -48,10 +48,14 @@
                     <input type="text" id="username" name="username" required placeholder="Enter your username" aria-label="Username">
                 </div>
 
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter your password" aria-label="Password">
-                </div>
+               <!-- UPDATED Password group -->
+<div class="input-group">
+    <label for="password">Password</label>
+    <div class="password-wrapper">
+        <input type="password" id="password" name="password" required placeholder="Enter your password" aria-label="Password">
+        <i class="fas fa-eye password-toggle-icon"></i>
+    </div>
+</div>
 
                 <button type="submit" id="loginButton" class="btn btn-primary">
                     <span class="button-text">Login <i class="fas fa-arrow-right"></i></span>
