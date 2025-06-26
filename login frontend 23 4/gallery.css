@@ -1,4 +1,4 @@
-/* === GALLERY PAGE: PREMIUM ANIMATION STYLESHEET === */
+/* === GALLERY PAGE: PREMIUM ANIMATION STYLESHEET (Final) === */
 
 /* --- Root Variables & Global Styles (Self-contained) --- */
 :root {
@@ -10,15 +10,37 @@
 body { background-color: var(--dark-bg); color: var(--text-primary); font-family: var(--font-family); line-height: 1.7; overflow-x: hidden; }
 a { color: var(--primary); text-decoration: none; transition: color 0.3s ease; }
 a:hover { color: white; }
-nav { padding: 1rem 5%; background: rgba(10, 10, 16, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-nav:last-of-type { position: sticky; top: 0; z-index: 1000; }
+
+/* --- Navigation --- */
+nav {
+    padding: 1rem 5%; background: rgba(10, 10, 16, 0.5); backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color);
+}
+nav:first-of-type {
+    display: flex; justify-content: space-between; align-items: center; position: relative; border-bottom: none;
+}
+nav:last-of-type {
+    position: sticky; top: 0; z-index: 1000;
+    /* CORRECTED: Center the navigation bar items */
+    display: flex;
+    justify-content: center;
+}
 .logo { font-size: 1.8rem; font-weight: 800; }
 .logo span { color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
 nav ul { display: flex; list-style: none; gap: 1rem; align-items: center; }
-nav:last-of-type ul { justify-content: center; overflow-x: auto; padding-bottom: 0.5rem; }
-nav:last-of-type a { color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease; }
+nav:last-of-type ul {
+    /* The justify-content on the parent nav now handles centering */
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+nav:last-of-type a {
+    color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500;
+    display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s ease;
+}
 nav:last-of-type a:hover { color: var(--text-primary); background-color: var(--surface-bg); }
 nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg); font-weight: 600; }
+
+/* --- Glowing Border Effect (Global) --- */
 .surface-glow { background: var(--surface-bg); border-radius: 16px; position: relative; }
 .surface-glow::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: inherit; padding: 1px;
@@ -36,15 +58,15 @@ nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg)
 /* === GALLERY-SPECIFIC STYLES START HERE === */
 
 /* --- Main Page Layout --- */
-.gallery-page { padding: 4rem 5%; max-width: 1400px; margin: 0 auto; text-align: center; }
-.gallery-page h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 0.5rem; }
-.gallery-page .subtitle { color: var(--text-secondary); margin-bottom: 3rem; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+.gallery-page { padding: 4rem 5%; max-width: 1400px; margin: 0 auto; text-allign: center; }
+.gallery-page h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); text-align: center; margin-bottom: 0.5rem; }
+.gallery-page .subtitle { color: var(--text-secondary); text-align: center; margin-bottom: 3rem; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
 
 /* --- Category Filter Buttons --- */
 .gallery-categories { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-bottom: 3rem; }
 .gallery-categories .btn-outline {
     background: transparent; border: 2px solid var(--border-color); color: var(--text-primary);
-    padding: 0.6rem 1.5rem; font-weight: 500; border-radius: 50px;
+    padding: 0.6rem 1.5rem; font-weight: 500; border-radius: 50px; cursor: pointer; transition: all 0.3s ease;
 }
 .gallery-categories .btn-outline:hover { background: var(--surface-bg); border-color: var(--primary); color: var(--primary); }
 .gallery-categories .btn-outline.active {
@@ -52,73 +74,26 @@ nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg)
     box-shadow: 0 0 20px var(--primary-glow); transform: translateY(0);
 }
 
-/* --- Photo Grid Layout & Styling --- */
-.photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    position: relative; /* Needed for FLIP animation */
-}
-
+/* --- Photo Grid & Animations --- */
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; position: relative; }
 .photo-item {
-    aspect-ratio: 4 / 3;
-    border-radius: 16px;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-    /* ENHANCEMENT: Prepare for FLIP animation */
+    aspect-ratio: 4 / 3; border-radius: 16px; cursor: pointer; overflow: hidden; position: relative;
     transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease;
 }
-
-/* States for FLIP animation (controlled by JS) */
-.photo-item.hide {
-    transform: scale(0.8);
-    opacity: 0;
-    z-index: 1;
-    pointer-events: none;
-    position: absolute; /* Allows items to animate out of the flow */
-}
-.photo-item.show {
-    transform: scale(1);
-    opacity: 1;
-    z-index: 2;
-    position: static; /* Let it flow back into the grid */
-}
-
-/* ENHANCEMENT: Magnetic Glow Hover Effect */
+.photo-item.hide { transform: scale(0.8); opacity: 0; z-index: 1; pointer-events: none; position: absolute; }
+.photo-item.show { transform: scale(1); opacity: 1; z-index: 2; position: static; }
 .photo-item::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.15) 0%, transparent 40%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none; /* Make sure it doesn't block clicks */
+    opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
 }
-.photo-item:hover::after {
-    opacity: 1;
-}
-
-.photo-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-}
-.photo-item:hover img {
-    transform: scale(1.05);
-}
-
+.photo-item:hover::after { opacity: 1; }
+.photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.photo-item:hover img { transform: scale(1.05); }
 .photo-info {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 1.5rem;
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-    color: var(--text-primary);
-    transform: translateY(100%);
-    transition: transform 0.4s ease;
+    color: var(--text-primary); transform: translateY(100%); transition: transform 0.4s ease;
 }
 .photo-item:hover .photo-info { transform: translateY(0); }
 .photo-info h4 { font-weight: 600; font-size: 1.1rem; margin: 0; }
@@ -142,34 +117,23 @@ nav:last-of-type a.active { color: var(--primary); background: var(--surface-bg)
 /* --- Image Modal --- */
 .modal {
     display: none; position: fixed; z-index: 2000; left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(10, 10, 16, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    width: 100%; height: 100%; background-color: rgba(10, 10, 16, 0.8);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
+    display: flex; align-items: center; justify-content: center;
 }
 .modal.show { opacity: 1; visibility: visible; }
 .modal-content {
-    display: block; max-width: 90vw; max-height: 90vh;
-    border-radius: 16px;
+    display: block; max-width: 90vw; max-height: 90vh; border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    /* ENHANCEMENT: Animate from clicked position */
     transform-origin: center center;
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.4s ease;
-    /* Will be set by JS */
-    transform: scale(0.5);
-    opacity: 0;
+    transform: scale(0.5); opacity: 0;
 }
-.modal.show .modal-content {
-    transform: scale(1);
-    opacity: 1;
-}
+.modal.show .modal-content { transform: scale(1); opacity: 1; }
 .close-modal {
-    position: absolute; top: 20px; right: 35px;
-    color: var(--text-secondary); font-size: 2.5rem; font-weight: bold;
-    transition: color 0.3s ease, transform 0.3s ease;
+    position: absolute; top: 20px; right: 35px; color: var(--text-secondary);
+    font-size: 2.5rem; font-weight: bold; transition: color 0.3s ease, transform 0.3s ease;
     cursor: pointer; text-shadow: 0 0 10px var(--dark-bg);
 }
 .close-modal:hover { color: var(--primary); transform: scale(1.1); }
