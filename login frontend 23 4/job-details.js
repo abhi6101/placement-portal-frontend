@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const formatDate = (dateString) => new Date(dateString).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 
     const fetchJobDetails = async () => {
-        // Get the job ID from the URL, e.g., "job-details.html?id=123"
         const urlParams = new URLSearchParams(window.location.search);
         const jobId = urlParams.get('id');
 
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const token = localStorage.getItem("authToken");
         if (!token) {
-            // Redirect if not logged in
             window.location.href = 'login.html';
             return;
         }
@@ -31,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const job = await response.json();
 
-            // Populate the page with the fetched data
             jobDetailContent.innerHTML = `
                 <div class="job-details-header">
                     <h1>${job.title}</h1>
@@ -58,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${job.description.replace(/\n/g, '<br>')}</p>
                 </div>
                 <div class="job-actions-footer">
-                    <a href="${job.apply_link}" target="_blank" class="btn btn-primary">Apply on Company Website <i class="fas fa-external-link-alt"></i></a>
+                    <a href="${job.apply_link}" target="_blank" class="btn">Apply on Company Website <i class="fas fa-external-link-alt"></i></a>
                 </div>
             `;
         } catch (error) {
