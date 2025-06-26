@@ -1,4 +1,4 @@
-/* === INTERVIEW PAGE: PRO-LEVEL STYLESHEET === */
+/* === INTERVIEW PAGE: PRO-LEVEL STYLESHEET (Final) === */
 
 /* --- 1. Root Variables & Global Styles --- */
 :root {
@@ -57,7 +57,13 @@ nav a.active { color: var(--primary); background: var(--surface-bg); }
 .interview-card:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 .interview-header { padding: 1.5rem 1.5rem 1rem; text-align: center; }
 .company-logo-container { height: 60px; margin-bottom: 1rem; }
-.company-logo { max-height: 100%; max-width: 150px; object-fit: contain; filter: brightness(0) invert(1); }
+.company-logo {
+    max-height: 100%;
+    max-width: 150px;
+    object-fit: contain;
+    /* THE FIX: This makes dark logos visible on a dark background */
+    filter: brightness(0) invert(1);
+}
 .interview-header h2 { font-size: 1.5rem; margin: 0; }
 .interview-body { padding: 0 1.5rem; color: var(--text-secondary); font-size: 0.95rem; }
 .interview-body p { margin-bottom: 0.75rem; display: flex; gap: 0.75rem; }
