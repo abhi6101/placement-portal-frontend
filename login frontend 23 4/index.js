@@ -1,4 +1,4 @@
-// index.js - COMPLETE SCRIPT (With Sound Logic)
+// index.js - COMPLETE SCRIPT (Without Sound)
 
 const App = {
     // --- 1. Properties & Elements ---
@@ -11,7 +11,6 @@ const App = {
         heroHeading: null, heroSubtitle: null,
         slideshowContainer: null, sectionsToAnimate: null,
         membersFeaturesSection: null,
-        welcomeAudio: null, // For the welcome sound
     },
 
     // --- 2. Initialization ---
@@ -21,7 +20,6 @@ const App = {
         this.ui.update();
         this.slideshow.init();
         this.animations.init();
-        this.sound.init(); // Initialize the sound module
     },
 
     cacheDOMElements() {
@@ -37,7 +35,6 @@ const App = {
         this.elements.slideshowContainer = document.querySelector('.slideshow-container');
         this.elements.sectionsToAnimate = document.querySelectorAll('section:not(.hero)');
         this.elements.membersFeaturesSection = document.getElementById('members-features');
-        this.elements.welcomeAudio = document.getElementById('welcome-audio');
     },
 
     initEventListeners() {
@@ -151,29 +148,6 @@ const App = {
                 section.style.transform = 'translateY(50px)';
                 section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
                 observer.observe(section);
-            });
-        }
-    },
-    
-    sound: {
-        hasPlayed: false,
-        init() {
-            if (sessionStorage.getItem('welcomeSoundPlayed') === 'true') {
-                this.hasPlayed = true;
-            }
-            document.body.addEventListener('click', () => this.playWelcomeSound(), { once: true });
-        },
-        playWelcomeSound() {
-            const { welcomeAudio } = App.elements;
-            if (!welcomeAudio || this.hasPlayed) return;
-
-            welcomeAudio.play().then(() => {
-                console.log("Welcome sound played successfully.");
-                this.hasPlayed = true;
-                sessionStorage.setItem('welcomeSoundPlayed', 'true');
-})
-            .catch(error => {
-                console.error("Could not play the welcome sound on first interaction:", error);
             });
         }
     }
