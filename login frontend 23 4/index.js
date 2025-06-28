@@ -1,4 +1,4 @@
-// index.js - COMPLETE SCRIPT (Without Scroller)
+// index.js - COMPLETE SCRIPT (With Sound Logic)
 
 const App = {
     // --- 1. Properties & Elements ---
@@ -11,6 +11,7 @@ const App = {
         heroHeading: null, heroSubtitle: null,
         slideshowContainer: null, sectionsToAnimate: null,
         membersFeaturesSection: null,
+        welcomeAudio: null, // For the welcome sound
     },
 
     // --- 2. Initialization ---
@@ -20,7 +21,7 @@ const App = {
         this.ui.update();
         this.slideshow.init();
         this.animations.init();
-        // The scroller.init() call has been removed.
+        this.sound.init(); // Initialize the sound module
     },
 
     cacheDOMElements() {
@@ -36,6 +37,7 @@ const App = {
         this.elements.slideshowContainer = document.querySelector('.slideshow-container');
         this.elements.sectionsToAnimate = document.querySelectorAll('section:not(.hero)');
         this.elements.membersFeaturesSection = document.getElementById('members-features');
+        this.elements.welcomeAudio = document.getElementById('welcome-audio');
     },
 
     initEventListeners() {
@@ -47,9 +49,7 @@ const App = {
     // --- 3. Functional Modules ---
     auth: {
         _parseJwt(token) {
-            try {
-                return JSON.parse(atob(token.split('.')[1]));
-            } catch (e) { return null; }
+            try { return JSON.parse(atob(token.split('.')[1])); } catch (e) { return null; }
         },
         getUserData() {
             const token = localStorage.getItem('authToken');
@@ -73,15 +73,15 @@ const App = {
             try {
                 if (token) {
                     await fetch(`${App.config.apiBaseUrl}/logout`, {
-                        method: 'POST',
-                        headers: { 'Authorization': `Bearer ${token}` }
+                        method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
                     });
                 }
             } catch (e) { console.warn('Logout notification to backend failed:', e); }
             finally {
                 localStorage.removeItem('authToken');
-                localStorage.removeItem('userRole');
-                App.ui.update();
+                localStorage.removeItem('userRole'); // Ensure all keys are removed
+                localStorage.removeItem('username');
+                window.location.reload(); // Reload to reflect changes
             }
         }
     },
@@ -96,20 +96,21 @@ const App = {
                     elements.displayUsername.textContent = userData.username;
                     elements.displayRole.textContent = userData.role;
                 }
+                if (elements.heroHeading) elements.heroHeading.style.display = 'none';
                 if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'none';
                 if (elements.registerBtn) elements.registerBtn.style.display = 'none';
                 if (elements.loginBtn) elements.loginBtn.style.display = 'none';
                 if (elements.logoutBtn) elements.logoutBtn.style.display = 'inline-flex';
                 if (elements.adminPanelLink) elements.adminPanelLink.style.display = userData.isAdmin ? 'block' : 'none';
-                if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'none';
             } else {
+                // Logged-out state
                 if (elements.userWelcome) elements.userWelcome.style.display = 'none';
+                if (elements.heroHeading) elements.heroHeading.style.display = 'block';
                 if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'block';
                 if (elements.registerBtn) elements.registerBtn.style.display = 'inline-flex';
                 if (elements.loginBtn) elements.loginBtn.style.display = 'inline-flex';
                 if (elements.logoutBtn) elements.logoutBtn.style.display = 'none';
                 if (elements.adminPanelLink) elements.adminPanelLink.style.display = 'none';
-                if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'block';
             }
         }
     },
@@ -152,8 +153,30 @@ const App = {
                 observer.observe(section);
             });
         }
+    },
+    
+    sound: {
+        hasPlayed: false,
+        init() {
+            if (sessionStorage.getItem('welcomeSoundPlayed') === 'true') {
+                this.hasPlayed = true;
+            }
+            document.body.addEventListener('click', () => this.playWelcomeSound(), { once: true });
+        },
+        playWelcomeSound() {
+            const { welcomeAudio } = App.elements;
+            if (!welcomeAudio || this.hasPlayed) return;
+
+            welcomeAudio.play().then(() => {
+                console.log("Welcome sound played successfully.");
+                this.hasPlayed = true;
+                sessionStorage.setItem('welcomeSoundPlayed', 'true');
+})
+            .catch(error => {
+                console.error("Could not play the welcome sound on first interaction:", error);
+            });
+        }
     }
-    // The scroller module has been completely removed.
 };
 
 document.addEventListener('DOMContentLoaded', () => App.init());
