@@ -28,6 +28,7 @@
     <nav>
         <ul>
             <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+           
             <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
             <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
             <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
@@ -38,13 +39,8 @@
             <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
             <li id="adminPanelLink" style="display: none;"><a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
-            
-            <!-- START: THIS IS THE CORRECTED STRUCTURE FOR THE BUTTONS -->
-            <li class="nav-auth-buttons">
-                <a href="login.html" id="loginBtn" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</a>
-                <button id="logoutBtn" class="btn btn-primary" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button>
-            </li>
-            <!-- END: CORRECTED STRUCTURE -->
+            <li><a href="login.html" id="loginBtn" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li><button id="logoutBtn" class="btn btn-primary" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
         </ul>
     </nav>
 
@@ -64,15 +60,48 @@
         </div>
     </section>
 
+   
+
     <!-- Features Section -->
     <section class="features-section">
         <h2>Everything You Need To Succeed</h2>
         <div class="features">
-            <a href="jobs.html" class="features-box-link"><div class="features-box surface-glow"><i class="fas fa-briefcase"></i><h2>Curated Job Listings</h2><p>Find job opportunities from top companies.</p></div></a>
-            <a href="resume.html" class="features-box-link"><div class="features-box surface-glow"><i class="fas fa-file-alt"></i><h2>Resume Builder</h2><p>Create professional, ATS-friendly resumes.</p></div></a>
-            <a href="interview.html" class="features-box-link"><div class="features-box surface-glow"><i class="fas fa-comments"></i><h2>Interview Prep</h2><p>Practice with mock interviews and expert feedback.</p></div></a>
-            <a href="papers.html" class="features-box-link"><div class="features-box surface-glow"><i class="fas fa-scroll"></i><h2>Previous Papers</h2><p>Sharpen your skills with past exam papers.</p></div></a>
-            <a href="quiz.html" class="features-box-link"><div class="features-box surface-glow"><i class="fas fa-brain"></i><h2>Quiz Arena</h2><p>Test your knowledge with our interactive quizzes.</p></div></a>
+            <!-- THE FIX: Wrap each features-box in an anchor tag -->
+            <a href="jobs.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-briefcase"></i>
+                    <h2>Curated Job Listings</h2>
+                    <p>Find job opportunities from top companies.</p>
+                </div>
+            </a>
+            <a href="resume.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Resume Builder</h2>
+                    <p>Create professional, ATS-friendly resumes.</p>
+                </div>
+            </a>
+            <a href="interview.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-comments"></i>
+                    <h2>Interview Prep</h2>
+                    <p>Practice with mock interviews and expert feedback.</p>
+                </div>
+            </a>
+            <a href="papers.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-scroll"></i>
+                    <h2>Previous Papers</h2>
+                    <p>Sharpen your skills with past exam papers.</p>
+                </div>
+            </a>
+            <a href="quiz.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-brain"></i>
+                    <h2>Quiz Arena</h2>
+                    <p>Test your knowledge with our interactive quizzes.</p>
+                </div>
+            </a>
         </div>
     </section>
 
@@ -99,7 +128,7 @@
         </div>
     </section>
 
-    <!-- Valued Partners Section -->
+    <!-- Valued Partners Section (Static Grid) -->
     <section class="companies">
         <h2>Our Valued Placement Partners</h2>
         <p class="subtitle">We are proud to collaborate with industry leaders to create unparalleled opportunities for our students.</p>
@@ -120,7 +149,13 @@
             <div class="footer-column"><h3>Quick Links</h3><ul><li><a href="index.html">Home</a></li><li><a href="jobs.html">Jobs</a></li></ul></div>
             <div class="footer-column"><h3>Resources</h3><ul><li><a href="resume.html">Resume Builder</a></li><li><a href="interview.html">Interview Prep</a></li></ul></div>
             <div class="footer-column"><h3>Company</h3><ul><li><a href="contact.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-            <div class="footer-column"><h3>Connect</h3><div class="social-links"><a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a><a href="https://github.com/abhi6101" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a></div></div>
+
+            <div class="footer-column"><h3>Connect</h3><div class="social-links"><a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <!-- NEW GITHUB LINK -->
+    <a href="https://github.com/abhi6101" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+</div></div>
+
+            
         </div>
         <p>Made with <span class="heart">❤️</span> by Abhi</p>
         <p>2025 Hack-2-Hired. All rights reserved.</p>
