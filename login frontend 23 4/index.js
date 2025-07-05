@@ -1,28 +1,53 @@
-// index.js - COMPLETE SCRIPT (Without Scroller)
+/**
+ * ============================================
+ *  Hack-2-Hired: Main Application Script
+ * ============================================
+ *  Handles user authentication, UI updates,
+ *  slideshows, and scroll animations.
+ */
 
+// Encapsulate all logic within a single App object to avoid global scope pollution.
 const App = {
-    // --- 1. Properties & Elements ---
+
+    // --- 1. Configuration & State ---
+
     config: {
+        // Centralized API endpoint for easy updates.
         apiBaseUrl: 'https://placement-portal-backend-nwaj.onrender.com/api/auth',
     },
+
+    // Cache for DOM elements to avoid repeated queries.
     elements: {
-        loginBtn: null, logoutBtn: null, adminPanelLink: null, registerBtn: null,
-        userWelcome: null, displayUsername: null, displayRole: null,
-        heroHeading: null, heroSubtitle: null,
-        slideshowContainer: null, sectionsToAnimate: null,
-        membersFeaturesSection: null,
+        loginBtn: null,
+        logoutBtn: null,
+        adminPanelLink: null,
+        registerBtn: null,
+        userWelcome: null,
+        displayUsername: null,
+        displayRole: null,
+        heroSubtitle: null,
+        slideshowContainer: null,
     },
 
     // --- 2. Initialization ---
+
+    /**
+     * The entry point of the application.
+     * Runs when the DOM is fully loaded.
+     */
     init() {
         this.cacheDOMElements();
         this.initEventListeners();
         this.ui.update();
         this.slideshow.init();
         this.animations.init();
-        // The scroller.init() call has been removed.
+        console.log("Hack-2-Hired App Initialized.");
     },
 
+    /**
+     * Finds and stores references to key DOM elements.
+     * Optional chaining (?.) is used to prevent errors if an element is not on the page.
+     */
     cacheDOMElements() {
         this.elements.loginBtn = document.getElementById('loginBtn');
         this.elements.logoutBtn = document.getElementById('logoutBtn');
@@ -31,129 +56,195 @@ const App = {
         this.elements.userWelcome = document.getElementById('userWelcome');
         this.elements.displayUsername = document.getElementById('displayUsername');
         this.elements.displayRole = document.getElementById('displayRole');
-        this.elements.heroHeading = document.getElementById('heroHeading');
         this.elements.heroSubtitle = document.getElementById('heroSubtitle');
-        this.elements.slideshowContainer = document.querySelector('.slideshow-container');
-        this.elements.sectionsToAnimate = document.querySelectorAll('section:not(.hero)');
-        this.elements.membersFeaturesSection = document.getElementById('members-features');
+        this.elements.slideshowContainer = document.querySelector('.platform-preview'); // Changed from gallery
     },
 
+    /**
+     * Attaches event listeners to interactive elements.
+     */
     initEventListeners() {
-        if (this.elements.logoutBtn) {
-            this.elements.logoutBtn.addEventListener('click', () => this.auth.handleLogout());
-        }
+        // Use optional chaining to safely add event listener
+        this.elements.logoutBtn?.addEventListener('click', () => this.auth.handleLogout());
     },
+
 
     // --- 3. Functional Modules ---
+
+    /**
+     *  Handles all authentication-related logic.
+     */
     auth: {
         _parseJwt(token) {
             try {
-                return JSON.parse(atob(token.split('.')[1]));
-            } catch (e) { return null; }
+                // Decode the payload part of the JWT
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                console.error("Failed to parse JWT:", e);
+                return null;
+            }
         },
+
         getUserData() {
             const token = localStorage.getItem('authToken');
             if (!token) return { isLoggedIn: false };
+
             const payload = this._parseJwt(token);
+            // Check for payload existence and expiration
             if (!payload || payload.exp < Date.now() / 1000) {
-                localStorage.clear();
+                localStorage.clear(); // Clear invalid/expired token
                 return { isLoggedIn: false };
             }
+            // Handle different possible role keys from backend
             const roles = payload.roles || payload.authorities || [];
+            const isAdmin = roles.includes("ROLE_ADMIN");
+
             return {
                 isLoggedIn: true,
-                username: payload.sub || 'User',
-                role: roles.includes("ROLE_ADMIN") ? 'Admin' : 'Student',
-                isAdmin: roles.includes("ROLE_ADMIN"),
+                username: payload.sub || 'Valued User',
+                role: isAdmin ? 'Admin' : 'Student',
+                isAdmin: isAdmin,
             };
         },
+
         async handleLogout() {
             if (!confirm('Are you sure you want to log out?')) return;
+
             const token = localStorage.getItem('authToken');
             try {
                 if (token) {
-                    await fetch(`${App.config.apiBaseUrl}/logout`, {
+                    // Inform the backend about the logout. No need to wait for response.
+                    fetch(`${App.config.apiBaseUrl}/logout`, {
                         method: 'POST',
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
                 }
-            } catch (e) { console.warn('Logout notification to backend failed:', e); }
-            finally {
+            } catch (error) {
+                console.warn('Logout notification to backend failed. This is non-critical.', error);
+            } finally {
+                // Always clear local storage and update UI regardless of backend response
                 localStorage.removeItem('authToken');
-                localStorage.removeItem('userRole');
+                localStorage.removeItem('userRole'); // If you use this, clear it too.
                 App.ui.update();
+                // Optionally redirect to home or login page
+                // window.location.href = 'index.html'; 
             }
         }
     },
 
+    /**
+     *  Manages all UI updates based on application state.
+     */
     ui: {
         update() {
             const userData = App.auth.getUserData();
             const { elements } = App;
-            if (userData.isLoggedIn) {
-                if (elements.userWelcome) {
-                    elements.userWelcome.style.display = 'block';
-                    elements.displayUsername.textContent = userData.username;
-                    elements.displayRole.textContent = userData.role;
-                }
-                if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'none';
-                if (elements.registerBtn) elements.registerBtn.style.display = 'none';
-                if (elements.loginBtn) elements.loginBtn.style.display = 'none';
-                if (elements.logoutBtn) elements.logoutBtn.style.display = 'inline-flex';
-                if (elements.adminPanelLink) elements.adminPanelLink.style.display = userData.isAdmin ? 'block' : 'none';
-                if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'none';
-            } else {
-                if (elements.userWelcome) elements.userWelcome.style.display = 'none';
-                if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'block';
-                if (elements.registerBtn) elements.registerBtn.style.display = 'inline-flex';
-                if (elements.loginBtn) elements.loginBtn.style.display = 'inline-flex';
-                if (elements.logoutBtn) elements.logoutBtn.style.display = 'none';
-                if (elements.adminPanelLink) elements.adminPanelLink.style.display = 'none';
-                if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'block';
+
+            const loggedIn = userData.isLoggedIn;
+
+            // Toggle visibility using a helper function
+            const toggle = (el, show) => el && (el.style.display = show ? (el.tagName === 'BUTTON' || el.classList.contains('btn') ? 'inline-flex' : 'block') : 'none');
+
+            // Set UI for logged-in users
+            if (loggedIn) {
+                elements.displayUsername && (elements.displayUsername.textContent = userData.username);
+                elements.displayRole && (elements.displayRole.textContent = userData.role);
             }
+            
+            toggle(elements.userWelcome, loggedIn);
+            toggle(elements.logoutBtn, loggedIn);
+            toggle(elements.adminPanelLink, loggedIn && userData.isAdmin);
+
+            // Set UI for logged-out users
+            toggle(elements.heroSubtitle, !loggedIn);
+            toggle(elements.registerBtn, !loggedIn);
+            toggle(elements.loginBtn, !loggedIn);
         }
     },
 
+    /**
+     *  Controls the image slideshow.
+     *  NOTE: The HTML for a slideshow was replaced with a static grid.
+     *  This module can be removed if no slideshow exists, or adapted for the new grid.
+     *  I will keep it here in case you want to reuse it elsewhere.
+     */
     slideshow: {
         slideIndex: 0,
         init() {
-            if (App.elements.slideshowContainer) this.run();
+            // This function will not find '.mySlides' in the new HTML, so it will do nothing.
+            // This is safe. If you add a slideshow back, it will work automatically.
+            const slides = document.querySelectorAll(".mySlides");
+            if (slides.length > 0) {
+                this.run(slides);
+            }
         },
-        run() {
-            const slides = App.elements.slideshowContainer.getElementsByClassName("mySlides");
-            if (slides.length === 0) return;
-            for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+        run(slides) {
+            slides.forEach(slide => slide.style.display = "none");
             this.slideIndex++;
             if (this.slideIndex > slides.length) { this.slideIndex = 1; }
             slides[this.slideIndex - 1].style.display = "block";
-            setTimeout(() => this.run(), 4000);
+            setTimeout(() => this.run(slides), 4000); // Loop
         }
     },
 
+    /**
+     *  Handles the "fade-in-on-scroll" animations.
+     */
     animations: {
         init() {
-            const sections = document.querySelectorAll('section:not(.hero)');
-            if (sections.length > 0) this.setupScrollObserver(sections);
+            // Select all sections except the hero, which is visible on load.
+            const sectionsToAnimate = document.querySelectorAll('section:not(.hero)');
+            if (sectionsToAnimate.length > 0) {
+                this.setupScrollObserver(sectionsToAnimate);
+            }
         },
-        setupScrollObserver(sections) {
-            const observer = new IntersectionObserver((entries) => {
+        setupScrollObserver(elements) {
+            const observerOptions = {
+                root: null, // observes intersections relative to the viewport
+                threshold: 0.1, // trigger when 10% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observerInstance) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        observer.unobserve(entry.target);
+                        entry.target.classList.add('is-visible');
+                        observerInstance.unobserve(entry.target); // Stop observing once visible
                     }
                 });
-            }, { threshold: 0.15 });
-            sections.forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(50px)';
-                section.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-                observer.observe(section);
+            }, observerOptions);
+
+            // Set initial state on elements to be animated and start observing.
+            elements.forEach(el => {
+                el.classList.add('fade-in-on-scroll');
+                observer.observe(el);
             });
         }
     }
-    // The scroller module has been completely removed.
 };
 
+// Add CSS for the animation directly here or in your CSS file.
+// This ensures the animation styles are available.
+const animationStyles = `
+    .fade-in-on-scroll {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
+// Inject styles into the head
+const styleSheet = document.createElement("style");
+styleSheet.innerText = animationStyles;
+document.head.appendChild(styleSheet);
+
+
+// Start the application once the document is ready.
 document.addEventListener('DOMContentLoaded', () => App.init());
