@@ -1,5 +1,5 @@
 /* === HACK-2-HIRED: MASTER STYLESHEET === */
-/*  Version 2.0: Refactored, Consolidated, and Improved */
+/*  Version 2.1: Dropdown Fix & Final Refinements */
 
 /* --- 1. Root Variables & Global Styles --- */
 :root {
@@ -119,7 +119,6 @@ nav ul {
 nav:last-of-type ul {
     justify-content: center;
     overflow-x: auto;
-    /* Hide scrollbar but allow scrolling on mobile */
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
@@ -155,7 +154,7 @@ nav:last-of-type a.active {
     font-weight: 600;
 }
 
-/* NEW: Navigation Dropdown Styles */
+/* --- Navigation Dropdown Styles (Corrected) --- */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -166,19 +165,27 @@ nav:last-of-type a.active {
 }
 
 .dropdown-content {
-    display: none;
+    display: none; /* Hidden by default */
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
     top: 100%;
     margin-top: 0.5rem;
-    background-color: #1a1a2e; /* A slightly different surface color */
+    background-color: #1a1a2e;
     min-width: 220px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
-    z-index: 1;
+    
+    /* CRITICAL FIX: Ensure it appears on top of other content */
+    z-index: 1001; 
+
     border-radius: 8px;
     border: 1px solid var(--border-color);
     overflow: hidden;
+    
+    /* Add a subtle animation */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) translateX(-50%);
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
 }
 
 .dropdown-content a {
@@ -195,8 +202,22 @@ nav:last-of-type a.active {
     color: var(--primary);
 }
 
-.dropdown:hover .dropdown-content {
+/* This class is added by JavaScript on tap/click */
+.dropdown.is-open .dropdown-content {
     display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) translateX(-50%);
+}
+
+/* For desktop users, add hover as a progressive enhancement */
+@media (hover: hover) and (pointer: fine) {
+    .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) translateX(-50%);
+    }
 }
 
 
@@ -364,7 +385,7 @@ nav:last-of-type a.active {
     gap: 1rem;
 }
 
-/* --- 5. Features Section (Consolidated) --- */
+/* --- 5. Features Section --- */
 .features-section {
     background: var(--dark-bg);
 }
@@ -468,7 +489,6 @@ nav:last-of-type a.active {
 .author-info h4 { font-size: 1.1em; margin-bottom: 0.2rem; }
 .author-info p { font-size: 0.9em; color: var(--text-secondary); }
 
-/* NEW: Platform Preview Section (Replaced Gallery) */
 .platform-preview {
     background-color: var(--dark-bg);
 }
@@ -625,7 +645,15 @@ footer .heart {
     }
     .dropdown-content {
         left: 0;
-        transform: none;
+        transform: none; /* Reset transform for smaller screens */
+    }
+
+    /* Adjust the animation for smaller screens */
+    .dropdown.is-open .dropdown-content {
+        transform: translateY(0);
+    }
+    .dropdown-content {
+        transform: translateY(-10px);
     }
 }
 
