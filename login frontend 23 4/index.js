@@ -7,6 +7,13 @@ const App = {
     },
     elements: {
         loginBtn: null, logoutBtn: null, adminPanelLink: null, registerBtn: null,
+
+
+         // === ADD dashboardLink HERE ===
+        dashboardLink: null,
+
+
+
         userWelcome: null, displayUsername: null, displayRole: null,
         heroHeading: null, heroSubtitle: null,
         slideshowContainer: null, sectionsToAnimate: null,
@@ -27,6 +34,14 @@ const App = {
         this.elements.loginBtn = document.getElementById('loginBtn');
         this.elements.logoutBtn = document.getElementById('logoutBtn');
         this.elements.adminPanelLink = document.getElementById('adminPanelLink');
+
+
+          // === ADD dashboardLink HERE ===
+        this.elements.dashboardLink = document.getElementById('dashboardLink');
+        // ============================
+
+
+
         this.elements.registerBtn = document.getElementById('registerBtn');
         this.elements.userWelcome = document.getElementById('userWelcome');
         this.elements.displayUsername = document.getElementById('displayUsername');
@@ -101,6 +116,15 @@ const App = {
                 if (elements.loginBtn) elements.loginBtn.style.display = 'none';
                 if (elements.logoutBtn) elements.logoutBtn.style.display = 'inline-flex';
                 if (elements.adminPanelLink) elements.adminPanelLink.style.display = userData.isAdmin ? 'block' : 'none';
+
+
+
+                   // === ADD THIS LOGIC for the dashboard link ===
+                if (elements.dashboardLink) elements.dashboardLink.style.display = 'block';
+                // ============================================
+
+
+
                 if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'none';
             } else {
                 if (elements.userWelcome) elements.userWelcome.style.display = 'none';
@@ -109,6 +133,14 @@ const App = {
                 if (elements.loginBtn) elements.loginBtn.style.display = 'inline-flex';
                 if (elements.logoutBtn) elements.logoutBtn.style.display = 'none';
                 if (elements.adminPanelLink) elements.adminPanelLink.style.display = 'none';
+
+
+                   // === ADD THIS LOGIC for the dashboard link ===
+                if (elements.dashboardLink) elements.dashboardLink.style.display = 'none';
+                // ============================================
+
+
+                
                 if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'block';
             }
         }
