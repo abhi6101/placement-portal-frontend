@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     // Redirect after a short delay
                     setTimeout(() => {
-                        window.location.href = isAdmin ? "admin-dashboard.html" : "dashboard.html";
+                        window.location.href = isAdmin ? "admin-dashboard.html" : "index.html";
                     }, 700);
 
                 } else {
