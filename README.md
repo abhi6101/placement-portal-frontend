@@ -63,5 +63,3 @@ To run the frontend client locally, you must have the [backend server](https://g
 Contributions are welcome! If you have suggestions to improve the UI or add features, please feel free to fork the repo and create a pull request.
 
 ## 📄 License
-
-Distributed under the MIT License.
