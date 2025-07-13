@@ -1,90 +1,66 @@
-# Placement Portal - Backend (Spring Boot)
+# Placement Portal - Frontend (Client)
 
-[![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.java.com)
-[![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)](https://maven.apache.org/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://www.javascript.com/)
+[![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)](https://html.com/)
+[![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/Overview.en.html)
 
-This repository contains the backend server for the **Placement Portal**, a full-stack web application built to modernize and simplify the job placement process. The server is built with Spring Boot and exposes a secure RESTful API to be consumed by the frontend client.
+This repository contains the frontend client for the **Placement Portal**, a full-stack web application designed to streamline the job placement process. This responsive user interface is built with vanilla JavaScript, HTML, and CSS, and it communicates with a backend REST API to function.
 
-**➡️ Frontend Repository: [placement-portal-frontend](https://github.com/abhi6101/placement-portal-frontend)**
+**➡️ Backend Repository: [placement-portal-backend](https://github.com/abhi6101/placement-portal-backend)**
 
 ---
 
 ## ✨ Live Demo
 
-The complete, deployed application can be viewed here:
+You can view the complete, deployed application here:
 **[https://hack-2-hired.onrender.com/](https://hack-2-hired.onrender.com/)**
 
 ## 🚀 Key Features
 
--   🔐 **Secure JWT Authentication:** Stateless authentication using JSON Web Tokens ensures secure communication.
--   👤 **Role-Based Access Control (RBAC):** A robust system with two distinct user roles (Admin and Student).
--   ⚙️ **RESTful API Architecture:** A well-structured API enables a clean separation of concerns and scalable development.
--   🗄️ **Data Persistence:** Uses PostgreSQL to manage all application data, including users, jobs, and applications.
+-   **Intuitive Job Board:** Clean and easy-to-navigate interface for students to browse job opportunities.
+-   **Secure Login:** Interface for JWT-based user authentication.
+-   **Role-Based Views:** Dynamically displays different options and views for "Admin" and "Student" roles.
+-   **Admin Dashboard:** Provides forms and controls for admins to create and manage job postings.
+-   **Responsive Design:** Ensures a seamless experience across desktop and mobile devices.
 
-## 🛠️ Tech Stack & Tools
+## 🛠️ Tech Stack
 
-| Category         | Technology / Tool                                  |
-| ---------------- | -------------------------------------------------- |
-| **Framework**    | Spring Boot, Spring Security                       |
-| **Database**     | PostgreSQL                                         |
-| **Authentication**| JSON Web Tokens (JWT)                              |
-| **Build Tool**   | Apache Maven                                       |
-| **Deployment**   | Render                                             |
-
-## ⚙️ API Endpoints
-
-*(Optional but recommended: Briefly list your main API endpoints here. For example:)*
--   `POST /auth/login` - Authenticate a user and receive a JWT.
--   `GET /api/jobs` - Fetch all job listings.
--   `POST /api/admin/jobs` - (Admin) Create a new job posting.
--   `POST /api/jobs/{jobId}/apply` - (Student) Apply for a job.
-...and so on.
+| Category         | Technology / Tool         |
+| ---------------- | ------------------------- |
+| **Core**         | Vanilla JavaScript, HTML5, CSS3 |
+| **API Client**   | Fetch API (Browser)       |
+| **Deployment**   | Render                    |
 
 ## Local Setup
 
-To get the backend server running locally, follow these steps. **Note:** You will also need to set up the [frontend client](https://github.com/abhi6101/placement-portal-frontend) to use the application fully.
+To run the frontend client locally, you must have the [backend server](https://github.com/abhi6101/placement-portal-backend) running first.
 
 ### Prerequisites
 
--   Java Development Kit (JDK 17 or later)
--   Apache Maven 3.x or later
--   PostgreSQL Server
+-   A modern web browser (like Chrome, Firefox).
+-   A local web server to serve the static files (optional, but recommended to avoid CORS issues). The `Live Server` extension for VS Code is a great option.
 
 ### Installation
 
 1.  **Clone the repository:**
     ```sh
-    git clone https://github.com/abhi6101/placement-portal-backend.git
-    cd placement-portal-backend
+    git clone https://github.com/abhi6101/placement-portal-frontend.git
+    cd placement-portal-frontend
     ```
 
-2.  **Configure the database:**
-    -   Start your PostgreSQL server and create a new database.
-    -   Navigate to `src/main/resources/application.properties` and update the datasource properties with your PostgreSQL credentials:
-        ```properties
-        spring.datasource.url=jdbc:postgresql://localhost:5432/your_db_name
-        spring.datasource.username=your_db_username
-        spring.datasource.password=your_db_password
-        ```
+2.  **Ensure the Backend is Running:**
+    Follow the setup instructions in the [backend repository](https://github.com/abhi6101/placement-portal-backend) to start the server on `http://localhost:8080`.
 
-3.  **Install dependencies and run the server:**
-    ```sh
-    mvn install
-    mvn spring-boot:run
-    ```
-    The server will start on `http://localhost:8080`.
+3.  **Run the Frontend:**
+    -   If using the VS Code **Live Server** extension, right-click on `index.html` and select "Open with Live Server".
+    -   Alternatively, you can open the `index.html` file directly in your web browser.
+
+4.  **Configure API endpoint (if necessary):**
+    -   In the JavaScript files, ensure that all API requests are pointing to `http://localhost:8080`. If you need to change this, search for the base URL variable in the code.
 
 ## 🤝 Contributing
 
-Contributions are greatly appreciated. Please fork the repo and create a pull request.
-
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+Contributions are welcome! If you have suggestions to improve the UI or add features, please feel free to fork the repo and create a pull request.
 
 ## 📄 License
 
