@@ -3,118 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 1. Optimized Title for Search Engines -->
+    <title>Hack-2-Hired: Your All-in-One Tech Career Platform</title>
 
-    <title>Hack-2-Hired | Where Ambition Meets Opportunity</title>
-    <meta name="description" content="Your journey to a thriving tech career starts here. Hack-2-Hired offers a resume builder, job listings, interview prep, and coding quizzes to help you succeed.">
+    <!-- 2. SEO Meta Tags -->
+    <meta name="description" content="Launch your tech career with Hack-2-Hired. We offer a resume builder, job listings, interview prep, coding quizzes, and previous year IMCA papers to help you succeed.">
+    <meta name="keywords" content="tech career, job placement, resume builder, interview preparation, coding quiz, IMCA papers, developer jobs, IT jobs, software engineer">
+    <meta name="author" content="Hack-2-Hired">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://hack-2-hired.onrender.com/">
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="style.css">
+    <!-- 3. Open Graph / Facebook / LinkedIn Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hack-2-hired.onrender.com/">
+    <meta property="og:title" content="Hack-2-Hired: Your All-in-One Tech Career Platform">
+    <meta property="og:description" content="Everything you need to land your dream tech job, from resume building to interview practice.">
+    <meta property="og:image" content="https://hack-2-hired.onrender.com/images/social-preview.jpg"> <!-- **ACTION NEEDED: Create and upload this image** -->
+    <meta property="og:site_name" content="Hack-2-Hired">
 
+    <!-- 4. Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://hack-2-hired.onrender.com/">
+    <meta name="twitter:title" content="Hack-2-Hired: Your All-in-One Tech Career Platform">
+    <meta name="twitter:description" content="Everything you need to land your dream tech job, from resume building to interview practice.">
+    <meta name="twitter:image" content="https://hack-2-hired.onrender.com/images/social-preview.jpg"> <!-- **ACTION NEEDED: Create and upload this image** -->
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/png">
+    <link rel="shortcut icon" href="images/fevicon.ico" type="image/x-icon">
+    
     <!-- Google Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Raleway:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Your Stylesheet -->
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <!-- Top Contact Nav -->
+    <nav>
+        <div class="logo">Hack-2-<span>Hired</span></div>
+        <ul>
+            <li><a href="mailto:hack2hired.official@gmail.com" aria-label="Email us"><i class="fas fa-envelope"></i>hack2hired.official@gmail.com</a></li>
+        </ul>
+    </nav>
 
-    <!-- Header Section -->
-    <header class="main-header">
-        <div class="top-bar">
-            <div class="logo">Hack-2-<span>Hired</span></div>
-            <div class="contact-info">
-                <a href="mailto:hack2hired.official@gmail.com"><i class="fas fa-envelope"></i>hack2hired.official@gmail.com</a>
+    <!-- Main Sticky Nav -->
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
+            <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
+            <li><a href="papers.html"><i class="fas fa-scroll"></i> Previous Papers</a></li>
+            <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
+            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="videos.html"><i class="fas fa-video"></i> Study Videos</a></li>
+            <li><a href="courses.html"><i class="fas fa-book"></i> Courses</a></li>
+            <li><a href="blog.html"><i class="fas fa-blog"></i> Blog</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li id="adminPanelLink" style="display: none;"><a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin Panel</a></li>
+            <li><a href="login.html" id="loginBtn" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li><button id="logoutBtn" class="btn btn-primary" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 id="heroHeading">Launch Your Career with Ease!</h1>
+            <div id="userWelcome" class="surface-glow" style="display: none;">
+                <h2>Welcome, <span id="displayUsername"></span>!</h2>
+                <p>Account type: <span id="displayRole"></span></p>
+            </div>
+            <p id="heroSubtitle">Your gateway to top-tier job placements, resume mastery, and interview excellence. Your future starts here.</p>
+            <div class="cta-btns">
+                <a href="jobs.html" class="btn btn-primary">Explore Jobs <i class="fas fa-arrow-right"></i></a>
+                <a href="register.html" id="registerBtn" class="btn btn-outline">Register Now</a>
             </div>
         </div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="resume.html"><i class="fas fa-file-alt"></i> Resume Builder</a></li>
-                <li><a href="interview.html"><i class="fas fa-comments"></i> Interviews</a></li>
-                <li><a href="papers.html"><i class="fas fa-scroll"></i> Papers</a></li>
-                <li><a href="quiz.html"><i class="fas fa-brain"></i> Quiz</a></li>
-                <!-- User/Auth Controls -->
-                <li id="adminPanelLink" style="display: none;"><a href="admin-dashboard.html"><i class="fas fa-user-shield"></i> Admin</a></li>
-                <li><a href="login.html" id="loginBtn" class="btn btn-nav"><i class="fas fa-sign-in-alt"></i> Login</a></li>
-                <li><button id="logoutBtn" class="btn btn-nav" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
-            </ul>
-        </nav>
-    </header>
+    </section>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <!-- This block is shown to logged-in users -->
-                <div id="userWelcome" style="display: none;">
-                    <h2>Welcome, <span id="displayUsername">User</span>!</h2>
-                    <p>Account type: <span id="displayRole">Student</span></p>
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2>Everything You Need To Succeed</h2>
+        <div class="features">
+            <a href="jobs.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-briefcase"></i>
+                    <h2>Curated Job Listings</h2>
+                    <p>Find job opportunities from top companies.</p>
                 </div>
-                
-                <!-- This block is shown to logged-out users -->
-                <h1 id="heroHeading">Where Ambition Meets Opportunity</h1>
-                <p id="heroSubtitle">Your journey to a thriving tech career starts here. We provide the tools, resources, and connections you need to succeed.</p>
+            </a>
+            <a href="resume.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Resume Builder</h2>
+                    <p>Create professional, ATS-friendly resumes.</p>
+                </div>
+            </a>
+            <a href="interview.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-comments"></i>
+                    <h2>Interview Prep</h2>
+                    <p>Practice with mock interviews and expert feedback.</p>
+                </div>
+            </a>
+            <a href="papers.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-scroll"></i>
+                    <h2>Previous Papers</h2>
+                    <p>Sharpen your skills with past exam papers.</p>
+                </div>
+            </a>
+            <a href="quiz.html" class="features-box-link">
+                <div class="features-box surface-glow">
+                    <i class="fas fa-brain"></i>
+                    <h2>Quiz Arena</h2>
+                    <p>Test your knowledge with our interactive quizzes.</p>
+                </div>
+            </a>
+        </div>
+    </section>
 
-                <div class="cta-btns">
-                    <a href="jobs.html" class="btn btn-primary">Explore Job Listings <i class="fas fa-arrow-right"></i></a>
-                    <a href="register.html" id="registerBtn" class="btn btn-outline">Register Now</a>
-                </div>
-            </div>
-        </section>
+    <!-- Stats Section -->
+    <section class="stats"><div class="stats-container"><div class="stat-item"><h3>500+</h3><p>Companies Hiring</p></div><div class="stat-item"><h3>10,000+</h3><p>Successful Placements</p></div><div class="stat-item"><h3>95%</h3><p>Placement Rate</p></div><div class="stat-item"><h3>50+</h3><p>Career Resources</p></div></div></section>
 
-        <!-- "Members Only" Teaser Section - Shown to logged-out users -->
-        <section id="members-features">
-             <h2>Unlock Your Full Potential</h2>
-             <p class="section-subtitle">Register or log in to access exclusive resources designed to give you a competitive edge in the tech industry.</p>
-             <div class="features">
-                <div class="features-box">
-                    <i class="fas fa-star"></i>
-                    <h3>Personalized Job Alerts</h3>
-                    <p>Get notified about job openings that perfectly match your profile and preferences.</p>
-                </div>
-                <div class="features-box">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Performance Analytics</h3>
-                    <p>Track your quiz scores and interview practice progress to identify areas for improvement.</p>
-                </div>
-                 <div class="features-box">
-                    <i class="fas fa-bookmark"></i>
-                    <h3>Saved Content</h3>
-                    <p>Save interesting job listings, articles, and quizzes to revisit them later.</p>
-                </div>
-            </div>
-        </section>
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>Success Stories</h2>
+        <div class="testimonial-cards">
+            <div class="testimonial-card surface-glow"><p>"The resume builder and mock interviews were game-changers! Landed my dream job at a top tech company..."</p><div class="testimonial-author"><img src="images/i-priya.jpg" alt="Priya Sharma"><div class="author-info"><h4>Priya Sharma</h4><p>Software Engineer at Google</p></div></div></div>
+            <div class="testimonial-card surface-glow"><p>"I went from zero calls to 5 job offers in 2 months. The interview prep resources are pure gold."</p><div class="testimonial-author"><img src="images/i-rahul.jpg" alt="Rahul Verma"><div class="author-info"><h4>Rahul Verma</h4><p>Data Analyst at Amazon</p></div></div></div>
+            <div class="testimonial-card surface-glow"><p>"Personalized career guidance helped me transition into a higher-paying role. Highly recommended!"</p><div class="testimonial-author"><img src="images/i-neha.jpg" alt="Neha Patel"><div class="author-info"><h4>Neha Patel</h4><p>Product Manager at Microsoft</p></div></div></div>
+        </div>
+    </section>
 
-        <!-- Standard Features Section -->
-        <section class="features-section">
-            <h2>Everything You Need To Get Hired</h2>
-            <p class="section-subtitle">From crafting the perfect resume to acing the final interview, our platform supports you every step of the way.</p>
-            <div class="features">
-                <a href="jobs.html" class="features-box-link"><div class="features-box"><i class="fas fa-briefcase"></i><h3>Curated Job Listings</h3><p>Discover hand-picked job opportunities from leading tech companies.</p></div></a>
-                <a href="resume.html" class="features-box-link"><div class="features-box"><i class="fas fa-file-alt"></i><h3>AI Resume Builder</h3><p>Create a professional, ATS-friendly resume in minutes with our builder.</p></div></a>
-                <a href="interview.html" class="features-box-link"><div class="features-box"><i class="fas fa-comments"></i><h3>Interview Prep</h3><p>Practice with mock interviews and access a library of common questions.</p></div></a>
-            </div>
-        </section>
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <h2>Our Campus Glimpses</h2>
+        <div class="slideshow-container">
+            <div class="mySlides fade"><img src="images/4E9A7129-copy.jpg" alt="Students in a computer lab"></div>
+            <div class="mySlides fade"><img src="images/20240123_145917-copy.jpg" alt="Building entrance"></div>
+            <div class="mySlides fade"><img src="images/DSCF2122-copy.jpg" alt="Students in a lab"></div>
+        </div>
+    </section>
 
-        <!-- ... (Add other sections like Stats, Testimonials, Gallery, etc. here) ... -->
-        
-        <!-- Gallery Section -->
-        <section class="gallery">
-            <h2>Our Campus Glimpses</h2>
-            <div class="slideshow-container">
-                <div class="mySlides fade"><img src="images/4E9A7129-copy.jpg" alt="Students in a computer lab"></div>
-                <div class="mySlides fade"><img src="images/20240123_145917-copy.jpg" alt="Building entrance"></div>
-                <div class="mySlides fade"><img src="images/DSCF2122-copy.jpg" alt="Students in a lab"></div>
-            </div>
-        </section>
-    </main>
+    <!-- Valued Partners Section (Static Grid) -->
+    <section class="companies">
+        <h2>Our Valued Placement Partners</h2>
+        <p class="subtitle">We are proud to collaborate with industry leaders to create unparalleled opportunities for our students.</p>
+        <div class="company-logo-grid">
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/accenture.com" alt="Accenture"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/wipro.com" alt="Wipro"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/infosys.com" alt="Infosys"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/tcs.com" alt="TCS"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/capgemini.com" alt="Capgemini"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/persistent.com" alt="Persistent Systems"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/google.com" alt="Google"></a></div>
+            <div class="company-logo-item"><a href="#" target="_blank"><img src="https://logo.clearbit.com/microsoft.com" alt="Microsoft"></a></div>
+        </div>
+    </section>
     
     <footer>
-        <!-- ... (Your full footer content) ... -->
-        <p>&copy; 2025 Hack-2-Hired. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-column"><h3>Quick Links</h3><ul><li><a href="index.html">Home</a></li><li><a href="jobs.html">Jobs</a></li></ul></div>
+            <div class="footer-column"><h3>Resources</h3><ul><li><a href="resume.html">Resume Builder</a></li><li><a href="interview.html">Interview Prep</a></li></ul></div>
+            <div class="footer-column"><h3>Company</h3><ul><li><a href="contact.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+
+            <div class="footer-column"><h3>Connect</h3><div class="social-links"><a href="https://www.linkedin.com/in/abhi-jain-a1a723298" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="https://www.instagram.com/_abhi__jain___/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <!-- NEW GITHUB LINK -->
+    <a href="https://github.com/abhi6101" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+</div></div>
+
+            
+        </div>
+        <p>Made with <span class="heart">❤️</span> by Abhi</p>
+        <p>2025 Hack-2-Hired. All rights reserved.</p>
     </footer>
 
-    <!-- External JavaScript -->
     <script src="index.js"></script>
 </body>
 </html>
