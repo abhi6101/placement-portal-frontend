@@ -1,4 +1,4 @@
-// index.js - COMPLETE SCRIPT (Without Scroller)
+// index.js - COMPLETE SCRIPT (No changes needed)
 
 const App = {
     // --- 1. Properties & Elements ---
@@ -10,7 +10,6 @@ const App = {
         userWelcome: null, displayUsername: null, displayRole: null,
         heroHeading: null, heroSubtitle: null,
         slideshowContainer: null, sectionsToAnimate: null,
-        membersFeaturesSection: null,
     },
 
     // --- 2. Initialization ---
@@ -20,7 +19,6 @@ const App = {
         this.ui.update();
         this.slideshow.init();
         this.animations.init();
-        // The scroller.init() call has been removed.
     },
 
     cacheDOMElements() {
@@ -34,8 +32,7 @@ const App = {
         this.elements.heroHeading = document.getElementById('heroHeading');
         this.elements.heroSubtitle = document.getElementById('heroSubtitle');
         this.elements.slideshowContainer = document.querySelector('.slideshow-container');
-        this.elements.sectionsToAnimate = document.querySelectorAll('section:not(.hero)');
-        this.elements.membersFeaturesSection = document.getElementById('members-features');
+        this.elements.sectionsToAnimate = document.querySelectorAll('main > section'); // Target sections inside <main>
     },
 
     initEventListeners() {
@@ -81,7 +78,8 @@ const App = {
             finally {
                 localStorage.removeItem('authToken');
                 localStorage.removeItem('userRole');
-                App.ui.update();
+                // Redirect to home page for a clean state update
+                window.location.href = 'index.html'; 
             }
         }
     },
@@ -96,20 +94,21 @@ const App = {
                     elements.displayUsername.textContent = userData.username;
                     elements.displayRole.textContent = userData.role;
                 }
+                if (elements.heroHeading) elements.heroHeading.style.display = 'none';
                 if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'none';
                 if (elements.registerBtn) elements.registerBtn.style.display = 'none';
                 if (elements.loginBtn) elements.loginBtn.style.display = 'none';
                 if (elements.logoutBtn) elements.logoutBtn.style.display = 'inline-flex';
                 if (elements.adminPanelLink) elements.adminPanelLink.style.display = userData.isAdmin ? 'block' : 'none';
-                if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'none';
+
             } else {
                 if (elements.userWelcome) elements.userWelcome.style.display = 'none';
+                if (elements.heroHeading) elements.heroHeading.style.display = 'block';
                 if (elements.heroSubtitle) elements.heroSubtitle.style.display = 'block';
                 if (elements.registerBtn) elements.registerBtn.style.display = 'inline-flex';
                 if (elements.loginBtn) elements.loginBtn.style.display = 'inline-flex';
                 if (elements.logoutBtn) elements.logoutBtn.style.display = 'none';
                 if (elements.adminPanelLink) elements.adminPanelLink.style.display = 'none';
-                if (elements.membersFeaturesSection) elements.membersFeaturesSection.style.display = 'block';
             }
         }
     },
@@ -132,7 +131,7 @@ const App = {
 
     animations: {
         init() {
-            const sections = document.querySelectorAll('section:not(.hero)');
+            const sections = App.elements.sectionsToAnimate;
             if (sections.length > 0) this.setupScrollObserver(sections);
         },
         setupScrollObserver(sections) {
@@ -153,7 +152,6 @@ const App = {
             });
         }
     }
-    // The scroller module has been completely removed.
 };
 
 document.addEventListener('DOMContentLoaded', () => App.init());
