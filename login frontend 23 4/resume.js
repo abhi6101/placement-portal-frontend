@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('resumeForm');
     if (!form) return;
     
+    // This URL is correct for API calls
     const API_BASE_URL = 'https://placement-portal-backend-nwaj.onrender.com/api';
     const LOCAL_STORAGE_KEY = 'resumeFormData';
 
@@ -50,7 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const element = form.elements[key];
             if (element) {
                 if (element.type === 'radio') {
-                    form.querySelector(`input[name="${key}"][value="${formData[key]}"]`).checked = true;
+                    const radioToSelect = form.querySelector(`input[name="${key}"][value="${formData[key]}"]`);
+                    if (radioToSelect) {
+                        radioToSelect.checked = true;
+                    }
                 } else {
                     element.value = formData[key];
                 }
@@ -87,21 +91,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(data)
             });
+            
+            const result = await response.json(); // Get JSON response regardless of status
 
             if (response.ok) {
-                const result = await response.json();
-                if (result.downloadUrl) {
-                    window.open(result.downloadUrl, '_blank');
-                    alert('Resume generated successfully!');
+                // --- THIS IS THE CORRECTED PART ---
+                if (result.filename) {
+                    // Build the full download URL on the frontend
+                    const downloadUrl = `${API_BASE_URL}/resume/download/${result.filename}`;
+                    
+                    // Open the link to start the download
+                    window.open(downloadUrl, '_blank');
+                    
+                    alert('Resume generated successfully! Your download will begin.');
+                    
+                    // Clear storage and form
                     localStorage.removeItem(LOCAL_STORAGE_KEY);
                     form.reset();
-                    populateForm();
+                    formData = {}; // Also clear the in-memory object
                 } else {
-                    throw new Error("Server did not provide a download URL.");
+                    // Handle cases where the server responds 200 OK but without a filename
+                    throw new Error(result.error || "Server did not provide a valid filename.");
                 }
             } else {
-                const errorResult = await response.json().catch(() => ({}));
-                throw new Error(errorResult.message || `Failed to generate resume. Status: ${response.status}`);
+                // Throw an error with the message from the server's JSON response
+                throw new Error(result.error || `Failed to generate resume. Status: ${response.status}`);
             }
         } catch (error) {
             console.error('Resume generation error:', error);
