@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. Element Caching & UPDATED Mock Data ---
+    // --- 1. Element Caching & Mock Data ---
     const upcomingList = document.getElementById('upcoming-interviews-list');
     const futureList = document.getElementById('future-interviews-list');
     const bookingForm = document.getElementById('bookingForm');
@@ -7,12 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const positionSelect = document.getElementById('position');
     const dateInput = document.getElementById('date');
 
-    // === ACTION: ADDED MORE INTERVIEWS AND POSITIONS HERE ===
     const mockInterviewData = [
         {
             id: 1, company: "TCS", location: "Mumbai", date: "2025-11-15",
             time: "10:00 AM - 4:00 PM", venue: "Campus Placement Cell",
-            // ADDED a new position here
             positions: ["Software Engineer", "Data Analyst", "Cloud Specialist"], 
             eligibility: "CGPA ≥ 7.5",
             slots: { total: 20, booked: 18 },
@@ -35,14 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
             positions: ["Associate Software Engineer"], eligibility: "No backlogs",
             slots: { total: 30, booked: 10 },
         },
-        // === NEW INTERVIEW ADDED ===
         {
             id: 6, company: "Capgemini", location: "Pune", date: "2025-12-18",
             time: "10:00 AM - 4:00 PM", venue: "Virtual (Google Meet)",
             positions: ["Software Consultant", "Cybersecurity Analyst"], eligibility: "All branches, CGPA ≥ 6.5",
             slots: { total: 22, booked: 4 },
         },
-        // === NEW INTERVIEW ADDED ===
         {
             id: 7, company: "Persistent Systems", location: "Nagpur", date: "2026-01-08",
             time: "9:00 AM - 2:00 PM", venue: "Campus Auditorium",
@@ -72,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     if (!checkAuth()) return;
 
-    // --- 3. Rendering Logic ---
+    // --- 3. Rendering Logic (No changes needed here) ---
     function createInterviewCard(interview) {
         const card = document.createElement('div');
         card.className = 'interview-card surface-glow';
@@ -88,9 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         card.innerHTML = `
-            <div class="interview-header">
-                <h2>${interview.company}</h2>
-            </div>
+            <div class="interview-header"><h2>${interview.company}</h2></div>
             <div class="interview-body">
                 <p><strong>Date:</strong> ${new Date(interview.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
                 <p><strong>Positions:</strong> ${interview.positions.join(', ')}</p>
@@ -114,13 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
         futureList.innerHTML = '';
         const today = new Date(); today.setHours(0,0,0,0);
         const thirtyDaysFromNow = new Date(); thirtyDaysFromNow.setDate(today.getDate() + 30);
-
-        // Sort interviews by date before filtering
         const sortedInterviews = interviews.sort((a, b) => new Date(a.date) - new Date(b.date));
-
         const upcoming = sortedInterviews.filter(iv => new Date(iv.date) >= today && new Date(iv.date) <= thirtyDaysFromNow);
         const future = sortedInterviews.filter(iv => new Date(iv.date) > thirtyDaysFromNow);
-
         (upcoming.length ? upcoming : [null]).forEach(iv => upcomingList.appendChild(iv ? createInterviewCard(iv) : createNoInterviewCard("Upcoming")));
         (future.length ? future : [null]).forEach(iv => futureList.appendChild(iv ? createInterviewCard(iv) : createNoInterviewCard("Future")));
         attachBookButtonListeners();
@@ -136,37 +126,53 @@ document.addEventListener('DOMContentLoaded', () => {
     function attachBookButtonListeners() {
         document.querySelectorAll('.interview-card .btn-primary').forEach(button => {
             button.addEventListener('click', function () {
+                const positions = JSON.parse(this.dataset.positions);
                 companySelect.value = this.dataset.company;
                 dateInput.value = this.dataset.date;
-                const positions = JSON.parse(this.dataset.positions);
-                positionSelect.innerHTML = '<option value="" disabled selected>-- Choose a Position --</option>';
-                positions.forEach(pos => positionSelect.innerHTML += `<option value="${pos}">${pos}</option>`);
+                // Update positions based on button click
+                updatePositionOptions(positions);
                 document.getElementById('booking-section').scrollIntoView({ behavior: 'smooth' });
             });
         });
     }
 
-    // === ACTION: ADDED FUNCTIONAL FORM SUBMISSION LOGIC HERE ===
-    bookingForm.addEventListener('submit', function (e) {
-        // 1. Prevent the form from actually submitting and reloading the page
-        e.preventDefault();
+    function updatePositionOptions(positions) {
+        positionSelect.innerHTML = '<option value="" disabled selected>-- Choose a Position --</option>';
+        positions.forEach(pos => {
+            positionSelect.innerHTML += `<option value="${pos}">${pos}</option>`;
+        });
+    }
 
-        // 2. You can get all form data like this (for sending to a backend later)
+    // === START: THIS IS THE NEW CODE THAT FIXES THE BUG ===
+    // This listener watches for changes on the "Select Company" dropdown in the form.
+    companySelect.addEventListener('change', function() {
+        const selectedCompany = this.value;
+        const interview = mockInterviewData.find(iv => iv.company === selectedCompany);
+
+        // Clear previous options and update with new ones
+        if (interview) {
+            updatePositionOptions(interview.positions);
+        } else {
+            // If for some reason no company is found, just show the default message
+            positionSelect.innerHTML = '<option value="" disabled selected>-- First select a company --</option>';
+        }
+    });
+    // === END: NEW CODE BLOCK ===
+
+    bookingForm.addEventListener('submit', function (e) {
+        e.preventDefault();
         const formData = new FormData(bookingForm);
         const submissionData = Object.fromEntries(formData.entries());
-        
         console.log("Interview Booking Data:", submissionData);
-
-        // 3. Show a success message to the user
         alert(`Success!\n\nYour interview slot for ${submissionData.company} has been requested.\nYou will receive a confirmation email at ${submissionData.email} shortly.`);
-
-        // 4. Reset the form for the next booking
         bookingForm.reset();
+        // After reset, clear the positions dropdown too
+        positionSelect.innerHTML = '<option value="" disabled selected>-- Choose a Position --</option>';
     });
 
     // --- 4. Initial Population ---
     const companies = [...new Set(mockInterviewData.map(iv => iv.company))].sort();
-    companySelect.innerHTML = '<option value="" disabled selected>-- Choose a Company --</option>'; // Reset before populating
+    companySelect.innerHTML = '<option value="" disabled selected>-- Choose a Company --</option>';
     companySelect.innerHTML += companies.map(c => `<option value="${c}">${c}</option>`).join('');
     dateInput.min = new Date().toISOString().split('T')[0];
     displayInterviews(mockInterviewData);
